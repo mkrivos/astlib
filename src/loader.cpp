@@ -10,14 +10,24 @@
 /// All rights reserved.
 /// See LICENCE file in project root directory
 ///
-#include "astlib/CodecDeclarationLoader.h"
 
+#include "astlib/CodecDeclarationLoader.h"
+#include "astlib/Exception.h"
+#include <iostream>
 
 using namespace astlib;
 
 int main(int argc, char* argv[])
 {
-    CodecDeclarationLoader loader;
+    try
+    {
+        CodecDeclarationLoader loader;
+        loader.load("specs/uniEnc_Ast_48_1.14.xml");
+    }
+    catch(Exception& e)
+    {
+        std::cerr << e.displayMessage() << std::endl;
+    }
 
     return 0;
 }

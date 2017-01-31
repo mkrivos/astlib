@@ -1,6 +1,6 @@
 ///
 /// \package astlib
-/// \file CodecDeclarationLoader.h
+/// \file Exception.h
 ///
 /// \author Marian Krivos <marian.krivos@rsys.sk>
 /// \date 31Jan.,2017 
@@ -12,24 +12,22 @@
 
 #pragma once
 
-#include "CodecDescription.h"
 #include <string>
+#include <exception>
 
 namespace astlib
 {
 
-class CodecDeclarationLoader
+class Exception:
+    public std::exception
 {
 public:
-    CodecDeclarationLoader();
-    ~CodecDeclarationLoader();
+    Exception(const std::string& msg);
+    virtual ~Exception();
 
-    /**
-     *
-     * @param filename
-     * @return
-     */
-    CodecDescriptionPtr load(const std::string& filename);
+    const std::string& displayMessage() const;
+private:
+    std::string _message;
 };
 
 } /* namespace astlib */

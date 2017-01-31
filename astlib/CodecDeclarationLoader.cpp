@@ -23,4 +23,9 @@ CodecDeclarationLoader::~CodecDeclarationLoader()
 {
 }
 
+CodecDescriptionPtr CodecDeclarationLoader::load(const std::string& filename)
+{
+    return nullptr;
+}
+
 } /* namespace astlib */
