@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) by Jan Ostrý (ERA a.s.) -->
+<CodingRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="uniEnc.xsd">
+	<Parameters>
+		<Parameter name="EncodeAlwaysModeCCat48" valueType="bool">false</Parameter>
+		<Parameter name="ValidHeightOnly" valueType="bool">false</Parameter>
+	</Parameters>
+	<Category messageHeaderId="ast" cat="48" edition="1.14" description="ASTERIX Category 048 Edition 1.14 $Rev: 25170 $" formatId="FormatUniencCat048Edition1.14">
+		<Items>
+			<Item id="010" description="Data Source Identifier. Identification of the system from which the data are received.">
+				<Uint id="SAC" description="System Area Code fixed to zero" size="08">
+					<Values ibLink="Cfg.Identification.ASTERIX.SAC"/>
+				</Uint>
+				<Uint id="SIC" description="System Identification Code" size="08">
+					<Values ibLink="Cfg.Identification.ASTERIX.SIC"/>
+				</Uint>
+			</Item>
+			<Item id="020" description="Target Report Descriptor. Type and characteristics of the radar data as transmitted by a radar station.">
+				<BitSet size="08" bitsOrder="0 last" id="trd">
+					<Bit id="TYP" description="Type System" size="3">
+						<Values ibLink="Target.Report.TYP_ast48">
+							<Value.Enum value="5" description="Single ModeS Roll-Call">
+								<If>
+									<Value.Linked ibLink="Target.Resource.MS"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="2" description="Single SSR detection">
+								<If>
+									<Value.Linked ibLink="Target.Resource.SIF"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0" description="No detection"/>
+						</Values>
+					</Bit>
+					<Bit id="SIM" description="Simulated target report. 1 = Simulated plot or track, 0 = Actual plot or track">
+						<Values ibLink="Target.Report.SIM_ast48">
+							<Value.Enum value="1" description="Simulated target report">
+								<If>
+									<Value.Linked ibLink="Target.Character.Simul"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0" description="Actual target report"/>
+						</Values>
+					</Bit>
+					<Bit id="RDP" description="Report from RDP Chain">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="Report from RDP Chain 1">
+								<If>
+									<eq>
+										<Const>1</Const>
+										<Value.Linked ibLink="Cfg.Subchannel"/>
+									</eq>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0" description="Report from RDP Chain 2"/>
+						</Values>
+					</Bit>
+					<Bit id="SPI" description="Special Position Identification">
+						<Values ibLink="Evaluated.Target.isSPI"/>
+					</Bit>
+					<Bit id="RAB" description="1 = Plot or track from a fixed transponder">
+						<Values ibLink="Evaluated.Target.isFixedTransponder"/>
+					</Bit>
+					<Bit id="FX0"/>
+				</BitSet>
+				<BitSet size="08" bitsOrder="0 last" id="trd2" fxBitId="FX0">
+					<Bit id="TST" description="1 = Test Target indicator">
+						<Values ibLink="TBD">
+							<Value.Enum value="1">
+								<If>
+									<or>
+										<in>
+											<Value.Linked ibLink="Target.ModeS.Address.Value"/>
+											<FromHex>
+												<Value.Linked ibLink="XCfg.Path.ModeSAddressTransponders"/>
+											</FromHex>
+										</in>
+										<Value.Linked ibLink="Target.Character.Test"/>
+									</or>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0"/>
+						</Values>
+					</Bit>
+					<Bit id="spare" description="spare" isEmpty="true" size="2"/>
+					<Bit id="ME" description="1 = Military emergency" isEmpty="true">
+					</Bit>
+					<Bit id="MI" description="1 = Military identification" isEmpty="true">
+					</Bit>
+					<Bit id="foeFri" description="target friendly or foe 00= no mode4 interrogation" size="2" isEmpty="true"/>
+					<Bit id="FX1" description="" isEmpty="true">
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="030" description="Warning/Error Conditions. Warning/Error Conditions detected by a radar station for the target report involved.">
+				<BitSet size="08" id="we" bitsOrder="0 last">
+					<If>
+						<Value.Linked ibLink="Target.ModeS.Address.Duplicate"/>
+					</If>
+					<Bit id="weValue" size="7">
+						<Values ibLink="TBD">
+							<Value.Enum value="16" description="Duplicated or Illegal Mode S Aircraft Address">
+								<If>
+									<Value.Linked ibLink="Target.ModeS.Address.Duplicate"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0" description="Not defined; never used."/>
+						</Values>
+					</Bit>
+					<Bit id="FX" isEmpty="true"/>
+				</BitSet>
+			</Item>
+			<Item id="040" description="Measured position of a target in local polar co-ordinates.">
+				<Uint id="RHO" description="LSB=1/256NM" size="16">
+					<ImplicitValueMax>256</ImplicitValueMax>
+					<Resolution>0.00390625</Resolution>
+					<Unit>NM</Unit>
+					<Values ibLink="Target.Position.Radar.Spherical.Range"/>
+				</Uint>
+				<Uint id="THETA" description="LSB=360°/2^16,approx. 0.0055°" size="16">
+					<Limits>
+						<Minimum>0</Minimum>
+						<Maximum>360</Maximum>
+					</Limits>
+					<Resolution>0.0054931640625</Resolution>
+					<Unit>deg</Unit>
+					<Values ibLink="Target.Position.Radar.Spherical.Azimuth"/>
+				</Uint>
+			</Item>
+			<Item id="042" description="Calculated position of an aircraft in Cartesian co-ordinates">
+				<Int id="X" size="16" description="X-component, (LSB)=1/128NM,max.+-256NM">
+					<ImplicitValueMin>-256</ImplicitValueMin>
+					<ImplicitValueMax>256</ImplicitValueMax>
+					<Limits>
+						<Minimum>-256</Minimum>
+						<Maximum>256</Maximum>
+					</Limits>
+					<Resolution>0.0078125</Resolution>
+					<Unit>NM</Unit>
+					<Values ibLink="Target.Position.Stereographic.U"/>
+				</Int>
+				<Int id="Y" size="16" description="Y-component, (LSB)=1/128NM,max.+-256NM">
+					<ImplicitValueMin>-256</ImplicitValueMin>
+					<ImplicitValueMax>256</ImplicitValueMax>
+					<Limits>
+						<Minimum>-256</Minimum>
+						<Maximum>256</Maximum>
+					</Limits>
+					<Resolution>0.0078125</Resolution>
+					<Unit>NM</Unit>
+					<Values ibLink="Target.Position.Stereographic.V"/>
+				</Int>
+			</Item>
+			<Item id="050" description="Mode-2 Code in Octal Representation. Reply to Mode-2 interrogation">
+				<BitSet size="16" bitsOrder="0 last" id="mode2octal">
+					<Bit id="V" description="Validace">
+						<Values ibLink="Evaluated.Target.Sif.Mode2.Invalid"/>
+					</Bit>
+					<Bit id="G" description="Garblování. 1 = garbled">
+						<Values ibLink="Target.Sif.Mode2.Garbled"/>
+					</Bit>
+					<Bit id="L" description="Extrapolace">
+						<Values ibLink="Target.Sif.Mode2.Extrapolation"/>
+					</Bit>
+					<Bit id="empty13" isEmpty="true"/>
+					<Bit id="Mode-2 code in octal representation" size="12">
+						<Values ibLink="Target.Sif.Mode2.Code.Octal"/>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="055" description="Mode-1 Code in Octal Representation. Reply to Mode-1 interrogation">
+				<BitSet size="08" bitsOrder="0 last" id="mode1octal">
+					<Bit id="V" description="Validace">
+						<Values ibLink="Evaluated.Target.Sif.Mode1.Invalid"/>
+					</Bit>
+					<Bit id="G" description="Garblování. 1 = garbled">
+						<Values ibLink="Target.Sif.Mode1.Garbled"/>
+					</Bit>
+					<Bit id="L" description="Extrapolace">
+						<Values ibLink="Evaluated.Target.Sif.Mode1.NotExtrapolation"/>
+					</Bit>
+					<Bit id="Mode-1 code in octal representation" size="5">
+						<Values ibLink="Target.Sif.Mode1.Code.Octal"/>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="070" description="Mode-3/A code converted into octal representation">
+				<BitSet size="16" bitsOrder="0 last" id="mode3Aoctal">
+					<Bit id="V" description="Validace">
+						<Values ibLink="Evaluated.Target.ModeA.ValidatedNeg"/>
+					</Bit>
+					<Bit id="G" description="Garblování. 1 = garbled">
+						<Values ibLink="Evaluated.Target.ModeA.IsGarbled"/>
+					</Bit>
+					<Bit id="L" description="Extrapolace">
+						<Values ibLink="Evaluated.Target.ModeA.IsExtrapolation"/>
+					</Bit>
+					<Bit id="empty13" isEmpty="true"/>
+					<Bit id="MOD3A" description="Mode-3/A reply in octal representation" size="12">
+						<DefaultValue>123</DefaultValue>
+						<Values ibLink="Evaluated.Target.ModeA.Value"/>
+					</Bit>
+				</BitSet>
+			</Item>
+			<!--<Item id="I048_070PS"/>vynecháno, dle VDI není již třeba-->
+			<Item id="090" description="Flight Level in Binary Representation. Flight Level (Mode S Altitude) converted into binary two's complement represenctation.">
+				<If>
+					<not>
+						<Value.Linked ibLink="Evaluated.Target.IsOnGround"/>
+					</not>
+				</If>
+				<BitSet id="FLBinary" size="16" bitsOrder="0 last">
+					<Bit id="V" description="Code Validated">
+						<Values ibLink="Evaluated.Target.Height.isValid"/>
+					</Bit>
+					<Bit id="G" description="Garbled Code">
+						<Values ibLink="Evaluated.Target.Height.isGarbled"/>
+					</Bit>
+					<Bit id="FL" description="Fligth Level -  LSB=1/4FL, i.e. 25 ft" size="14">
+						<Resolution>25</Resolution>
+						<Unit>ft</Unit>
+						<Values ibLink="Evaluated.Target.Height.Value"/>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="100" description="Mode-C Code">
+				<If>
+					<and>
+						<Value.Linked.Valid ibLink="Target.Sif.ModeC.Code"/>
+						<or>
+							<and>
+								<not>
+									<Param>EncodeAlwaysModeCCat48</Param>
+								</not>
+								<not>
+									<Value.Linked ibLink="Target.Sif.ModeC.Valid"/>
+								</not>
+							</and>
+							<Param>EncodeAlwaysModeCCat48</Param>
+						</or>
+					</and>
+				</If>
+				<BitSet id="ModeC" size="32" bitsOrder="0 last" description="Mode-C Code">
+					<Bit id="V" description="Validace">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="Code validated">
+								<If>
+									<Value.Linked ibLink="Target.Sif.ModeC.Valid"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="1" description="Code not validated"/>
+						</Values>
+					</Bit>
+					<Bit id="G" description="Garblování">
+						<Values ibLink="Target.Sif.ModeC.Garbled"/>
+					</Bit>
+					<Bit id="empty1" size="2" isEmpty="true"/>
+					<Bit id="MODC" description="ModeC reply in Gray notation" size="12">
+						<Values ibLink="Target.Sif.ModeC.Code.Gray"/>
+					</Bit>
+					<Bit id="empty2" size="4" isEmpty="true"/>
+					<Bit id="MODQC" description="ModeC quality pulse" size="12">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="VDI: proč je tady natvrdo nula???"/>
+						</Values>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="110" description="Height Measured by a 3D Radar">
+				<BitSet id="Height3D" size="16" bitsOrder="0 last" description="Height of a target as measured by a 3D radar. The height shall use mean sea level as the zero reference level">
+					<Bit id="empty1" size="2" isEmpty="true"/>
+					<Bit id="3D-Height" description="(LSB)=25ft, 3D height, in binary notation" size="12">
+						<Resolution>25</Resolution>
+						<Unit>ft</Unit>
+						<Values ibLink="Target.Position.Map.Altitude"/>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="140" description="Time of Day. Absolute time stamping expressed as Co-ordinate Universal Time (UTC).">
+				<Uint size="24" id="Time_Of_Day" description="(LSB)=1/128s, reset to zero each day at midnight.">
+					<ImplicitValueMax>11059199</ImplicitValueMax>
+					<Limits description="Max is 24hrs minus 1/128s.">
+						<Minimum>0</Minimum>
+						<Maximum>11059199</Maximum>
+					</Limits>
+					<Resolution>0.0078125</Resolution>
+					<Unit>s</Unit>
+					<Values ibLink="Target.Time.TimeOfDay"/>
+				</Uint>
+			</Item>
+			<Item id="161" description="Track Number. An integer value representing a unique reference to a track record within a particular track file.">
+				<Uint size="16" id="Track_Number">
+					<Limits>
+						<Minimum>0</Minimum>
+						<Maximum>4095</Maximum>
+					</Limits>
+					<Values ibLink="Target.Number"/>
+				</Uint>
+			</Item>
+			<Item id="170" description="Track Status. Status of monoradar track (PSR and/or SSR updated).">
+				<BitSet id="TrackStatus" size="08" bitsOrder="0 last">
+					<Bit id="CNF" description="Confirmed vs. Tentative Track">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="Confirmed track">
+								<If>
+									<Value.Linked ibLink="Target.State.Position.Valid"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="1" description="Tentative track">
+							</Value.Enum>
+						</Values>
+					</Bit>
+					<Bit id="RAD" description="Type of Sensor(s) maintaining Track" size="2">
+						<Values ibLink="TBD">
+							<Value.Enum value="2" description="SSR/ModeS Track"/>
+						</Values>
+					</Bit>
+					<Bit id="DOU" description="Signals level of confidence in plot to track association process">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="Normal confidence"/>
+						</Values>
+					</Bit>
+					<Bit id="MAH" description="Manoeuvre detection in Horizontal sense">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="No horizontal man. sensed"/>
+						</Values>
+					</Bit>
+					<Bit id="CDM" description="Climbing/Desceding/Maintaining" size="2">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="Maintaining">
+								<If>
+									<Value.Linked ibLink="Target.CDM.Maintaining"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="1" description="Climbing">
+								<If>
+									<Value.Linked ibLink="Target.CDM.Climbing"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="2" description="Descending">
+								<If>
+									<Value.Linked ibLink="Target.CDM.Descending"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="3" description="Invalid"/>
+						</Values>
+					</Bit>
+					<Bit id="FX"/>
+				</BitSet>
+				<BitSet id="TrackStatusPart2" size="08" bitsOrder="0 last" fxBitId="FX" description="1st extent">
+					<Bit id="TRE" description="Signal for end of Track">
+						<Values ibLink="TBD">
+							<Value.Enum value="1" description="End of track lifetime (last report for this track)">
+								<If>
+									<Value.Linked ibLink="Target.State.Cancelled"/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0" description="Track still alive"/>
+						</Values>
+					</Bit>
+					<Bit id="GHO" description="Ghost vs. true target">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="True target track">
+								<If>
+									<true/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="1" description="Ghost target track"/>
+						</Values>
+					</Bit>
+					<Bit id="SUP" description="Track maintained with track">
+						<Values ibLink="TBD">
+							<Value.Enum value="0" description="no">
+								<If>
+									<true/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="1" description="yes">
+								<If>
+									<false/>
+								</If>
+							</Value.Enum>
+						</Values>
+					</Bit>
+					<Bit id="TCC" description="Type of plot coordinate">
+						<Values ibLink="TBD">
+							<Value.Enum value="1" description="Slant range correction and a suitable projection technique are used to track in a 2D reference plane,tangential to the earth mode at the Radar site co-ordinate">
+								<If>
+									<true/>
+								</If>
+							</Value.Enum>
+							<Value.Enum value="0" description="Tracking perfomed in socalled &quot;Radar plane&quot;">
+								<If>
+									<false/>
+								</If>
+							</Value.Enum>
+						</Values>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="200" description="Calculated track velocity expressed in polar co-ordinates.">
+				<Uint size="16" id="Calculated_Ground_Speed" description="(LSB)=2^-14NM/s=0.22kt">
+					<Resolution>6.103515625e-5</Resolution>
+					<Unit>NM/s</Unit>
+					<Values ibLink="Target.Velocity.Polar.GroundSpeed"/>
+				</Uint>
+				<Uint size="16" id="Calculated_Heading" description="(LSB)=360°/2^16 = 0.0055°">
+					<Resolution>5.4931640625e-3</Resolution>
+					<Unit>deg</Unit>
+					<Values ibLink="Target.Velocity.Polar.TrackAngle"/>
+				</Uint>
+			</Item>
+			<Item id="210" description="Track quality in the form a vector of standard deviations">
+				<Uint size="08" id="Sigma X" description="Standard deviation on the horizontal axis of the local grid system = 1/128 NM. Max value is 2-1/128 NM.">
+					<ImplicitValueMax>255</ImplicitValueMax>
+					<Resolution>0.0078125</Resolution>
+					<Unit>NM</Unit>
+					<Values ibLink="Target.Accuracy.Position.Y"/>
+				</Uint>
+				<Uint size="08" id="Sigma Y" description="Standard deviation on the vertical axis of the local grid system = 1/128 NM">
+					<ImplicitValueMax>255</ImplicitValueMax>
+					<Resolution>0.0078125</Resolution>
+					<Unit>NM</Unit>
+					<Values ibLink="Target.Accuracy.Position.X"/>
+				</Uint>
+				<BitSet size="08" isEmpty="true" id="Sigma V" description="Standard deviation on the groundspeed within the local grid system = 2^-14 NM/s=0.22 Kt" bitsOrder="0 first"/>
+				<BitSet size="08" isEmpty="true" id="Sigma H" description="Standard deviation on the heading within the local grid system = 360/(2^12)°=0.08789" bitsOrder="0 first"/>
+			</Item>
+			<Item id="220" description="Aircraft Address. 24-bits Mode S Address">
+				<Uint size="24" id="address" description="Aircraft address (24-bits Mode S address) assigned uniquely to each aircraft.">
+					<Values ibLink="Target.ModeS.Address.Value"/>
+				</Uint>
+			</Item>
+			<Item id="230" description="Communications capability of the transponder, capability of the onboard ACAS equipment and flight status">
+				<BitSet size="16" bitsOrder="0 last" id="capabAndFlightStatus">
+					<Bit id="COM" size="3" description="Communications capability (surveillance only)">
+						<Values ibLink="Target.ModeS.TransponderCapabilities"/>
+					</Bit>
+					<Bit id="STAT" size="2" description="Flight Status">
+						<Values ibLink="Evaluated.Target.ModeS.FlightStatusCat48"/>
+					</Bit>
+					<Bit id="STAT_upper_bit" isEmpty="true"/>
+					<Bit id="empty" size="2" description="10/9 spare" isEmpty="true"/>
+					<Bit id="MSSC" description="Mode-S Specific Service Capability">
+						<Values ibLink="Target.ModeS.NoAnalData.CommB.MSSC"/>
+					</Bit>
+					<Bit id="ARC" description="Altitude reporting capability. JOS: neumím, viz poznámka v popisyPodmínek.txt." isEmpty="true"/>
+					<Bit id="AIC" description="Aicraft identification capability">
+						<Values ibLink="Target.ModeS.NoAnalData.CommB.AIC"/>
+					</Bit>
+					<Bit id="B1A">
+						<Values ibLink="Target.ModeS.NoAnalData.CommB.B1A"/>
+					</Bit>
+					<Bit id="B1B" size="4">
+						<Values ibLink="Target.ModeS.NoAnalData.CommB.B1B"/>
+					</Bit>
+				</BitSet>
+			</Item>
+			<Item id="240" description="Aircraft Identification. Aircraft identification (in 8 characters) obtained from an aicraft equipped with a Mode S transponder.">
+				<Uint size="48" id="Aircraft_Identification" description="Characters 1-8 (coded on 6 bits each) defining Aircraft identification.">
+					<Values ibLink="Target.ModeS.Identification.ICAO.Anex10"/>
+				</Uint>
+			</Item>
+			<Item id="250" description="Mode S MB Data. Mode S Comm B data as extracted from the aircraft transponder">
+				<Uint size="08" description="repetition count" id="repCount"/>
+				<Repetitive countId="repCount" id="MbDataRep" description="All received Comm-B data" ibLink="Target.ModeS.NoAnalData.CommB[]">
+					<Uint size="64" id="MBData" description="56-bit message conveying Mode S Comm B message data + 8-bit (BDS1 + BDS2)">
+						<Values ibLink=".Value"/>
+					</Uint>
+					<!--					<BitSet size="64" bitsOrder="0 first" id="ValueBitSet">
+						<Values ibLink=".Value"/>
+					</BitSet>
+-->
+					<!-- Spojeno s MBData vyse.<BitSet size="8" id="BDS" description="BDS1" bitsOrder="0 last">
+						<Bit id="BDS1" size="4">
+							<Values ibLink="Target.ModeS.NoAnalData.CommB.WithoutBDS2_0And3_0.BDS1[]"/>
+						</Bit>
+						<Bit id="BDS2" size="4">
+							<Values ibLink="Target.ModeS.NoAnalData.CommB.WithoutBDS2_0And3_0.BDS2[]"/>
+						</Bit>
+					</BitSet>-->
+				</Repetitive>
+			</Item>
+			<Item id="260" description="ACAS Resolution Advisory. Currently active Resolution Advisory (RA), if any, generated by the ACAS associated with the transponder transmitting the report and threat identity data">
+				<Uint size="56" id="ACAS">
+					<Values ibLink="Target.ModeS.NoAnalData.CommB.ACAS"/>
+				</Uint>
+			</Item>
+		</Items>
+		<Message messageType="1" fxBitPositionForFSpec="MSB (bit 7)" description="Target Report">
+			<If>
+				<and>
+					<Value.Linked ibLink="Evaluated.Mb.Msg.IsTargoutOrGrp"/>
+					<not>
+						<Value.Linked ibLink="Target.Resource.ADSB"/>
+					</not>
+					<or>
+						<Value.Linked ibLink="Target.Resource.MS"/>
+						<Value.Linked ibLink="Target.Resource.SIF"/>
+					</or>
+					<Value.Linked.Valid ibLink="Target.Number"/>
+				</and>
+			</If>
+			<Item id="010" frn="1" presence="M"/>
+			<Item id="020" frn="3" presence="M"/>
+			<Item id="030" frn="16" presence="O"/>
+			<Item id="040" frn="4" presence="O"/>
+			<Item id="042" frn="12" presence="O"/>
+			<Item id="050" frn="24" presence="O"/>
+			<Item id="055" frn="23" presence="O"/>
+			<Item id="070" frn="5" presence="O"/>
+			<Item id="090" frn="6" presence="O"/>
+			<Item id="100" frn="18" presence="O"/>
+			<Item id="110" frn="19" presence="O"/>
+			<Item id="140" frn="2" presence="M"/>
+			<Item id="161" frn="11" presence="M"/>
+			<Item id="170" frn="14" presence="M"/>
+			<Item id="200" frn="13" presence="M"/>
+			<Item id="210" frn="15" presence="O"/>
+			<Item id="220" frn="8" presence="M"/>
+			<Item id="230" frn="21" presence="M"/>
+			<Item id="240" frn="9" presence="O"/>
+			<Item id="250" frn="10" presence="O"/>
+			<Item id="260" frn="22" presence="O"/>
+		</Message>
+		<Message messageType="1" fxBitPositionForFSpec="MSB (bit 7)" description="Track Cancelled">
+			<If>
+				<and>
+					<Value.Linked ibLink="Evaluated.Mb.Msg.IsTargoutOrGrp"/>
+					<Value.Linked ibLink="Target.State.Cancelled"/>
+					<Value.Linked.Valid ibLink="Target.Number"/>
+				</and>
+			</If>
+			<Item id="010" frn="1" presence="M"/>
+			<Item id="020" frn="3" presence="M"/>
+			<Item id="140" frn="2" presence="M"/>
+			<Item id="161" frn="11" presence="M"/>
+			<Item id="170" frn="14" presence="M"/>
+			<Item id="220" frn="8" presence="X"/>
+			<Item id="230" frn="21" presence="O"/>
+			<Item id="240" frn="9" presence="O"/>
+		</Message>
+	</Category>
+</CodingRules>

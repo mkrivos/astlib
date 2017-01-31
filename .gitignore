@@ -1,3 +1,13 @@
+CMakeFiles/*
+CMakeCache.txt
+.settings
+obj
+lib
+loader
+Makefile
+cmake_install.cmake
+
+
 # Compiled Object files
 *.slo
 *.lo
