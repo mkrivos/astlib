@@ -13,6 +13,7 @@
 #pragma once
 
 #include "CodecDescription.h"
+#include "Poco/XML/XMLStreamParser.h"
 #include <string>
 
 namespace astlib
