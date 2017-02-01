@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     try
     {
         CodecDeclarationLoader loader;
-        loader.load("specs/uniEnc_Ast_48_1.14.xml");
+        loader.load2("specs/uniEnc_Ast_48_1.14.xml");
     }
     catch(Exception& e)
     {

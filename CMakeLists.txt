@@ -2,7 +2,7 @@ project (astlib)
 cmake_minimum_required(VERSION 3.3)
 
 include_directories(.)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g")
 
 # set the POCO paths and libs
 set(POCO_PREFIX      "/opt/rsys/platform") 
