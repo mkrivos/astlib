@@ -12,15 +12,19 @@
 
 #include "ItemDescription.h"
 
-namespace artus
+namespace astlib
 {
 
-ItemDescription::ItemDescription()
+ItemDescription::ItemDescription(const ItemType& type) :
+    _itemType(type)
 {
 }
 
-ItemDescription::~ItemDescription()
+
+ItemDescriptionPtr ItemDescription::createFixedItem()
 {
+    ItemDescriptionPtr item = std::make_shared<ItemDescription>(ItemType::Fixed);
+    return item;
 }
 
 } /* namespace artus */

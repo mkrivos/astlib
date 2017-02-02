@@ -1,6 +1,6 @@
 ///
 /// \package astlib
-/// \file CodecDeclarationLoader.h
+/// \file CodecDeclarationLoaderEra.h
 ///
 /// \author Marian Krivos <marian.krivos@rsys.sk>
 /// \date 31Jan.,2017 
@@ -21,11 +21,11 @@
 namespace astlib
 {
 
-class CodecDeclarationLoader
+class CodecDeclarationLoaderEra
 {
 public:
-    CodecDeclarationLoader();
-    ~CodecDeclarationLoader();
+    CodecDeclarationLoaderEra();
+    ~CodecDeclarationLoaderEra();
 
     /**
      * Load with Stream parser
@@ -35,8 +35,10 @@ public:
     CodecDescriptionPtr load(const std::string& filename);
 
 private:
+    void loadCodingRules(CodecDescription& codecDescription, const Poco::XML::Element& root);
     void loadCategory(CodecDescription& codecDescription, const Poco::XML::Element& root);
-    ItemDescriptionPtr loadDataItem(const Poco::XML::Element& root);
+    void loadItems(CodecDescription& codecDescription, const Poco::XML::Element& root);
+    ItemDescriptionPtr loadItem(const Poco::XML::Element& root);
 };
 
 } /* namespace astlib */

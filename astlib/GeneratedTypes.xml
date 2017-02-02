@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+    <cpp text="#include &lt;Poco/Exception.h&gt;" />
+
+    <enumeration name="ItemType"  >
+        <item name="Fixed"></item>
+        <item name="Variable"></item>
+        <item name="Repetitive"></item>
+        <item name="Compound"></item>
+    </enumeration>
+
+  </root>

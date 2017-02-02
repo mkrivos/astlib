@@ -48,81 +48,6 @@ CodecDeclarationLoader::~CodecDeclarationLoader()
 CodecDescriptionPtr CodecDeclarationLoader::load(const std::string& filename)
 {
     CodecDescriptionPtr codecDescription(new CodecDescription);
-
-    try
-    {
-        // Enable stream exceptions so that io failures are reported
-        // as stream rather than as parsing exceptions.
-        //
-        std::ifstream ifs;
-        ifs.exceptions(std::ifstream::badbit | std::ifstream::failbit);
-        ifs.open(filename, std::ifstream::in | std::ifstream::binary);
-
-        // Configure the parser to receive attributes as events as well
-        // as to receive prefix-namespace mappings (namespace declarations
-        // in XML terminology).
-        //
-        XMLStreamParser parser(ifs,
-            filename,
-            XMLStreamParser::RECEIVE_DEFAULT |
-            XMLStreamParser::RECEIVE_ATTRIBUTE_MAP |
-            XMLStreamParser::RECEIVE_NAMESPACE_DECLS);
-
-        std::string currentElement;
-
-        for (XMLStreamParser::EventType e(parser.next()); e != XMLStreamParser::EV_EOF; e = parser.next())
-        {
-            auto event = parser.peek();
-            if(event == XMLStreamParser::EV_START_ELEMENT)
-            {
-                currentElement = parser.getQName().localName();
-                std::cout << currentElement << std::endl;
-                if (currentElement == "CodingRules")
-                {
-
-                }
-                else if (currentElement == "Parameter")
-                {
-                    parser.nextExpect(Poco::XML::XMLStreamParser::EV_START_ELEMENT, "Parameter", Poco::XML::Content::Simple);
-
-                    auto name = parser.attribute(QName("name"));
-                    auto valueType = parser.attribute(QName("valueType"));
-                }
-                else if (currentElement == "Category")
-                {
-                    parser.nextExpect(Poco::XML::XMLStreamParser::EV_START_ELEMENT, "Category", Poco::XML::Content::Complex);
-
-                    CategoryDescription categoryDescription;
-                    int cat = parser.attribute<int>(QName("cat"));
-                    categoryDescription.setCategory(cat);
-                    codecDescription->addCategoryDescription(categoryDescription);
-                }
-                else if (currentElement == "Uint")
-                {
-                    parser.nextExpect(Poco::XML::XMLStreamParser::EV_START_ELEMENT, "Uint", Poco::XML::Content::Complex);
-
-                    auto description = parser.attribute(QName("description"));
-                }
-                else if (currentElement == "Values")
-                {
-                    parser.nextExpect(Poco::XML::XMLStreamParser::EV_START_ELEMENT, "Values", Poco::XML::Content::Complex);
-
-                    auto link = parser.attribute(QName("ibLink"));
-                }
-            }
-        }
-    }
-    catch (const std::ios_base::failure& e)
-    {
-        throw Poco::IOException(e.what());
-    }
-
-    return codecDescription;
-}
-
-CodecDescriptionPtr CodecDeclarationLoader::load2(const std::string& filename)
-{
-    CodecDescriptionPtr codecDescription(new CodecDescription);
     Poco::XML::InputSource src(filename);
     Poco::XML::NamePool* pool = new Poco::XML::NamePool(3571);
     Poco::XML::DOMParser parser(pool);
@@ -136,42 +61,25 @@ CodecDescriptionPtr CodecDeclarationLoader::load2(const std::string& filename)
 
     auto root = Poco::XML::AutoPtr<Element>(document->documentElement(), true);
 
-    if (root->nodeName() != "CodingRules")
+    if (root->nodeName() != "Category")
     {
-        throw Poco::DataFormatException("in CodecDeclarationLoader::load() - no 'CodingRules' element at top level");
+        throw Poco::DataFormatException("in CodecDeclarationLoader::load() - no 'Category' element at top level");
     }
 
-    loadCodingRules(*codecDescription, *root);
+    loadCategory(*codecDescription, *root);
 
     return codecDescription;
-}
-
-void CodecDeclarationLoader::loadCodingRules(CodecDescription& codecDescription, const Element& root)
-{
-    for (auto node = root.firstChild(); node; node = node->nextSibling())
-    {
-        const Element* element = dynamic_cast<Element*>(node);
-        if (element && element->nodeType() == Node::ELEMENT_NODE)
-        {
-            auto name = element->nodeName();
-            std::cout << name << std::endl;
-            if (name == "Category")
-            {
-                loadCategory(codecDescription, *element);
-            }
-        }
-    }
 }
 
 void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, const Element& root)
 {
     CategoryDescription categoryDescription;
 
-    int cat = Poco::NumberParser::parse(root.getAttribute("cat"));
+    int cat = Poco::NumberParser::parse(root.getAttribute("id"));
     categoryDescription.setCategory(cat);
-    categoryDescription.setEdition(root.getAttribute("edition"));
-    categoryDescription.setFamily(root.getAttribute("messageHeaderId"));
-    categoryDescription.setDescription(root.getAttribute("description"));
+    categoryDescription.setEdition(root.getAttribute("ver"));
+    categoryDescription.setFamily("ast");
+    categoryDescription.setDescription(root.getAttribute("name"));
     codecDescription.addCategoryDescription(categoryDescription);
 
     for (auto node = root.firstChild(); node; node = node->nextSibling())
@@ -180,30 +88,17 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
         if (element && element->nodeType() == Node::ELEMENT_NODE)
         {
             auto name = element->nodeName();
-            std::cout << "  " << name << std::endl;
-            if (name == "Items")
+            std::cout << " " << name << std::endl;
+            if (name == "DataItem")
             {
-                loadItems(codecDescription, *element);
+                auto item = loadDataItem(*element);
             }
         }
     }
 }
 
-void CodecDeclarationLoader::loadItems(CodecDescription& codecDescription, const Element& root)
+ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& root)
 {
-    for (auto node = root.firstChild(); node; node = node->nextSibling())
-    {
-        const Element* element = dynamic_cast<Element*>(node);
-        if (element && element->nodeType() == Node::ELEMENT_NODE)
-        {
-            auto name = element->nodeName();
-            std::cout << "   " << name << std::endl;
-            if (name == "Item")
-            {
-                //auto item = loadItem(*element);
-            }
-        }
-    }
-}
 
+}
 } /* namespace codecDescription */

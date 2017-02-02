@@ -12,16 +12,27 @@
 
 #pragma once
 
-namespace artus
+#include "GeneratedTypes.h"
+#include <string>
+#include <memory>
+
+namespace astlib
 {
+
+class ItemDescription;
+using ItemDescriptionPtr = std::shared_ptr<ItemDescription>;
 
 class ItemDescription
 {
 public:
-    ItemDescription();
-    virtual ~ItemDescription();
+    ItemDescription(const ItemType& type);
+    virtual ~ItemDescription() = default;
+
+    static ItemDescriptionPtr createFixedItem();
 
 private:
+
+    ItemType _itemType;
     std::string _id;
     std::string _description;
 };
