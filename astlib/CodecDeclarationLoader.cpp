@@ -13,6 +13,7 @@
 #include "CodecDeclarationLoader.h"
 #include "CodecDescription.h"
 #include "CategoryDescription.h"
+#include "Exception.h"
 
 #include "Poco/XML/XMLStreamParser.h"
 #include <Poco/XML/Content.h>
@@ -32,6 +33,7 @@
 
 #include <fstream>
 
+#include "FixedItemDescription.h"
 using namespace Poco::XML;
 
 namespace astlib
@@ -97,8 +99,40 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
     }
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& root)
+ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
 {
+    auto idString = element.getAttribute("id");
+    int id = 0;
+    if (idString == "SP")
+        id = -1;
+    else if (idString == "RE")
+        id = -2;
+    else
+        id = Poco::NumberParser::parse(idString);
 
+    auto description = element.getChildElement("DataItemName")->innerText();
+    ItemFormat format = ItemFormat(element.getChildElement("DataItemFormat")->innerText());
+
+    switch(format.toValue())
+    {
+        case ItemFormat::Fixed:
+        {
+            BitsDescriptionArray bitsArray = loadBitsDeclaration(element);
+            ItemDescriptionPtr item(std::make_shared<FixedItemDescription>(id, description, bitsArray));
+            return item;
+        }
+
+        default:
+            throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
+    }
+
+    return nullptr;
 }
+
+BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& element)
+{
+    BitsDescriptionArray bitsArray;
+    return bitsArray;
+}
+
 } /* namespace codecDescription */

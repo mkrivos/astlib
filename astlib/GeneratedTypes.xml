@@ -2,11 +2,32 @@
 <root>
     <cpp text="#include &lt;Poco/Exception.h&gt;" />
 
-    <enumeration name="ItemType"  >
+    <enumeration name="ItemFormat"  >
         <item name="Fixed"></item>
+        <item name="Explicit"></item>
         <item name="Variable"></item>
         <item name="Repetitive"></item>
         <item name="Compound"></item>
+    </enumeration>
+
+    <enumeration name="AsterixFamily"  >
+        <item name="Eurocontrol"></item>
+        <item name="Era"></item>
+        <item name="Thales"></item>
+    </enumeration>
+
+    <enumeration name="Rule" >
+        <item name="Optional"></item>
+        <item name="Mandatory"></item>
+    </enumeration>
+
+    <enumeration name="Encoding" >
+        <item name="Signed"></item>
+        <item name="Unsigned"></item>
+        <item name="SixBitsCHar"></item>
+        <item name="Octal"></item>
+        <item name="Ascii"></item>
+        <item name="Hex"></item>
     </enumeration>
 
   </root>

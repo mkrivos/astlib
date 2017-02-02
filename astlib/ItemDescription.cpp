@@ -15,16 +15,11 @@
 namespace astlib
 {
 
-ItemDescription::ItemDescription(const ItemType& type) :
-    _itemType(type)
+ItemDescription::ItemDescription(int id, const std::string& description) :
+    _id(id),
+    _description(description)
 {
 }
 
-
-ItemDescriptionPtr ItemDescription::createFixedItem()
-{
-    ItemDescriptionPtr item = std::make_shared<ItemDescription>(ItemType::Fixed);
-    return item;
-}
 
 } /* namespace artus */

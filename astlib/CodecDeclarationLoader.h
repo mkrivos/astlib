@@ -37,6 +37,8 @@ public:
 private:
     void loadCategory(CodecDescription& codecDescription, const Poco::XML::Element& root);
     ItemDescriptionPtr loadDataItem(const Poco::XML::Element& root);
+    BitsDescriptionArray loadBitsDeclaration(const Poco::XML::Element& element);
+
 };
 
 } /* namespace astlib */

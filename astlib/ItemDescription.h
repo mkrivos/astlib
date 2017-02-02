@@ -13,6 +13,8 @@
 #pragma once
 
 #include "GeneratedTypes.h"
+#include "BitsDescription.h"
+
 #include <string>
 #include <memory>
 
@@ -25,15 +27,13 @@ using ItemDescriptionPtr = std::shared_ptr<ItemDescription>;
 class ItemDescription
 {
 public:
-    ItemDescription(const ItemType& type);
+    ItemDescription(int id, const std::string& description);
     virtual ~ItemDescription() = default;
 
-    static ItemDescriptionPtr createFixedItem();
+    virtual ItemFormat getType() const = 0;
 
 private:
-
-    ItemType _itemType;
-    std::string _id;
+    int _id;
     std::string _description;
 };
 

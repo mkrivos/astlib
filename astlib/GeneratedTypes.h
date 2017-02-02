@@ -24,20 +24,21 @@ typedef unsigned char Byte;
 namespace astlib {
 
 #pragma pack(1) 
-class ItemType
+class ItemFormat
   : public rsys::Enumerator
 { 
 public:
     typedef Poco::UInt32 ValueType;
 
     static const ValueType Fixed = 0;
-    static const ValueType Variable = 1;
-    static const ValueType Repetitive = 2;
-    static const ValueType Compound = 3;
+    static const ValueType Explicit = 1;
+    static const ValueType Variable = 2;
+    static const ValueType Repetitive = 3;
+    static const ValueType Compound = 4;
 
-    ItemType(ValueType v = 0) : _value(v) {}
+    ItemFormat(ValueType v = 0) : _value(v) {}
 
-    ItemType(const std::string& v) : _value(0) { fromString(v); }
+    ItemFormat(const std::string& v) : _value(0) { fromString(v); }
 
     //! @return textova reprezentacia hodnoty objektu
     std::string toString() const;
@@ -57,8 +58,139 @@ public:
     //! nastav hodnotu objektu z integralnej reprezentatacie
     void fromValue(ValueType val) { _value = val; }
 
-    bool operator != (ItemType right) const { return toValue() != right.toValue(); }
-    bool operator == (ItemType right) const { return toValue() == right.toValue(); }
+    bool operator != (ItemFormat right) const { return toValue() != right.toValue(); }
+    bool operator == (ItemFormat right) const { return toValue() == right.toValue(); }
+
+private:
+    static std::vector<std::string> definitionList;
+
+    ValueType _value;
+};
+#pragma pack() 
+
+#pragma pack(1) 
+class AsterixFamily
+  : public rsys::Enumerator
+{ 
+public:
+    typedef Poco::UInt32 ValueType;
+
+    static const ValueType Eurocontrol = 0;
+    static const ValueType Era = 1;
+    static const ValueType Thales = 2;
+
+    AsterixFamily(ValueType v = 0) : _value(v) {}
+
+    AsterixFamily(const std::string& v) : _value(0) { fromString(v); }
+
+    //! @return textova reprezentacia hodnoty objektu
+    std::string toString() const;
+
+    //! nastav hodnotu objektu podla textovej representacie
+    void fromString(const std::string &value);
+
+    //! @return hodnotu ako integralny typ
+    Poco::UInt64 toValue() const { return _value; }
+
+    //! \return iteracny objekt pre enumeraciu zaznamov objektu
+    const std::vector<std::string>& enumerate() const;
+
+    //! validuj objekt na korektnu hodnotu, return true ak je objekt validny, inak false
+    bool validate() const;
+
+    //! nastav hodnotu objektu z integralnej reprezentatacie
+    void fromValue(ValueType val) { _value = val; }
+
+    bool operator != (AsterixFamily right) const { return toValue() != right.toValue(); }
+    bool operator == (AsterixFamily right) const { return toValue() == right.toValue(); }
+
+private:
+    static std::vector<std::string> definitionList;
+
+    ValueType _value;
+};
+#pragma pack() 
+
+#pragma pack(1) 
+class Rule
+  : public rsys::Enumerator
+{ 
+public:
+    typedef Poco::UInt32 ValueType;
+
+    static const ValueType Optional = 0;
+    static const ValueType Mandatory = 1;
+
+    Rule(ValueType v = 0) : _value(v) {}
+
+    Rule(const std::string& v) : _value(0) { fromString(v); }
+
+    //! @return textova reprezentacia hodnoty objektu
+    std::string toString() const;
+
+    //! nastav hodnotu objektu podla textovej representacie
+    void fromString(const std::string &value);
+
+    //! @return hodnotu ako integralny typ
+    Poco::UInt64 toValue() const { return _value; }
+
+    //! \return iteracny objekt pre enumeraciu zaznamov objektu
+    const std::vector<std::string>& enumerate() const;
+
+    //! validuj objekt na korektnu hodnotu, return true ak je objekt validny, inak false
+    bool validate() const;
+
+    //! nastav hodnotu objektu z integralnej reprezentatacie
+    void fromValue(ValueType val) { _value = val; }
+
+    bool operator != (Rule right) const { return toValue() != right.toValue(); }
+    bool operator == (Rule right) const { return toValue() == right.toValue(); }
+
+private:
+    static std::vector<std::string> definitionList;
+
+    ValueType _value;
+};
+#pragma pack() 
+
+#pragma pack(1) 
+class Encoding
+  : public rsys::Enumerator
+{ 
+public:
+    typedef Poco::UInt32 ValueType;
+
+    static const ValueType Signed = 0;
+    static const ValueType Unsigned = 1;
+    static const ValueType SixBitsCHar = 2;
+    static const ValueType Octal = 3;
+    static const ValueType Ascii = 4;
+    static const ValueType Hex = 5;
+
+    Encoding(ValueType v = 0) : _value(v) {}
+
+    Encoding(const std::string& v) : _value(0) { fromString(v); }
+
+    //! @return textova reprezentacia hodnoty objektu
+    std::string toString() const;
+
+    //! nastav hodnotu objektu podla textovej representacie
+    void fromString(const std::string &value);
+
+    //! @return hodnotu ako integralny typ
+    Poco::UInt64 toValue() const { return _value; }
+
+    //! \return iteracny objekt pre enumeraciu zaznamov objektu
+    const std::vector<std::string>& enumerate() const;
+
+    //! validuj objekt na korektnu hodnotu, return true ak je objekt validny, inak false
+    bool validate() const;
+
+    //! nastav hodnotu objektu z integralnej reprezentatacie
+    void fromValue(ValueType val) { _value = val; }
+
+    bool operator != (Encoding right) const { return toValue() != right.toValue(); }
+    bool operator == (Encoding right) const { return toValue() == right.toValue(); }
 
 private:
     static std::vector<std::string> definitionList;
