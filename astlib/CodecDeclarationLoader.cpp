@@ -111,27 +111,65 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
         id = Poco::NumberParser::parse(idString);
 
     auto description = element.getChildElement("DataItemName")->innerText();
-    ItemFormat format = ItemFormat(element.getChildElement("DataItemFormat")->innerText());
+    Element* formatElement = dynamic_cast<Element*>(element.getChildElement("DataItemFormat")->firstChild());
+    poco_assert(formatElement);
+
+    ItemFormat format = ItemFormat(formatElement->nodeName());
+
+    std::cout << "    " << id << " " << format.toString() << " " << description << std::endl;
 
     switch(format.toValue())
     {
         case ItemFormat::Fixed:
-        {
-            BitsDescriptionArray bitsArray = loadBitsDeclaration(element);
-            ItemDescriptionPtr item(std::make_shared<FixedItemDescription>(id, description, bitsArray));
-            return item;
-        }
+            return loadFixedDeclaration(id, description, *formatElement);
 
         default:
-            throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
+            //throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
+            ;
     }
 
     return nullptr;
 }
 
-BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadFixedDeclaration(int id, const std::string& description, const Element& element)
+{
+    int length = Poco::NumberParser::parse(element.getAttribute("length"));
+    BitsDescriptionArray bitsArray = loadBitsDeclaration(element);
+    return std::make_shared<FixedItemDescription>(id, description, length, bitsArray);
+}
+
+BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& parent)
 {
     BitsDescriptionArray bitsArray;
+
+    for (auto node = parent.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element && element->nodeType() == Node::ELEMENT_NODE && element->nodeName() == "Bits")
+        {
+            BitsDescription bits;
+
+            if (element->hasAttribute("bit"))
+            {
+                bits.bit = Poco::NumberParser::parse(element->getAttribute("bit"));
+                if (element->hasAttribute("fx"))
+                {
+                    bits.fx = Poco::NumberParser::parse(element->getAttribute("fx"));
+                }
+            }
+            else
+            {
+                bits.from = Poco::NumberParser::parse(element->getAttribute("from"));
+                bits.to = Poco::NumberParser::parse(element->getAttribute("to"));
+                // TODO: nacitat hodnoty
+            }
+
+            bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
+            std::cout << "      " << bits.toString() << std::endl;
+            bitsArray.push_back(bits);
+        }
+    }
+
     return bitsArray;
 }
 

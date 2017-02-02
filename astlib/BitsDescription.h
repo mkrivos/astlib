@@ -13,6 +13,7 @@
 #pragma once
 
 #include "GeneratedTypes.h"
+#include <map>
 
 namespace astlib
 {
@@ -20,16 +21,21 @@ namespace astlib
 class BitsDescription
 {
 public:
+    using ValueMap = std::map<std::string, int>;
+
     BitsDescription();
     ~BitsDescription();
 
     Encoding encoding = Encoding::Unsigned;
     std::string name;
-    int bit = 0;
-    int from = 0;
-    int to = 0;
+    ValueMap values;
+    int bit = -1;
+    int from = -1;
+    int to = -1;
     bool fx = false;
     bool repeat = false;
+
+    std::string toString() const;
 };
 
 using BitsDescriptionArray = std::vector<BitsDescription>;

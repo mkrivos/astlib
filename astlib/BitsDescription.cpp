@@ -23,4 +23,16 @@ BitsDescription::~BitsDescription()
 {
 }
 
+std::string BitsDescription::toString() const
+{
+    if (bit != -1)
+    {
+        return name + " bit " + std::to_string(bit);
+    }
+    else
+    {
+        return name + " from " + std::to_string(from) + " to " + std::to_string(to);
+    }
+}
+
 } /* namespace astlib */
