@@ -15,9 +15,9 @@
 namespace astlib
 {
 
-FixedItemDescription::FixedItemDescription(int id, const std::string& description, int length, const BitsDescriptionArray& bits) :
+FixedItemDescription::FixedItemDescription(int id, const std::string& description, const Fixed& fixed) :
     ItemDescription(id, description),
-    _length(length)
+    _fixed(fixed)
 {
 }
 

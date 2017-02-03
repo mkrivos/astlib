@@ -14,6 +14,7 @@
 
 #include "CodecDescription.h"
 #include "ItemDescription.h"
+#include "Fixed.h"
 
 #include <Poco/DOM/Element.h>
 #include <string>
@@ -38,7 +39,10 @@ private:
     void loadCategory(CodecDescription& codecDescription, const Poco::XML::Element& root);
     ItemDescriptionPtr loadDataItem(const Poco::XML::Element& root);
     ItemDescriptionPtr loadFixedDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadVariableDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadRepetitiveDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
     BitsDescriptionArray loadBitsDeclaration(const Poco::XML::Element& element);
+    Fixed loadFixed(const Poco::XML::Element& element);
 };
 
 } /* namespace astlib */

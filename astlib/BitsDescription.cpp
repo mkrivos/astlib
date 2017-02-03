@@ -15,12 +15,9 @@
 namespace astlib
 {
 
-BitsDescription::BitsDescription()
+void BitsDescription::addEnumeration(const std::string& key, int value)
 {
-}
-
-BitsDescription::~BitsDescription()
-{
+    values[key] = value;
 }
 
 std::string BitsDescription::toString() const

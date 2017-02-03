@@ -13,6 +13,8 @@
 #include "CodecDeclarationLoader.h"
 #include "CodecDescription.h"
 #include "CategoryDescription.h"
+#include "VariableItemDescription.h"
+#include "RepetitiveItemDescription.h"
 #include "Exception.h"
 
 #include "Poco/XML/XMLStreamParser.h"
@@ -33,7 +35,6 @@
 
 #include <fstream>
 
-#include "FixedItemDescription.h"
 using namespace Poco::XML;
 
 namespace astlib
@@ -123,6 +124,12 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
         case ItemFormat::Fixed:
             return loadFixedDeclaration(id, description, *formatElement);
 
+        case ItemFormat::Variable:
+            return loadVariableDeclaration(id, description, *formatElement);
+
+        case ItemFormat::Repetitive:
+            return loadRepetitiveDeclaration(id, description, *formatElement);
+
         default:
             //throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
             ;
@@ -133,9 +140,45 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
 
 ItemDescriptionPtr CodecDeclarationLoader::loadFixedDeclaration(int id, const std::string& description, const Element& element)
 {
+    Fixed fixed = loadFixed(element);
+    return std::make_shared<FixedItemDescription>(id, description, fixed);
+}
+
+Fixed CodecDeclarationLoader::loadFixed(const Element& element)
+{
     int length = Poco::NumberParser::parse(element.getAttribute("length"));
     BitsDescriptionArray bitsArray = loadBitsDeclaration(element);
-    return std::make_shared<FixedItemDescription>(id, description, length, bitsArray);
+    return Fixed(bitsArray, length);
+}
+
+ItemDescriptionPtr CodecDeclarationLoader::loadVariableDeclaration(int id, const std::string& description, const Element& parent)
+{
+    FixedVector fixeds;
+    for (auto node = parent.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element && element->nodeName() == "Fixed")
+        {
+            Fixed fixed = loadFixed(*element);
+            fixeds.push_back(fixed);
+        }
+    }
+    return std::make_shared<VariableItemDescription>(id, description, fixeds);
+}
+
+ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(int id, const std::string& description, const Element& parent)
+{
+    FixedVector fixeds;
+    for (auto node = parent.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element && element->nodeName() == "Fixed")
+        {
+            Fixed fixed = loadFixed(*element);
+            fixeds.push_back(fixed);
+        }
+    }
+    return std::make_shared<RepetitiveItemDescription>(id, description, fixeds);
 }
 
 BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& parent)
@@ -161,7 +204,19 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
             {
                 bits.from = Poco::NumberParser::parse(element->getAttribute("from"));
                 bits.to = Poco::NumberParser::parse(element->getAttribute("to"));
-                // TODO: nacitat hodnoty
+
+                // Enumerations
+                const Element* node = dynamic_cast<const Element*>(element->getChildElement("BitsValue"));
+                for(; node; node = dynamic_cast<const Element*>(node->nextSibling()))
+                {
+                    if (node->nodeName() == "BitsValue")
+                    {
+                        int value = Poco::NumberParser::parse(node->getAttribute("val"));
+                        std::string key = node->innerText();
+                        bits.addEnumeration(key, value);
+                        std::cout << "     enum " << key << " = " << value << std::endl;
+                    }
+                }
             }
 
             bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();

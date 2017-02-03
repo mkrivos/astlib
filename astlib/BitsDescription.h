@@ -23,9 +23,6 @@ class BitsDescription
 public:
     using ValueMap = std::map<std::string, int>;
 
-    BitsDescription();
-    ~BitsDescription();
-
     Encoding encoding = Encoding::Unsigned;
     std::string name;
     ValueMap values;
@@ -34,6 +31,8 @@ public:
     int to = -1;
     bool fx = false;
     bool repeat = false;
+
+    void addEnumeration(const std::string& key, int value);
 
     std::string toString() const;
 };

@@ -13,6 +13,8 @@
 #pragma once
 
 #include "ItemDescription.h"
+#include "Fixed.h"
+#include <vector>
 
 namespace astlib
 {
@@ -21,14 +23,13 @@ class FixedItemDescription:
     public ItemDescription
 {
 public:
-    FixedItemDescription(int id, const std::string& description, int length, const BitsDescriptionArray& bits);
+    FixedItemDescription(int id, const std::string& description, const Fixed& fixed);
     virtual ~FixedItemDescription();
 
 private:
     virtual ItemFormat getType() const { return ItemFormat::Fixed; }
 
-    BitsDescriptionArray _bitsDescriptions;
-    int _length;
+    const Fixed _fixed;
 };
 
 } /* namespace astlib */
