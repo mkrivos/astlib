@@ -11,8 +11,8 @@
 ///
 
 #include "CodecDeclarationLoaderEra.h"
-#include "CodecDescription.h"
-#include "CategoryDescription.h"
+#include "model/CodecDescription.h"
+#include "model/CategoryDescription.h"
 
 #include "Poco/XML/XMLStreamParser.h"
 #include <Poco/XML/Content.h>

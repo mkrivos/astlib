@@ -12,9 +12,9 @@
 
 #pragma once
 
-#include "CodecDescription.h"
-#include "ItemDescription.h"
-#include "Fixed.h"
+#include "model/CodecDescription.h"
+#include "model/ItemDescription.h"
+#include "model/Fixed.h"
 
 #include <Poco/DOM/Element.h>
 #include <string>

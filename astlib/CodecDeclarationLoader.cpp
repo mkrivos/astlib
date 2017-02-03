@@ -11,10 +11,10 @@
 ///
 
 #include "CodecDeclarationLoader.h"
-#include "CodecDescription.h"
-#include "CategoryDescription.h"
-#include "VariableItemDescription.h"
-#include "RepetitiveItemDescription.h"
+#include "model/CodecDescription.h"
+#include "model/CategoryDescription.h"
+#include "model/VariableItemDescription.h"
+#include "model/RepetitiveItemDescription.h"
 #include "Exception.h"
 
 #include "Poco/XML/XMLStreamParser.h"

@@ -12,8 +12,8 @@
 
 #pragma once
 
-#include "CodecDescription.h"
-#include "ItemDescription.h"
+#include "model/CodecDescription.h"
+#include "model/ItemDescription.h"
 
 #include <Poco/DOM/Element.h>
 #include <string>
