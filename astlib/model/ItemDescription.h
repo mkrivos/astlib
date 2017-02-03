@@ -28,6 +28,11 @@ using ItemDescriptionPtr = std::shared_ptr<ItemDescription>;
 class ItemDescription
 {
 public:
+    static const int FX = -1;
+    static const int RE = -2;
+    static const int SP = -3;
+    static const int NONE = -4;
+
     ItemDescription(int id, const std::string& description);
     virtual ~ItemDescription() = default;
 

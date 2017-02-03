@@ -38,9 +38,12 @@ public:
 private:
     void loadCategory(CodecDescription& codecDescription, const Poco::XML::Element& root);
     ItemDescriptionPtr loadDataItem(const Poco::XML::Element& root);
+    void loadUap(CodecDescription& codecDescription, const Poco::XML::Element& element);
     ItemDescriptionPtr loadFixedDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
     ItemDescriptionPtr loadVariableDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
     ItemDescriptionPtr loadRepetitiveDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadCompoundDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadExplicitDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
     BitsDescriptionArray loadBitsDeclaration(const Poco::XML::Element& element);
     Fixed loadFixed(const Poco::XML::Element& element);
 };

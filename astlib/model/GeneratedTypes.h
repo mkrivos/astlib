@@ -162,7 +162,7 @@ public:
 
     static const ValueType Signed = 0;
     static const ValueType Unsigned = 1;
-    static const ValueType SixBitsCHar = 2;
+    static const ValueType SixBitsChar = 2;
     static const ValueType Octal = 3;
     static const ValueType Ascii = 4;
     static const ValueType Hex = 5;

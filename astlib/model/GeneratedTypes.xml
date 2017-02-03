@@ -24,7 +24,7 @@
     <enumeration name="Encoding" >
         <item name="Signed"></item>
         <item name="Unsigned"></item>
-        <item name="SixBitsCHar"></item>
+        <item name="SixBitsChar"></item>
         <item name="Octal"></item>
         <item name="Ascii"></item>
         <item name="Hex"></item>

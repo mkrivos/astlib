@@ -180,7 +180,7 @@ const std::vector<std::string>& Rule::enumerate() const
 #ifndef _MSC_VER
 const Encoding::ValueType Encoding::Signed;
 const Encoding::ValueType Encoding::Unsigned;
-const Encoding::ValueType Encoding::SixBitsCHar;
+const Encoding::ValueType Encoding::SixBitsChar;
 const Encoding::ValueType Encoding::Octal;
 const Encoding::ValueType Encoding::Ascii;
 const Encoding::ValueType Encoding::Hex;
@@ -190,7 +190,7 @@ std::vector<std::string> Encoding::definitionList =
 {
     "Signed",
     "Unsigned",
-    "SixBitsCHar",
+    "SixBitsChar",
     "Octal",
     "Ascii",
     "Hex",
@@ -202,7 +202,7 @@ std::string Encoding::toString() const
     {
         case Signed: return "Signed";
         case Unsigned: return "Unsigned";
-        case SixBitsCHar: return "SixBitsCHar";
+        case SixBitsChar: return "SixBitsChar";
         case Octal: return "Octal";
         case Ascii: return "Ascii";
         case Hex: return "Hex";
@@ -216,7 +216,7 @@ void Encoding::fromString(const std::string& str)
     _value = 0;
     if (str ==  "Signed")  { _value = Signed; return; }
     if (str ==  "Unsigned")  { _value = Unsigned; return; }
-    if (str ==  "SixBitsCHar")  { _value = SixBitsCHar; return; }
+    if (str ==  "SixBitsChar")  { _value = SixBitsChar; return; }
     if (str ==  "Octal")  { _value = Octal; return; }
     if (str ==  "Ascii")  { _value = Ascii; return; }
     if (str ==  "Hex")  { _value = Hex; return; }
@@ -228,7 +228,7 @@ bool Encoding::validate() const
     {
         case Signed:
         case Unsigned:
-        case SixBitsCHar:
+        case SixBitsChar:
         case Octal:
         case Ascii:
         case Hex:

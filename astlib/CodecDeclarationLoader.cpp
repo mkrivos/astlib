@@ -88,14 +88,55 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
     for (auto node = root.firstChild(); node; node = node->nextSibling())
     {
         const Element* element = dynamic_cast<Element*>(node);
-        if (element && element->nodeType() == Node::ELEMENT_NODE)
+        if (element)
         {
             auto name = element->nodeName();
             std::cout << " " << name << std::endl;
             if (name == "DataItem")
             {
                 ItemDescriptionPtr item = loadDataItem(*element);
-                codecDescription.addDataItem(item);
+                if (item)
+                    codecDescription.addDataItem(item);
+            }
+        }
+    }
+
+    for (auto node = root.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element)
+        {
+            auto name = element->nodeName();
+            if (name == "UAP")
+            {
+                loadUap(codecDescription, *element);
+            }
+        }
+    }
+}
+
+void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const Element& parent)
+{
+    for (auto node = parent.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element)
+        {
+            auto name = element->nodeName();
+            if (name == "UAPItem")
+            {
+                auto bit = element->getAttribute("bit");
+                auto idString = element->innerText();
+                int id = 0;
+                if (idString == "SP")
+                    id = ItemDescription::SP;
+                else if (idString == "RE")
+                    id = ItemDescription::RE;
+                else if (idString == "-")
+                    id = ItemDescription::FX;
+                else
+                    id = Poco::NumberParser::parse(idString);
+                std::cout << " " << name << " " << bit << " " << id << std::endl;
             }
         }
     }
@@ -106,9 +147,9 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
     auto idString = element.getAttribute("id");
     int id = 0;
     if (idString == "SP")
-        id = -1;
+        id = ItemDescription::SP;
     else if (idString == "RE")
-        id = -2;
+        id = ItemDescription::RE;
     else
         id = Poco::NumberParser::parse(idString);
 
@@ -131,9 +172,14 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
         case ItemFormat::Repetitive:
             return loadRepetitiveDeclaration(id, description, *formatElement);
 
+        case ItemFormat::Compound:
+            return loadCompoundDeclaration(id, description, *formatElement);
+
+        case ItemFormat::Explicit:
+            return loadExplicitDeclaration(id, description, *formatElement);
+
         default:
-            //throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
-            ;
+            throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
     }
 
     return nullptr;
@@ -180,6 +226,16 @@ ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(int id, con
         }
     }
     return std::make_shared<RepetitiveItemDescription>(id, description, fixeds);
+}
+
+ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(int id, const std::string& description, const Element& element)
+{
+    return nullptr;
+}
+
+ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(int id, const std::string& description, const Element& element)
+{
+    return nullptr;
 }
 
 BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& parent)
