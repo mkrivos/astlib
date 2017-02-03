@@ -94,7 +94,8 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
             std::cout << " " << name << std::endl;
             if (name == "DataItem")
             {
-                auto item = loadDataItem(*element);
+                ItemDescriptionPtr item = loadDataItem(*element);
+                codecDescription.addDataItem(item);
             }
         }
     }

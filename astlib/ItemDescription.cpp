@@ -21,5 +21,14 @@ ItemDescription::ItemDescription(int id, const std::string& description) :
 {
 }
 
+const std::string& ItemDescription::getDescription() const
+{
+    return _description;
+}
+
+int ItemDescription::getId() const
+{
+    return _id;
+}
 
 } /* namespace artus */

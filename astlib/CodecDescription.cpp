@@ -52,4 +52,22 @@ const Poco::Dynamic::Var& CodecDescription::getParameter(const std::string& name
     throw Exception("CodecDescription::getParameter(): " + name);
 }
 
+void CodecDescription::addDataItem(ItemDescriptionPtr item)
+{
+    _dataItems[item->getId()] = item;
+}
+
+ItemDescriptionPtr CodecDescription::getDataItemById(int id)
+{
+    return _dataItems[id];
+}
+
+void CodecDescription::addUapItem(int frn, int itemId)
+{
+    auto item = getDataItemById(itemId);
+    poco_assert(item);
+    _uapItems[frn] = item;
+
+}
+
 } /* namespace astlib */

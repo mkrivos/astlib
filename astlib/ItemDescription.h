@@ -17,6 +17,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 namespace astlib
 {
@@ -31,10 +32,14 @@ public:
     virtual ~ItemDescription() = default;
 
     virtual ItemFormat getType() const = 0;
+    const std::string& getDescription() const;
+    int getId() const;
 
 private:
     int _id;
     std::string _description;
 };
+
+using ItemDescriptionVector = std::vector<ItemDescriptionPtr>;
 
 } /* namespace artus */
