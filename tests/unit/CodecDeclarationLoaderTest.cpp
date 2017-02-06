@@ -38,7 +38,7 @@ TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 {
     CodecDeclarationLoader loader;
     CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat048_1_14.xml");
-    ASSERT_TRUE(codecSpecification);
+    ASSERT_TRUE(codecSpecification.get());
 
     // Header
     const CategoryDescription& catDesc = codecSpecification->getCategoryDescription();
