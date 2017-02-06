@@ -22,6 +22,9 @@
 namespace astlib
 {
 
+/**
+ * Class for loading Asterix description based on 'ASTERIXED' format.
+ */
 class CodecDeclarationLoader
 {
 public:

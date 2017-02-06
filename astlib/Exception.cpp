@@ -24,7 +24,7 @@ Exception::~Exception()
 {
 }
 
-const std::string& Exception::displayMessage() const
+const std::string& Exception::displayText() const
 {
     return _message;
 }

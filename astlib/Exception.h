@@ -25,7 +25,7 @@ public:
     Exception(const std::string& msg);
     virtual ~Exception();
 
-    const std::string& displayMessage() const;
+    const std::string& displayText() const;
 private:
     std::string _message;
 };

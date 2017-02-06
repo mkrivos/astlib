@@ -21,6 +21,9 @@
 namespace astlib
 {
 
+/**
+ * Class for loading Asterix description based on 'ERA' format.
+ */
 class CodecDeclarationLoaderEra
 {
 public:

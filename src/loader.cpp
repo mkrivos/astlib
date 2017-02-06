@@ -14,6 +14,7 @@
 #include "astlib/CodecDeclarationLoader.h"
 #include "astlib/CodecDeclarationLoaderEra.h"
 #include "astlib/Exception.h"
+#include <Poco/Exception.h>
 #include <iostream>
 
 using namespace astlib;
@@ -30,7 +31,11 @@ int main(int argc, char* argv[])
     }
     catch(Exception& e)
     {
-        std::cerr << e.displayMessage() << std::endl;
+        std::cerr << e.displayText() << std::endl;
+    }
+    catch(Poco::Exception& e)
+    {
+        std::cerr << e.displayText() << std::endl;
     }
 
     return 0;

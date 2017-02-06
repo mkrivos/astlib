@@ -67,7 +67,11 @@ void CodecDescription::addUapItem(int frn, int itemId)
     auto item = getDataItemById(itemId);
     poco_assert(item);
     _uapItems[frn] = item;
+}
 
+const CodecDescription::UapItems& CodecDescription::enumerateUapItems() const
+{
+    return _uapItems;
 }
 
 } /* namespace astlib */

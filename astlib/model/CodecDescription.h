@@ -26,6 +26,11 @@
 namespace astlib
 {
 
+/**
+ * Contains complete description for one concrete asterix category version.
+ * Description has table with all data items plus User Asterix Profile table.
+ * With iterations over this items we can interpret all decode/encode rules.
+ */
 class CodecDescription
 {
 public:
@@ -46,6 +51,7 @@ public:
     ItemDescriptionPtr getDataItemById(int id);
 
     void addUapItem(int frn, int itemId);
+    const UapItems& enumerateUapItems() const;
 
 private:
     CategoryDescription _categoryDescription;
