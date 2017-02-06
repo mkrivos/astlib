@@ -12,6 +12,8 @@
 
 #pragma once
 
+#include "model/CodecDescription.h"
+
 namespace astlib
 {
 

@@ -133,6 +133,7 @@ void CodecDeclarationLoaderEra::loadItems(CodecDescription& codecDescription, co
 
 ItemDescriptionPtr CodecDeclarationLoaderEra::loadItem(const Element& root)
 {
-
+    return nullptr;
 }
+
 } /* namespace codecDescription */

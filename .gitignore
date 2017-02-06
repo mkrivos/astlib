@@ -37,3 +37,16 @@ cmake_install.cmake
 *.exe
 *.out
 *.app
+/.vs/astlib/v14
+/Debug
+/loader.dir/Debug
+/x64/Debug/ZERO_CHECK
+/ZERO_CHECK.vcxproj.filters
+/ZERO_CHECK.vcxproj
+/loader.vcxproj.filters
+/loader.vcxproj
+/astlib.VC.VC.opendb
+/astlib.VC.db
+/astlib.sln
+/ALL_BUILD.vcxproj.filters
+/ALL_BUILD.vcxproj

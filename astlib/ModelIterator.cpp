@@ -15,7 +15,7 @@
 namespace astlib
 {
 
-ModelIterator::ModelIterator()
+ModelIterator::ModelIterator(const CodecDescription& model)
 {
 }
 
