@@ -62,10 +62,16 @@ ItemDescriptionPtr CodecDescription::getDataItemById(int id)
     return _dataItems[id];
 }
 
+const CodecDescription::ItemDescriptionTable& CodecDescription::enumerateDataItems() const
+{
+    return _dataItems;
+}
+
 void CodecDescription::addUapItem(int frn, int itemId)
 {
     auto item = getDataItemById(itemId);
-    poco_assert(item);
+    // TODO: odremovat ked bude mozne
+ //   poco_assert(item);
     _uapItems[frn] = item;
 }
 

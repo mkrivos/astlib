@@ -49,6 +49,7 @@ public:
 
     void addDataItem(ItemDescriptionPtr item);
     ItemDescriptionPtr getDataItemById(int id);
+    const ItemDescriptionTable& enumerateDataItems() const;
 
     void addUapItem(int frn, int itemId);
     const UapItems& enumerateUapItems() const;

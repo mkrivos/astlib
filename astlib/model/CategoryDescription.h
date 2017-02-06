@@ -14,6 +14,9 @@
 
 #include <string>
 
+#include "astlib/GeneratedTypes.h"
+#include "astlib/AsterixVersion.h"
+
 namespace astlib
 {
 
@@ -29,18 +32,18 @@ public:
     const std::string& getDescription() const;
     void setDescription(const std::string& description);
 
-    const std::string& getEdition() const;
+    AsterixVersion getEdition() const;
     void setEdition(const std::string& edition);
 
-    const std::string& getFamily() const;
-    void setFamily(const std::string& family);
+    AsterixFamily getFamily() const;
+    void setFamily(AsterixFamily family);
 
     std::string toString() const;
 
 private:
     int _category;
-    std::string _edition;
-    std::string _family;
+    AsterixVersion _edition;
+    AsterixFamily _family;
     std::string _description;
 };
 

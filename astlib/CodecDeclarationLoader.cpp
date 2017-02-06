@@ -33,7 +33,7 @@
 #include "Poco/NumberParser.h"
 #include "Poco/NumberFormatter.h"
 
-#include <fstream>
+//#include <fstream>
 
 using namespace Poco::XML;
 
@@ -81,7 +81,7 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
     int cat = Poco::NumberParser::parse(root.getAttribute("id"));
     categoryDescription.setCategory(cat);
     categoryDescription.setEdition(root.getAttribute("ver"));
-    categoryDescription.setFamily("ast");
+    categoryDescription.setFamily(AsterixFamily::Eurocontrol);
     categoryDescription.setDescription(root.getAttribute("name"));
     codecDescription.addCategoryDescription(categoryDescription);
 
@@ -91,7 +91,7 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
         if (element)
         {
             auto name = element->nodeName();
-            std::cout << " " << name << std::endl;
+            //std::cout << " " << name << std::endl;
             if (name == "DataItem")
             {
                 ItemDescriptionPtr item = loadDataItem(*element);
@@ -125,7 +125,7 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
             auto name = element->nodeName();
             if (name == "UAPItem")
             {
-                auto bit = element->getAttribute("bit");
+                auto bit = Poco::NumberParser::parse(element->getAttribute("bit"));
                 auto idString = element->innerText();
                 int id = 0;
                 if (idString == "SP")
@@ -136,7 +136,8 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
                     id = ItemDescription::FX;
                 else
                     id = Poco::NumberParser::parse(idString);
-                std::cout << " " << name << " " << bit << " " << id << std::endl;
+                //std::cout << " " << name << " " << bit << " " << id << std::endl;
+                codecDescription.addUapItem(bit, id);
             }
         }
     }
@@ -159,7 +160,7 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
 
     ItemFormat format = ItemFormat(formatElement->nodeName());
 
-    std::cout << "    " << id << " " << format.toString() << " " << description << std::endl;
+    //std::cout << "    " << id << " " << format.toString() << " " << description << std::endl;
 
     switch(format.toValue())
     {
@@ -271,13 +272,13 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
                         int value = Poco::NumberParser::parse(node->getAttribute("val"));
                         std::string key = node->innerText();
                         bits.addEnumeration(key, value);
-                        std::cout << "     enum " << key << " = " << value << std::endl;
+                        //std::cout << "     enum " << key << " = " << value << std::endl;
                     }
                 }
             }
 
             bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
-            std::cout << "      " << bits.toString() << std::endl;
+            //std::cout << "      " << bits.toString() << std::endl;
             bitsArray.push_back(bits);
         }
     }

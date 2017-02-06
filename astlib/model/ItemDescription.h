@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "GeneratedTypes.h"
+#include "astlib/GeneratedTypes.h"
 #include "BitsDescription.h"
 
 #include <string>

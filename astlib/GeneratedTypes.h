@@ -13,7 +13,7 @@
 #ifndef _GeneratedTypes_H_
 #define _GeneratedTypes_H_
 
-#include "../rsys/Enumerator.h"
+#include "rsys/Enumerator.h"
 #include <string>
 #include <iosfwd>
 #include <iomanip>

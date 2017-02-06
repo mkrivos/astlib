@@ -43,29 +43,29 @@ void CategoryDescription::setDescription(const std::string& description)
     _description = description;
 }
 
-const std::string& CategoryDescription::getEdition() const
+AsterixVersion CategoryDescription::getEdition() const
 {
     return _edition;
 }
 
 void CategoryDescription::setEdition(const std::string& edition)
 {
-    _edition = edition;
+    _edition = AsterixVersion(edition);
 }
 
-const std::string& CategoryDescription::getFamily() const
+AsterixFamily CategoryDescription::getFamily() const
 {
     return _family;
 }
 
-void CategoryDescription::setFamily(const std::string& family)
+void CategoryDescription::setFamily(AsterixFamily family)
 {
     _family = family;
 }
 
 std::string CategoryDescription::toString() const
 {
-    return getFamily() + "-" + std::to_string(getCategory()) + "-" + getEdition();
+    return getFamily().toString() + "-" + std::to_string(getCategory()) + "-" + getEdition().toString();
 }
 
 } /* namespace astlib */
