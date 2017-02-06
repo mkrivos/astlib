@@ -50,3 +50,5 @@ cmake_install.cmake
 /astlib.sln
 /ALL_BUILD.vcxproj.filters
 /ALL_BUILD.vcxproj
+/CTestTestfile.cmake
+/testunit
