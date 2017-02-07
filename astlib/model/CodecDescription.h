@@ -34,9 +34,21 @@ namespace astlib
 class CodecDescription
 {
 public:
+    struct UapItem
+    {
+        UapItem() {}
+        UapItem(ItemDescriptionPtr item, bool mandatory) :
+            item(item),
+            mandatory(mandatory)
+        {
+        }
+
+        ItemDescriptionPtr item;
+        bool mandatory = false;
+    };
     using Parameters = std::unordered_map<std::string, Poco::Dynamic::Var>;
     using ItemDescriptionTable = std::unordered_map<int, ItemDescriptionPtr>;
-    using UapItems = std::map<int, ItemDescriptionPtr>;
+    using UapItems = std::map<int, UapItem>;
 
     CodecDescription();
     ~CodecDescription();
@@ -51,7 +63,7 @@ public:
     ItemDescriptionPtr getDataItemById(int id);
     const ItemDescriptionTable& enumerateDataItems() const;
 
-    void addUapItem(int frn, int itemId);
+    void addUapItem(int frn, int itemId, bool mandatory);
     const UapItems& enumerateUapItems() const;
 
 private:

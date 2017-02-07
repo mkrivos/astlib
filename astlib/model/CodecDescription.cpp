@@ -67,12 +67,12 @@ const CodecDescription::ItemDescriptionTable& CodecDescription::enumerateDataIte
     return _dataItems;
 }
 
-void CodecDescription::addUapItem(int frn, int itemId)
+void CodecDescription::addUapItem(int frn, int itemId, bool mandatory)
 {
     auto item = getDataItemById(itemId);
     // TODO: odremovat ked bude mozne
  //   poco_assert(item);
-    _uapItems[frn] = item;
+    _uapItems[frn] = UapItem{ item, mandatory };
 }
 
 const CodecDescription::UapItems& CodecDescription::enumerateUapItems() const

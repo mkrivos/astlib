@@ -26,6 +26,8 @@ public:
     FixedItemDescription(int id, const std::string& description, const Fixed& fixed);
     virtual ~FixedItemDescription();
 
+    const Fixed& getFixed() const { return _fixed; }
+
 private:
     virtual ItemFormat getType() const { return ItemFormat::Fixed; }
 

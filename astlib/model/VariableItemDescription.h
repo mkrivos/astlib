@@ -24,6 +24,8 @@ public:
     VariableItemDescription(int id, const std::string& description, const FixedVector& fixeds);
     virtual ~VariableItemDescription();
 
+    const FixedVector& getFixedVector() const { return _fixedArray; }
+
 private:
     virtual ItemFormat getType() const { return ItemFormat::Variable; }
 

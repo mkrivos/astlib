@@ -25,6 +25,8 @@ public:
     RepetitiveItemDescription(int id, const std::string& description, const FixedVector& fixeds);
     virtual ~RepetitiveItemDescription();
 
+    const FixedVector& getFixedVector() const { return _fixedArray; }
+
 private:
     virtual ItemFormat getType() const { return ItemFormat::Repetitive; }
 

@@ -137,7 +137,8 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
                 else
                     id = Poco::NumberParser::parse(idString);
                 //std::cout << " " << name << " " << bit << " " << id << std::endl;
-                codecDescription.addUapItem(bit, id);
+                // TODO: parsovanie mandatory flagu
+                codecDescription.addUapItem(bit, id, false);
             }
         }
     }
