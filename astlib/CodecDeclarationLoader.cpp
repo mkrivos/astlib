@@ -15,6 +15,7 @@
 #include "model/CategoryDescription.h"
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
+#include "model/CompoundItemDescription.h"
 #include "Exception.h"
 
 #include "Poco/XML/XMLStreamParser.h"
@@ -158,33 +159,10 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
     auto description = element.getChildElement("DataItemName")->innerText();
     Element* formatElement = dynamic_cast<Element*>(element.getChildElement("DataItemFormat")->firstChild());
     poco_assert(formatElement);
-
-    ItemFormat format = ItemFormat(formatElement->nodeName());
-
+    
     //std::cout << "    " << id << " " << format.toString() << " " << description << std::endl;
 
-    switch(format.toValue())
-    {
-        case ItemFormat::Fixed:
-            return loadFixedDeclaration(id, description, *formatElement);
-
-        case ItemFormat::Variable:
-            return loadVariableDeclaration(id, description, *formatElement);
-
-        case ItemFormat::Repetitive:
-            return loadRepetitiveDeclaration(id, description, *formatElement);
-
-        case ItemFormat::Compound:
-            return loadCompoundDeclaration(id, description, *formatElement);
-
-        case ItemFormat::Explicit:
-            return loadExplicitDeclaration(id, description, *formatElement);
-
-        default:
-            throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
-    }
-
-    return nullptr;
+    return loadFormatElement(id, description, *formatElement);
 }
 
 ItemDescriptionPtr CodecDeclarationLoader::loadFixedDeclaration(int id, const std::string& description, const Element& element)
@@ -230,9 +208,20 @@ ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(int id, con
     return std::make_shared<RepetitiveItemDescription>(id, description, fixeds);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(int id, const std::string& description, const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(int id, const std::string& description, const Element& parent)
 {
-    return nullptr;
+    ItemDescriptionVector items;
+    for (auto node = parent.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element)
+        {
+            ItemDescriptionPtr item = loadFormatElement(id, description, *element);
+            if (item)
+                items.push_back(item);
+        }
+    }
+    return std::make_shared<CompoundItemDescription>(id, description, items);
 }
 
 ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(int id, const std::string& description, const Element& element)
@@ -285,6 +274,32 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
     }
 
     return bitsArray;
+}
+
+ItemDescriptionPtr CodecDeclarationLoader::loadFormatElement(int id, const std::string& description, const Element& formatElement)
+{
+    ItemFormat format = ItemFormat(formatElement.nodeName());
+
+    switch (format.toValue())
+    {
+        case ItemFormat::Fixed:
+            return loadFixedDeclaration(id, description, formatElement);
+
+        case ItemFormat::Variable:
+            return loadVariableDeclaration(id, description, formatElement);
+
+        case ItemFormat::Repetitive:
+            return loadRepetitiveDeclaration(id, description, formatElement);
+
+        case ItemFormat::Compound:
+            return loadCompoundDeclaration(id, description, formatElement);
+
+        case ItemFormat::Explicit:
+            return loadExplicitDeclaration(id, description, formatElement);
+
+        default:
+            throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
+    }
 }
 
 } /* namespace codecDescription */

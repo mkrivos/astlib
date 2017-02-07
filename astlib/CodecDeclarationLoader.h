@@ -49,6 +49,7 @@ private:
     ItemDescriptionPtr loadExplicitDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
     BitsDescriptionArray loadBitsDeclaration(const Poco::XML::Element& element);
     Fixed loadFixed(const Poco::XML::Element& element);
+    ItemDescriptionPtr loadFormatElement(int id, const std::string& description, const Poco::XML::Element& element);
 };
 
 } /* namespace astlib */
