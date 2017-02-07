@@ -14,6 +14,7 @@
 #include "model/FixedItemDescription.h"
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
+#include "model/CompoundItemDescription.h"
 
 #include "Exception.h"
 #include <Poco/ByteOrder.h>
@@ -162,48 +163,60 @@ int BinaryDataDekoder::decodeSubRecord(const CodecDescription& codec, ValueDecod
                 {
                     case ItemFormat::Fixed:
                     {
-                        const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(uapItem);
-                        const Fixed& fixed = fixedItem.getFixed();
-                        decodeFixedItem(fixed, localPtr, valueDecoder);
-                        decodedByteCount += fixed.length;
+                        decodedByteCount += decodeFixed(uapItem, valueDecoder, localPtr);
                     }
                     break;
 
                     case ItemFormat::Variable:
                     {
-                        const VariableItemDescription& varItem = static_cast<const VariableItemDescription&>(uapItem);
-                        const FixedVector& fixedVector = varItem.getFixedVector();
-                        auto ptr = localPtr;
-                        for(const Fixed& fixed: fixedVector)
-                        {
-                            decodeFixedItem(fixed, ptr, valueDecoder);
-                            decodedByteCount += fixed.length;
-                            if ((ptr[0] & FX_BIT) == 0)
-                                break;
-                            ptr += fixed.length;
-                        }
+                        decodedByteCount += decodeVariable(uapItem, valueDecoder, localPtr);
                     }
                     break;
 
                     case ItemFormat::Repetitive:
                     {
-                        const RepetitiveItemDescription& varItem = static_cast<const RepetitiveItemDescription&>(uapItem);
-                        const FixedVector& fixedVector = varItem.getFixedVector();
-                        int counter = *localPtr;
-                        decodedByteCount += 1;
-                        auto ptr = localPtr+1;
+                        decodedByteCount += decodeRepetitive(uapItem, valueDecoder, localPtr);
+                    }
+                    break;
 
-                        for(int j = 0; j < counter; j++)
+                    case ItemFormat::Compound:
+                    {
+                        const CompoundItemDescription& compoundItem = static_cast<const CompoundItemDescription&>(uapItem);
+                        const ItemDescriptionVector& items = compoundItem.getItemsVector();
+                        Byte fspec = localPtr[0];
+
+                        for(auto item: items)
                         {
-                            for(const Fixed& fixed: fixedVector)
+                            //valueDecoder.item(uapItem);
+
+                            switch(item->getType().toValue())
                             {
-                                decodeFixedItem(fixed, ptr, valueDecoder);
-                                decodedByteCount += fixed.length;
-                                ptr += fixed.length;
+                                case ItemFormat::Fixed:
+                                {
+                                    decodedByteCount += decodeFixed(uapItem, valueDecoder, localPtr);
+                                }
+                                break;
+
+                                case ItemFormat::Variable:
+                                {
+                                    decodedByteCount += decodeVariable(uapItem, valueDecoder, localPtr);
+                                }
+                                break;
+
+                                case ItemFormat::Repetitive:
+                                {
+                                    decodedByteCount += decodeRepetitive(uapItem, valueDecoder, localPtr);
+                                }
+                                break;
+
+                                default:
+                                    throw Exception("Unhandled Subitem type: " + item->getType().toString());
                             }
+                            localPtr += decodedByteCount;
                         }
                     }
                     break;
+
                 }
             }
             else if (mandatory)
@@ -220,6 +233,55 @@ int BinaryDataDekoder::decodeSubRecord(const CodecDescription& codec, ValueDecod
     valueDecoder.end();
 
     return localPtr-startPtr;
+}
+
+int BinaryDataDekoder::decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+{
+    const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(uapItem);
+    const Fixed& fixed = fixedItem.getFixed();
+    decodeFixedItem(fixed, data, valueDecoder);
+    return fixed.length;
+}
+
+int BinaryDataDekoder::decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+{
+    const VariableItemDescription& varItem = static_cast<const VariableItemDescription&>(uapItem);
+    const FixedVector& fixedVector = varItem.getFixedVector();
+    auto ptr = data;
+    int decodedByteCount = 0;
+
+    for(const Fixed& fixed: fixedVector)
+    {
+        decodeFixedItem(fixed, ptr, valueDecoder);
+        decodedByteCount += fixed.length;
+        if ((ptr[0] & FX_BIT) == 0)
+            break;
+        ptr += fixed.length;
+    }
+
+    return decodedByteCount;
+}
+
+int BinaryDataDekoder::decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+{
+    const RepetitiveItemDescription& varItem = static_cast<const RepetitiveItemDescription&>(uapItem);
+    const FixedVector& fixedVector = varItem.getFixedVector();
+    int decodedByteCount = 0;
+    int counter = *data;
+    decodedByteCount += 1;
+    auto ptr = data+1;
+
+    for(int j = 0; j < counter; j++)
+    {
+        for(const Fixed& fixed: fixedVector)
+        {
+            decodeFixedItem(fixed, ptr, valueDecoder);
+            decodedByteCount += fixed.length;
+            ptr += fixed.length;
+        }
+    }
+
+    return decodedByteCount;
 }
 
 } /* namespace astlib */

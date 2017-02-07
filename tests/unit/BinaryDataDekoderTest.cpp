@@ -91,15 +91,16 @@ TEST_F( BinaryDataDekoderTest, decodeCat48MultiRecord)
 
 TEST_F( BinaryDataDekoderTest, decodeCat48)
 {
-    unsigned char bytes[32] = {
+    unsigned char bytes[33+16] = {
         48, // CAT
-        0, 2+2+1+2+3+1+4+17, // size
-        0xF1, 0x20, // FSPEC
+        0, 1+2+3+2+3+1+4+17+16, // size
+        0xF1, 0x21, 0x04, // FSPEC
         5, 6,  // sac sic
         0, 0, 200, // time of day
         0xfe, // Target Report Descriptor
         0, 10, 0, 20, // polar coords
         2, 4,4,4,4,4,4,4,4,  5,5,5,5,5,5,5,5,  // item 250 Mode S Comm B data
+        0xC0, 0xff,0xFF, 2, 0,1,0,2,0,3, 0,1,0,2,0,3, // 120 - radial dopler speed
     };
     dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
 }
