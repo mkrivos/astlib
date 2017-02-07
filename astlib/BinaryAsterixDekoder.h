@@ -46,7 +46,8 @@ private:
     int decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
-    void decodeFixedItem(const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder);
+    int decodeCompound(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
+    void decodeFixedItem(const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
 };
 
 } /* namespace astlib */

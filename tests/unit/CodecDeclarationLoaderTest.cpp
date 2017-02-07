@@ -54,3 +54,24 @@ TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
     const CodecDescription::ItemDescriptionTable& dataItems = codecSpecification->enumerateDataItems();
     EXPECT_EQ(32, dataItems.size());
 }
+
+TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
+{
+    CodecDeclarationLoader loader;
+    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat062_1_7.xml");
+    ASSERT_TRUE(codecSpecification.get());
+
+    // Header
+    const CategoryDescription& catDesc = codecSpecification->getCategoryDescription();
+    EXPECT_EQ(48, catDesc.getCategory());
+    EXPECT_EQ(AsterixVersion(1,17), catDesc.getEdition());
+    EXPECT_EQ(AsterixFamily(AsterixFamily::Eurocontrol), catDesc.getFamily());
+
+    // Uap
+    const CodecDescription::UapItems& uap = codecSpecification->enumerateUapItems();
+    EXPECT_EQ(32, uap.size());
+
+    // Data items
+    const CodecDescription::ItemDescriptionTable& dataItems = codecSpecification->enumerateDataItems();
+    EXPECT_EQ(32, dataItems.size());
+}

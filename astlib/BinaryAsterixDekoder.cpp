@@ -163,60 +163,20 @@ int BinaryAsterixDekoder::decodeSubRecord(const CodecDescription& codec, ValueDe
                 switch(uapItem.getType().toValue())
                 {
                     case ItemFormat::Fixed:
-                    {
                         decodedByteCount += decodeFixed(uapItem, valueDecoder, localPtr);
-                    }
-                    break;
+                        break;
 
                     case ItemFormat::Variable:
-                    {
                         decodedByteCount += decodeVariable(uapItem, valueDecoder, localPtr);
-                    }
-                    break;
+                        break;
 
                     case ItemFormat::Repetitive:
-                    {
                         decodedByteCount += decodeRepetitive(uapItem, valueDecoder, localPtr);
-                    }
-                    break;
+                        break;
 
                     case ItemFormat::Compound:
-                    {
-                        const CompoundItemDescription& compoundItem = static_cast<const CompoundItemDescription&>(uapItem);
-                        const ItemDescriptionVector& items = compoundItem.getItemsVector();
-                        Byte fspec = localPtr[0];
-
-                        for(auto item: items)
-                        {
-                            //valueDecoder.item(uapItem);
-
-                            switch(item->getType().toValue())
-                            {
-                                case ItemFormat::Fixed:
-                                {
-                                    decodedByteCount += decodeFixed(uapItem, valueDecoder, localPtr);
-                                }
-                                break;
-
-                                case ItemFormat::Variable:
-                                {
-                                    decodedByteCount += decodeVariable(uapItem, valueDecoder, localPtr);
-                                }
-                                break;
-
-                                case ItemFormat::Repetitive:
-                                {
-                                    decodedByteCount += decodeRepetitive(uapItem, valueDecoder, localPtr);
-                                }
-                                break;
-
-                                default:
-                                    throw Exception("Unhandled Subitem type: " + item->getType().toString());
-                            }
-                            localPtr += decodedByteCount;
-                        }
-                    }
-                    break;
+                        decodedByteCount += decodeCompound(uapItem, valueDecoder, localPtr);
+                        break;
 
                 }
             }
@@ -267,9 +227,8 @@ int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, Value
 {
     const RepetitiveItemDescription& varItem = static_cast<const RepetitiveItemDescription&>(uapItem);
     const FixedVector& fixedVector = varItem.getFixedVector();
-    int decodedByteCount = 0;
+    int decodedByteCount = 1;
     int counter = *data;
-    decodedByteCount += 1;
     auto ptr = data+1;
 
     for(int j = 0; j < counter; j++)
@@ -283,6 +242,71 @@ int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, Value
     }
 
     return decodedByteCount;
+}
+
+int BinaryAsterixDekoder::decodeCompound(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+{
+    const CompoundItemDescription& compoundItem = static_cast<const CompoundItemDescription&>(uapItem);
+    const ItemDescriptionVector& items = compoundItem.getItemsVector();
+    int allByteCount = 0;
+    auto itemCount = items.size();
+    ItemDescriptionVector usedItems;
+    int itemIndex = 1; // zero index is for Variable item itself
+
+    poco_assert(itemCount);
+    poco_assert(items[0]->getType() == ItemFormat::Variable);
+
+    for(;;)
+    {
+        Byte fspec = data[0];
+        int mask = 0x80;
+        for(int j = 0; j < 7; j++)
+        {
+            if (fspec & mask)
+            {
+                poco_assert(items[itemIndex]);
+                usedItems.push_back(items[itemIndex]);
+            }
+            mask >>= 1;
+            itemIndex++;
+        }
+
+        data++;
+        allByteCount++;
+
+        if ((fspec & FX_BIT) == 0)
+            break;
+    }
+
+    auto usedItemsCount = usedItems.size();
+    for(int i = 0; i < usedItemsCount; i++)
+    {
+        const ItemDescription& uapItem = *usedItems[i];
+        int decodedByteCount = 0;
+        //valueDecoder.item(uapItem);
+
+        switch(uapItem.getType().toValue())
+        {
+            case ItemFormat::Fixed:
+                decodedByteCount = decodeFixed(uapItem, valueDecoder, data);
+                break;
+
+            case ItemFormat::Variable:
+                decodedByteCount = decodeVariable(uapItem, valueDecoder, data);
+                break;
+
+            case ItemFormat::Repetitive:
+                decodedByteCount = decodeRepetitive(uapItem, valueDecoder, data);
+                break;
+
+            default:
+                throw Exception("Unhandled SubItem type: " + uapItem.getType().toString());
+        }
+        data += decodedByteCount;
+        allByteCount += decodedByteCount;
+    }
+
+    return allByteCount;
 }
 
 } /* namespace astlib */

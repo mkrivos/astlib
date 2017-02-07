@@ -43,7 +43,7 @@ public:
         }
         virtual void item(const ItemDescription& uapItem)
         {
-            std::cout << uapItem.getDescription() << std::endl;
+            std::cout << uapItem.getId() << " - " << uapItem.getDescription() << std::endl;
         }
         virtual void decode(Poco::UInt64 value, const BitsDescription& bits)
         {
@@ -92,14 +92,18 @@ TEST_F( BinaryDataDekoderTest, decodeCat48MultiRecord)
 
 TEST_F( BinaryDataDekoderTest, decodeCat48)
 {
-    unsigned char bytes[33+16] = {
+    unsigned char bytes[33+16+2+2+8+3] = {
         48, // CAT
-        0, 1+2+3+2+3+1+4+17+16, // size
-        0xF1, 0x21, 0x04, // FSPEC
-        5, 6,  // sac sic
-        0, 0, 200, // time of day
-        0xfe, // Target Report Descriptor
-        0, 10, 0, 20, // polar coords
+        0, 1+2+3+2+3+1+4+2+2+3+17+16, // size
+        0xFF, 0xA1, 0x04, // FSPEC
+        5, 6,  // 10 - sac sic
+        0, 0, 200, // 140 - time of day
+        0xfe, // 20 - Target Report Descriptor
+        0, 10, 0, 20, // 40 - polar coords
+        0xff, 0xff, // 70 - mode 3A
+        0xff, 0xff, // 90 - mode C
+        0xFE, 0x88, 0x44,0x88, 0x44, 0x88, 0x44, 0x88, // 130 - plot characteristics
+        0xFF, 0xFF, 0xFF, // 220 - aircraft address
         2, 4,4,4,4,4,4,4,4,  5,5,5,5,5,5,5,5,  // item 250 Mode S Comm B data
         0xC0, 0xff,0xFF, 2, 0,1,0,2,0,3, 0,1,0,2,0,3, // 120 - radial dopler speed
     };
