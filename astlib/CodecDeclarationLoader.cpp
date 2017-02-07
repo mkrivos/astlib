@@ -127,6 +127,7 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
             if (name == "UAPItem")
             {
                 auto bit = Poco::NumberParser::parse(element->getAttribute("bit"));
+                bool mandatory = (element->getAttribute("presence") == "M");
                 auto idString = element->innerText();
                 int id = 0;
                 if (idString == "SP")
@@ -137,9 +138,8 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
                     id = ItemDescription::FX;
                 else
                     id = Poco::NumberParser::parse(idString);
-                //std::cout << " " << name << " " << bit << " " << id << std::endl;
-                // TODO: parsovanie mandatory flagu
-                codecDescription.addUapItem(bit, id, false);
+
+                codecDescription.addUapItem(bit, id, mandatory);
             }
         }
     }

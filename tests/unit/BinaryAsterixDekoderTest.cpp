@@ -10,8 +10,9 @@
 /// All rights reserved.
 ///
 
+#include "../../astlib/BinaryAsterixDekoder.h"
+
 #include "astlib/CodecDeclarationLoader.h"
-#include "astlib/BinaryDataDekoder.h"
 #include "astlib/Exception.h"
 
 #include <Poco/NumberFormatter.h>
@@ -56,7 +57,7 @@ public:
 
 
     CodecDescriptionPtr codecSpecification;
-    BinaryDataDekoder dekoder;
+    BinaryAsterixDekoder dekoder;
 };
 
 TEST_F( BinaryDataDekoderTest, badDecode)

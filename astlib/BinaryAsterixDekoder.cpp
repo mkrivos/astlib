@@ -10,7 +10,8 @@
 /// All rights reserved.
 ///
 
-#include "BinaryDataDekoder.h"
+#include "BinaryAsterixDekoder.h"
+
 #include "model/FixedItemDescription.h"
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
@@ -22,15 +23,15 @@
 namespace astlib
 {
 
-BinaryDataDekoder::BinaryDataDekoder()
+BinaryAsterixDekoder::BinaryAsterixDekoder()
 {
 }
 
-BinaryDataDekoder::~BinaryDataDekoder()
+BinaryAsterixDekoder::~BinaryAsterixDekoder()
 {
 }
 
-void BinaryDataDekoder::decode(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[], size_t bytes)
+void BinaryAsterixDekoder::decode(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[], size_t bytes)
 {
     if (bytes < 6)
     {
@@ -79,7 +80,7 @@ void BinaryDataDekoder::decode(const CodecDescription& codec, ValueDecoder& valu
     }
 }
 
-void BinaryDataDekoder::decodeFixedItem(const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder)
+void BinaryAsterixDekoder::decodeFixedItem(const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder)
 {
     const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
     Poco::UInt64 data = 0;
@@ -109,7 +110,7 @@ void BinaryDataDekoder::decodeFixedItem(const Fixed& fixed, const Byte* localPtr
     }
 }
 
-int BinaryDataDekoder::decodeSubRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte fspecPtr[])
+int BinaryAsterixDekoder::decodeSubRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte fspecPtr[])
 {
     const Byte* startPtr = fspecPtr;
     size_t fspecLen = ByteUtils::calculateFspec(fspecPtr);
@@ -235,7 +236,7 @@ int BinaryDataDekoder::decodeSubRecord(const CodecDescription& codec, ValueDecod
     return localPtr-startPtr;
 }
 
-int BinaryDataDekoder::decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+int BinaryAsterixDekoder::decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
 {
     const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(uapItem);
     const Fixed& fixed = fixedItem.getFixed();
@@ -243,7 +244,7 @@ int BinaryDataDekoder::decodeFixed(const ItemDescription& uapItem, ValueDecoder&
     return fixed.length;
 }
 
-int BinaryDataDekoder::decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+int BinaryAsterixDekoder::decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
 {
     const VariableItemDescription& varItem = static_cast<const VariableItemDescription&>(uapItem);
     const FixedVector& fixedVector = varItem.getFixedVector();
@@ -262,7 +263,7 @@ int BinaryDataDekoder::decodeVariable(const ItemDescription& uapItem, ValueDecod
     return decodedByteCount;
 }
 
-int BinaryDataDekoder::decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
 {
     const RepetitiveItemDescription& varItem = static_cast<const RepetitiveItemDescription&>(uapItem);
     const FixedVector& fixedVector = varItem.getFixedVector();

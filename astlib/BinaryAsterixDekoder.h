@@ -13,21 +13,31 @@
 #pragma once
 
 #include "model/CodecDescription.h"
-#include "model/ValueDecoder.h"
 #include "model/Fixed.h"
 #include "ByteUtils.h"
+#include "ValueDecoder.h"
 
 namespace astlib
 {
 
-class BinaryDataDekoder
+/**
+ * Implements asterix binary data dekoder by interpreting CodecDescription and pushing decoded item to user ValueDecoder implementation.
+ */
+class BinaryAsterixDekoder
 {
 public:
     static constexpr size_t MAX_PACKET_SIZE = 8192;
 
-    BinaryDataDekoder();
-    virtual ~BinaryDataDekoder();
+    BinaryAsterixDekoder();
+    virtual ~BinaryAsterixDekoder();
 
+    /**
+     * Decodes binary asterix data from buffer with size.
+     * @param codec formal description of concrete asterix category
+     * @param valueDecoder callback object for pushing decoded items to user code
+     * @param buf asterix data buffer, first byte is byte containing category number
+     * @param bytes the effective size of buffer data
+     */
     void decode(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[], size_t bytes);
 
 private:
