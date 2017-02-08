@@ -14,6 +14,7 @@
 #include "ByteUtils.h"
 
 #include <Poco/NumberFormatter.h>
+#include <iostream>
 
 namespace astlib
 {
@@ -21,6 +22,9 @@ namespace astlib
 void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
 {
     const std::string& id = bits.name;
+
+    if (id == "X")
+        std::cout << std::endl;
 
     if (bits.bit != -1)
     {
@@ -32,17 +36,34 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
 
         if (bits.scale != 1.0)
         {
-            if (encoding == Encoding::Signed)
-                decodeReal(id, value / bits.scale);
+            double unit = 1.0;
+            switch(bits.units.toValue())
+            {
+                case Units::FT:
+                    unit = 0.3048;
+                    break;
+                case Units::NM:
+                    unit = 1852.0;
+                    break;
+                case Units::FL:
+                    unit = 0.3048 * 100.0;
+                    break;
+            };
+            if (encoding == Encoding::Unsigned)
+            {
+                decodeReal(id, value * bits.scale * unit);
+            }
             else
-                decodeReal(id, ByteUtils::toSigned(value, (bits.from-bits.to+1)) / bits.scale);
+            {
+                decodeReal(id, ByteUtils::toSigned(value, bits.effectiveBitsWidth()) * bits.scale * unit);
+            }
         }
         else
         {
             switch (encoding)
             {
                 case Encoding::Signed:
-                    decodeSigned(id, ByteUtils::toSigned(value, (bits.from-bits.to+1)));
+                    decodeSigned(id, ByteUtils::toSigned(value, bits.effectiveBitsWidth()));
                     break;
                 case Encoding::Unsigned:
                     decodeUnsigned(id, value);
@@ -51,10 +72,10 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
                     decodeString(id, "");
                     break;
                 case Encoding::Octal:
-                    decodeString(id, "");
+                    decodeUnsigned(id, ByteUtils::oct2dec(value));
                     break;
                 case Encoding::SixBitsChar:
-                    decodeString(id, "");
+                    decodeString(id, ByteUtils::fromSixBitString((const Byte*)&value));
                     break;
                 case Encoding::Hex:
                     decodeString(id, Poco::NumberFormatter::formatHex(value));

@@ -2,7 +2,7 @@ project (astlib)
 cmake_minimum_required(VERSION 3.3)
 
 include_directories(.)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -Wall ")
 
 find_package(Poco 1.7.0 REQUIRED COMPONENTS Foundation CONFIG PATHS "/opt/rsys/platform")
 

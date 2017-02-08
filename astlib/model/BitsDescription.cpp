@@ -32,4 +32,9 @@ std::string BitsDescription::toString() const
     }
 }
 
+int BitsDescription::effectiveBitsWidth() const
+{
+    return from-to+1;
+}
+
 } /* namespace astlib */

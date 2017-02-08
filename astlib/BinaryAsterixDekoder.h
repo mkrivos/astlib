@@ -26,7 +26,7 @@ namespace astlib
 class BinaryAsterixDekoder
 {
 public:
-    static constexpr size_t MAX_PACKET_SIZE = 8192;
+    static constexpr int MAX_PACKET_SIZE = 8192;
 
     BinaryAsterixDekoder();
     virtual ~BinaryAsterixDekoder();
@@ -47,7 +47,8 @@ private:
     int decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeCompound(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
-    void decodeFixedItem(const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
+
+    void decodeBitset(const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
 };
 
 } /* namespace astlib */

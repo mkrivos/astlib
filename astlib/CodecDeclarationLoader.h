@@ -28,7 +28,7 @@ namespace astlib
 class CodecDeclarationLoader
 {
 public:
-    CodecDeclarationLoader();
+    CodecDeclarationLoader(bool verbose = false);
     ~CodecDeclarationLoader();
 
     /**

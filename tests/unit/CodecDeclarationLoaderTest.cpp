@@ -36,7 +36,7 @@ public:
 
 TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 {
-    CodecDeclarationLoader loader;
+    CodecDeclarationLoader loader(true);
     CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat048_1_14.xml");
     ASSERT_TRUE(codecSpecification.get());
 

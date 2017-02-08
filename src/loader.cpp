@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 {
     try
     {
-        CodecDeclarationLoader loader;
+        CodecDeclarationLoader loader(true);
         CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat048_1_14.xml");
 
         CodecDeclarationLoaderEra loader2;

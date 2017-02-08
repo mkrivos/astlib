@@ -1,6 +1,7 @@
-Dencoding
+Decoding
 --------------------------------------
 - Explicit data item
+- Endian to formal description of codec
 
 Encoding
 --------------------------------------

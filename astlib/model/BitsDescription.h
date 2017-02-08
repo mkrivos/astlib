@@ -32,11 +32,13 @@ public:
     bool fx = false;
     bool repeat = false; // ???
     double scale = 1.0;
-    double min = 0x80000000;
-    double max = 0x7fffffff;
+    double min = std::numeric_limits<double>::min();
+    double max = std::numeric_limits<double>::max();
     Units units = Units::None;
 
     void addEnumeration(const std::string& key, int value);
+
+    int effectiveBitsWidth() const;
 
     std::string toString() const;
 };

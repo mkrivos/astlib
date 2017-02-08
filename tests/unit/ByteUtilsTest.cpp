@@ -23,3 +23,15 @@ TEST(ByteUtilsTest, toSigned)
     EXPECT_EQ(-32768, ByteUtils::toSigned(32768, 16));
     EXPECT_EQ( 32767, ByteUtils::toSigned(32767, 16));
 }
+
+TEST(ByteUtilsTest, decToOctal)
+{
+    unsigned value = 7777;
+    EXPECT_EQ(07777, ByteUtils::dec2oct(value));
+}
+
+TEST(ByteUtilsTest, octalToDec)
+{
+    unsigned value = 07777;
+    EXPECT_EQ(7777, ByteUtils::oct2dec(value));
+}

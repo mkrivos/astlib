@@ -31,6 +31,13 @@ public:
     static size_t calculateFspec(const Byte fspecPtr[]);
 
     static Poco::Int64 toSigned(Poco::UInt64, int effectiveBits);
+
+    static Poco::UInt64 oct2dec(Poco::UInt32 modeValue);
+
+    static Poco::UInt32 dec2oct(Poco::UInt64 modeValue);
+
+    static std::string fromSixBitString(const Byte buffer[]);
+
 };
 
 } /* namespace astlib */

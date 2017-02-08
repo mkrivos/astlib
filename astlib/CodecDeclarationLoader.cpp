@@ -11,13 +11,14 @@
 ///
 
 #include "CodecDeclarationLoader.h"
+#include "Exception.h"
 #include "model/CodecDescription.h"
 #include "model/CategoryDescription.h"
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
 #include "model/CompoundItemDescription.h"
-#include "Exception.h"
 
+#include <Poco/Ascii.h>
 #include "Poco/XML/XMLStreamParser.h"
 #include <Poco/XML/Content.h>
 #include "Poco/SAX/InputSource.h"
@@ -41,7 +42,8 @@ using namespace Poco::XML;
 namespace astlib
 {
 
-CodecDeclarationLoader::CodecDeclarationLoader()
+CodecDeclarationLoader::CodecDeclarationLoader(bool verbose) :
+    _verbose(verbose)
 {
 }
 
@@ -266,6 +268,8 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
             {
                 bits.from = Poco::NumberParser::parse(element->getAttribute("from"));
                 bits.to = Poco::NumberParser::parse(element->getAttribute("to"));
+                if (bits.from < bits.to)
+                    std::swap(bits.from, bits.to);
 
                 // Enumerations
                 const Element* node = dynamic_cast<const Element*>(element->getChildElement("BitsValue"));
@@ -281,29 +285,40 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
                 }
             }
 
+            if (element->hasAttribute("encode"))
+            {
+                auto str = element->getAttribute("encode");
+                str[0] = Poco::Ascii::toUpper(str[0]);
+                if (str == "6bitschar")
+                    str = "SixBitsChar";
+                bits.encoding = Encoding(str);
+            }
+
+            bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
+
             const Element* unitNode = dynamic_cast<const Element*>(element->getChildElement("BitsUnit"));
             if (unitNode)
             {
                 auto units = unitNode->innerText();
-                if (Poco::icompare(units, "M"))
+                if (Poco::icompare(units, "M") == 0)
                 {
                     bits.units = Units::M;
                 }
-                else if (Poco::icompare(units, "NM"))
+                else if (Poco::icompare(units, "NM") == 0)
                 {
                     bits.units = Units::NM;
                 }
-                else if (Poco::icompare(units, "FL"))
+                else if (Poco::icompare(units, "FL") == 0)
                 {
                     bits.units = Units::FL;
                 }
-                else if (Poco::icompare(units, "FT"))
+                else if (Poco::icompare(units, "FT") == 0)
                 {
                     bits.units = Units::FT;
                 }
                 else
                 {
-                    throw Exception("Unknown unit type in " + bits.name);
+                    //throw Exception("Unknown unit type in " + bits.name);
                 }
 
                 if (unitNode->hasAttribute("scale"))
@@ -322,8 +337,7 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
                 }
             }
 
-            bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
-            //std::cout << "      " << bits.toString() << std::endl;
+            //std::cout << "      " << bits.toString() << " enc " << bits.encoding.toString() << std::endl;
             bitsArray.push_back(bits);
         }
     }
