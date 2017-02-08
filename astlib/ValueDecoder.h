@@ -23,6 +23,7 @@ public:
 
     virtual void begin() = 0;
     virtual void item(const ItemDescription& uapItem) = 0;
+    virtual void repetitive(int) = 0;
     virtual void decode(Poco::UInt64 value, const BitsDescription& bits) = 0;
     virtual void end() = 0;
 };

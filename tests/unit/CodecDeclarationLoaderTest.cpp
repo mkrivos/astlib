@@ -48,11 +48,11 @@ TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 
     // Uap
     const CodecDescription::UapItems& uap = codecSpecification->enumerateUapItems();
-    EXPECT_EQ(32, uap.size());
+    EXPECT_EQ(28, uap.size());
 
     // Data items
     const CodecDescription::ItemDescriptionTable& dataItems = codecSpecification->enumerateDataItems();
-    EXPECT_EQ(32, dataItems.size());
+    EXPECT_EQ(28, dataItems.size());
 }
 
 TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
@@ -63,15 +63,15 @@ TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
 
     // Header
     const CategoryDescription& catDesc = codecSpecification->getCategoryDescription();
-    EXPECT_EQ(48, catDesc.getCategory());
-    EXPECT_EQ(AsterixVersion(1,17), catDesc.getEdition());
+    EXPECT_EQ(62, catDesc.getCategory());
+    EXPECT_EQ(AsterixVersion(1,7), catDesc.getEdition());
     EXPECT_EQ(AsterixFamily(AsterixFamily::Eurocontrol), catDesc.getFamily());
 
     // Uap
     const CodecDescription::UapItems& uap = codecSpecification->enumerateUapItems();
-    EXPECT_EQ(32, uap.size());
+    EXPECT_EQ(29, uap.size());
 
     // Data items
     const CodecDescription::ItemDescriptionTable& dataItems = codecSpecification->enumerateDataItems();
-    EXPECT_EQ(32, dataItems.size());
+    EXPECT_EQ(29, dataItems.size());
 }

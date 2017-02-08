@@ -4,7 +4,7 @@
 ///
 /// \author Marian Krivos <marian.krivos@rsys.sk>
 /// \date 31Jan.,2017 
-/// \brief definicia typu
+/// \brief Formal XML Description Loader (ASTERIXED format)
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -50,6 +50,8 @@ private:
     BitsDescriptionArray loadBitsDeclaration(const Poco::XML::Element& element);
     Fixed loadFixed(const Poco::XML::Element& element);
     ItemDescriptionPtr loadFormatElement(int id, const std::string& description, const Poco::XML::Element& element);
+
+    bool _verbose = true;
 };
 
 } /* namespace astlib */

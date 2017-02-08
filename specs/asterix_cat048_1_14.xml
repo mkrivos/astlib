@@ -145,16 +145,13 @@
 						<BitsValue val="9">Low quality PSR plot</BitsValue>
 						<BitsValue val="10">Phantom SSR plot</BitsValue>
 						<BitsValue val="11">Non-Matching Mode-3/A Code</BitsValue>
-						<BitsValue val="12">Mode C code/Mode S altitude code abnormal
-							value compared to the track</BitsValue>
+						<BitsValue val="12">Mode C code/Mode S altitude code abnormal value compared to the track</BitsValue>
 						<BitsValue val="13">Target in Clutter Area</BitsValue>
 						<BitsValue val="14">Maximum doppler Responsein Zero Filter</BitsValue>
 						<BitsValue val="15">Transponder anomaly detected</BitsValue>
-						<BitsValue val="16">Duplicated or Illegal Mode S Aircraft
-							Address</BitsValue>
+						<BitsValue val="16">Duplicated or Illegal Mode S Aircraft Address</BitsValue>
 						<BitsValue val="17">Mode S error correction applied</BitsValue>
-						<BitsValue val="18">Undecodable Mode C code / Mode S altitude
-							code</BitsValue>
+						<BitsValue val="18">Undecodable Mode C code / Mode S altitude code</BitsValue>
 					</Bits>
 					<Bits bit="1" fx="1">
 						<BitsShortName>FX</BitsShortName>

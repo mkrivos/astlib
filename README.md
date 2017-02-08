@@ -1,5 +1,5 @@
 # astlib
-Eurocontrol Asterix decoder framework  based on XML declarations
+Eurocontrol Asterix decoder framework based on XML declarations
 
 Project is inspired by: https://github.com/vitorafsr/asterixed
 

@@ -4,7 +4,7 @@
 ///
 /// \author Marian Krivos <marian.krivos@rsys.sk>
 /// \date 31Jan.,2017 
-/// \brief definicia typu
+/// \brief Formal XML Description Loader (ASTERIXED format)
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -86,13 +86,17 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
     categoryDescription.setDescription(root.getAttribute("name"));
     codecDescription.addCategoryDescription(categoryDescription);
 
+    if (_verbose)
+    {
+        std::cout << "Loading Description '" << categoryDescription.toString() << std::endl;
+    }
+
     for (auto node = root.firstChild(); node; node = node->nextSibling())
     {
         const Element* element = dynamic_cast<Element*>(node);
         if (element)
         {
             auto name = element->nodeName();
-            //std::cout << " " << name << std::endl;
             if (name == "DataItem")
             {
                 ItemDescriptionPtr item = loadDataItem(*element);
@@ -139,7 +143,14 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
                 else
                     id = Poco::NumberParser::parse(idString);
 
-                codecDescription.addUapItem(bit, id, mandatory);
+                if (id != ItemDescription::FX)
+                {
+                    codecDescription.addUapItem(bit, id, mandatory);
+                    if (_verbose)
+                    {
+                        std::cout << "Uap bit " << bit << " = item " << id << " mandatory " << (mandatory?"yes":"no") << std::endl;
+                    }
+                }
             }
         }
     }
@@ -160,7 +171,10 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
     Element* formatElement = dynamic_cast<Element*>(element.getChildElement("DataItemFormat")->firstChild());
     poco_assert(formatElement);
     
-    //std::cout << "    " << id << " " << format.toString() << " " << description << std::endl;
+    if (_verbose)
+    {
+        std::cout << "  " << id << " " << formatElement->nodeName() << " " << description << std::endl;
+    }
 
     return loadFormatElement(id, description, *formatElement);
 }

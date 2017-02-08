@@ -16,9 +16,10 @@
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
 #include "model/CompoundItemDescription.h"
-
 #include "Exception.h"
+
 #include <Poco/ByteOrder.h>
+#include <iostream>
 
 namespace astlib
 {
@@ -61,7 +62,7 @@ void BinaryAsterixDekoder::decode(const CodecDescription& codec, ValueDecoder& v
         if (size == 0)
             break;
 
-        int len = decodeSubRecord(codec, valueDecoder, fspecPtr);
+        int len = decodeRecord(codec, valueDecoder, fspecPtr);
 
         // Chyba, treba vyskocit inak bude nekonecna slucka
         if (len <= 0)
@@ -93,8 +94,12 @@ void BinaryAsterixDekoder::decodeFixedItem(const Fixed& fixed, const Byte* local
     {
         if (bits.bit != -1)
         {
-            Poco::UInt64 value = ((data >> (bits.bit - 1)) & 1);
-            valueDecoder.decode(value, bits);
+            // Send non FX bits only
+            if (!bits.fx)
+            {
+                Poco::UInt64 value = ((data >> (bits.bit - 1)) & 1);
+                valueDecoder.decode(value, bits);
+            }
         }
         else
         {
@@ -103,14 +108,14 @@ void BinaryAsterixDekoder::decodeFixedItem(const Fixed& fixed, const Byte* local
             if (from < to)
                 std::swap(from, to);
             
-            int mask = (1 << (from - to + 1)) - 1;
+            Poco::UInt64 mask = (1ULL << (from - to + 1)) - 1;
             Poco::UInt64 value = ((data >> (to - 1)) & mask);
             valueDecoder.decode(value, bits);
         }
     }
 }
 
-int BinaryAsterixDekoder::decodeSubRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte fspecPtr[])
+int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte fspecPtr[])
 {
     const Byte* startPtr = fspecPtr;
     size_t fspecLen = ByteUtils::calculateFspec(fspecPtr);
@@ -185,6 +190,7 @@ int BinaryAsterixDekoder::decodeSubRecord(const CodecDescription& codec, ValueDe
                 // TODO: nepritomna ale povinna polozka ...
             }
 
+            std::cout << "  item advance " << decodedByteCount << " bytes" << std::endl;
             localPtr += decodedByteCount;
             currentFspecBit++;
             fspecMask >>= 1;
@@ -211,13 +217,22 @@ int BinaryAsterixDekoder::decodeVariable(const ItemDescription& uapItem, ValueDe
     auto ptr = data;
     int decodedByteCount = 0;
 
-    for(const Fixed& fixed: fixedVector)
+    for(;;)
     {
-        decodeFixedItem(fixed, ptr, valueDecoder);
-        decodedByteCount += fixed.length;
-        if ((ptr[0] & FX_BIT) == 0)
+        Byte fspecBit;
+        for(const Fixed& fixed: fixedVector)
+        {
+            fspecBit = (ptr[0] & FX_BIT);
+            auto len = fixed.length;
+            poco_assert(len == 1);
+            decodeFixedItem(fixed, ptr, valueDecoder);
+            decodedByteCount += len;
+            ptr += len;
+            if (fspecBit == 0)
+                break;
+        }
+        if (fspecBit == 0)
             break;
-        ptr += fixed.length;
     }
 
     return decodedByteCount;
@@ -233,6 +248,7 @@ int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, Value
 
     for(int j = 0; j < counter; j++)
     {
+        valueDecoder.repetitive(j);
         for(const Fixed& fixed: fixedVector)
         {
             decodeFixedItem(fixed, ptr, valueDecoder);

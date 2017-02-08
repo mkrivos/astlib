@@ -42,7 +42,7 @@ public:
 
 private:
     // Integer sizes are used instead of unsigned types for underflow/overflow detection
-    int decodeSubRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[]);
+    int decodeRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[]);
     int decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
