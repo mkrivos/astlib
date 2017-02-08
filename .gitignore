@@ -52,3 +52,10 @@ cmake_install.cmake
 /ALL_BUILD.vcxproj
 /CTestTestfile.cmake
 /testunit
+/testunit.dir/Debug/testunit.tlog
+/testunit.dir/Debug
+/x64/Debug/ALL_BUILD
+/testunit.vcxproj.filters
+/testunit.vcxproj
+/RUN_TESTS.vcxproj.filters
+/RUN_TESTS.vcxproj

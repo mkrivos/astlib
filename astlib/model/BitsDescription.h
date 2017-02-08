@@ -14,6 +14,7 @@
 
 #include "astlib/GeneratedTypes.h"
 #include <map>
+#include <limits>
 
 namespace astlib
 {
@@ -32,8 +33,8 @@ public:
     bool fx = false;
     bool repeat = false; // ???
     double scale = 1.0;
-    double min = std::numeric_limits<double>::min();
-    double max = std::numeric_limits<double>::max();
+    double min = -100000000000;
+    double max = 100000000000;
     Units units = Units::None;
 
     void addEnumeration(const std::string& key, int value);
