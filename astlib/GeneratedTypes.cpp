@@ -4,7 +4,7 @@
 /// \brief Tento subor needitovat, bol automaticky generovany programom codegen!
 ///
 /// \author marian.krivos@r-sys.sk
-/// \date 2.2.2017
+/// \date 8.2.2017
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -173,6 +173,77 @@ bool Rule::validate() const
 }
 
 const std::vector<std::string>& Rule::enumerate() const
+{
+    return definitionList;
+}
+
+#ifndef _MSC_VER
+const Units::ValueType Units::None;
+const Units::ValueType Units::M;
+const Units::ValueType Units::FT;
+const Units::ValueType Units::NM;
+const Units::ValueType Units::FL;
+const Units::ValueType Units::DEG;
+const Units::ValueType Units::KT;
+#endif
+
+std::vector<std::string> Units::definitionList = 
+{
+    "None",
+    "M",
+    "FT",
+    "NM",
+    "FL",
+    "DEG",
+    "KT",
+};
+
+std::string Units::toString() const
+{
+    switch(_value)
+    {
+        case None: return "None";
+        case M: return "M";
+        case FT: return "FT";
+        case NM: return "NM";
+        case FL: return "FL";
+        case DEG: return "DEG";
+        case KT: return "KT";
+    }
+
+    return "Units::UndefinedValue";
+}
+
+void Units::fromString(const std::string& str)
+{
+    _value = 0;
+    if (str ==  "None")  { _value = None; return; }
+    if (str ==  "M")  { _value = M; return; }
+    if (str ==  "FT")  { _value = FT; return; }
+    if (str ==  "NM")  { _value = NM; return; }
+    if (str ==  "FL")  { _value = FL; return; }
+    if (str ==  "DEG")  { _value = DEG; return; }
+    if (str ==  "KT")  { _value = KT; return; }
+}
+
+bool Units::validate() const
+{
+    switch(_value)
+    {
+        case None:
+        case M:
+        case FT:
+        case NM:
+        case FL:
+        case DEG:
+        case KT:
+            return true;
+    }
+
+    return false;
+}
+
+const std::vector<std::string>& Units::enumerate() const
 {
     return definitionList;
 }

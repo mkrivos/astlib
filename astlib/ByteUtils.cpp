@@ -35,4 +35,15 @@ size_t ByteUtils::calculateFspec(const Byte fspecPtr[])
     return fspecLen;
 }
 
+Poco::Int64 ByteUtils::toSigned(Poco::UInt64 value, int effectiveBits)
+{
+    Poco::UInt64 mask1 = (1ULL << (effectiveBits-1));
+    if (mask1 & value)
+    {
+        Poco::UInt64 mask2 = ~(mask1-1);
+        return static_cast<Poco::Int64>(value|mask2);
+    }
+    return static_cast<Poco::Int64>(value);
+}
+
 } /* namespace astlib */

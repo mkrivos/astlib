@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <Poco/Types.h>
 #include <cstddef>
 
 namespace astlib
@@ -28,6 +29,8 @@ public:
     ~ByteUtils();
 
     static size_t calculateFspec(const Byte fspecPtr[]);
+
+    static Poco::Int64 toSigned(Poco::UInt64, int effectiveBits);
 };
 
 } /* namespace astlib */

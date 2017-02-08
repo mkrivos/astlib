@@ -35,7 +35,7 @@ public:
 
 
     class MyValueDecoder :
-        public ValueDecoder
+        public TypedValueDecoder
     {
         virtual void begin()
         {
@@ -49,6 +49,7 @@ public:
         {
             std::cout << " [" << index << "]" << std::endl;
         }
+#if 0
         virtual void decode(Poco::UInt64 value, const BitsDescription& bits)
         {
             std::cout << "  " << bits.name << " = " << Poco::NumberFormatter::formatHex(value, "0") << std::endl;
@@ -57,6 +58,28 @@ public:
                 std::cout << std::endl;
             }
         }
+#else
+        virtual void decodeBoolean(const std::string& identification, bool value)
+        {
+            std::cout << "  Boolean " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
+        {
+            std::cout << "  Integer " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
+        {
+            std::cout << "  Unsigned " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeReal(const std::string& identification, double value)
+        {
+            std::cout << "  Real " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeString(const std::string& identification, const std::string& value)
+        {
+
+        }
+#endif
         virtual void end()
         {
             std::cout << "End\n";
@@ -108,7 +131,7 @@ TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
         5, 6,  // 10 - sac sic
         0, 0, 200, // 140 - time of day
         0xfe, // 20 - Target Report Descriptor
-        0, 10, 0, 20, // 40 - polar coords
+        0xff, 0xff,0xff, 0xff, // 40 - polar coords
         0xff, 0xff, // 70 - mode 3A
         0xff, 0xff, // 90 - mode C
         0xFE, 0x88, 0x44,0x88, 0x44, 0x88, 0x44, 0x88, // 130 - plot characteristics

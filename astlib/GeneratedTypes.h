@@ -4,7 +4,7 @@
 /// \brief Tento subor needitovat, bol automaticky generovany programom codegen!
 ///
 /// \author marian.krivos@r-sys.sk
-/// \date 2.2.2017
+/// \date 8.2.2017
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -14,9 +14,6 @@
 #define _GeneratedTypes_H_
 
 #include "rsys/Enumerator.h"
-#include <string>
-#include <iosfwd>
-#include <iomanip>
 
 typedef unsigned char Byte;
 
@@ -145,6 +142,53 @@ public:
 
     bool operator != (Rule right) const { return toValue() != right.toValue(); }
     bool operator == (Rule right) const { return toValue() == right.toValue(); }
+
+private:
+    static std::vector<std::string> definitionList;
+
+    ValueType _value;
+};
+#pragma pack() 
+
+#pragma pack(1) 
+class Units
+  : public rsys::Enumerator
+{ 
+public:
+    typedef Poco::UInt32 ValueType;
+
+    static const ValueType None = 0;
+    static const ValueType M = 1;
+    static const ValueType FT = 2;
+    static const ValueType NM = 3;
+    static const ValueType FL = 4;
+    static const ValueType DEG = 5;
+    static const ValueType KT = 6;
+
+    Units(ValueType v = 0) : _value(v) {}
+
+    Units(const std::string& v) : _value(0) { fromString(v); }
+
+    //! @return textova reprezentacia hodnoty objektu
+    std::string toString() const;
+
+    //! nastav hodnotu objektu podla textovej representacie
+    void fromString(const std::string &value);
+
+    //! @return hodnotu ako integralny typ
+    Poco::UInt64 toValue() const { return _value; }
+
+    //! \return iteracny objekt pre enumeraciu zaznamov objektu
+    const std::vector<std::string>& enumerate() const;
+
+    //! validuj objekt na korektnu hodnotu, return true ak je objekt validny, inak false
+    bool validate() const;
+
+    //! nastav hodnotu objektu z integralnej reprezentatacie
+    void fromValue(ValueType val) { _value = val; }
+
+    bool operator != (Units right) const { return toValue() != right.toValue(); }
+    bool operator == (Units right) const { return toValue() == right.toValue(); }
 
 private:
     static std::vector<std::string> definitionList;

@@ -21,6 +21,16 @@
         <item name="Mandatory"></item>
     </enumeration>
 
+    <enumeration name="Units" >
+        <item name="None"></item>
+        <item name="M"></item>
+        <item name="FT"></item>
+        <item name="NM"></item>
+        <item name="FL"></item>
+        <item name="DEG"></item>
+        <item name="KT"></item>
+    </enumeration>
+
     <enumeration name="Encoding" >
         <item name="Signed"></item>
         <item name="Unsigned"></item>

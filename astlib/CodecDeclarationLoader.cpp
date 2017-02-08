@@ -281,6 +281,47 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
                 }
             }
 
+            const Element* unitNode = dynamic_cast<const Element*>(element->getChildElement("BitsUnit"));
+            if (unitNode)
+            {
+                auto units = unitNode->innerText();
+                if (Poco::icompare(units, "M"))
+                {
+                    bits.units = Units::M;
+                }
+                else if (Poco::icompare(units, "NM"))
+                {
+                    bits.units = Units::NM;
+                }
+                else if (Poco::icompare(units, "FL"))
+                {
+                    bits.units = Units::FL;
+                }
+                else if (Poco::icompare(units, "FT"))
+                {
+                    bits.units = Units::FT;
+                }
+                else
+                {
+                    throw Exception("Unknown unit type in " + bits.name);
+                }
+
+                if (unitNode->hasAttribute("scale"))
+                {
+                    bits.scale = Poco::NumberParser::parseFloat(unitNode->getAttribute("scale"));
+                }
+
+                if (unitNode->hasAttribute("min"))
+                {
+                    bits.min = Poco::NumberParser::parseFloat(unitNode->getAttribute("min"));
+                }
+
+                if (unitNode->hasAttribute("max"))
+                {
+                    bits.max = Poco::NumberParser::parseFloat(unitNode->getAttribute("max"));
+                }
+            }
+
             bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
             //std::cout << "      " << bits.toString() << std::endl;
             bitsArray.push_back(bits);
