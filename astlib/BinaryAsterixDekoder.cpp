@@ -188,7 +188,7 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
                 // TODO: nepritomna ale povinna polozka ...
             }
 
-            std::cout << "  item advance " << decodedByteCount << " bytes" << std::endl;
+            //std::cout << "  item advance " << decodedByteCount << " bytes" << std::endl;
             localPtr += decodedByteCount;
             currentFspecBit++;
             fspecMask >>= 1;
@@ -278,6 +278,7 @@ int BinaryAsterixDekoder::decodeCompound(const ItemDescription& uapItem, ValueDe
         {
             if (fspec & mask)
             {
+                poco_assert(itemIndex < items.size());
                 poco_assert(items[itemIndex]);
                 usedItems.push_back(items[itemIndex]);
             }

@@ -86,6 +86,48 @@ public:
         }
     } valueDecoder;
 
+    class EmptyValueDecoder :
+        public ValueDecoder
+    {
+        virtual void begin()
+        {
+        }
+        virtual void item(const ItemDescription& uapItem)
+        {
+        }
+        virtual void repetitive(int index)
+        {
+        }
+#if 1
+        virtual void decode(Poco::UInt64 value, const BitsDescription& bits)
+        {
+        }
+#else
+        virtual void decodeBoolean(const std::string& identification, bool value)
+        {
+            std::cout << "  Boolean " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
+        {
+            std::cout << "  Integer " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
+        {
+            std::cout << "  Unsigned " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeReal(const std::string& identification, double value)
+        {
+            std::cout << "  Real " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeString(const std::string& identification, const std::string& value)
+        {
+            std::cout << "  Real " << identification << " = '" << value << "'" << std::endl;
+        }
+#endif
+        virtual void end()
+        {
+        }
+    } emptyDecoder;
 
     CodecDescriptionPtr codecSpecification;
     BinaryAsterixDekoder dekoder;
@@ -155,4 +197,35 @@ TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
 
     };
     dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
+}
+
+TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48)
+{
+    constexpr int SIZE = 1+2+3+2+3+2+4+2+2+8+3+6+2+4+2+2;
+    unsigned char bytes[SIZE] = {
+        48, // CAT
+        0, SIZE,
+        0xFF, 0xDB, 0x08,// FSPEC
+
+        5, 6,  // 10 - sac sic
+        0, 0, 200, // 140 - time of day
+        0xFF, 0xFE, // 20 - Target Report Descriptor
+        0xFF, 0xFF,0xFF, 0xFF, // 40 - polar coords
+        0xFF, 0xFF, // 70 - mode 3A
+        0xFF, 0xFF, // 90 - mode C
+        0xFE, 0x88, 0x44,0x88, 0x44, 0x88, 0x44, 0x88, // 130 - plot characteristics
+
+        0xFF, 0xFF, 0xFF, // 220 - aircraft address
+        0x42, 0x55, 0x12, 0x45, 0x42, 0x24, // 240 - Aircraft Identification
+        1,0, // 161 - track number
+        0xFF, 0xFF, 0x00, 0x01, // 42 - cartes coords
+        0xFF, 0xFE, // 170 - track status
+
+        0xFF, 0xFF, // 110 - 3d height
+    };
+
+    for(int i = 0; i < 10000; i++)
+    {
+        dekoder.decode(*codecSpecification, emptyDecoder, bytes, sizeof(bytes));
+    }
 }

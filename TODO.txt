@@ -3,7 +3,9 @@ Decoding
 - Explicit data item
 - Endian to formal description of codec
 - test to min/max value from bitset
-
+- handle multiple UAP per category
+- optimize dekoder UAP item lookup - use vector instead of map for items
+- correct presence attribute for UAP defonitions in XMLfiles
 Encoding
 --------------------------------------
 
