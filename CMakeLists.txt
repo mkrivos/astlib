@@ -10,7 +10,7 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -march=native -Wall")
 endif()
 
-find_package(Poco 1.7.0 REQUIRED COMPONENTS Foundation CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")
+find_package(Poco 1.7.0 REQUIRED COMPONENTS Util XML JSON Foundation CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")
 
 if ( NOT Poco_FOUND)
   message(FATAL_ERROR "Package Poco and it's components required, but not found!")
@@ -23,6 +23,9 @@ include_directories(${Poco_INCLUDE_DIRECTORIES})
 
 add_executable(loader src/loader.cpp)
 target_link_libraries(loader ${LIBS})
+
+add_executable(ast2json src/ast2json.cpp)
+target_link_libraries(ast2json ${LIBS})
 
 # Setup GTEST testing
 find_package(GTest)
