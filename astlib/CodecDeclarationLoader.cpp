@@ -53,28 +53,34 @@ CodecDeclarationLoader::~CodecDeclarationLoader()
 
 CodecDescriptionPtr CodecDeclarationLoader::load(const std::string& filename)
 {
-    CodecDescriptionPtr codecDescription(new CodecDescription);
-    Poco::XML::InputSource src(filename);
-    Poco::XML::NamePool* pool = new Poco::XML::NamePool(3571);
-    Poco::XML::DOMParser parser(pool);
-    pool->release();
-
-    parser.setFeature(Poco::XML::XMLReader::FEATURE_NAMESPACES, true);
-    parser.setFeature(Poco::XML::DOMParser::FEATURE_FILTER_WHITESPACE, true);
-
-    Poco::XML::AutoPtr<Poco::XML::Document> document = parser.parse(&src);
-    poco_check_ptr (document);
-
-    auto root = Poco::XML::AutoPtr<Element>(document->documentElement(), true);
-
-    if (root->nodeName() != "Category")
+    try
     {
-        throw Poco::DataFormatException("in CodecDeclarationLoader::load() - no 'Category' element at top level");
+        CodecDescriptionPtr codecDescription(new CodecDescription);
+        Poco::XML::InputSource src(filename);
+        Poco::XML::NamePool* pool = new Poco::XML::NamePool(3571);
+        Poco::XML::DOMParser parser(pool);
+        pool->release();
+
+        parser.setFeature(Poco::XML::XMLReader::FEATURE_NAMESPACES, true);
+        parser.setFeature(Poco::XML::DOMParser::FEATURE_FILTER_WHITESPACE, true);
+
+        Poco::XML::AutoPtr<Poco::XML::Document> document = parser.parse(&src);
+        poco_check_ptr (document);
+
+        auto root = Poco::XML::AutoPtr<Element>(document->documentElement(), true);
+
+        if (root->nodeName() != "Category")
+        {
+            throw Poco::DataFormatException("no 'Category' element at top level");
+        }
+
+        loadCategory(*codecDescription, *root);
+        return codecDescription;
     }
-
-    loadCategory(*codecDescription, *root);
-
-    return codecDescription;
+    catch(Poco::Exception& e)
+    {
+        throw Exception("CodecDeclarationLoader::load(" + filename + "): " + e.displayText());
+    }
 }
 
 void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, const Element& root)
@@ -140,7 +146,7 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
                     id = ItemDescription::SP;
                 else if (idString == "RE")
                     id = ItemDescription::RE;
-                else if (idString == "-")
+                else if (idString == "-" || idString == "FX")
                     id = ItemDescription::FX;
                 else
                     id = Poco::NumberParser::parse(idString);

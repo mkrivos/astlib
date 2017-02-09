@@ -65,7 +65,7 @@ void CategoryDescription::setFamily(AsterixFamily family)
 
 std::string CategoryDescription::toString() const
 {
-    return getFamily().toString() + "-" + std::to_string(getCategory()) + "-" + getEdition().toString();
+    return getFamily().toString() + "-" + std::to_string(getCategory()) + ":" + getEdition().toString();
 }
 
 } /* namespace astlib */

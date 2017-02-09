@@ -59,3 +59,4 @@ cmake_install.cmake
 /testunit.vcxproj
 /RUN_TESTS.vcxproj.filters
 /RUN_TESTS.vcxproj
+/ast2json

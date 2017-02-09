@@ -22,6 +22,7 @@
 #include <string>
 #include <unordered_map>
 #include <map>
+#include <vector>
 
 namespace astlib
 {
@@ -74,6 +75,7 @@ private:
 };
 
 using CodecDescriptionPtr = std::shared_ptr<CodecDescription>;
+using CodecDescriptionVector = std::vector<CodecDescriptionPtr>;
 
 } /* namespace astlib */
 

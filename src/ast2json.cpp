@@ -10,6 +10,9 @@
 /// All rights reserved.
 ///
 
+#include "astlib/CodecRegister.h"
+#include "astlib/Exception.h"
+
 #include <Poco/NumberParser.h>
 #include "Poco/Util/Application.h"
 #include "Poco/Util/Option.h"
@@ -93,15 +96,30 @@ protected:
 
     void prepareDecoders()
     {
+        astlib::CodecRegister codecRegister;
+        codecRegister.populateCodecsFromDirectory("specs");
+        _codecs = codecRegister.enumerateCodecsByCategory();
 
+        for(auto codec: _codecs)
+        {
+            logger().information("registering %s", codec->getCategoryDescription().toString());
+        }
     }
 
     int main(const ArgVec& args)
     {
         if (!_helpRequested)
         {
-            prepareDecoders();
-            logger().information("Listening on udp port %d", _port);
+            try
+            {
+                prepareDecoders();
+                logger().information("Listening on udp port %d", _port);
+            }
+            catch(astlib::Exception& e)
+            {
+                logger().error(e.displayText());
+                return Application::EXIT_OK;
+            }
         }
         return Application::EXIT_OK;
     }
@@ -109,6 +127,7 @@ protected:
 private:
     bool _helpRequested;
     int _port = 10000;
+    astlib::CodecDescriptionVector _codecs;
 };
 
 POCO_APP_MAIN(SampleApp)
