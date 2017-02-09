@@ -23,8 +23,7 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
 {
     const std::string& id = bits.name;
 
-    if (id == "X")
-        std::cout << std::endl;
+    //if (id == "X") std::cout << std::endl;
 
     if (bits.bit != -1)
     {

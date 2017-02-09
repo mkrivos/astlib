@@ -20,9 +20,15 @@
 #include "Poco/Util/HelpFormatter.h"
 #include "Poco/Util/AbstractConfiguration.h"
 #include "Poco/AutoPtr.h"
+
+#include "Poco/Net/Net.h"
+#include "Poco/Net/DatagramSocket.h"
+#include "Poco/Net/SocketAddress.h"
+
 #include <iostream>
 #include <sstream>
 
+#include "../astlib/BinaryAsterixDekoder.h"
 using Poco::Util::Application;
 using Poco::Util::Option;
 using Poco::Util::OptionSet;
@@ -30,6 +36,11 @@ using Poco::Util::HelpFormatter;
 using Poco::Util::AbstractConfiguration;
 using Poco::Util::OptionCallback;
 using Poco::AutoPtr;
+using Poco::Net::Socket;
+using Poco::Net::DatagramSocket;
+using Poco::Net::SocketAddress;
+using Poco::Net::IPAddress;
+
 
 class SampleApp: public Application
 {
@@ -38,6 +49,58 @@ public:
         _helpRequested(false)
     {
     }
+
+    class MyValueDecoder :
+        public astlib::TypedValueDecoder
+    {
+        virtual void begin()
+        {
+            std::cout << "Start -------------------------\n";
+        }
+        virtual void item(const astlib::ItemDescription& uapItem)
+        {
+            std::cout << uapItem.getId() << " - " << uapItem.getDescription() << std::endl;
+        }
+        virtual void repetitive(int index)
+        {
+            std::cout << " [" << index << "]" << std::endl;
+        }
+#if 0
+        virtual void decode(Poco::UInt64 value, const astlib::BitsDescription& bits)
+        {
+            std::cout << "  " << bits.name << " = " << Poco::NumberFormatter::formatHex(value, "0") << std::endl;
+            if (bits.name == "FX")
+            {
+                std::cout << std::endl;
+            }
+        }
+#else
+        virtual void decodeBoolean(const std::string& identification, bool value)
+        {
+            std::cout << "  Boolean " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
+        {
+            std::cout << "  Integer " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
+        {
+            std::cout << "  Unsigned " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeReal(const std::string& identification, double value)
+        {
+            std::cout << "  Real " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+        }
+        virtual void decodeString(const std::string& identification, const std::string& value)
+        {
+            std::cout << "  Real " << identification << " = '" << value << "'" << std::endl;
+        }
+#endif
+        virtual void end()
+        {
+            std::cout << "End\n";
+        }
+    } decoderHandler;
 
 protected:
     void initialize(Application& self)
@@ -98,11 +161,12 @@ protected:
     {
         astlib::CodecRegister codecRegister;
         codecRegister.populateCodecsFromDirectory("specs");
-        _codecs = codecRegister.enumerateCodecsByCategory();
+        auto codecs = codecRegister.enumerateCodecsByCategory();
 
-        for(auto codec: _codecs)
+        for(auto codec: codecs)
         {
             logger().information("registering %s", codec->getCategoryDescription().toString());
+            _codecs[codec->getCategoryDescription().getCategory()] = codec;
         }
     }
 
@@ -113,7 +177,39 @@ protected:
             try
             {
                 prepareDecoders();
+
+                _socket.bind(SocketAddress(_port), true);
                 logger().information("Listening on udp port %d", _port);
+
+                Poco::Timespan span(250000);
+                while (!_stop)
+                {
+                    if (_socket.poll(span, Socket::SELECT_READ))
+                    {
+                        try
+                        {
+                            astlib::Byte buffer[astlib::BinaryAsterixDekoder::MAX_PACKET_SIZE];
+                            SocketAddress sender;
+                            int bytes = _socket.receiveFrom(buffer, sizeof(buffer), sender);
+
+                            if (bytes > 0)
+                            {
+                                logger().information("received %d bytes", bytes);
+
+                                int category = buffer[0];
+                                auto codec = _codecs[category];
+                                if (codec)
+                                {
+                                    _decoder.decode(*codec, decoderHandler, buffer, bytes);
+                                }
+                            }
+                        }
+                        catch (Poco::Exception& exc)
+                        {
+                            std::cerr << "ast2json: " << exc.displayText() << std::endl;
+                        }
+                    }
+                }
             }
             catch(astlib::Exception& e)
             {
@@ -125,9 +221,12 @@ protected:
     }
 
 private:
-    bool _helpRequested;
+    std::map<int, astlib::CodecDescriptionPtr> _codecs;
+    astlib::BinaryAsterixDekoder _decoder;
+    Poco::Net::DatagramSocket _socket;
     int _port = 10000;
-    astlib::CodecDescriptionVector _codecs;
+    bool _helpRequested;
+    bool _stop = false;
 };
 
 POCO_APP_MAIN(SampleApp)
