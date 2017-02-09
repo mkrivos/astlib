@@ -70,8 +70,6 @@ const CodecDescription::ItemDescriptionTable& CodecDescription::enumerateDataIte
 void CodecDescription::addUapItem(int frn, int itemId, bool mandatory)
 {
     auto item = getDataItemById(itemId);
-    // TODO: odremovat ked bude mozne
- //   poco_assert(item);
     _uapItems[frn] = UapItem{ item, mandatory };
 }
 

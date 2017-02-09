@@ -153,7 +153,7 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
             }
 
             auto iterator = uapItems.find(currentFspecBit);
-            if (iterator == uapItems.end())
+            if (iterator == uapItems.end() || (!iterator->second.item && bitPresent))
                 throw Exception("Undefined Data Item for bit " + std::to_string(currentFspecBit));
 
             const ItemDescription& uapItem = *iterator->second.item;
@@ -265,7 +265,7 @@ int BinaryAsterixDekoder::decodeCompound(const ItemDescription& uapItem, ValueDe
     int allByteCount = 0;
     auto itemCount = items.size();
     ItemDescriptionVector usedItems;
-    int itemIndex = 1; // zero index is for Variable item itself
+    size_t itemIndex = 1; // zero index is for Variable item itself
 
     poco_assert(itemCount);
     poco_assert(items[0]->getType() == ItemFormat::Variable);

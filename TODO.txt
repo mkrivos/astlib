@@ -6,6 +6,8 @@ Decoding
 - handle multiple UAP per category
 - optimize dekoder UAP item lookup - use vector instead of map for items
 - correct presence attribute for UAP defonitions in XMLfiles
+- handle missing but mandatory item in decoder
+
 Encoding
 --------------------------------------
 
