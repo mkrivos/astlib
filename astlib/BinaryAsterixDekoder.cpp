@@ -96,7 +96,7 @@ void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fi
     {
         ValueDecoder::Context context(uapItem, bits, _depth);
 
-        if (bits.bit != -1)
+        if (context.width == 1)
         {
             // Send non FX bits only
             if (!bits.fx)
