@@ -2772,46 +2772,46 @@
 
 
 	<UAP>
-		<UAPItem bit="0" frn="1" len="2">010</UAPItem>
-		<UAPItem bit="1" frn="2" len="-">-</UAPItem>
-		<UAPItem bit="2" frn="3" len="1">015</UAPItem>
-		<UAPItem bit="3" frn="4" len="3">070</UAPItem>
-		<UAPItem bit="4" frn="5" len="8">105</UAPItem>
-		<UAPItem bit="5" frn="6" len="6">100</UAPItem>
-		<UAPItem bit="6" frn="7" len="4">185</UAPItem>
-		<UAPItem bit="7" frn="FX" len="-">-</UAPItem>
-		<UAPItem bit="8" frn="8" len="2">210</UAPItem>
-		<UAPItem bit="9" frn="9" len="2">060</UAPItem>
-		<UAPItem bit="10" frn="10" len="7">245</UAPItem>
-		<UAPItem bit="11" frn="11" len="1+1+">380</UAPItem>
-		<UAPItem bit="12" frn="12" len="2">040</UAPItem>
-		<UAPItem bit="13" frn="13" len="1+">080</UAPItem>
-		<UAPItem bit="14" frn="14" len="1+1+">290</UAPItem>
-		<UAPItem bit="15" frn="FX" len="-">-</UAPItem>
-		<UAPItem bit="16" frn="15" len="1">200</UAPItem>
-		<UAPItem bit="17" frn="16" len="1+1+">295</UAPItem>
-		<UAPItem bit="18" frn="17" len="2">136</UAPItem>
-		<UAPItem bit="19" frn="18" len="2">130</UAPItem>
-		<UAPItem bit="20" frn="19" len="2">135</UAPItem>
-		<UAPItem bit="21" frn="20" len="2">220</UAPItem>
-		<UAPItem bit="22" frn="21" len="1+1">390</UAPItem>
-		<UAPItem bit="23" frn="FX" len="-">-</UAPItem>
-		<UAPItem bit="24" frn="22" len="1+1">270</UAPItem>
-		<UAPItem bit="25" frn="23" len="1">300</UAPItem>
-		<UAPItem bit="26" frn="24" len="1+">110</UAPItem>
-		<UAPItem bit="27" frn="25" len="2">120</UAPItem>
-		<UAPItem bit="28" frn="26" len="3+">510</UAPItem>
-		<UAPItem bit="29" frn="27" len="1+">500</UAPItem>
-		<UAPItem bit="30" frn="28" len="1+1+">340</UAPItem>
-		<UAPItem bit="31" frn="FX" len="-">-</UAPItem>
-		<UAPItem bit="32" frn="29" len="-">-</UAPItem>
-		<UAPItem bit="33" frn="30" len="-">-</UAPItem>
-		<UAPItem bit="34" frn="31" len="-">-</UAPItem>
-		<UAPItem bit="35" frn="32" len="-">-</UAPItem>
-		<UAPItem bit="36" frn="33" len="-">-</UAPItem>
-		<UAPItem bit="37" frn="34" len="1+">RE</UAPItem>
-		<UAPItem bit="38" frn="35" len="1+">SP</UAPItem>
-		<UAPItem bit="39" frn="FX" len="-">-</UAPItem>
+		<UAPItem bit="0" presence="1">010</UAPItem>
+		<UAPItem bit="1" presence="2">-</UAPItem>
+		<UAPItem bit="2" presence="3">015</UAPItem>
+		<UAPItem bit="3" presence="4">070</UAPItem>
+		<UAPItem bit="4" presence="5">105</UAPItem>
+		<UAPItem bit="5" presence="6">100</UAPItem>
+		<UAPItem bit="6" presence="7">185</UAPItem>
+		<UAPItem bit="7" presence="FX">-</UAPItem>
+		<UAPItem bit="8" presence="8">210</UAPItem>
+		<UAPItem bit="9" presence="9">060</UAPItem>
+		<UAPItem bit="10" presence="10">245</UAPItem>
+		<UAPItem bit="11" presence="11">380</UAPItem>
+		<UAPItem bit="12" presence="12">040</UAPItem>
+		<UAPItem bit="13" presence="13">080</UAPItem>
+		<UAPItem bit="14" presence="14">290</UAPItem>
+		<UAPItem bit="15" presence="FX">-</UAPItem>
+		<UAPItem bit="16" presence="15">200</UAPItem>
+		<UAPItem bit="17" presence="16">295</UAPItem>
+		<UAPItem bit="18" presence="17">136</UAPItem>
+		<UAPItem bit="19" presence="18">130</UAPItem>
+		<UAPItem bit="20" presence="19">135</UAPItem>
+		<UAPItem bit="21" presence="20">220</UAPItem>
+		<UAPItem bit="22" presence="21">390</UAPItem>
+		<UAPItem bit="23" presence="FX">-</UAPItem>
+		<UAPItem bit="24" presence="22">270</UAPItem>
+		<UAPItem bit="25" presence="23">300</UAPItem>
+		<UAPItem bit="26" presence="24">110</UAPItem>
+		<UAPItem bit="27" presence="25">120</UAPItem>
+		<UAPItem bit="28" presence="26">510</UAPItem>
+		<UAPItem bit="29" presence="27">500</UAPItem>
+		<UAPItem bit="30" presence="28">340</UAPItem>
+		<UAPItem bit="31" presence="FX">-</UAPItem>
+		<UAPItem bit="32" presence="29">-</UAPItem>
+		<UAPItem bit="33" presence="30">-</UAPItem>
+		<UAPItem bit="34" presence="31">-</UAPItem>
+		<UAPItem bit="35" presence="32">-</UAPItem>
+		<UAPItem bit="36" presence="33">-</UAPItem>
+		<UAPItem bit="37" presence="34">RE</UAPItem>
+		<UAPItem bit="38" presence="35">SP</UAPItem>
+		<UAPItem bit="39" presence="FX">-</UAPItem>
 	</UAP>
 
 </Category>

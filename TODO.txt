@@ -2,6 +2,7 @@ Decoding
 --------------------------------------
 - Explicit data item
 - Endian to formal description of codec
+- test to min/max value from bitset
 
 Encoding
 --------------------------------------

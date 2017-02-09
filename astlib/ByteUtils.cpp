@@ -127,23 +127,23 @@ std::string ByteUtils::fromSixBitString(const Byte buffer[])
 
 /*
 {
-    Byte tgid[8];
-    size_t size = message.getIcaoIdentFromModeS().size();
+    Byte aux[8];
+    size_t size = ident.size();
 
-    for (size_t i = 0; (i < size) && (i < sizeof(tgid)); i++)
+    for (size_t i = 0; (i < size) && (i < sizeof(aux)); i++)
     {
-        tgid[i] = CharToIA5(message.getIcaoIdentFromModeS()[i]);
+        aux[i] = charToIa5(ident[i]);
     }
 
-    *(buffer++) = (tgid[0] << 2) | ((tgid[1] >> 4) & 0x03);
-    *(buffer++) = ((tgid[1] << 4) & 0xF0) | ((tgid[2] >> 2) & 0x0F);
-    *(buffer++) = ((tgid[2] << 6) & 0xC0) | tgid[3];
+    *(buffer++) = (aux[0] << 2) | ((aux[1] >> 4) & 0x03);
+    *(buffer++) = ((aux[1] << 4) & 0xF0) | ((aux[2] >> 2) & 0x0F);
+    *(buffer++) = ((aux[2] << 6) & 0xC0) | aux[3];
 
-    *(buffer++) = (tgid[4] << 2) | ((tgid[5] >> 4) & 0x03);
-    *(buffer++) = ((tgid[5] << 4) & 0xF0) | ((tgid[6] >> 2) & 0x0F);
-    *(buffer++) = ((tgid[6] << 6) & 0xC0) | tgid[7];
+    *(buffer++) = (aux[4] << 2) | ((aux[5] >> 4) & 0x03);
+    *(buffer++) = ((aux[5] << 4) & 0xF0) | ((aux[6] >> 2) & 0x0F);
+    *(buffer++) = ((aux[6] << 6) & 0xC0) | aux[7];
 
-    return item.size;
+    return aux;
 }
 */
 } /* namespace astlib */
