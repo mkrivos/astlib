@@ -31,12 +31,28 @@ namespace astlib
 class ValueDecoder
 {
 public:
+    struct Context
+    {
+        Context(const ItemDescription& uapItem, const BitsDescription& bits, int depth) :
+            uapItem(uapItem),
+            bits(bits),
+            depth(depth),
+            width(bits.effectiveBitsWidth())
+        {
+        }
+
+        const ItemDescription& uapItem;
+        const BitsDescription& bits;
+        int depth = 0;
+        int width = 1;
+    };
+
     virtual ~ValueDecoder() = default;
 
     virtual void begin() = 0;
     virtual void item(const ItemDescription& uapItem) = 0;
     virtual void repetitive(int) = 0;
-    virtual void decode(Poco::UInt64 value, const BitsDescription& bits) = 0;
+    virtual void decode(Poco::UInt64 value, const Context& ctx) = 0;
     virtual void end() = 0;
 };
 
@@ -48,7 +64,7 @@ class TypedValueDecoder :
     public ValueDecoder
 {
 public:
-    virtual void decode(Poco::UInt64 value, const BitsDescription& bits);
+    virtual void decode(Poco::UInt64 value, const Context& ctx);
 
     virtual void decodeBoolean(const std::string& identification, bool value) = 0;
     virtual void decodeSigned(const std::string& identification, Poco::Int64 value) = 0;

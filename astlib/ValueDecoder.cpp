@@ -19,24 +19,25 @@
 namespace astlib
 {
 
-void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
+void TypedValueDecoder::decode(Poco::UInt64 value, const Context& ctx)
 {
-    const std::string& id = bits.name;
+    const std::string& id = ctx.bits.name;
 
     //if (id == "X") std::cout << std::endl;
 
-    if (bits.bit != -1)
+    if (ctx.width == 1)
     {
         decodeBoolean(id, bool(value));
     }
     else
     {
-        Encoding::ValueType encoding = bits.encoding.toValue();
+        Encoding::ValueType encoding = ctx.bits.encoding.toValue();
 
-        if (bits.scale != 1.0)
+        if (ctx.bits.scale != 1.0)
         {
             double unit = 1.0;
-            switch(bits.units.toValue())
+
+            switch(ctx.bits.units.toValue())
             {
                 case Units::FT:
                     unit = 0.3048;
@@ -47,14 +48,15 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
                 case Units::FL:
                     unit = 0.3048 * 100.0;
                     break;
-            };
+            }
+
             if (encoding == Encoding::Unsigned)
             {
-                decodeReal(id, value * bits.scale * unit);
+                decodeReal(id, value * ctx.bits.scale * unit);
             }
             else
             {
-                decodeReal(id, ByteUtils::toSigned(value, bits.effectiveBitsWidth()) * bits.scale * unit);
+                decodeReal(id, ByteUtils::toSigned(value, ctx.width) * ctx.bits.scale * unit);
             }
         }
         else
@@ -62,7 +64,7 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const BitsDescription& bits)
             switch (encoding)
             {
                 case Encoding::Signed:
-                    decodeSigned(id, ByteUtils::toSigned(value, bits.effectiveBitsWidth()));
+                    decodeSigned(id, ByteUtils::toSigned(value, ctx.width));
                     break;
                 case Encoding::Unsigned:
                     decodeUnsigned(id, value);

@@ -10,6 +10,7 @@
 /// All rights reserved.
 ///
 
+#include "astlib/BinaryAsterixDekoder.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
 
@@ -28,7 +29,6 @@
 #include <iostream>
 #include <sstream>
 
-#include "../astlib/BinaryAsterixDekoder.h"
 using Poco::Util::Application;
 using Poco::Util::Option;
 using Poco::Util::OptionSet;

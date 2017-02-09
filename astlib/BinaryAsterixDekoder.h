@@ -48,7 +48,9 @@ private:
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeCompound(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
 
-    void decodeBitset(const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
+    void decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
+
+    int _depth = 0;
 };
 
 } /* namespace astlib */

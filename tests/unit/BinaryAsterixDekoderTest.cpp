@@ -50,10 +50,10 @@ public:
             std::cout << " [" << index << "]" << std::endl;
         }
 #if 0
-        virtual void decode(Poco::UInt64 value, const BitsDescription& bits)
+        virtual void decode(Poco::UInt64 value, const Context& ctx)
         {
-            std::cout << "  " << bits.name << " = " << Poco::NumberFormatter::formatHex(value, "0") << std::endl;
-            if (bits.name == "FX")
+            std::cout << "  " << ctx.bits.name << " = " << Poco::NumberFormatter::formatHex(value, "0") << std::endl;
+            if (ctx.bits.name == "FX")
             {
                 std::cout << std::endl;
             }
@@ -98,32 +98,9 @@ public:
         virtual void repetitive(int index)
         {
         }
-#if 1
-        virtual void decode(Poco::UInt64 value, const BitsDescription& bits)
+        virtual void decode(Poco::UInt64 value, const Context& bits)
         {
         }
-#else
-        virtual void decodeBoolean(const std::string& identification, bool value)
-        {
-            std::cout << "  Boolean " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
-        }
-        virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
-        {
-            std::cout << "  Integer " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
-        }
-        virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
-        {
-            std::cout << "  Unsigned " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
-        }
-        virtual void decodeReal(const std::string& identification, double value)
-        {
-            std::cout << "  Real " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
-        }
-        virtual void decodeString(const std::string& identification, const std::string& value)
-        {
-            std::cout << "  Real " << identification << " = '" << value << "'" << std::endl;
-        }
-#endif
         virtual void end()
         {
         }

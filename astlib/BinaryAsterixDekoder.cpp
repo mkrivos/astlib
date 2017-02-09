@@ -81,7 +81,7 @@ void BinaryAsterixDekoder::decode(const CodecDescription& codec, ValueDecoder& v
     }
 }
 
-void BinaryAsterixDekoder::decodeBitset(const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder)
+void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder)
 {
     const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
     Poco::UInt64 data = 0;
@@ -94,13 +94,15 @@ void BinaryAsterixDekoder::decodeBitset(const Fixed& fixed, const Byte* localPtr
 
     for (const BitsDescription& bits : bitsDescriptions)
     {
+        ValueDecoder::Context context(uapItem, bits, _depth);
+
         if (bits.bit != -1)
         {
             // Send non FX bits only
             if (!bits.fx)
             {
                 Poco::UInt64 value = ((data >> (bits.bit - 1)) & 1);
-                valueDecoder.decode(value, bits);
+                valueDecoder.decode(value, context);
             }
         }
         else
@@ -108,7 +110,7 @@ void BinaryAsterixDekoder::decodeBitset(const Fixed& fixed, const Byte* localPtr
             Poco::UInt64 mask = (1ULL << bits.effectiveBitsWidth()) - 1;
             Poco::UInt64 value = ((data >> (bits.to - 1)) & mask);
             // depth, scope,
-            valueDecoder.decode(value, bits);
+            valueDecoder.decode(value, context);
         }
     }
 }
@@ -163,6 +165,8 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
             {
                 valueDecoder.item(uapItem);
 
+                _depth++;
+
                 switch(uapItem.getType().toValue())
                 {
                     case ItemFormat::Fixed:
@@ -182,6 +186,8 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
                         break;
 
                 }
+
+                --_depth;
             }
             else if (mandatory)
             {
@@ -204,7 +210,7 @@ int BinaryAsterixDekoder::decodeFixed(const ItemDescription& uapItem, ValueDecod
 {
     const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(uapItem);
     const Fixed& fixed = fixedItem.getFixed();
-    decodeBitset(fixed, data, valueDecoder);
+    decodeBitset(uapItem, fixed, data, valueDecoder);
     return fixed.length;
 }
 
@@ -223,7 +229,7 @@ int BinaryAsterixDekoder::decodeVariable(const ItemDescription& uapItem, ValueDe
             fspecBit = (ptr[0] & FX_BIT);
             auto len = fixed.length;
             poco_assert(len == 1);
-            decodeBitset(fixed, ptr, valueDecoder);
+            decodeBitset(uapItem, fixed, ptr, valueDecoder);
             decodedByteCount += len;
             ptr += len;
             if (fspecBit == 0)
@@ -249,7 +255,7 @@ int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, Value
         valueDecoder.repetitive(j);
         for(const Fixed& fixed: fixedVector)
         {
-            decodeBitset(fixed, ptr, valueDecoder);
+            decodeBitset(uapItem, fixed, ptr, valueDecoder);
             decodedByteCount += fixed.length;
             ptr += fixed.length;
         }
