@@ -41,7 +41,7 @@ public:
         {
             std::cout << "Start -------------------------\n";
         }
-        virtual void item(const ItemDescription& uapItem)
+        virtual void dataItem(const ItemDescription& uapItem)
         {
             std::cout << uapItem.getId() << " - " << uapItem.getDescription() << std::endl;
         }
@@ -92,7 +92,7 @@ public:
         virtual void begin()
         {
         }
-        virtual void item(const ItemDescription& uapItem)
+        virtual void dataItem(const ItemDescription& uapItem)
         {
         }
         virtual void repetitive(int index)

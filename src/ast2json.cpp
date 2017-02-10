@@ -26,6 +26,11 @@
 #include "Poco/Net/DatagramSocket.h"
 #include "Poco/Net/SocketAddress.h"
 
+#include "Poco/JSON/JSON.h"
+#include "Poco/JSON/Object.h"
+#include "Poco/JSON/Query.h"
+#include "Poco/JSON/JSONException.h"
+
 #include <iostream>
 #include <sstream>
 
@@ -53,52 +58,55 @@ public:
     class MyValueDecoder :
         public astlib::TypedValueDecoder
     {
+        Poco::JSON::Object::Ptr json;
+        Poco::JSON::Object::Ptr item;
+        Poco::JSON::Array::Ptr localArray;
+
         virtual void begin()
         {
-            std::cout << "Start -------------------------\n";
+            json = new Poco::JSON::Object();
+            //json->set("message", "ast");
         }
-        virtual void item(const astlib::ItemDescription& uapItem)
+        virtual void dataItem(const astlib::ItemDescription& uapItem)
         {
-            std::cout << uapItem.getId() << " - " << uapItem.getDescription() << std::endl;
+            item = new Poco::JSON::Object();
+            json->set(uapItem.getDescription(), item);
         }
         virtual void repetitive(int index)
         {
             std::cout << " [" << index << "]" << std::endl;
         }
 #if 0
-        virtual void decode(Poco::UInt64 value, const astlib::BitsDescription& bits)
+        virtual void decode(Poco::UInt64 value, const astlib::ValueDecoder::Context& ctx)
         {
-            std::cout << "  " << bits.name << " = " << Poco::NumberFormatter::formatHex(value, "0") << std::endl;
-            if (bits.name == "FX")
-            {
-                std::cout << std::endl;
-            }
         }
-#else
+#endif
         virtual void decodeBoolean(const std::string& identification, bool value)
         {
-            std::cout << "  Boolean " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            item->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
         {
-            std::cout << "  Integer " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            item->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
         {
-            std::cout << "  Unsigned " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            item->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeReal(const std::string& identification, double value)
         {
-            std::cout << "  Real " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            item->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeString(const std::string& identification, const std::string& value)
         {
-            std::cout << "  Real " << identification << " = '" << value << "'" << std::endl;
+            item->set(identification, Poco::Dynamic::Var(value));
         }
-#endif
         virtual void end()
         {
-            std::cout << "End\n";
+            json->stringify(std::cout, 2);
+            std::cout << std::endl;
+            json = nullptr;
+            item = nullptr;
         }
     } decoderHandler;
 
@@ -194,7 +202,7 @@ protected:
 
                             if (bytes > 0)
                             {
-                                logger().information("received %d bytes", bytes);
+                                //logger().information("received %d bytes", bytes);
 
                                 int category = buffer[0];
                                 auto codec = _codecs[category];

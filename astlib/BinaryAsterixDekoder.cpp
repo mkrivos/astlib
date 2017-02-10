@@ -163,7 +163,7 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
 
             if (bitPresent)
             {
-                valueDecoder.item(uapItem);
+                valueDecoder.dataItem(uapItem);
 
                 _depth++;
 
