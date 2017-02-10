@@ -149,10 +149,10 @@ protected:
                                 auto codec = _codecs[category];
                                 if (codec)
                                 {
-#if 0
-                                    unsigned char bytes[33+1+16+2+2+8+3+6+2+4+4+2+4+3+2+4+2+2+7+1+2+1+2] = {
+#if 01
+                                    unsigned char bytes[113] = {
                                         48, // CAT
-                                        0, 1+2+3+2+3+1+4+2+2+3+6+17+16+2+4+4+2+4+3+2+4+2+2+7+1+2+1+2, // size
+                                        0, 113, // size
                                         0xFF, 0xFF, 0xFF, 0xF8,// FSPEC
 
                                         5, 6,  // 10 - sac sic

@@ -194,7 +194,7 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
                 // TODO: nepritomna ale povinna polozka ...
             }
 
-            //std::cout << "  item advance " << decodedByteCount << " bytes" << std::endl;
+            std::cout << "  Item advance " << decodedByteCount << " bytes" << std::endl;
             localPtr += decodedByteCount;
             currentFspecBit++;
             fspecMask >>= 1;

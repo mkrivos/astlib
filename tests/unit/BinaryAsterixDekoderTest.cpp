@@ -27,7 +27,8 @@ public:
     BinaryDataDekoderTest()
     {
         CodecDeclarationLoader loader;
-        codecSpecification = loader.load("specs/asterix_cat048_1_14.xml");
+        codecSpecification1 = loader.load("specs/asterix_cat048_1_14.xml");
+        codecSpecification2 = loader.load("specs/asterix_cat048_1_21.xml");
     }
     ~BinaryDataDekoderTest()
     {
@@ -118,7 +119,8 @@ public:
         }
     } emptyDecoder;
 
-    CodecDescriptionPtr codecSpecification;
+    CodecDescriptionPtr codecSpecification1;
+    CodecDescriptionPtr codecSpecification2;
     BinaryAsterixDekoder dekoder;
 };
 
@@ -127,31 +129,31 @@ TEST_F( BinaryDataDekoderTest, badDecode)
     // too small packet
     {
         unsigned char bytes[3] = { 48, 0, 0};
-        EXPECT_THROW(dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(*codecSpecification1, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // bad lenght
     {
         unsigned char bytes[6] = { 48, 0, 0, 0, 0, 0};
-        EXPECT_THROW(dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(*codecSpecification1, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // no fspec data
     {
         unsigned char bytes[6] = { 48, 0, 6, 0, 0, 0};
-        EXPECT_THROW(dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(*codecSpecification1, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
 }
 
 TEST_F( BinaryDataDekoderTest, decodeCat48MultiRecord)
 {
     unsigned char bytes[9] = { 48, 0, 9, 0x80, 1, 2,   0x80, 3, 4 };
-    dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(*codecSpecification1, valueDecoder, bytes, sizeof(bytes));
 }
 
 TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
 {
-    unsigned char bytes[33+1+16+2+2+8+3+6+2+4+4+2+4+3+2+4+2+2+7+1+2+1+2] = {
+    unsigned char bytes[113] = {
         48, // CAT
-        0, 1+2+3+2+3+1+4+2+2+3+6+17+16+2+4+4+2+4+3+2+4+2+2+7+1+2+1+2, // size
+        0, 113, // size
         0xFF, 0xFF, 0xFF, 0xF8,// FSPEC
 
         5, 6,  // 10 - sac sic
@@ -185,7 +187,8 @@ TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
         0xFF, 0xFF,// 60
 
     };
-    dekoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(*codecSpecification1, valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(*codecSpecification2, valueDecoder, bytes, sizeof(bytes));
 }
 
 TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48)
@@ -215,6 +218,6 @@ TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48)
 
     for(int i = 0; i < 10000; i++)
     {
-        dekoder.decode(*codecSpecification, emptyDecoder, bytes, sizeof(bytes));
+        dekoder.decode(*codecSpecification1, emptyDecoder, bytes, sizeof(bytes));
     }
 }
