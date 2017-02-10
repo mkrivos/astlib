@@ -28,12 +28,19 @@ BinaryAsterixDekoder::BinaryAsterixDekoder()
 {
 }
 
+BinaryAsterixDekoder::BinaryAsterixDekoder(CodecDescriptionPtr codec) :
+    _codec(codec)
+{
+}
+
 BinaryAsterixDekoder::~BinaryAsterixDekoder()
 {
 }
 
-void BinaryAsterixDekoder::decode(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[], size_t bytes)
+void BinaryAsterixDekoder::decode(ValueDecoder& valueDecoder, const Byte buf[], size_t bytes)
 {
+    poco_assert(_codec);
+
     if (bytes < 6)
     {
         throw Exception("Too short message in BinaryDataDekoder::decode()");
@@ -62,7 +69,7 @@ void BinaryAsterixDekoder::decode(const CodecDescription& codec, ValueDecoder& v
         if (size == 0)
             break;
 
-        int len = decodeRecord(codec, valueDecoder, fspecPtr);
+        int len = decodeRecord(valueDecoder, fspecPtr);
 
         // Chyba, treba vyskocit inak bude nekonecna slucka
         if (len <= 0)
@@ -115,7 +122,7 @@ void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fi
     }
 }
 
-int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte fspecPtr[])
+int BinaryAsterixDekoder::decodeRecord(ValueDecoder& valueDecoder, const Byte fspecPtr[])
 {
     const Byte* startPtr = fspecPtr;
     size_t fspecLen = ByteUtils::calculateFspec(fspecPtr);
@@ -128,7 +135,7 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
     int currentFspecBit = 0;
 
     // Loop for all fspec bits
-    const CodecDescription::UapItems uapItems = codec.enumerateUapItems();
+    const CodecDescription::UapItems uapItems = _codec->enumerateUapItems();
 
     valueDecoder.begin();
 
@@ -194,7 +201,9 @@ int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecod
                 // TODO: nepritomna ale povinna polozka ...
             }
 
-            std::cout << "  Item advance " << decodedByteCount << " bytes" << std::endl;
+            if (_verbose)
+                std::cout << "  Item advance " << decodedByteCount << " bytes" << std::endl;
+
             localPtr += decodedByteCount;
             currentFspecBit++;
             fspecMask >>= 1;
