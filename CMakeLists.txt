@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 if (MSVC)
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -march=native -Wall -Og")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -march=native -Wall -O0")
 endif()
 
 find_package(Poco 1.7.0 REQUIRED COMPONENTS Net Util XML JSON Foundation CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")

@@ -23,7 +23,10 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const Context& ctx)
 {
     const std::string& id = ctx.bits.name;
 
-    //if (id == "X") std::cout << std::endl;
+    if (id == "WE")
+    {
+        std::cout << std::endl;
+    }
 
     if (ctx.width == 1)
     {

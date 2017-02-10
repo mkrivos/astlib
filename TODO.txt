@@ -8,6 +8,8 @@ Decoding
 - correct presence attribute for UAP defonitions in XMLfiles
 - handle missing but mandatory item in decoder
 - integer enumeration of all asterix primitives
+- handle ascii encodings in decoder
+- ast2json: item 48/030 is variable repetitive and json doesn't catch this
 
 Encoding
 --------------------------------------
