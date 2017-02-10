@@ -24,7 +24,7 @@ include_directories(${Poco_INCLUDE_DIRECTORIES})
 add_executable(loader src/loader.cpp)
 target_link_libraries(loader ${LIBS})
 
-add_executable(ast2json src/ast2json.cpp)
+add_executable(ast2json src/ast2json.cpp src/JsonValueDecoder.cpp)
 target_link_libraries(ast2json ${LIBS})
 
 # Setup GTEST testing

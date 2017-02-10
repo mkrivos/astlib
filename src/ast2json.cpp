@@ -26,15 +26,10 @@
 #include "Poco/Net/DatagramSocket.h"
 #include "Poco/Net/SocketAddress.h"
 
-#include "Poco/JSON/JSON.h"
-#include "Poco/JSON/Object.h"
-#include "Poco/JSON/Query.h"
-#include "Poco/JSON/JSONException.h"
-
-#include <deque>
 #include <iostream>
 #include <sstream>
 
+#include "JsonValueDecoder.h"
 using Poco::Util::Application;
 using Poco::Util::Option;
 using Poco::Util::OptionSet;
@@ -55,104 +50,6 @@ public:
         _helpRequested(false)
     {
     }
-
-    class MyValueDecoder :
-        public astlib::TypedValueDecoder
-    {
-        Poco::JSON::Object::Ptr json;
-        std::deque<Poco::JSON::Object::Ptr> scopes;
-        Poco::JSON::Array::Ptr localArray;
-
-        void setScope(Poco::JSON::Object::Ptr obj)
-        {
-            if (scopes.empty())
-                scopes.push_back(obj);
-            else
-                scopes.back() = obj;
-        }
-
-        void addScope(Poco::JSON::Object::Ptr obj)
-        {
-            scopes.push_back(obj);
-        }
-
-        void removeScope()
-        {
-            auto array = *scopes.back();
-            scopes.pop_back();
-        }
-
-        Poco::JSON::Object::Ptr scope()
-        {
-            poco_assert(!scopes.empty());
-            return scopes.back();
-        }
-        // ----------------------------------------------------------
-
-        virtual void begin()
-        {
-            json = new Poco::JSON::Object();
-            //json->set("message", "ast");
-        }
-        virtual void dataItem(const astlib::ItemDescription& uapItem)
-        {
-            Poco::JSON::Object::Ptr item = new Poco::JSON::Object();
-            json->set(uapItem.getDescription(), item);
-            setScope(item);
-        }
-        virtual void beginRepetitive(int count)
-        {
-            Poco::JSON::Array::Ptr array = localArray = new Poco::JSON::Array();
-            scope()->set("array", array);
-
-            Poco::JSON::Object::Ptr item = new Poco::JSON::Object();
-            addScope(item);
-            //array->add(item);
-        }
-        virtual void repetitiveItem(int index)
-        {
-            Poco::JSON::Object::Ptr item = new Poco::JSON::Object();
-            setScope(item);
-            localArray->add(item);
-        }
-        virtual void endRepetitive()
-        {
-            removeScope();
-        }
-#if 0
-        virtual void decode(Poco::UInt64 value, const astlib::ValueDecoder::Context& ctx)
-        {
-        }
-#endif
-        virtual void decodeBoolean(const std::string& identification, bool value)
-        {
-            scope()->set(identification, Poco::Dynamic::Var(value));
-        }
-        virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
-        {
-            scope()->set(identification, Poco::Dynamic::Var(value));
-        }
-        virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
-        {
-            scope()->set(identification, Poco::Dynamic::Var(value));
-        }
-        virtual void decodeReal(const std::string& identification, double value)
-        {
-            scope()->set(identification, Poco::Dynamic::Var(value));
-        }
-        virtual void decodeString(const std::string& identification, const std::string& value)
-        {
-            scope()->set(identification, Poco::Dynamic::Var(value));
-        }
-
-        virtual void end()
-        {
-            json->stringify(std::cout, 2);
-            std::cout << std::endl;
-            json = nullptr;
-            removeScope();
-        }
-    } decoderHandler;
 
 protected:
     void initialize(Application& self)
@@ -289,9 +186,9 @@ protected:
                                         0xFF, 0xFF,// 60
 
                                     };
-                                    _decoder.decode(*codec, decoderHandler, bytes, sizeof(bytes));
+                                    _decoder.decode(*codec, _decoderHandler, bytes, sizeof(bytes));
 #else
-                                    _decoder.decode(*codec, decoderHandler, buffer, bytes);
+                                    _decoder.decode(*codec, _decoderHandler, buffer, bytes);
 #endif
                                 }
                             }
@@ -313,6 +210,7 @@ protected:
     }
 
 private:
+    astlib::JsonValueDecoder _decoderHandler;
     std::map<int, astlib::CodecDescriptionPtr> _codecs;
     astlib::BinaryAsterixDekoder _decoder;
     Poco::Net::DatagramSocket _socket;
