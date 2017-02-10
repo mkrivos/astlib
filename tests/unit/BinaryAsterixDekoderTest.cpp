@@ -45,9 +45,15 @@ public:
         {
             std::cout << uapItem.getId() << " - " << uapItem.getDescription() << std::endl;
         }
-        virtual void repetitive(int index)
+        virtual void beginRepetitive(int)
+        {
+        }
+        virtual void repetitiveItem(int index)
         {
             std::cout << " [" << index << "]" << std::endl;
+        }
+        virtual void endRepetitive()
+        {
         }
 #if 0
         virtual void decode(Poco::UInt64 value, const Context& ctx)
@@ -95,7 +101,13 @@ public:
         virtual void dataItem(const ItemDescription& uapItem)
         {
         }
-        virtual void repetitive(int index)
+        virtual void beginRepetitive(int count)
+        {
+        }
+        virtual void repetitiveItem(int index)
+        {
+        }
+        virtual void endRepetitive()
         {
         }
         virtual void decode(Poco::UInt64 value, const Context& bits)

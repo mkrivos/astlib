@@ -250,9 +250,11 @@ int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, Value
     int counter = *data;
     auto ptr = data+1;
 
+    valueDecoder.beginRepetitive(counter);
+
     for(int j = 0; j < counter; j++)
     {
-        valueDecoder.repetitive(j);
+        valueDecoder.repetitiveItem(j);
         for(const Fixed& fixed: fixedVector)
         {
             decodeBitset(uapItem, fixed, ptr, valueDecoder);
@@ -260,6 +262,8 @@ int BinaryAsterixDekoder::decodeRepetitive(const ItemDescription& uapItem, Value
             ptr += fixed.length;
         }
     }
+
+    valueDecoder.endRepetitive();
 
     return decodedByteCount;
 }

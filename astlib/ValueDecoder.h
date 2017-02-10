@@ -51,7 +51,9 @@ public:
 
     virtual void begin() = 0;
     virtual void dataItem(const ItemDescription& uapItem) = 0;
-    virtual void repetitive(int) = 0;
+    virtual void beginRepetitive(int size) = 0;
+    virtual void repetitiveItem(int index) = 0;
+    virtual void endRepetitive() = 0;
     virtual void decode(Poco::UInt64 value, const Context& ctx) = 0;
     virtual void end() = 0;
 };

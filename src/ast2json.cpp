@@ -31,6 +31,7 @@
 #include "Poco/JSON/Query.h"
 #include "Poco/JSON/JSONException.h"
 
+#include <deque>
 #include <iostream>
 #include <sstream>
 
@@ -59,8 +60,34 @@ public:
         public astlib::TypedValueDecoder
     {
         Poco::JSON::Object::Ptr json;
-        Poco::JSON::Object::Ptr item;
+        std::deque<Poco::JSON::Object::Ptr> scopes;
         Poco::JSON::Array::Ptr localArray;
+
+        void setScope(Poco::JSON::Object::Ptr obj)
+        {
+            if (scopes.empty())
+                scopes.push_back(obj);
+            else
+                scopes.back() = obj;
+        }
+
+        void addScope(Poco::JSON::Object::Ptr obj)
+        {
+            scopes.push_back(obj);
+        }
+
+        void removeScope()
+        {
+            auto array = *scopes.back();
+            scopes.pop_back();
+        }
+
+        Poco::JSON::Object::Ptr scope()
+        {
+            poco_assert(!scopes.empty());
+            return scopes.back();
+        }
+        // ----------------------------------------------------------
 
         virtual void begin()
         {
@@ -69,12 +96,28 @@ public:
         }
         virtual void dataItem(const astlib::ItemDescription& uapItem)
         {
-            item = new Poco::JSON::Object();
+            Poco::JSON::Object::Ptr item = new Poco::JSON::Object();
             json->set(uapItem.getDescription(), item);
+            setScope(item);
         }
-        virtual void repetitive(int index)
+        virtual void beginRepetitive(int count)
         {
-            std::cout << " [" << index << "]" << std::endl;
+            Poco::JSON::Array::Ptr array = localArray = new Poco::JSON::Array();
+            scope()->set("array", array);
+
+            Poco::JSON::Object::Ptr item = new Poco::JSON::Object();
+            addScope(item);
+            //array->add(item);
+        }
+        virtual void repetitiveItem(int index)
+        {
+            Poco::JSON::Object::Ptr item = new Poco::JSON::Object();
+            setScope(item);
+            localArray->add(item);
+        }
+        virtual void endRepetitive()
+        {
+            removeScope();
         }
 #if 0
         virtual void decode(Poco::UInt64 value, const astlib::ValueDecoder::Context& ctx)
@@ -83,30 +126,31 @@ public:
 #endif
         virtual void decodeBoolean(const std::string& identification, bool value)
         {
-            item->set(identification, Poco::Dynamic::Var(value));
+            scope()->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
         {
-            item->set(identification, Poco::Dynamic::Var(value));
+            scope()->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
         {
-            item->set(identification, Poco::Dynamic::Var(value));
+            scope()->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeReal(const std::string& identification, double value)
         {
-            item->set(identification, Poco::Dynamic::Var(value));
+            scope()->set(identification, Poco::Dynamic::Var(value));
         }
         virtual void decodeString(const std::string& identification, const std::string& value)
         {
-            item->set(identification, Poco::Dynamic::Var(value));
+            scope()->set(identification, Poco::Dynamic::Var(value));
         }
+
         virtual void end()
         {
             json->stringify(std::cout, 2);
             std::cout << std::endl;
             json = nullptr;
-            item = nullptr;
+            removeScope();
         }
     } decoderHandler;
 
@@ -208,7 +252,47 @@ protected:
                                 auto codec = _codecs[category];
                                 if (codec)
                                 {
+#if 1
+                                    unsigned char bytes[33+1+16+2+2+8+3+6+2+4+4+2+4+3+2+4+2+2+7+1+2+1+2] = {
+                                        48, // CAT
+                                        0, 1+2+3+2+3+1+4+2+2+3+6+17+16+2+4+4+2+4+3+2+4+2+2+7+1+2+1+2, // size
+                                        0xFF, 0xFF, 0xFF, 0xF8,// FSPEC
+
+                                        5, 6,  // 10 - sac sic
+                                        0, 0, 200, // 140 - time of day
+                                        0xfe, // 20 - Target Report Descriptor
+                                        0xFF, 0xFF,0xFF, 0xFF, // 40 - polar coords
+                                        0xFF, 0xFF, // 70 - mode 3A
+                                        0xFF, 0xFF, // 90 - mode C
+                                        0xFE, 0x88, 0x44,0x88, 0x44, 0x88, 0x44, 0x88, // 130 - plot characteristics
+
+                                        0xFF, 0xFF, 0xFF, // 220 - aircraft address
+                                        0x42, 0x55, 0x12, 0x45, 0x42, 0x24, // 240 - Aircraft Identification
+                                        2, 4,4,4,4,4,4,2,1,  5,5,5,5,5,5,2,1,  // item 250 Mode S Comm B data
+                                        1,0, // 161 - track number
+                                        0xFF, 0xFF, 0x00, 0x01, // 42 - cartes coords
+                                        0xFF, 0xFF, 0xFF, 0xFF, // 200
+                                        0xFF, 0xFE, // 170 - track status
+
+                                        0xFF, 0xFF, 0xFF, 0xFF, // 210 - track quality
+                                        3,5,6, // 30 - WE Condition
+                                        0xFF, 0xFE, // 80 - mode 3a conf
+                                        0xFF, 0xFF, 0xFF, 0xFF, // 100 - mode C conf
+                                        0xFF, 0xFF, // 110 - 3d height
+                                        0xC0, 0xFF,0xFF, 2, 0,1,0,2,0,3, 0,1,0,2,0,3, // 120 - radial dopler speed
+                                        0xFF, 0xFF, // 230 - Acas comm
+
+                                        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // 260 - ACAS resolution
+                                        0xFF, // 55
+                                        0xFF, 0xFF,// 50
+                                        0xFF, // 65
+                                        0xFF, 0xFF,// 60
+
+                                    };
+                                    _decoder.decode(*codec, decoderHandler, bytes, sizeof(bytes));
+#else
                                     _decoder.decode(*codec, decoderHandler, buffer, bytes);
+#endif
                                 }
                             }
                         }
