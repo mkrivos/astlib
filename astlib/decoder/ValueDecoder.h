@@ -13,8 +13,8 @@
 
 #pragma once
 
-#include "model/BitsDescription.h"
-#include "model/ItemDescription.h"
+#include "astlib/model/BitsDescription.h"
+#include "astlib/model/ItemDescription.h"
 
 namespace astlib
 {

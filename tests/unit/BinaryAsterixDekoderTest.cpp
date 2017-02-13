@@ -10,8 +10,9 @@
 /// All rights reserved.
 ///
 
-#include "../../astlib/BinaryAsterixDekoder.h"
-
+#include "astlib/BinaryAsterixDekoder.h"
+#include "astlib/decoder/EmptyValueDecoder.h"
+#include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/CodecDeclarationLoader.h"
 #include "astlib/Exception.h"
 
@@ -93,31 +94,8 @@ public:
         }
     } valueDecoder;
 
-    class EmptyValueDecoder :
-        public ValueDecoder
-    {
-        virtual void begin()
-        {
-        }
-        virtual void dataItem(const ItemDescription& uapItem)
-        {
-        }
-        virtual void beginRepetitive(int count)
-        {
-        }
-        virtual void repetitiveItem(int index)
-        {
-        }
-        virtual void endRepetitive()
-        {
-        }
-        virtual void decode(Poco::UInt64 value, const Context& bits)
-        {
-        }
-        virtual void end()
-        {
-        }
-    } emptyDecoder;
+    SimpleValueDecoder defaultDecoder;
+    EmptyValueDecoder emptyDecoder;
 
     BinaryAsterixDekoder codecSpecification1;
     BinaryAsterixDekoder codecSpecification2;
@@ -219,5 +197,10 @@ TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48)
     for(int i = 0; i < 10000; i++)
     {
         codecSpecification2.decode(emptyDecoder, bytes, sizeof(bytes));
+    }
+
+    for(int i = 0; i < 10000; i++)
+    {
+        codecSpecification2.decode(defaultDecoder, bytes, sizeof(bytes));
     }
 }

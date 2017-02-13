@@ -15,7 +15,7 @@
 #include "model/CodecDescription.h"
 #include "model/Fixed.h"
 #include "ByteUtils.h"
-#include "ValueDecoder.h"
+#include "decoder/ValueDecoder.h"
 
 namespace astlib
 {

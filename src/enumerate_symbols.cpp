@@ -16,32 +16,6 @@
 
 using namespace astlib;
 
-const char* asterixItemCode =
-"struct AsterixItemCode \n\
-{ \n\
-    constexpr AsterixItemCode(int code, int subcode, int type) : \n\
-        value((type << 24) | (subcode << 16) | code) \n\
-    { \n\
-    } \n\
-\n\
-    constexpr int code() const \n\
-    { \n\
-        return value & 0xFFFF; \n\
-    } \n\
-\n\
-    constexpr int subCode() const \n\
-    { \n\
-        return (value>>16) & 0xFF; \n\
-    } \n\
- \n\
-    constexpr int type() const \n\
-    { \n\
-        return (value>>24) & 0xFF; \n\
-    } \n\
- \n\
-    const Poco::UInt32 value = 0; \n\
-};\n";
-
 int main(int argc, char* argv[])
 {
     bool useCpp14 = 1;
@@ -50,10 +24,9 @@ int main(int argc, char* argv[])
     codecRegister.populateCodecsFromDirectory("specs");
 
     std::cout << "#pragma once" << std::endl << std::endl;
-    std::cout << "#include \"GeneratedTypes.h\"" << std::endl << std::endl;
+    std::cout << "#include \"astlib/AsterixItemCode.h\"" << std::endl << std::endl;
     if (useCpp14)
     {
-        std::cout << asterixItemCode << std::endl;
     }
     else
         std::cout << "#define DECLARE_ASTERIX_ITEM(id, subid, type) ((type << 24) | (subid << 16) | id)" << std::endl << std::endl;
