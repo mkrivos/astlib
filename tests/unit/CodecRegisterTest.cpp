@@ -15,11 +15,28 @@
 
 using namespace astlib;
 
-TEST(CodecRegisterTest, populateCodecsFromDirectory)
+class CodecRegisterTest:
+    public testing::Test
 {
+public:
+    CodecRegisterTest()
+    {
+        codecRegister.populateCodecsFromDirectory("specs");
+    }
     CodecRegister codecRegister;
+};
 
-    codecRegister.populateCodecsFromDirectory("specs");
+TEST_F(CodecRegisterTest, populateCodecsFromDirectory)
+{
     EXPECT_EQ(21, codecRegister.enumerateAllCodecs().size());
-    EXPECT_EQ(19, codecRegister.enumerateCodecsByCategory().size());
+    EXPECT_EQ(19, codecRegister.enumerateAllCodecsByCategory().size());
+}
+
+TEST_F(CodecRegisterTest, getLatestCodecForCategory)
+{
+    auto codec = codecRegister.getLatestCodecForCategory(48);
+    ASSERT_TRUE(codec.get());
+
+    const CodecDescription::Dictionary symbols = codec->getDictionary();
+    EXPECT_EQ(106, symbols.size());
 }

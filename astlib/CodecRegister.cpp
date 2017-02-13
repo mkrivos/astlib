@@ -80,7 +80,7 @@ CodecDescriptionVector CodecRegister::enumerateAllCodecs() const
     return enumerations;
 }
 
-CodecDescriptionVector CodecRegister::enumerateCodecsByCategory() const
+CodecDescriptionVector CodecRegister::enumerateAllCodecsByCategory() const
 {
     CodecDescriptionVector enumerations;
 
@@ -90,6 +90,34 @@ CodecDescriptionVector CodecRegister::enumerateCodecsByCategory() const
     }
 
     return enumerations;
+}
+
+CodecDescription::Dictionary CodecRegister::enumerateGlobalSymbols() const
+{
+    CodecDescription::Dictionary globals;
+    CodecDescriptionVector codecs = enumerateAllCodecs();
+
+    for(auto codec: codecs)
+    {
+        const CodecDescription::Dictionary& locals = codec->getDictionary();
+        for(auto& entry: locals)
+        {
+            // TODO: test na redeklaraciu z inym typom
+            globals[entry.first] = entry.second;
+        }
+    }
+
+    return globals;
+}
+
+CodecDescriptionPtr CodecRegister::getLatestCodecForCategory(int category) const
+{
+    auto iterator = _tableByCategory.find(category);
+
+    if (iterator == _tableByCategory.end())
+        return nullptr;
+
+    return iterator->second;
 }
 
 } /* namespace astlib */

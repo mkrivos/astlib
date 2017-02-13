@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include "PrimitiveItem.h"
 #include "model/CodecDescription.h"
 #include "model/ItemDescription.h"
 #include "model/Fixed.h"
@@ -40,18 +41,20 @@ public:
 
 private:
     void loadCategory(CodecDescription& codecDescription, const Poco::XML::Element& root);
-    ItemDescriptionPtr loadDataItem(const Poco::XML::Element& root);
+    ItemDescriptionPtr loadDataItem(CodecDescription& codecDescription, const Poco::XML::Element& root);
     void loadUap(CodecDescription& codecDescription, const Poco::XML::Element& element);
-    ItemDescriptionPtr loadFixedDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
-    ItemDescriptionPtr loadVariableDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
-    ItemDescriptionPtr loadRepetitiveDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
-    ItemDescriptionPtr loadCompoundDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
-    ItemDescriptionPtr loadExplicitDeclaration(int id, const std::string& description, const Poco::XML::Element& element);
-    BitsDescriptionArray loadBitsDeclaration(const Poco::XML::Element& element);
-    Fixed loadFixed(const Poco::XML::Element& element);
-    ItemDescriptionPtr loadFormatElement(int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadFixedDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadVariableDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadRepetitiveDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadCompoundDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadExplicitDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
+    BitsDescriptionArray loadBitsDeclaration(CodecDescription& codecDescription, const Poco::XML::Element& element);
+    Fixed loadFixed(CodecDescription& codecDescription, const Poco::XML::Element& element);
+    ItemDescriptionPtr loadFormatElement(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
+    void addPrimitiveItem(CodecDescription& codecDescription, const BitsDescription& bits);
 
     bool _verbose = true;
+    int _category;
 };
 
 } /* namespace astlib */

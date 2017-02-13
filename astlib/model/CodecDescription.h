@@ -15,6 +15,7 @@
 
 #include "CategoryDescription.h"
 #include "ItemDescription.h"
+#include "astlib/PrimitiveItem.h"
 
 #include <Poco/Dynamic/Var.h>
 
@@ -50,6 +51,7 @@ public:
     using Parameters = std::unordered_map<std::string, Poco::Dynamic::Var>;
     using ItemDescriptionTable = std::unordered_map<int, ItemDescriptionPtr>;
     using UapItems = std::map<int, UapItem>;
+    using Dictionary = std::map<std::string, PrimitiveItem>;
 
     CodecDescription();
     ~CodecDescription();
@@ -67,11 +69,15 @@ public:
     void addUapItem(int frn, int itemId, bool mandatory);
     const UapItems& enumerateUapItems() const;
 
+    void addPrimitiveItem(const std::string& name, const PrimitiveItem& item);
+    const Dictionary& getDictionary() const;
+
 private:
     CategoryDescription _categoryDescription;
     ItemDescriptionTable _dataItems;
     Parameters _parameters;
     UapItems _uapItems;
+    Dictionary _itemDictionary;
 };
 
 using CodecDescriptionPtr = std::shared_ptr<CodecDescription>;

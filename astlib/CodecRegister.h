@@ -22,6 +22,8 @@ namespace astlib
 
 /**
  * Search, register & publish all known codec descriptions.
+ * All codecs are stored by signature (codec.toString()) key, i.e. multiple codecs
+ * with the same category but different edition are supported.
  */
 class CodecRegister
 {
@@ -29,13 +31,45 @@ public:
     CodecRegister();
     ~CodecRegister();
 
+    /**
+     * Loads and registers all XML descriptions from directory.
+     * @param path
+     */
     void populateCodecsFromDirectory(const std::string& path);
 
+    /**
+     * Add one codec description.
+     * @param codec
+     */
     void addCodec(CodecDescriptionPtr codec);
 
+    /**
+     * Enumerates all registered codecs (categories and editions).
+     * @return
+     */
     CodecDescriptionVector enumerateAllCodecs() const;
 
-    CodecDescriptionVector enumerateCodecsByCategory() const;
+    /**
+     * Enumerates registered codecs for exact categories, i.e. if more codecs for one category
+     * is registered, only latest editions are enumerated.
+     * @return
+     */
+    CodecDescriptionVector enumerateAllCodecsByCategory() const;
+
+    /**
+     * Enumerate union of all codecs local symbols.
+     * @return
+     */
+    CodecDescription::Dictionary enumerateGlobalSymbols() const;
+
+    //CodecDescriptionVector enumerateCodecsByCategory(int category) const;
+
+    /**
+     * Return latest edition codec for concrete category.
+     * @param category
+     * @return codec, or nullptr if no registered codec for this category.
+     */
+    CodecDescriptionPtr getLatestCodecForCategory(int category) const;
 
 private:
     std::map<int, CodecDescriptionPtr> _tableByCategory;

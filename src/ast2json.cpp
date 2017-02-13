@@ -10,6 +10,8 @@
 /// All rights reserved.
 ///
 
+#include "JsonValueDecoder.h"
+
 #include "astlib/BinaryAsterixDekoder.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
@@ -29,7 +31,6 @@
 #include <iostream>
 #include <sstream>
 
-#include "JsonValueDecoder.h"
 using Poco::Util::Application;
 using Poco::Util::Option;
 using Poco::Util::OptionSet;
@@ -110,13 +111,22 @@ protected:
     {
         astlib::CodecRegister codecRegister;
         codecRegister.populateCodecsFromDirectory("specs");
-        auto codecs = codecRegister.enumerateCodecsByCategory();
+        auto codecs = codecRegister.enumerateAllCodecsByCategory();
 
         for(auto codec: codecs)
         {
             logger().information("registering %s", codec->getCategoryDescription().toString());
             _codecs[codec->getCategoryDescription().getCategory()] = std::make_shared<astlib::BinaryAsterixDekoder>(codec);
         }
+/*
+        auto globals = codecRegister.enumerateGlobalSymbols();
+        int index = 1;
+        for(const auto& entry: globals)
+        {
+            const astlib::PrimitiveItem& item = entry.second;
+            logger().information("%d. symbol %s with type %s", index++, item.getName(), item.getType().toString());
+        }
+        */
     }
 
     int main(const ArgVec& args)

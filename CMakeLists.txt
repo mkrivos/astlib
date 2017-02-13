@@ -21,8 +21,8 @@ add_subdirectory(astlib obj/astlib)
 set(LIBS astlib ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 include_directories(${Poco_INCLUDE_DIRECTORIES})
 
-add_executable(loader src/loader.cpp)
-target_link_libraries(loader ${LIBS})
+add_executable(enumerate_symbols src/enumerate_symbols.cpp)
+target_link_libraries(enumerate_symbols ${LIBS})
 
 add_executable(ast2json src/ast2json.cpp src/JsonValueDecoder.cpp)
 target_link_libraries(ast2json ${LIBS})

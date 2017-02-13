@@ -4,7 +4,7 @@
 /// \brief Tento subor needitovat, bol automaticky generovany programom codegen!
 ///
 /// \author marian.krivos@r-sys.sk
-/// \date 8.2.2017
+/// \date 13.2.2017
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -310,6 +310,72 @@ bool Encoding::validate() const
 }
 
 const std::vector<std::string>& Encoding::enumerate() const
+{
+    return definitionList;
+}
+
+#ifndef _MSC_VER
+const PrimitiveType::ValueType PrimitiveType::Unknown;
+const PrimitiveType::ValueType PrimitiveType::Boolean;
+const PrimitiveType::ValueType PrimitiveType::Integer;
+const PrimitiveType::ValueType PrimitiveType::Unsigned;
+const PrimitiveType::ValueType PrimitiveType::Real;
+const PrimitiveType::ValueType PrimitiveType::String;
+#endif
+
+std::vector<std::string> PrimitiveType::definitionList = 
+{
+    "Unknown",
+    "Boolean",
+    "Integer",
+    "Unsigned",
+    "Real",
+    "String",
+};
+
+std::string PrimitiveType::toString() const
+{
+    switch(_value)
+    {
+        case Unknown: return "Unknown";
+        case Boolean: return "Boolean";
+        case Integer: return "Integer";
+        case Unsigned: return "Unsigned";
+        case Real: return "Real";
+        case String: return "String";
+    }
+
+    return "PrimitiveType::UndefinedValue";
+}
+
+void PrimitiveType::fromString(const std::string& str)
+{
+    _value = 0;
+    if (str ==  "Unknown")  { _value = Unknown; return; }
+    if (str ==  "Boolean")  { _value = Boolean; return; }
+    if (str ==  "Integer")  { _value = Integer; return; }
+    if (str ==  "Unsigned")  { _value = Unsigned; return; }
+    if (str ==  "Real")  { _value = Real; return; }
+    if (str ==  "String")  { _value = String; return; }
+}
+
+bool PrimitiveType::validate() const
+{
+    switch(_value)
+    {
+        case Unknown:
+        case Boolean:
+        case Integer:
+        case Unsigned:
+        case Real:
+        case String:
+            return true;
+    }
+
+    return false;
+}
+
+const std::vector<std::string>& PrimitiveType::enumerate() const
 {
     return definitionList;
 }

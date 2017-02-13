@@ -40,4 +40,13 @@
         <item name="Hex"></item>
     </enumeration>
 
+    <enumeration name="PrimitiveType" >
+        <item name="Unknown"></item>
+        <item name="Boolean"></item>
+        <item name="Integer"></item>
+        <item name="Unsigned"></item>
+        <item name="Real"></item>
+        <item name="String"></item>
+    </enumeration>
+
   </root>

@@ -13,6 +13,7 @@
 
 #include "CodecDescription.h"
 #include "Exception.h"
+#include <iostream>
 
 namespace astlib
 {
@@ -76,6 +77,24 @@ void CodecDescription::addUapItem(int frn, int itemId, bool mandatory)
 const CodecDescription::UapItems& CodecDescription::enumerateUapItems() const
 {
     return _uapItems;
+}
+
+const CodecDescription::Dictionary& CodecDescription::getDictionary() const
+{
+    return _itemDictionary;
+}
+
+
+void CodecDescription::addPrimitiveItem(const std::string& name, const PrimitiveItem& item)
+{
+    auto iterator = _itemDictionary.find(name);
+
+    if (iterator != _itemDictionary.end())
+    {
+        std::cerr << "Cat " << _categoryDescription.getCategory() << " redefinition: " << name << std::endl;
+    }
+
+    _itemDictionary[name] = item;
 }
 
 } /* namespace astlib */

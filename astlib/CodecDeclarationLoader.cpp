@@ -87,7 +87,7 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
 {
     CategoryDescription categoryDescription;
 
-    int cat = Poco::NumberParser::parse(root.getAttribute("id"));
+    int cat = _category = Poco::NumberParser::parse(root.getAttribute("id"));
     categoryDescription.setCategory(cat);
     categoryDescription.setEdition(root.getAttribute("ver"));
     categoryDescription.setFamily(AsterixFamily::Eurocontrol);
@@ -107,7 +107,7 @@ void CodecDeclarationLoader::loadCategory(CodecDescription& codecDescription, co
             auto name = element->nodeName();
             if (name == "DataItem")
             {
-                ItemDescriptionPtr item = loadDataItem(*element);
+                ItemDescriptionPtr item = loadDataItem(codecDescription, *element);
                 if (item)
                     codecDescription.addDataItem(item);
             }
@@ -164,7 +164,7 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
     }
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(CodecDescription& codecDescription, const Element& element)
 {
     auto idString = element.getAttribute("id");
     int id = 0;
@@ -184,23 +184,23 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(const Element& element)
         std::cout << "  " << id << " " << formatElement->nodeName() << " " << description << std::endl;
     }
 
-    return loadFormatElement(id, description, *formatElement);
+    return loadFormatElement(codecDescription, id, description, *formatElement);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadFixedDeclaration(int id, const std::string& description, const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadFixedDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& element)
 {
-    Fixed fixed = loadFixed(element);
+    Fixed fixed = loadFixed(codecDescription, element);
     return std::make_shared<FixedItemDescription>(id, description, fixed);
 }
 
-Fixed CodecDeclarationLoader::loadFixed(const Element& element)
+Fixed CodecDeclarationLoader::loadFixed(CodecDescription& codecDescription, const Element& element)
 {
     int length = Poco::NumberParser::parse(element.getAttribute("length"));
-    BitsDescriptionArray bitsArray = loadBitsDeclaration(element);
+    BitsDescriptionArray bitsArray = loadBitsDeclaration(codecDescription, element);
     return Fixed(bitsArray, length);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadVariableDeclaration(int id, const std::string& description, const Element& parent)
+ItemDescriptionPtr CodecDeclarationLoader::loadVariableDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& parent)
 {
     FixedVector fixeds;
     for (auto node = parent.firstChild(); node; node = node->nextSibling())
@@ -208,14 +208,14 @@ ItemDescriptionPtr CodecDeclarationLoader::loadVariableDeclaration(int id, const
         const Element* element = dynamic_cast<Element*>(node);
         if (element && element->nodeName() == "Fixed")
         {
-            Fixed fixed = loadFixed(*element);
+            Fixed fixed = loadFixed(codecDescription, *element);
             fixeds.push_back(fixed);
         }
     }
     return std::make_shared<VariableItemDescription>(id, description, fixeds);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(int id, const std::string& description, const Element& parent)
+ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& parent)
 {
     FixedVector fixeds;
     for (auto node = parent.firstChild(); node; node = node->nextSibling())
@@ -223,14 +223,14 @@ ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(int id, con
         const Element* element = dynamic_cast<Element*>(node);
         if (element && element->nodeName() == "Fixed")
         {
-            Fixed fixed = loadFixed(*element);
+            Fixed fixed = loadFixed(codecDescription, *element);
             fixeds.push_back(fixed);
         }
     }
     return std::make_shared<RepetitiveItemDescription>(id, description, fixeds);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(int id, const std::string& description, const Element& parent)
+ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& parent)
 {
     ItemDescriptionVector items;
     for (auto node = parent.firstChild(); node; node = node->nextSibling())
@@ -238,7 +238,7 @@ ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(int id, const
         const Element* element = dynamic_cast<Element*>(node);
         if (element)
         {
-            ItemDescriptionPtr item = loadFormatElement(id, description, *element);
+            ItemDescriptionPtr item = loadFormatElement(codecDescription, id, description, *element);
             if (item)
                 items.push_back(item);
         }
@@ -246,12 +246,12 @@ ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(int id, const
     return std::make_shared<CompoundItemDescription>(id, description, items);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(int id, const std::string& description, const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& element)
 {
     return nullptr;
 }
 
-BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& parent)
+BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescription& codecDescription, const Element& parent)
 {
     BitsDescriptionArray bitsArray;
 
@@ -344,6 +344,7 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
             }
 
             //std::cout << "      " << bits.toString() << " enc " << bits.encoding.toString() << std::endl;
+            addPrimitiveItem(codecDescription, bits);
             bitsArray.push_back(bits);
         }
     }
@@ -351,30 +352,68 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(const Element& 
     return bitsArray;
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadFormatElement(int id, const std::string& description, const Element& formatElement)
+ItemDescriptionPtr CodecDeclarationLoader::loadFormatElement(CodecDescription& codecDescription, int id, const std::string& description, const Element& formatElement)
 {
     ItemFormat format = ItemFormat(formatElement.nodeName());
 
     switch (format.toValue())
     {
         case ItemFormat::Fixed:
-            return loadFixedDeclaration(id, description, formatElement);
+            return loadFixedDeclaration(codecDescription, id, description, formatElement);
 
         case ItemFormat::Variable:
-            return loadVariableDeclaration(id, description, formatElement);
+            return loadVariableDeclaration(codecDescription, id, description, formatElement);
 
         case ItemFormat::Repetitive:
-            return loadRepetitiveDeclaration(id, description, formatElement);
+            return loadRepetitiveDeclaration(codecDescription, id, description, formatElement);
 
         case ItemFormat::Compound:
-            return loadCompoundDeclaration(id, description, formatElement);
+            return loadCompoundDeclaration(codecDescription, id, description, formatElement);
 
         case ItemFormat::Explicit:
-            return loadExplicitDeclaration(id, description, formatElement);
+            return loadExplicitDeclaration(codecDescription, id, description, formatElement);
 
         default:
             throw Exception("CodecDeclarationLoader::loadDataItem(): unknown item type " + format.toString());
     }
+}
+
+void CodecDeclarationLoader::addPrimitiveItem(CodecDescription& codecDescription, const BitsDescription& bits)
+{
+    if (Poco::icompare(bits.name,"FX") == 0 ||
+        Poco::icompare(bits.name, "spare") == 0 ||
+        Poco::icompare(bits.name, "unused") == 0 ||
+        Poco::endsWith(bits.name, std::string("_presence"))
+    )
+        return;
+
+    PrimitiveType type;
+
+    if (bits.effectiveBitsWidth() == 1)
+    {
+        type = PrimitiveType::Boolean;
+    }
+    else
+    {
+        if (bits.scale != 1.0)
+        {
+            type = PrimitiveType::Real;
+        }
+        else if (bits.encoding == Encoding::Signed)
+        {
+            type = PrimitiveType::Integer;
+        }
+        else if (bits.encoding == Encoding::Unsigned)
+        {
+            type = PrimitiveType::Unsigned;
+        }
+        else
+        {
+            type = PrimitiveType::String;
+        }
+
+    }
+    codecDescription.addPrimitiveItem(bits.name, PrimitiveItem(bits.name, type));
 }
 
 } /* namespace codecDescription */
