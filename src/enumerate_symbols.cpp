@@ -16,32 +16,31 @@
 
 using namespace astlib;
 
-struct AsterixItemCode
-{
-    constexpr AsterixItemCode(int code, int subcode, int type) :
-        value((type << 24) | (subcode << 16) | code)
-    {
-    }
-
-    constexpr int code() const
-    {
-        return value & 0xFFFF;
-    }
-
-    constexpr int subCode() const
-    {
-        return (value>>16) & 0xFF;
-    }
-
-    constexpr int type() const
-    {
-        return (value>>24) & 0xFF;
-    }
-
-    const Poco::UInt32 value = 0;
-};
-
-constexpr AsterixItemCode ASTERIX_ITEM_SAC(1,0,2);
+const char* asterixItemCode =
+"struct AsterixItemCode \n\
+{ \n\
+    constexpr AsterixItemCode(int code, int subcode, int type) : \n\
+        value((type << 24) | (subcode << 16) | code) \n\
+    { \n\
+    } \n\
+\n\
+    constexpr int code() const \n\
+    { \n\
+        return value & 0xFFFF; \n\
+    } \n\
+\n\
+    constexpr int subCode() const \n\
+    { \n\
+        return (value>>16) & 0xFF; \n\
+    } \n\
+ \n\
+    constexpr int type() const \n\
+    { \n\
+        return (value>>24) & 0xFF; \n\
+    } \n\
+ \n\
+    const Poco::UInt32 value = 0; \n\
+};\n";
 
 int main(int argc, char* argv[])
 {
@@ -54,7 +53,7 @@ int main(int argc, char* argv[])
     std::cout << "#include \"GeneratedTypes.h\"" << std::endl << std::endl;
     if (useCpp14)
     {
-
+        std::cout << asterixItemCode << std::endl;
     }
     else
         std::cout << "#define DECLARE_ASTERIX_ITEM(id, subid, type) ((type << 24) | (subid << 16) | id)" << std::endl << std::endl;
@@ -66,7 +65,7 @@ int main(int argc, char* argv[])
         const astlib::PrimitiveItem& item = entry.second;
         if (useCpp14)
         {
-            std::cout << "constexpr AsterixItemCode ASTERIX_ITEM_" << entry.first << "(" << Poco::NumberFormatter::formatHex(index, 4, true) << ", 0, PrimitiveType::" << item.getType().toString() << ")" << std::endl;
+            std::cout << "constexpr AsterixItemCode ASTERIX_ITEM_" << entry.first << "(" << Poco::NumberFormatter::formatHex(index, 4, true) << ", 0, PrimitiveType::" << item.getType().toString() << ");" << std::endl;
         }
         else
         {

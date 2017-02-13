@@ -61,3 +61,4 @@ cmake_install.cmake
 /RUN_TESTS.vcxproj
 /ast2json
 /enumerate_symbols
+/AsterixSymbols.h

@@ -38,5 +38,5 @@ TEST_F(CodecRegisterTest, getLatestCodecForCategory)
     ASSERT_TRUE(codec.get());
 
     const CodecDescription::Dictionary symbols = codec->getDictionary();
-    EXPECT_EQ(106, symbols.size());
+    EXPECT_EQ(142, symbols.size());
 }

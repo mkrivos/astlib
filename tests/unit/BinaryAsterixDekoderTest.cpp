@@ -129,17 +129,17 @@ TEST_F( BinaryDataDekoderTest, badDecode)
     // too small packet
     {
         unsigned char bytes[3] = { 48, 0, 0};
-        EXPECT_THROW(codecSpecification1.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // bad lenght
     {
         unsigned char bytes[6] = { 48, 0, 0, 0, 0, 0};
-        EXPECT_THROW(codecSpecification1.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // no fspec data
     {
         unsigned char bytes[6] = { 48, 0, 6, 0, 0, 0};
-        EXPECT_THROW(codecSpecification1.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
     }
 }
 
@@ -218,6 +218,6 @@ TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48)
 
     for(int i = 0; i < 10000; i++)
     {
-        codecSpecification1.decode(emptyDecoder, bytes, sizeof(bytes));
+        codecSpecification2.decode(emptyDecoder, bytes, sizeof(bytes));
     }
 }

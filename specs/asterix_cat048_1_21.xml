@@ -220,17 +220,17 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>V</BitsShortName>
+                    <BitsShortName>Mode2.V</BitsShortName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="15">
-                    <BitsShortName>G</BitsShortName>
+                    <BitsShortName>Mode2.G</BitsShortName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
                 <Bits bit="14">
-                    <BitsShortName>L</BitsShortName>
+                    <BitsShortName>Mode2.L</BitsShortName>
                     <BitsValue val="0">Mode-2 code as derived from the reply of the transponder</BitsValue>
                     <BitsValue val="1">Smoothed Mode-2 code as provided by a local tracker</BitsValue>
                 </Bits>
@@ -240,7 +240,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1" encode="octal">
-                    <BitsShortName>Mode2</BitsShortName>
+                    <BitsShortName>Mode2.Code</BitsShortName>
                     <BitsName>Mode-2 code</BitsName>
                 </Bits>
             </Fixed>
@@ -254,22 +254,22 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits bit="8">
-                    <BitsShortName>V</BitsShortName>
+                    <BitsShortName>Mode1.V</BitsShortName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>G</BitsShortName>
+                    <BitsShortName>Mode1.G</BitsShortName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>L</BitsShortName>
+                    <BitsShortName>Mode1.L</BitsShortName>
                     <BitsValue val="0">Mode-1 code as derived from the reply of the transponder</BitsValue>
                     <BitsValue val="1">Smoothed Mode-1 code as provided by a local tracker</BitsValue>
                 </Bits>
                 <Bits from="5" to="1">
-                    <BitsShortName>Mode1</BitsShortName>
+                    <BitsShortName>Mode1.Code</BitsShortName>
                     <BitsName>Mode-1 code</BitsName>
                 </Bits>
             </Fixed>
@@ -288,62 +288,62 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="12">
-                    <BitsShortName>QA4</BitsShortName>
+                    <BitsShortName>Mode2.QA4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="11">
-                    <BitsShortName>QA2</BitsShortName>
+                    <BitsShortName>Mode2.QA2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="10">
-                    <BitsShortName>QA1</BitsShortName>
+                    <BitsShortName>Mode2.QA1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="9">
-                    <BitsShortName>QB4</BitsShortName>
+                    <BitsShortName>Mode2.QB4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="8">
-                    <BitsShortName>QB2</BitsShortName>
+                    <BitsShortName>Mode2.QB2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>QB1</BitsShortName>
+                    <BitsShortName>Mode2.QB1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>QC4</BitsShortName>
+                    <BitsShortName>Mode2.QC4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>QC2</BitsShortName>
+                    <BitsShortName>Mode2.QC2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>QC1</BitsShortName>
+                    <BitsShortName>Mode2.QC1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>QD4</BitsShortName>
+                    <BitsShortName>Mode2.QD4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>QD2</BitsShortName>
+                    <BitsShortName>Mode2.QD2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="1">
-                    <BitsShortName>QD1</BitsShortName>
+                    <BitsShortName>Mode2.QD1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
@@ -363,27 +363,27 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>QA4</BitsShortName>
+                    <BitsShortName>Mode1.QA4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>QA2</BitsShortName>
+                    <BitsShortName>Mode1.QA2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>QA1</BitsShortName>
+                    <BitsShortName>Mode1.QA1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>QB2</BitsShortName>
+                    <BitsShortName>Mode1.QB2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="1">
-                    <BitsShortName>QB1</BitsShortName>
+                    <BitsShortName>Mode1.QB1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
@@ -398,17 +398,17 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>V</BitsShortName>
+                    <BitsShortName>Mode3A.V</BitsShortName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="15">
-                    <BitsShortName>G</BitsShortName>
+                    <BitsShortName>Mode3A.G</BitsShortName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
                 <Bits bit="14">
-                    <BitsShortName>L</BitsShortName>
+                    <BitsShortName>Mode3A.L</BitsShortName>
                     <BitsValue val="0">Mode-3/A code as derived from the reply of the transponder</BitsValue>
                     <BitsValue val="1">Smoothed Mode-3/A code as provided by a local tracker</BitsValue>
                 </Bits>
@@ -418,7 +418,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1" encode="octal">
-                    <BitsShortName>Mode3A</BitsShortName>
+                    <BitsShortName>Mode3A.Code</BitsShortName>
                     <BitsName>Mode-3/A reply code</BitsName>
                 </Bits>
             </Fixed>
@@ -437,62 +437,62 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="12">
-                    <BitsShortName>QA4</BitsShortName>
+                    <BitsShortName>Mode3A.QA4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="11">
-                    <BitsShortName>QA2</BitsShortName>
+                    <BitsShortName>Mode3A.QA2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="10">
-                    <BitsShortName>QA1</BitsShortName>
+                    <BitsShortName>Mode3A.QA1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="9">
-                    <BitsShortName>QB4</BitsShortName>
+                    <BitsShortName>Mode3A.QB4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="8">
-                    <BitsShortName>QB2</BitsShortName>
+                    <BitsShortName>Mode3A.QB2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>QB1</BitsShortName>
+                    <BitsShortName>Mode3A.QB1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>QC4</BitsShortName>
+                    <BitsShortName>Mode3A.QC4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>QC2</BitsShortName>
+                    <BitsShortName>Mode3A.QC2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>QC1</BitsShortName>
+                    <BitsShortName>Mode3A.QC1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>QD4</BitsShortName>
+                    <BitsShortName>Mode3A.QD4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>QD2</BitsShortName>
+                    <BitsShortName>Mode3A.QD2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="1">
-                    <BitsShortName>QD1</BitsShortName>
+                    <BitsShortName>Mode3A.QD1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
@@ -507,18 +507,18 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>V</BitsShortName>
+                    <BitsShortName>FlightLevel.V</BitsShortName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="15">
-                    <BitsShortName>G</BitsShortName>
+                    <BitsShortName>FlightLevel.G</BitsShortName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
                 <Bits from="14" to="1" encode="signed">
                     <BitsShortName>FL</BitsShortName>
-                    <BitsName>FlightLevel</BitsName>
+                    <BitsName>FlightLevel.Value</BitsName>
                     <BitsUnit scale="0.25">FL</BitsUnit>
                 </Bits>
             </Fixed>
@@ -532,12 +532,12 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
             <Fixed length="4">
                 <Bits bit="32">
-                    <BitsShortName>V</BitsShortName>
+                    <BitsShortName>ModeC.V</BitsShortName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="31">
-                    <BitsShortName>G</BitsShortName>
+                    <BitsShortName>ModeC.G</BitsShortName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
@@ -547,7 +547,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="28" to="17">
-                    <BitsShortName>ModeC</BitsShortName>
+                    <BitsShortName>ModeC.Code</BitsShortName>
                     <BitsName>Mode-C reply in Gray notation</BitsName>
                     <!-- TODO gray notation -->
                 </Bits>
@@ -557,62 +557,62 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="12">
-                    <BitsShortName>QC1</BitsShortName>
+                    <BitsShortName>ModeC.QC1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="11">
-                    <BitsShortName>QA1</BitsShortName>
+                    <BitsShortName>ModeC.QA1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="10">
-                    <BitsShortName>QC2</BitsShortName>
+                    <BitsShortName>ModeC.QC2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="9">
-                    <BitsShortName>QA2</BitsShortName>
+                    <BitsShortName>ModeC.QA2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="8">
-                    <BitsShortName>QC4</BitsShortName>
+                    <BitsShortName>ModeC.QC4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>QA4</BitsShortName>
+                    <BitsShortName>ModeC.QA4</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>QB1</BitsShortName>
+                    <BitsShortName>ModeC.QB1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>QD1</BitsShortName>
+                    <BitsShortName>ModeC.QD1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>QB2</BitsShortName>
+                    <BitsShortName>ModeC.QB2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>QD2</BitsShortName>
+                    <BitsShortName>ModeC.QD2</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>QB1</BitsShortName>
+                    <BitsShortName>ModeC.QB1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>
                 <Bits bit="1">
-                    <BitsShortName>QD1</BitsShortName>
+                    <BitsShortName>ModeC.QD1</BitsShortName>
                     <BitsValue val="0">High quality pulse</BitsValue>
                     <BitsValue val="1">Low quality pulse</BitsValue>
                 </Bits>

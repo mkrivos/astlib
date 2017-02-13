@@ -14,3 +14,7 @@ Decoding
 Encoding
 --------------------------------------
 
+Symbols
+--------------------------------------
+Mode3A  = (XX, 0, Unknown)
+Mode3A.Code  = (XX, 1, Unsigned)

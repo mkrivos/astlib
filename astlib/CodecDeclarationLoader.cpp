@@ -301,6 +301,9 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
             }
 
             bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
+            Poco::toUpperInPlace(bits.name);
+            Poco::replaceInPlace(bits.name, ".", "_");
+            Poco::replaceInPlace(bits.name, "/", "_");
 
             const Element* unitNode = dynamic_cast<const Element*>(element->getChildElement("BitsUnit"));
             if (unitNode)
