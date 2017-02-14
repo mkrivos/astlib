@@ -91,7 +91,7 @@ void CodecDescription::addPrimitiveItem(const std::string& name, const Primitive
 
     if (iterator != _itemDictionary.end())
     {
-        std::cerr << "Cat " << _categoryDescription.getCategory() << " redefinition: " << name << std::endl;
+        //std::cerr << "Cat " << _categoryDescription.getCategory() << " redefinition: " << name << std::endl;
     }
 
     _itemDictionary[name] = item;

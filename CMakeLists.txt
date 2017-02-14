@@ -24,7 +24,7 @@ include_directories(${Poco_INCLUDE_DIRECTORIES})
 add_executable(enumerate_symbols src/enumerate_symbols.cpp)
 target_link_libraries(enumerate_symbols ${LIBS})
 
-add_executable(ast2json src/ast2json.cpp src/JsonValueDecoder.cpp)
+add_executable(ast2json src/ast2json.cpp )
 target_link_libraries(ast2json ${LIBS})
 
 # Setup GTEST testing
