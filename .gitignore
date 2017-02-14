@@ -62,3 +62,4 @@ cmake_install.cmake
 /ast2json
 /enumerate_symbols
 /AsterixSymbols.h
+/generator

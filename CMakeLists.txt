@@ -16,13 +16,33 @@ if ( NOT Poco_FOUND)
   message(FATAL_ERROR "Package Poco and it's components required, but not found!")
 endif()
 
+add_executable(generator 
+	astlib/CodecDeclarationLoader.cpp 
+	astlib/CodecRegister.cpp 
+	astlib/Exception.cpp 
+	astlib/PrimitiveItem.cpp
+	astlib/GeneratedTypes.cpp  
+	astlib/model/CodecDescription.cpp 
+	astlib/model/BitsDescription.cpp 
+	astlib/model/CategoryDescription.cpp
+	astlib/model/FixedItemDescription.cpp
+	astlib/model/VariableItemDescription.cpp
+	astlib/model/RepetitiveItemDescription.cpp
+	astlib/model/CompoundItemDescription.cpp
+	astlib/model/ItemDescription.cpp  
+	src/generate_symbols.cpp
+)
+	
+target_link_libraries(generator ${Poco_LIBRARIES} ${SYSTEM_LIBS})
+
+
 add_subdirectory(astlib obj/astlib)
 
 set(LIBS astlib ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 include_directories(${Poco_INCLUDE_DIRECTORIES})
 
-add_executable(enumerate_symbols src/enumerate_symbols.cpp)
-target_link_libraries(enumerate_symbols ${LIBS})
+#add_executable(enumerate_symbols src/enumerate_symbols.cpp)
+#target_link_libraries(enumerate_symbols ${LIBS})
 
 add_executable(ast2json src/ast2json.cpp src/JsonValueDecoder.cpp)
 target_link_libraries(ast2json ${LIBS})

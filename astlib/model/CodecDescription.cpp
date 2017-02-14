@@ -12,7 +12,7 @@
 ///
 
 #include "CodecDescription.h"
-#include "Exception.h"
+#include "astlib/Exception.h"
 #include <iostream>
 
 namespace astlib
