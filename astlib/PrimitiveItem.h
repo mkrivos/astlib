@@ -21,14 +21,16 @@ class PrimitiveItem
 {
 public:
     PrimitiveItem();
-    PrimitiveItem(const std::string& name, PrimitiveType type);
+    PrimitiveItem(const std::string& name, const std::string& description, PrimitiveType type);
     virtual ~PrimitiveItem();
 
     const std::string& getName() const;
+    const std::string& getDescription() const;
     PrimitiveType getType() const;
 
 private:
     std::string _name;
+    std::string _description;
     PrimitiveType _type = PrimitiveType::Unknown;
 };
 

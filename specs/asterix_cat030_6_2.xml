@@ -1164,7 +1164,7 @@
         <DataItemFormat desc="One-byte fixed length data item.">
             <Fixed length="1">
                 <Bits from="8" to="7">
-                    <BitsShortName>GAT_OAT</BitsShortName>
+                    <BitsShortName>GATOAT</BitsShortName>
                     <BitsName>GAT/OAT</BitsName>
                     <BitsValue val="0">Unknown</BitsValue>
                     <BitsValue val="1">General Air Traffic</BitsValue>
@@ -1172,7 +1172,7 @@
                     <BitsValue val="3">Not applicable</BitsValue>
                 </Bits>
                 <Bits from="6" to="5">
-                    <BitsShortName>FR1_FR2</BitsShortName>
+                    <BitsShortName>FR1FR2</BitsShortName>
                     <BitsName>FR1/FR2</BitsName>
                     <BitsValue val="0">Instrument Flight Rules</BitsValue>
                     <BitsValue val="1">Visual Flight rules</BitsValue>

@@ -301,9 +301,15 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
             }
 
             bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
-            Poco::toUpperInPlace(bits.name);
-            Poco::replaceInPlace(bits.name, ".", "_");
+            Poco::toLowerInPlace(bits.name);
+            Poco::replaceInPlace(bits.name, "_", ".");
             Poco::replaceInPlace(bits.name, "/", "_");
+
+            const Element* descrNode = dynamic_cast<const Element*>(element->getChildElement("BitsName"));
+            if (descrNode)
+            {
+                bits.description = descrNode->innerText();
+            }
 
             const Element* unitNode = dynamic_cast<const Element*>(element->getChildElement("BitsUnit"));
             if (unitNode)
@@ -386,7 +392,7 @@ void CodecDeclarationLoader::addPrimitiveItem(CodecDescription& codecDescription
     if (Poco::icompare(bits.name,"FX") == 0 ||
         Poco::icompare(bits.name, "spare") == 0 ||
         Poco::icompare(bits.name, "unused") == 0 ||
-        Poco::endsWith(bits.name, std::string("_presence"))
+        Poco::endsWith(bits.name, std::string(".presence"))
     )
         return;
 
@@ -416,7 +422,7 @@ void CodecDeclarationLoader::addPrimitiveItem(CodecDescription& codecDescription
         }
 
     }
-    codecDescription.addPrimitiveItem(bits.name, PrimitiveItem(bits.name, type));
+    codecDescription.addPrimitiveItem(bits.name, PrimitiveItem(bits.name, bits.description, type));
 }
 
 } /* namespace codecDescription */

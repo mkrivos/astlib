@@ -22,19 +22,14 @@ struct AsterixItemCode
 {
     constexpr AsterixItemCode(Poco::UInt32 value = 0) : value(value) {}
 
-    constexpr AsterixItemCode(int code, int subcode, int type) :
-        value((type << 24) | (subcode << 16) | code)
+    constexpr AsterixItemCode(int code, int type) :
+        value((type << 24) | (code & 0x0FFF))
     {
     }
 
     constexpr int code() const
     {
-        return value & 0xFFFF;
-    }
-
-    constexpr int subCode() const
-    {
-        return (value>>16) & 0xFF;
+        return value & 0xFFF;
     }
 
     constexpr int type() const

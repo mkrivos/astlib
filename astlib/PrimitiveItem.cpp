@@ -19,8 +19,9 @@ PrimitiveItem::PrimitiveItem()
 {
 }
 
-PrimitiveItem::PrimitiveItem(const std::string& name, PrimitiveType type) :
+PrimitiveItem::PrimitiveItem(const std::string& name, const std::string& description, PrimitiveType type) :
     _name(name),
+    _description(description),
     _type(type)
 {
 }
@@ -32,6 +33,11 @@ PrimitiveItem::~PrimitiveItem()
 const std::string& PrimitiveItem::getName() const
 {
     return _name;
+}
+
+const std::string& PrimitiveItem::getDescription() const
+{
+    return _description;
 }
 
 PrimitiveType PrimitiveItem::getType() const

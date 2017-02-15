@@ -12,7 +12,10 @@ Decoding
 - ast2json: item 48/030 is variable repetitive and json doesn't catch this
 - encoding of arrays (SimpleAsterixMessage)
 - Implement AsterixItemCode into callbacks
- 
+- introduce enumeration as special case of unsigned
+- separate generator code from CodecDeclarationLoader
+- use AsterixItemCode in callbacks
+  
 Encoding
 --------------------------------------
 

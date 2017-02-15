@@ -26,6 +26,7 @@ public:
 
     Encoding encoding = Encoding::Unsigned;
     std::string name;
+    std::string description;
     ValueMap values;
     int bit = -1;
     int from = -1;
