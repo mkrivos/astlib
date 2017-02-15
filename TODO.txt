@@ -10,7 +10,9 @@ Decoding
 - integer enumeration of all asterix primitives
 - handle ascii encodings in decoder
 - ast2json: item 48/030 is variable repetitive and json doesn't catch this
-
+- encoding of arrays (SimpleAsterixMessage)
+- Implement AsterixItemCode into callbacks
+ 
 Encoding
 --------------------------------------
 

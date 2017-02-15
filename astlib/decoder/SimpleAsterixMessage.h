@@ -28,10 +28,22 @@ public:
     ~SimpleAsterixMessage();
 
     void addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value);
-    bool getBoolean(AsterixItemCode code) const;
+
+    bool hasItem(AsterixItemCode code) const;
+
+    bool getBoolean(AsterixItemCode code, bool& value) const;
+    bool getUnsigned(AsterixItemCode code, Poco::UInt64& value) const;
+    bool getSigned(AsterixItemCode code, Poco::Int64& value) const;
+    bool getReal(AsterixItemCode code, double& value) const;
+    bool getString(AsterixItemCode code, std::string& value) const;
+
+    size_t size() const;
+    void clear();
 
 private:
     std::map<AsterixItemCode, Poco::Dynamic::Var> _items;
 };
+
+using SimpleAsterixMessagePtr = std::shared_ptr<SimpleAsterixMessage>;
 
 } /* namespace astlib */
