@@ -54,7 +54,7 @@ private:
     void addPrimitiveItem(CodecDescription& codecDescription, const BitsDescription& bits);
 
     bool _verbose = true;
-    int _category;
+    int _category = 0;
 };
 
 } /* namespace astlib */

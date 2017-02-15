@@ -19,7 +19,6 @@
 #include "model/CompoundItemDescription.h"
 
 #include <Poco/Ascii.h>
-#include "Poco/XML/XMLStreamParser.h"
 #include <Poco/XML/Content.h>
 #include "Poco/SAX/InputSource.h"
 #include "Poco/DOM/DOMParser.h"
@@ -35,7 +34,7 @@
 #include "Poco/NumberParser.h"
 #include "Poco/NumberFormatter.h"
 
-//#include <fstream>
+#include <iostream>
 
 using namespace Poco::XML;
 
@@ -164,7 +163,7 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
     }
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(CodecDescription& codecDescription, const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(CodecDescription& codecDescription, const Poco::XML::Element& element)
 {
     auto idString = element.getAttribute("id");
     int id = 0;
@@ -176,7 +175,7 @@ ItemDescriptionPtr CodecDeclarationLoader::loadDataItem(CodecDescription& codecD
         id = Poco::NumberParser::parse(idString);
 
     auto description = element.getChildElement("DataItemName")->innerText();
-    Element* formatElement = dynamic_cast<Element*>(element.getChildElement("DataItemFormat")->firstChild());
+    Poco::XML::Element* formatElement = dynamic_cast<Poco::XML::Element*>(element.getChildElement("DataItemFormat")->firstChild());
     poco_assert(formatElement);
     
     if (_verbose)
