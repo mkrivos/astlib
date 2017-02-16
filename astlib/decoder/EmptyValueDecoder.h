@@ -18,6 +18,9 @@
 namespace astlib
 {
 
+/**
+ * Zero decoder, simply throws decoded values.
+ */
 class EmptyValueDecoder :
     public ValueDecoder
 {
@@ -36,7 +39,7 @@ class EmptyValueDecoder :
     virtual void endRepetitive()
     {
     }
-    virtual void decode(Poco::UInt64 value, const Context& bits)
+    virtual void decode(const Context& bits, Poco::UInt64 value)
     {
     }
     virtual void end()

@@ -28,19 +28,12 @@ BinaryAsterixDekoder::BinaryAsterixDekoder()
 {
 }
 
-BinaryAsterixDekoder::BinaryAsterixDekoder(CodecDescriptionPtr codec) :
-    _codec(codec)
-{
-}
-
 BinaryAsterixDekoder::~BinaryAsterixDekoder()
 {
 }
 
-void BinaryAsterixDekoder::decode(ValueDecoder& valueDecoder, const Byte buf[], size_t bytes)
+void BinaryAsterixDekoder::decode(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[], size_t bytes)
 {
-    poco_assert(_codec);
-
     if (bytes < 6)
     {
         throw Exception("Too short message in BinaryDataDekoder::decode()");
@@ -69,7 +62,7 @@ void BinaryAsterixDekoder::decode(ValueDecoder& valueDecoder, const Byte buf[], 
         if (size == 0)
             break;
 
-        int len = decodeRecord(valueDecoder, fspecPtr);
+        int len = decodeRecord(codec, valueDecoder, fspecPtr);
 
         // Chyba, treba vyskocit inak bude nekonecna slucka
         if (len <= 0)
@@ -88,41 +81,7 @@ void BinaryAsterixDekoder::decode(ValueDecoder& valueDecoder, const Byte buf[], 
     }
 }
 
-void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder)
-{
-    const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
-    Poco::UInt64 data = 0;
-
-    for (int i = 0; i < fixed.length; i++)
-    {
-        data <<= 8;
-        data |= localPtr[i];
-    }
-
-    for (const BitsDescription& bits : bitsDescriptions)
-    {
-        ValueDecoder::Context context(uapItem, bits, _depth);
-
-        if (context.width == 1)
-        {
-            // Send non FX bits only
-            if (!bits.fx)
-            {
-                Poco::UInt64 value = ((data >> (bits.bit - 1)) & 1);
-                valueDecoder.decode(value, context);
-            }
-        }
-        else
-        {
-            Poco::UInt64 mask = (1ULL << bits.effectiveBitsWidth()) - 1;
-            Poco::UInt64 value = ((data >> (bits.to - 1)) & mask);
-            // depth, scope,
-            valueDecoder.decode(value, context);
-        }
-    }
-}
-
-int BinaryAsterixDekoder::decodeRecord(ValueDecoder& valueDecoder, const Byte fspecPtr[])
+int BinaryAsterixDekoder::decodeRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte fspecPtr[])
 {
     const Byte* startPtr = fspecPtr;
     size_t fspecLen = ByteUtils::calculateFspec(fspecPtr);
@@ -135,7 +94,7 @@ int BinaryAsterixDekoder::decodeRecord(ValueDecoder& valueDecoder, const Byte fs
     int currentFspecBit = 0;
 
     // Loop for all fspec bits
-    const CodecDescription::UapItems& uapItems = _codec->enumerateUapItems();
+    const CodecDescription::UapItems& uapItems = codec.enumerateUapItems();
 
     valueDecoder.begin();
 
@@ -213,6 +172,40 @@ int BinaryAsterixDekoder::decodeRecord(ValueDecoder& valueDecoder, const Byte fs
     valueDecoder.end();
 
     return localPtr-startPtr;
+}
+
+void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder)
+{
+    const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
+    Poco::UInt64 data = 0;
+
+    for (int i = 0; i < fixed.length; i++)
+    {
+        data <<= 8;
+        data |= localPtr[i];
+    }
+
+    for (const BitsDescription& bits : bitsDescriptions)
+    {
+        ValueDecoder::Context context(uapItem, bits, _depth);
+
+        if (context.width == 1)
+        {
+            // Send non FX bits only
+            if (!bits.fx)
+            {
+                Poco::UInt64 value = ((data >> (bits.bit - 1)) & 1);
+                valueDecoder.decode(context, value);
+            }
+        }
+        else
+        {
+            Poco::UInt64 mask = (1ULL << bits.effectiveBitsWidth()) - 1;
+            Poco::UInt64 value = ((data >> (bits.to - 1)) & mask);
+            // depth, scope,
+            valueDecoder.decode(context, value);
+        }
+    }
 }
 
 int BinaryAsterixDekoder::decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])

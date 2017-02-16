@@ -54,7 +54,7 @@ public:
     virtual void beginRepetitive(int size) = 0;
     virtual void repetitiveItem(int index) = 0;
     virtual void endRepetitive() = 0;
-    virtual void decode(Poco::UInt64 value, const Context& ctx) = 0;
+    virtual void decode(const Context& ctx, Poco::UInt64 value) = 0;
     virtual void end() = 0;
 };
 
@@ -66,13 +66,13 @@ class TypedValueDecoder :
     public ValueDecoder
 {
 public:
-    virtual void decode(Poco::UInt64 value, const Context& ctx);
+    virtual void decode(const Context& ctx, Poco::UInt64 value);
 
-    virtual void decodeBoolean(const std::string& identification, bool value) = 0;
-    virtual void decodeSigned(const std::string& identification, Poco::Int64 value) = 0;
-    virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value) = 0;
-    virtual void decodeReal(const std::string& identification, double value) = 0;
-    virtual void decodeString(const std::string& identification, const std::string& value) = 0;
+    virtual void decodeBoolean(const Context& ctx, bool value) = 0;
+    virtual void decodeSigned(const Context& ctx, Poco::Int64 value) = 0;
+    virtual void decodeUnsigned(const Context& ctx, Poco::UInt64 value) = 0;
+    virtual void decodeReal(const Context& ctx, double value) = 0;
+    virtual void decodeString(const Context& ctx, const std::string& value) = 0;
 };
 
 }

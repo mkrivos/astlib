@@ -18,6 +18,8 @@
 #include "model/RepetitiveItemDescription.h"
 #include "model/CompoundItemDescription.h"
 
+#include "AsterixItemDictionary.h"
+
 #include <Poco/Ascii.h>
 #include <Poco/XML/Content.h>
 #include "Poco/SAX/InputSource.h"
@@ -259,7 +261,18 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
         const Element* element = dynamic_cast<Element*>(node);
         if (element && element->nodeType() == Node::ELEMENT_NODE && element->nodeName() == "Bits")
         {
-            BitsDescription bits;
+            auto name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
+            Poco::toLowerInPlace(name);
+            Poco::replaceInPlace(name, "_", ".");
+            Poco::replaceInPlace(name, "/", "_");
+
+            const AsterixItemCode code(asterixSymbolFromCode(name));
+
+         //   if (!code.isValid())
+         //       throw Exception("Codec declared symbol '" + name + "' which is no known by current asterix dictionary");
+
+            BitsDescription bits(code);
+            bits.name = name;
 
             if (element->hasAttribute("bit"))
             {
@@ -298,11 +311,6 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
                     str = "SixBitsChar";
                 bits.encoding = Encoding(str);
             }
-
-            bits.name = dynamic_cast<const Element*>(element->getChildElement("BitsShortName"))->innerText();
-            Poco::toLowerInPlace(bits.name);
-            Poco::replaceInPlace(bits.name, "_", ".");
-            Poco::replaceInPlace(bits.name, "/", "_");
 
             const Element* descrNode = dynamic_cast<const Element*>(element->getChildElement("BitsName"));
             if (descrNode)

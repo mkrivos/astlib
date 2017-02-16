@@ -21,6 +21,9 @@
 namespace astlib
 {
 
+/**
+ * Trivial implementation of AsterixMessage based on std::map.
+ */
 class SimpleAsterixMessage
 {
 public:

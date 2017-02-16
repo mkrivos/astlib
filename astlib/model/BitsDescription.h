@@ -13,6 +13,7 @@
 #pragma once
 
 #include "astlib/GeneratedTypes.h"
+#include "astlib/AsterixItemCode.h"
 #include <map>
 #include <limits>
 
@@ -24,10 +25,14 @@ class BitsDescription
 public:
     using ValueMap = std::map<std::string, int>;
 
+    BitsDescription() {}
+    BitsDescription(AsterixItemCode code) : code(code) {}
+
     Encoding encoding = Encoding::Unsigned;
     std::string name;
     std::string description;
     ValueMap values;
+    AsterixItemCode code;
     int bit = -1;
     int from = -1;
     int to = -1;

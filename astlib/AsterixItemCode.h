@@ -21,6 +21,7 @@ namespace astlib
 struct AsterixItemCode
 {
     constexpr AsterixItemCode(Poco::UInt32 value = 0) : value(value) {}
+    constexpr AsterixItemCode(const AsterixItemCode& old ) : value(old.value) {}
 
     constexpr AsterixItemCode(int code, int type) :
         value((type << 24) | (code & 0x0FFF))
@@ -35,6 +36,11 @@ struct AsterixItemCode
     constexpr int type() const
     {
         return (value>>24) & 0xFF;
+    }
+
+    constexpr bool isValid() const
+    {
+        return value != 0;
     }
 
     const Poco::UInt32 value = 0;

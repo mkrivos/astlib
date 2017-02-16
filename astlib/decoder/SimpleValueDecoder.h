@@ -18,6 +18,9 @@
 namespace astlib
 {
 
+/**
+ * Trival decoder that creates SimpleAsterixMessage on each decoded asterix record.
+ */
 class SimpleValueDecoder:
     public TypedValueDecoder
 {
@@ -30,11 +33,11 @@ public:
     virtual void beginRepetitive(int);
     virtual void repetitiveItem(int index);
     virtual void endRepetitive();
-    virtual void decodeBoolean(const std::string& identification, bool value);
-    virtual void decodeSigned(const std::string& identification, Poco::Int64 value);
-    virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value);
-    virtual void decodeReal(const std::string& identification, double value);
-    virtual void decodeString(const std::string& identification, const std::string& value);
+    virtual void decodeBoolean(const Context& context, bool value);
+    virtual void decodeSigned(const Context& context, Poco::Int64 value);
+    virtual void decodeUnsigned(const Context& context, Poco::UInt64 value);
+    virtual void decodeReal(const Context& context, double value);
+    virtual void decodeString(const Context& context, const std::string& value);
     virtual void end();
 
     virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr) = 0;

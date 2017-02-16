@@ -19,6 +19,8 @@
 #include <Poco/NumberFormatter.h>
 #include "gtest/gtest.h"
 
+#include "obj/astlib/AsterixItemDictionary.h"
+
 using namespace astlib;
 
 class BinaryDataDekoderTest:
@@ -28,8 +30,8 @@ public:
     BinaryDataDekoderTest()
     {
         CodecDeclarationLoader loader;
-        codecSpecification1 = BinaryAsterixDekoder(loader.load("specs/asterix_cat048_1_14.xml"));
-        codecSpecification2 = BinaryAsterixDekoder(loader.load("specs/asterix_cat048_1_21.xml"));
+        codecSpecification1 = *loader.load("specs/asterix_cat048_1_14.xml");
+        codecSpecification2 = *loader.load("specs/asterix_cat048_1_21.xml");
     }
     ~BinaryDataDekoderTest()
     {
@@ -57,37 +59,26 @@ public:
         virtual void endRepetitive()
         {
         }
-#if 0
-        virtual void decode(Poco::UInt64 value, const Context& ctx)
+        virtual void decodeBoolean(const Context& context, bool value)
         {
-            std::cout << "  " << ctx.bits.name << " = " << Poco::NumberFormatter::formatHex(value, "0") << std::endl;
-            if (ctx.bits.name == "FX")
-            {
-                std::cout << std::endl;
-            }
+            std::cout << "  Boolean " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-#else
-        virtual void decodeBoolean(const std::string& identification, bool value)
+        virtual void decodeSigned(const Context& context, Poco::Int64 value)
         {
-            std::cout << "  Boolean " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            std::cout << "  Integer " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeSigned(const std::string& identification, Poco::Int64 value)
+        virtual void decodeUnsigned(const Context& context, Poco::UInt64 value)
         {
-            std::cout << "  Integer " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            std::cout << "  Unsigned " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value)
+        virtual void decodeReal(const Context& context, double value)
         {
-            std::cout << "  Unsigned " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            std::cout << "  Real " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeReal(const std::string& identification, double value)
+        virtual void decodeString(const Context& context, const std::string& value)
         {
-            std::cout << "  Real " << identification << " = " << Poco::NumberFormatter::format(value) << std::endl;
+            std::cout << "  Real " << context.bits.name << " = '" << value << "'" << std::endl;
         }
-        virtual void decodeString(const std::string& identification, const std::string& value)
-        {
-            std::cout << "  Real " << identification << " = '" << value << "'" << std::endl;
-        }
-#endif
         virtual void end()
         {
             std::cout << "End\n";
@@ -103,8 +94,8 @@ public:
     } defaultDecoder;
 
     EmptyValueDecoder emptyDecoder;
-    BinaryAsterixDekoder codecSpecification1;
-    BinaryAsterixDekoder codecSpecification2;
+    CodecDescription codecSpecification1;
+    CodecDescription codecSpecification2;
     BinaryAsterixDekoder dekoder;
 
     static constexpr int SIZE = 1+2+3+2+3+2+4+2+2+8+3+6+2+4+2+2;
@@ -136,24 +127,24 @@ TEST_F( BinaryDataDekoderTest, badDecode)
     // too small packet
     {
         unsigned char bytes[3] = { 48, 0, 0};
-        EXPECT_THROW(codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // bad lenght
     {
         unsigned char bytes[6] = { 48, 0, 0, 0, 0, 0};
-        EXPECT_THROW(codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // no fspec data
     {
         unsigned char bytes[6] = { 48, 0, 6, 0, 0, 0};
-        EXPECT_THROW(codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
 }
 
 TEST_F( BinaryDataDekoderTest, decodeCat48MultiRecord)
 {
     unsigned char bytes[9] = { 48, 0, 9, 0x80, 1, 2,   0x80, 3, 4 };
-    codecSpecification1.decode(valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes));
 }
 
 TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
@@ -194,15 +185,15 @@ TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
         0xFF, 0xFF,// 60
 
     };
-    codecSpecification1.decode(valueDecoder, bytes, sizeof(bytes));
-    codecSpecification2.decode(valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(codecSpecification1, valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes));
 }
 
 TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48Empty)
 {
-    for(int i = 0; i < 500000; i++)
+    for(int i = 0; i < 10000; i++)
     {
-        codecSpecification2.decode(emptyDecoder, standardMessage, sizeof(standardMessage));
+        dekoder.decode(codecSpecification2, emptyDecoder, standardMessage, sizeof(standardMessage));
     }
 }
 
@@ -210,6 +201,35 @@ TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48Simple)
 {
     for(int i = 0; i < 10000; i++)
     {
-        codecSpecification2.decode(defaultDecoder, standardMessage, sizeof(standardMessage));
+        dekoder.decode(codecSpecification2, defaultDecoder, standardMessage, sizeof(standardMessage));
     }
+}
+
+TEST_F(BinaryDataDekoderTest, validDecodeCat48Simple)
+{
+    class MySimpleValueDecoder :
+        public SimpleValueDecoder
+    {
+    public:
+        virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr)
+        {
+            msg = ptr;
+        }
+
+        SimpleAsterixMessagePtr msg;
+    } myDecoder;
+
+    dekoder.decode(codecSpecification2, myDecoder, standardMessage, sizeof(standardMessage));
+
+    ASSERT_TRUE(myDecoder.msg.get());
+    SimpleAsterixMessage& message = *myDecoder.msg;
+
+    Poco::UInt64 unsignedValue;
+    EXPECT_TRUE(message.hasItem(ASTERIX_CODE_SAC));
+    EXPECT_TRUE(message.getUnsigned(ASTERIX_CODE_SAC, unsignedValue));
+    EXPECT_EQ(5, unsignedValue);
+
+    EXPECT_TRUE(message.hasItem(ASTERIX_CODE_SIC));
+    EXPECT_TRUE(message.getUnsigned(ASTERIX_CODE_SIC, unsignedValue));
+    EXPECT_EQ(6, unsignedValue);
 }

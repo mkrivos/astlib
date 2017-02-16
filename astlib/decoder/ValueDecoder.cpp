@@ -19,24 +19,17 @@
 namespace astlib
 {
 
-void TypedValueDecoder::decode(Poco::UInt64 value, const Context& ctx)
+void TypedValueDecoder::decode(const Context& ctx, Poco::UInt64 value)
 {
-    const std::string& id = ctx.bits.name;
+    Encoding::ValueType encoding = ctx.bits.encoding.toValue();
 
-    if (id == "WE")
+    switch(ctx.bits.code.type())
     {
-        std::cout << std::endl;
-    }
+        case PrimitiveType::Boolean:
+            decodeBoolean(ctx, bool(value));
+            break;
 
-    if (ctx.width == 1)
-    {
-        decodeBoolean(id, bool(value));
-    }
-    else
-    {
-        Encoding::ValueType encoding = ctx.bits.encoding.toValue();
-
-        if (ctx.bits.scale != 1.0)
+        case PrimitiveType::Real:
         {
             double unit = 1.0;
 
@@ -55,36 +48,41 @@ void TypedValueDecoder::decode(Poco::UInt64 value, const Context& ctx)
 
             if (encoding == Encoding::Unsigned)
             {
-                decodeReal(id, value * ctx.bits.scale * unit);
+                decodeReal(ctx, value * ctx.bits.scale * unit);
             }
             else
             {
-                decodeReal(id, ByteUtils::toSigned(value, ctx.width) * ctx.bits.scale * unit);
+                decodeReal(ctx, ByteUtils::toSigned(value, ctx.width) * ctx.bits.scale * unit);
             }
+            break;
         }
-        else
+
+        case PrimitiveType::Integer:
+            decodeSigned(ctx, ByteUtils::toSigned(value, ctx.width));
+            break;
+
+        case PrimitiveType::Unsigned:
+            decodeUnsigned(ctx, value);
+            break;
+
+        default:
         {
             switch (encoding)
             {
-                case Encoding::Signed:
-                    decodeSigned(id, ByteUtils::toSigned(value, ctx.width));
-                    break;
-                case Encoding::Unsigned:
-                    decodeUnsigned(id, value);
-                    break;
                 case Encoding::Ascii:
-                    decodeString(id, "");
+                    decodeString(ctx, "");
                     break;
                 case Encoding::Octal:
-                    decodeUnsigned(id, ByteUtils::oct2dec(value));
+                    decodeUnsigned(ctx, ByteUtils::oct2dec(value));
                     break;
                 case Encoding::SixBitsChar:
-                    decodeString(id, ByteUtils::fromSixBitString((const Byte*)&value));
+                    decodeString(ctx, ByteUtils::fromSixBitString((const Byte*)&value));
                     break;
                 case Encoding::Hex:
-                    decodeString(id, Poco::NumberFormatter::formatHex(value));
+                    decodeString(ctx, Poco::NumberFormatter::formatHex(value));
                     break;
             }
+            break;
         }
     }
 }

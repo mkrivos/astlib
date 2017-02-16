@@ -115,7 +115,7 @@ protected:
         for(auto codec: codecs)
         {
             logger().information("registering %s", codec->getCategoryDescription().toString());
-            _codecs[codec->getCategoryDescription().getCategory()] = std::make_shared<astlib::BinaryAsterixDekoder>(codec);
+            _codecs[codec->getCategoryDescription().getCategory()] = codec;
         }
 /*
         auto globals = codecRegister.enumerateGlobalSymbols();
@@ -197,7 +197,7 @@ protected:
                                     };
                                     _decoder.decode(*codec, _decoderHandler, bytes, sizeof(bytes));
 #else
-                                    codec->decode(_decoderHandler, buffer, bytes);
+                                    _decoder.decode(*codec, _decoderHandler, buffer, bytes);
 #endif
                                 }
                             }
@@ -220,7 +220,8 @@ protected:
 
 private:
     astlib::JsonValueDecoder _decoderHandler;
-    std::map<int, std::shared_ptr<astlib::BinaryAsterixDekoder>> _codecs;
+    astlib::BinaryAsterixDekoder _decoder;
+    std::map<int, std::shared_ptr<astlib::CodecDescription>> _codecs;
     Poco::Net::DatagramSocket _socket;
     int _port = 10000;
     bool _helpRequested;

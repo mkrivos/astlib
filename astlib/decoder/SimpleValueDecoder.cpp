@@ -44,29 +44,29 @@ void SimpleValueDecoder::endRepetitive()
 {
 }
 
-void SimpleValueDecoder::decodeBoolean(const std::string& identification, bool value)
+void SimpleValueDecoder::decodeBoolean(const Context& context, bool value)
 {
-    _msg->addSimpleItem(0, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeSigned(const std::string& identification, Poco::Int64 value)
+void SimpleValueDecoder::decodeSigned(const Context& context, Poco::Int64 value)
 {
-    _msg->addSimpleItem(1, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeUnsigned(const std::string& identification, Poco::UInt64 value)
+void SimpleValueDecoder::decodeUnsigned(const Context& context, Poco::UInt64 value)
 {
-    _msg->addSimpleItem(2, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeReal(const std::string& identification, double value)
+void SimpleValueDecoder::decodeReal(const Context& context, double value)
 {
-    _msg->addSimpleItem(3, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeString(const std::string& identification, const std::string& value)
+void SimpleValueDecoder::decodeString(const Context& context, const std::string& value)
 {
-    _msg->addSimpleItem(4, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
 void SimpleValueDecoder::end()

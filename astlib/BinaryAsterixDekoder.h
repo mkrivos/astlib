@@ -29,7 +29,6 @@ public:
     static constexpr int MAX_PACKET_SIZE = 8192;
 
     BinaryAsterixDekoder();
-    BinaryAsterixDekoder(CodecDescriptionPtr codec);
     virtual ~BinaryAsterixDekoder();
 
     /**
@@ -39,11 +38,11 @@ public:
      * @param buf asterix data buffer, first byte is byte containing category number
      * @param bytes the effective size of buffer data
      */
-    void decode(ValueDecoder& valueDecoder, const Byte buf[], size_t bytes);
+    void decode(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[], size_t bytes);
 
 private:
     // Integer sizes are used instead of unsigned types for underflow/overflow detection
-    int decodeRecord(ValueDecoder& valueDecoder, const Byte buf[]);
+    int decodeRecord(const CodecDescription& codec, ValueDecoder& valueDecoder, const Byte buf[]);
     int decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
@@ -51,8 +50,6 @@ private:
 
     void decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
 
-    CodecDescriptionPtr _codec;
-    // TODO: prepare vector of UAP items for faster access
     int _depth = 0;
     bool _verbose = false;
 };

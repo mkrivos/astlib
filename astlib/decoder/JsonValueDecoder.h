@@ -24,6 +24,9 @@
 namespace astlib
 {
 
+/**
+ * Decoder that prints decoded values in Json form to console.
+ */
 class JsonValueDecoder :
     public TypedValueDecoder
 {
@@ -33,11 +36,11 @@ class JsonValueDecoder :
     virtual void repetitiveItem(int index);
     virtual void endRepetitive();
 
-    virtual void decodeBoolean(const std::string& identification, bool value);
-    virtual void decodeSigned(const std::string& identification, Poco::Int64 value);
-    virtual void decodeUnsigned(const std::string& identification, Poco::UInt64 value);
-    virtual void decodeReal(const std::string& identification, double value);
-    virtual void decodeString(const std::string& identification, const std::string& value);
+    virtual void decodeBoolean(const Context& context, bool value);
+    virtual void decodeSigned(const Context& context, Poco::Int64 value);
+    virtual void decodeUnsigned(const Context& context, Poco::UInt64 value);
+    virtual void decodeReal(const Context& context, double value);
+    virtual void decodeString(const Context& context, const std::string& value);
     virtual void end();
 
 private:
