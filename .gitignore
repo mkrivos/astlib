@@ -65,3 +65,4 @@ cmake_install.cmake
 /generator
 /AsterixItemDictionary.cpp
 /AsterixItemDictionary.h
+/binary2asterix

@@ -18,6 +18,10 @@
 namespace astlib
 {
 
+/**
+ * Class that encapsulate unique asterix pair<item id, item type>.
+ * Use this class with generated codes ASTERIX_CODE_* to identification of decoded asterix items.
+ */
 struct AsterixItemCode
 {
     constexpr AsterixItemCode(Poco::UInt32 value = 0) : value(value) {}
