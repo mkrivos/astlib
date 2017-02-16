@@ -200,7 +200,7 @@ TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
 
 TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48Empty)
 {
-    for(int i = 0; i < 10000; i++)
+    for(int i = 0; i < 500000; i++)
     {
         codecSpecification2.decode(emptyDecoder, standardMessage, sizeof(standardMessage));
     }

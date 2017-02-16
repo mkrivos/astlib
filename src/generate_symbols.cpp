@@ -12,6 +12,7 @@
 
 #include "astlib/GeneratedTypes.h"
 #include "astlib/model/BitsDescription.h"
+#include "astlib/PrimitiveItem.h"
 
 #include <Poco/Ascii.h>
 #include <Poco/XML/Content.h>
@@ -346,16 +347,23 @@ public:
             }
 
         }
-        //codecDescription.addPrimitiveItem(bits.name, PrimitiveItem(bits.name, bits.description, type));
+
+        symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type);
     }
 
-    std::map<std::string, astlib::BitsDescription> bits;
+    std::map<std::string, astlib::PrimitiveItem> symbols;
 };
 
 
 int main(int argc, char* argv[])
 {
     std::string module = "AsterixItemDictionary";
+
+    if (argc > 1)
+    {
+        module = argv[1];
+    }
+
     BitsRegister bits;
     auto files = bits.populateCodecsFromDirectory("specs");
 
@@ -371,16 +379,16 @@ int main(int argc, char* argv[])
         bits.load(file);
     }
 
-    auto& globals = bits.bits;
+    auto& globals = bits.symbols;
 
     int index = 1;
     for (const auto& entry : globals)
     {
-        const astlib::BitsDescription& item = entry.second;
+        astlib::PrimitiveItem item = entry.second;
         std::string upperName = Poco::toUpper(entry.first);
         Poco::replaceInPlace(upperName, ".", "_");
 
-        header << "constexpr AsterixItemCode ASTERIX_CODE_" << upperName << "(" << Poco::NumberFormatter::formatHex(index, 4, true) << ", PrimitiveType::" << item.type.toString() << ");  ///< " << item.description << std::endl;
+        header << "constexpr AsterixItemCode ASTERIX_CODE_" << upperName << "(" << Poco::NumberFormatter::formatHex(index, 4, true) << ", PrimitiveType::" << item.getType().toString() << ");  ///< " << item.getDescription() << std::endl;
         index++;
     }
 

@@ -135,7 +135,7 @@ int BinaryAsterixDekoder::decodeRecord(ValueDecoder& valueDecoder, const Byte fs
     int currentFspecBit = 0;
 
     // Loop for all fspec bits
-    const CodecDescription::UapItems uapItems = _codec->enumerateUapItems();
+    const CodecDescription::UapItems& uapItems = _codec->enumerateUapItems();
 
     valueDecoder.begin();
 

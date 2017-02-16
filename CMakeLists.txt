@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 if (MSVC)
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -march=native -Wall -O0")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -march=native -Wall -O3")
 endif()
 
 find_package(Poco 1.7.0 REQUIRED COMPONENTS Net Util XML JSON Foundation CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")
@@ -16,14 +16,16 @@ if ( NOT Poco_FOUND)
   message(FATAL_ERROR "Package Poco and it's components required, but not found!")
 endif()
 
-add_executable(generator astlib/GeneratedTypes.cpp src/generate_symbols.cpp)
+add_executable(generator astlib/GeneratedTypes.cpp astlib/PrimitiveItem.cpp astlib/model/BitsDescription.cpp src/generate_symbols.cpp)
 	
 target_link_libraries(generator ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 
 
 # add the command to generate the source code
-set(GENERATED_FILE ${CMAKE_CURRENT_BINARY_DIR}/AsterixItemDictionary.h)
-add_custom_command(OUTPUT GENERATED_FILE COMMAND generator GENERATED_FILE DEPENDS generator)
+set(GENERATED_MODULE "${CMAKE_CURRENT_BINARY_DIR}/AsterixItemDictionary")
+set(GENERATED_SOURCE "${GENERATED_MODULE}.cpp")
+
+add_custom_command(OUTPUT ${GENERATED_SOURCE} PRE_BUILD COMMAND generator ${GENERATED_FILE} DEPENDS generator)
   
 add_subdirectory(astlib obj/astlib)
 
@@ -33,7 +35,7 @@ include_directories(${Poco_INCLUDE_DIRECTORIES})
 #add_executable(enumerate_symbols src/enumerate_symbols.cpp)
 #target_link_libraries(enumerate_symbols ${LIBS})
 
-add_executable(ast2json src/ast2json.cpp )
+add_executable(ast2json src/ast2json.cpp ${GENERATED_SOURCE})
 target_link_libraries(ast2json ${LIBS})
 
 # Setup GTEST testing
