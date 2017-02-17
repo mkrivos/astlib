@@ -266,7 +266,7 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
             Poco::replaceInPlace(name, "_", ".");
             Poco::replaceInPlace(name, "/", "_");
 
-            const AsterixItemCode code(asterixSymbolFromCode(name));
+            const AsterixItemCode code(asterixSymbolToCode(name));
 
          //   if (!code.isValid())
          //       throw Exception("Codec declared symbol '" + name + "' which is no known by current asterix dictionary");

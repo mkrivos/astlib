@@ -411,8 +411,8 @@ int main(int argc, char* argv[])
         }
         header << std::endl << "constexpr int ASTERIX_ITEM_COUNT = " << Poco::NumberFormatter::format(globals.size()) << ";" << std::endl << std::endl;
 
-        header << "AsterixItemCode asterixSymbolFromCode(const std::string& symbol);" << std::endl;
-        header << "const std::string& asterixCodeFromSymbol(AsterixItemCode code);" << std::endl;
+        header << "AsterixItemCode asterixSymbolToCode(const std::string& symbol);" << std::endl;
+        header << "const std::string& asterixCodeToSymbol(AsterixItemCode code);" << std::endl;
         header << std::endl << "}" << std::endl;
 
         // -------------------------------------------------------------------------------------------------------------
@@ -453,12 +453,12 @@ int main(int argc, char* argv[])
         }
         source << "};" << std::endl << std::endl;
 
-        const char functions[] = "AsterixItemCode asterixSymbolFromCode(const std::string& symbol)\n"
+        const char functions[] = "AsterixItemCode asterixSymbolToCode(const std::string& symbol)\n"
             "{\n"
             "    return symbolToCodeMap[symbol];\n"
             "}\n"
             "\n"
-            "const std::string& asterixCodeFromSymbol(AsterixItemCode code)\n"
+            "const std::string& asterixCodeToSymbol(AsterixItemCode code)\n"
             "{\n"
             "    int index = code.code();\n"
             "    poco_assert(index < ASTERIX_ITEM_COUNT);\n"
