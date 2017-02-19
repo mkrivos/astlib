@@ -1,4 +1,4 @@
-find_package(Poco 1.7.0 REQUIRED COMPONENTS Foundation XML CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")
+find_package(Poco 1.7.0 REQUIRED COMPONENTS Foundation JSON XML CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")
 include_directories(${PocoFoundation_INCLUDE_DIRECTORIES})
 
 add_executable(generator GeneratedTypes.cpp PrimitiveItem.cpp model/BitsDescription.cpp bootstrap/generate_symbols.cpp)    

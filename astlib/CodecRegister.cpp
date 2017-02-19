@@ -40,7 +40,7 @@ void CodecRegister::populateCodecsFromDirectory(const std::string& path)
         if (file.isFile())
         {
             Poco::Path filename = file.path();
-            if (Poco::startsWith(filename.getBaseName(), std::string("asterix_cat")))
+            if (filename.getBaseName().find(std::string("asterix_cat")) == 0)
             {
                 CodecDescriptionPtr codec = loader.load(file.path());
                 if (codec)

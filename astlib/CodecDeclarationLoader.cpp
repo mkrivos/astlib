@@ -399,7 +399,7 @@ void CodecDeclarationLoader::addPrimitiveItem(CodecDescription& codecDescription
     if (Poco::icompare(bits.name,"FX") == 0 ||
         Poco::icompare(bits.name, "spare") == 0 ||
         Poco::icompare(bits.name, "unused") == 0 ||
-        Poco::endsWith(bits.name, std::string(".presence"))
+        bits.name.rfind(std::string(".presence")) == 0
     )
         return;
 

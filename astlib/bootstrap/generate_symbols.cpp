@@ -59,7 +59,7 @@ public:
             if (file.isFile())
             {
                 Poco::Path filename = file.path();
-                if (Poco::startsWith(filename.getBaseName(), std::string("asterix_cat")))
+                if (filename.getBaseName().find(std::string("asterix_cat")) == 0)
                 {
                     files.push_back(file.path());
                 }
@@ -317,7 +317,7 @@ public:
         if (Poco::icompare(bits.name,"FX") == 0 ||
             Poco::icompare(bits.name, "spare") == 0 ||
             Poco::icompare(bits.name, "unused") == 0 ||
-            Poco::endsWith(bits.name, std::string(".presence"))
+            bits.name.rfind(std::string(".presence")) == 0
         )
             return;
 

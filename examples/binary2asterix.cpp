@@ -19,10 +19,10 @@
 
 using namespace astlib;
 
-static constexpr int SIZE = 1+2+3+2+3+2+4+2+2+8+3+6+2+4+2+2;
-unsigned char standardMessage[SIZE] = {
+static constexpr int PACKET_SIZE = 1+2+3+2+3+2+4+2+2+8+3+6+2+4+2+2;
+unsigned char standardMessage[PACKET_SIZE] = {
     48, // CAT
-    0, SIZE,
+    0, PACKET_SIZE,
     0xFF, 0xDB, 0x08,// FSPEC
 
     5, 6,  // 10 - sac sic

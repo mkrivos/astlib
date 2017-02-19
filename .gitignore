@@ -66,3 +66,9 @@ cmake_install.cmake
 /AsterixItemDictionary.cpp
 /AsterixItemDictionary.h
 /binary2asterix
+/ast2json.dir/Debug/ast2json.tlog
+/binary2asterix.dir/Debug/binary2asterix.tlog
+*.pdb
+*.log
+*.vcxproj
+*.filters
