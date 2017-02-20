@@ -187,7 +187,7 @@ void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fi
 
     for (const BitsDescription& bits : bitsDescriptions)
     {
-        ValueDecoder::Context context(uapItem, bits, _depth);
+        CodecContext context(uapItem, bits, _depth);
 
         if (context.width == 1)
         {
@@ -200,7 +200,7 @@ void BinaryAsterixDekoder::decodeBitset(const ItemDescription& uapItem, const Fi
         }
         else
         {
-            Poco::UInt64 mask = (1ULL << bits.effectiveBitsWidth()) - 1;
+            Poco::UInt64 mask = bits.bitMask();
             Poco::UInt64 value = ((data >> (bits.to - 1)) & mask);
             // depth, scope,
             valueDecoder.decode(context, value);

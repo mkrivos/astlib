@@ -39,7 +39,7 @@ class EmptyValueDecoder :
     virtual void endRepetitive()
     {
     }
-    virtual void decode(const Context& bits, Poco::UInt64 value)
+    virtual void decode(const CodecContext& bits, Poco::UInt64 value)
     {
     }
     virtual void end()

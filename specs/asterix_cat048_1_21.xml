@@ -1259,7 +1259,7 @@
 		<UAPItem bit="25" presence="O">055</UAPItem>
 		<UAPItem bit="26" presence="O">050</UAPItem>
 		<UAPItem bit="27" presence="O">065</UAPItem>
-		<UAPItem bit="28" presence="0">060</UAPItem>
+		<UAPItem bit="28" presence="O">060</UAPItem>
 		<UAPItem bit="29" presence="O">SP</UAPItem>
 		<UAPItem bit="30" presence="O">RE</UAPItem>
 		<UAPItem bit="31" presence="O">-</UAPItem>

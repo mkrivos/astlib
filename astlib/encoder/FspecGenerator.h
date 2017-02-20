@@ -19,17 +19,44 @@
 namespace astlib
 {
 
+/**
+ * Class for clever FSPEC handling.
+ * After creating contains zero items.
+ * User can add item bits or skip bits by simple calling addItem(), skipItem() and skipItems(int).
+ * FX bit is added automaticaly when needed.
+ * When done, user can ask for binary representation by calling data() and size() methods.
+ */
 class FspecGenerator
 {
 public:
     FspecGenerator();
     ~FspecGenerator();
 
+    /**
+     * Add bit with value 1 and forward to next item.
+     */
     void addItem();
+
+    /**
+     * Add bit with value 0 and forward to next item.
+     */
     void skipItem();
+
+    /**
+     * Calls 'count' times skipItem() method.
+     * @param count
+     */
     void skipItems(int count);
 
+    /**
+     * @return effective size of encoded FSPEC data.
+     */
     size_t size() const;
+
+    /**
+     * FSPEC data representation.
+     * @return
+     */
     const Byte* data() const;
 
 private:

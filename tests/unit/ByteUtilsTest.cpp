@@ -35,3 +35,26 @@ TEST(ByteUtilsTest, octalToDec)
     unsigned value = 07777;
     EXPECT_EQ(7777, ByteUtils::oct2dec(value));
 }
+
+TEST(ByteUtilsTest, pokeBigEndian)
+{
+    {
+        Byte buffer[8];
+        ByteUtils::pokeBigEndian(buffer, Poco::UInt64(0x11FFFFFFFFFFFF22UL), 8);
+        EXPECT_EQ(0x11, buffer[0]);
+        EXPECT_EQ(0x22, buffer[7]);
+    }
+    {
+        Byte buffer[8];
+        memset(buffer, 0x44, 8);
+        ByteUtils::pokeBigEndian(buffer, Poco::UInt64(0x1122UL), 2);
+        EXPECT_EQ(0x11, buffer[0]);
+        EXPECT_EQ(0x22, buffer[1]);
+        EXPECT_EQ(0x44, buffer[2]);
+        EXPECT_EQ(0x44, buffer[3]);
+        EXPECT_EQ(0x44, buffer[4]);
+        EXPECT_EQ(0x44, buffer[5]);
+        EXPECT_EQ(0x44, buffer[6]);
+        EXPECT_EQ(0x44, buffer[7]);
+    }
+}

@@ -37,4 +37,9 @@ int BitsDescription::effectiveBitsWidth() const
     return from-to+1;
 }
 
+Poco::UInt64 BitsDescription::bitMask() const
+{
+    return (1ULL << effectiveBitsWidth()) - 1;
+}
+
 } /* namespace astlib */

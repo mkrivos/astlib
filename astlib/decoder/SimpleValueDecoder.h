@@ -33,11 +33,11 @@ public:
     virtual void beginRepetitive(int);
     virtual void repetitiveItem(int index);
     virtual void endRepetitive();
-    virtual void decodeBoolean(const Context& context, bool value);
-    virtual void decodeSigned(const Context& context, Poco::Int64 value);
-    virtual void decodeUnsigned(const Context& context, Poco::UInt64 value);
-    virtual void decodeReal(const Context& context, double value);
-    virtual void decodeString(const Context& context, const std::string& value);
+    virtual void decodeBoolean(const CodecContext& context, bool value);
+    virtual void decodeSigned(const CodecContext& context, Poco::Int64 value);
+    virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value);
+    virtual void decodeReal(const CodecContext& context, double value);
+    virtual void decodeString(const CodecContext& context, const std::string& value);
     virtual void end();
 
     virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr) = 0;

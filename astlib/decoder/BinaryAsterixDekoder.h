@@ -29,7 +29,7 @@ public:
     static constexpr int MAX_PACKET_SIZE = 8192;
 
     BinaryAsterixDekoder();
-    virtual ~BinaryAsterixDekoder();
+    ~BinaryAsterixDekoder();
 
     /**
      * Decodes binary asterix data from buffer with size.

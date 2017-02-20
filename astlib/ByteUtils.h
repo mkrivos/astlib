@@ -38,6 +38,7 @@ public:
 
     static std::string fromSixBitString(const Byte buffer[]);
 
+    static void pokeBigEndian(Byte buffer[], Poco::UInt64 value, size_t len);
 };
 
 } /* namespace astlib */

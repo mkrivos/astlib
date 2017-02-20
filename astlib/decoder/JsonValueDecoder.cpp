@@ -48,27 +48,27 @@ void JsonValueDecoder::endRepetitive()
     removeScope();
 }
 
-void JsonValueDecoder::decodeBoolean(const Context& context, bool value)
+void JsonValueDecoder::decodeBoolean(const CodecContext& context, bool value)
 {
     scope()->set(context.bits.name, Poco::Dynamic::Var(value));
 }
 
-void JsonValueDecoder::decodeSigned(const Context& context, Poco::Int64 value)
+void JsonValueDecoder::decodeSigned(const CodecContext& context, Poco::Int64 value)
 {
     scope()->set(context.bits.name, Poco::Dynamic::Var(value));
 }
 
-void JsonValueDecoder::decodeUnsigned(const Context& context, Poco::UInt64 value)
+void JsonValueDecoder::decodeUnsigned(const CodecContext& context, Poco::UInt64 value)
 {
     JsonValueDecoder::scope()->set(context.bits.name, Poco::Dynamic::Var(value));
 }
 
-void JsonValueDecoder::decodeReal(const Context& context, double value)
+void JsonValueDecoder::decodeReal(const CodecContext& context, double value)
 {
     JsonValueDecoder::scope()->set(context.bits.name, Poco::Dynamic::Var(value));
 }
 
-void JsonValueDecoder::decodeString(const Context& context, const std::string& value)
+void JsonValueDecoder::decodeString(const CodecContext& context, const std::string& value)
 {
     JsonValueDecoder::scope()->set(context.bits.name, Poco::Dynamic::Var(value));
 }

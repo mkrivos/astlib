@@ -59,23 +59,23 @@ public:
         virtual void endRepetitive()
         {
         }
-        virtual void decodeBoolean(const Context& context, bool value)
+        virtual void decodeBoolean(const CodecContext& context, bool value)
         {
             std::cout << "  Boolean " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeSigned(const Context& context, Poco::Int64 value)
+        virtual void decodeSigned(const CodecContext& context, Poco::Int64 value)
         {
             std::cout << "  Integer " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeUnsigned(const Context& context, Poco::UInt64 value)
+        virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value)
         {
             std::cout << "  Unsigned " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeReal(const Context& context, double value)
+        virtual void decodeReal(const CodecContext& context, double value)
         {
             std::cout << "  Real " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeString(const Context& context, const std::string& value)
+        virtual void decodeString(const CodecContext& context, const std::string& value)
         {
             std::cout << "  Real " << context.bits.name << " = '" << value << "'" << std::endl;
         }

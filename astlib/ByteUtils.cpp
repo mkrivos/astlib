@@ -23,6 +23,15 @@ ByteUtils::~ByteUtils()
 {
 }
 
+void ByteUtils::pokeBigEndian(Byte buffer[], Poco::UInt64 value, size_t len)
+{
+    for(int i = len-1; i >= 0; i--)
+    {
+        buffer[i] = Byte(value);
+        value >>= 8;
+    }
+}
+
 size_t ByteUtils::calculateFspec(const Byte fspecPtr[])
 {
     size_t fspecLen = 1;

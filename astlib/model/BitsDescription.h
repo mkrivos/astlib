@@ -46,6 +46,7 @@ public:
     void addEnumeration(const std::string& key, int value);
 
     int effectiveBitsWidth() const;
+    Poco::UInt64 bitMask() const;
 
     std::string toString() const;
 };

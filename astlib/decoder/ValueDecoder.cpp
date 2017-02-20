@@ -19,7 +19,7 @@
 namespace astlib
 {
 
-void TypedValueDecoder::decode(const Context& ctx, Poco::UInt64 value)
+void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value)
 {
     Encoding::ValueType encoding = ctx.bits.encoding.toValue();
 
