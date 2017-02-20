@@ -3,7 +3,7 @@ Decoding
 - Explicit data item
 - Endian to formal description of codec
 - test to min/max value from bitset
-- handle multiple UAP per category
+- handle multiple UAP per category (id as astring)
 - optimize dekoder UAP item lookup - use vector instead of map for items
 - correct presence attribute for UAP defonitions in XMLfiles
 - handle missing but mandatory item in decoder
@@ -11,10 +11,8 @@ Decoding
 - handle ascii encodings in decoder
 - ast2json: item 48/030 is variable repetitive and json doesn't catch this
 - encoding of arrays (SimpleAsterixMessage)
-- Implement AsterixItemCode into callbacks
 - introduce enumeration as special case of unsigned
-- separate generator code from CodecDeclarationLoader
-- use AsterixItemCode in callbacks
+- introduce table with symbols per item
   
 Encoding
 --------------------------------------
