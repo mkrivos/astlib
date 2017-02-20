@@ -10,7 +10,8 @@
 /// All rights reserved.
 ///
 
-#include "astlib/decoder/BinaryAsterixDekoder.h"
+#include "../../astlib/decoder/BinaryAsterixDecoder.h"
+
 #include "astlib/decoder/EmptyValueDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/CodecDeclarationLoader.h"
@@ -96,7 +97,7 @@ public:
     EmptyValueDecoder emptyDecoder;
     CodecDescription codecSpecification1;
     CodecDescription codecSpecification2;
-    BinaryAsterixDekoder dekoder;
+    BinaryAsterixDecoder dekoder;
 
     static constexpr int SIZE = 1+2+3+2+3+2+4+2+2+8+3+6+2+4+2+2;
     unsigned char standardMessage[SIZE] = {

@@ -23,13 +23,13 @@ namespace astlib
 /**
  * Implements asterix binary data dekoder by interpreting CodecDescription and pushing decoded item to user ValueDecoder implementation.
  */
-class BinaryAsterixDekoder
+class BinaryAsterixDecoder
 {
 public:
     static constexpr int MAX_PACKET_SIZE = 8192;
 
-    BinaryAsterixDekoder();
-    ~BinaryAsterixDekoder();
+    BinaryAsterixDecoder();
+    ~BinaryAsterixDecoder();
 
     /**
      * Decodes binary asterix data from buffer with size.

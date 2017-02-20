@@ -11,7 +11,6 @@
 ///
 
 #include "astlib/decoder/JsonValueDecoder.h"
-#include "astlib/decoder/BinaryAsterixDekoder.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
 
@@ -29,6 +28,7 @@
 
 #include <iostream>
 #include <sstream>
+#include "../astlib/decoder/BinaryAsterixDecoder.h"
 
 using Poco::Util::Application;
 using Poco::Util::Option;
@@ -146,7 +146,7 @@ protected:
                     {
                         try
                         {
-                            astlib::Byte buffer[astlib::BinaryAsterixDekoder::MAX_PACKET_SIZE];
+                            astlib::Byte buffer[astlib::BinaryAsterixDecoder::MAX_PACKET_SIZE];
                             SocketAddress sender;
                             int bytes = _socket.receiveFrom(buffer, sizeof(buffer), sender);
 
@@ -220,7 +220,7 @@ protected:
 
 private:
     astlib::JsonValueDecoder _decoderHandler;
-    astlib::BinaryAsterixDekoder _decoder;
+    astlib::BinaryAsterixDecoder _decoder;
     std::map<int, std::shared_ptr<astlib::CodecDescription>> _codecs;
     Poco::Net::DatagramSocket _socket;
     int _port = 10000;

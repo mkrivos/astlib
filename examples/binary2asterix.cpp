@@ -11,11 +11,11 @@
 ///
 
 #include "astlib/CodecRegister.h"
-#include "astlib/decoder/BinaryAsterixDekoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/Exception.h"
 #include "obj/astlib/AsterixItemDictionary.h"
 #include <iostream>
+#include "../astlib/decoder/BinaryAsterixDecoder.h"
 
 using namespace astlib;
 
@@ -67,7 +67,7 @@ int main(int, char**)
     } myDecoder;
 
 
-    BinaryAsterixDekoder dekoder;
+    BinaryAsterixDecoder dekoder;
 
     // Decode binary data stream ...
     dekoder.decode(*codecCat48, myDecoder, standardMessage, sizeof(standardMessage));
