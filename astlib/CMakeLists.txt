@@ -6,10 +6,10 @@ target_link_libraries(generator ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 
 
 # add the command to generate the source code
-set(GENERATED_MODULE "AsterixItemDictionary")
+set(GENERATED_MODULE "${CMAKE_CURRENT_SOURCE_DIR}/AsterixItemDictionary")
 set(GENERATED_SOURCE "${GENERATED_MODULE}.cpp")
 
-add_custom_command(OUTPUT ${GENERATED_SOURCE} PRE_BUILD COMMAND generator "${CMAKE_SOURCE_DIR}/specs" ${GENERATED_FILE} DEPENDS generator)
+add_custom_command(OUTPUT ${GENERATED_SOURCE} PRE_BUILD COMMAND generator ${CMAKE_SOURCE_DIR}/specs ${GENERATED_MODULE} DEPENDS generator)
   
 include_directories(. ${CMAKE_CURRENT_BINARY_DIR})
 

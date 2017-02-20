@@ -12,10 +12,10 @@
 
 #include "astlib/CodecRegister.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
+#include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/Exception.h"
-#include "obj/astlib/AsterixItemDictionary.h"
+#include "astlib/AsterixItemDictionary.h"
 #include <iostream>
-#include "../astlib/decoder/BinaryAsterixDecoder.h"
 
 using namespace astlib;
 

@@ -10,17 +10,16 @@
 /// All rights reserved.
 ///
 
-#include "../../astlib/decoder/BinaryAsterixDecoder.h"
-
+#include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/decoder/EmptyValueDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/CodecDeclarationLoader.h"
+#include "astlib/AsterixItemDictionary.h"
 #include "astlib/Exception.h"
 
 #include <Poco/NumberFormatter.h>
 #include "gtest/gtest.h"
 
-#include "obj/astlib/AsterixItemDictionary.h"
 
 using namespace astlib;
 

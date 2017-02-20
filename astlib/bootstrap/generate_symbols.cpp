@@ -368,7 +368,8 @@ int main(int argc, char* argv[])
             module = argv[2];
     }
 
-    std::cout << "generating : " << specs << "," << module << "," << argc <<std::endl;
+    std::cout << "Reading specs: " << specs << std::endl;
+    std::cout << "Generating source: " << module << "[.cpp .h]" << std::endl;
 
     try
     {
