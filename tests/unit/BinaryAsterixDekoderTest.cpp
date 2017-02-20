@@ -10,7 +10,7 @@
 /// All rights reserved.
 ///
 
-#include "astlib/BinaryAsterixDekoder.h"
+#include "astlib/decoder/BinaryAsterixDekoder.h"
 #include "astlib/decoder/EmptyValueDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/CodecDeclarationLoader.h"

@@ -11,7 +11,7 @@
 ///
 
 #include "astlib/CodecRegister.h"
-#include "astlib/BinaryAsterixDekoder.h"
+#include "astlib/decoder/BinaryAsterixDekoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/Exception.h"
 #include "obj/astlib/AsterixItemDictionary.h"

@@ -12,10 +12,10 @@
 
 #pragma once
 
-#include "model/CodecDescription.h"
-#include "model/Fixed.h"
-#include "ByteUtils.h"
-#include "decoder/ValueDecoder.h"
+#include "ValueDecoder.h"
+#include "astlib/model/CodecDescription.h"
+#include "astlib/model/Fixed.h"
+#include "astlib/ByteUtils.h"
 
 namespace astlib
 {

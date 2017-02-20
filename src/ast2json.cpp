@@ -11,7 +11,7 @@
 ///
 
 #include "astlib/decoder/JsonValueDecoder.h"
-#include "astlib/BinaryAsterixDekoder.h"
+#include "astlib/decoder/BinaryAsterixDekoder.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
 

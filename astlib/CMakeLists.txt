@@ -17,6 +17,7 @@ set(srcs ${GENERATED_SOURCE})
 aux_source_directory(. srcs)
 aux_source_directory(model srcs)
 aux_source_directory(decoder srcs)
+aux_source_directory(encoder srcs)
 
 add_library(astlib ${srcs})
 target_link_libraries(astlib ${Poco_LIBRARIES})
