@@ -12,23 +12,23 @@
 
 #pragma once
 
-#include "ValueDecoder.h"
 #include "astlib/AsterixItemCode.h"
 #include <Poco/Dynamic/Var.h>
 #include <map>
+#include <memory>
 
 
 namespace astlib
 {
 
 /**
- * Trivial implementation of AsterixMessage based on std::map.
+ * Trivial implementation of AsterixRecord based on std::map.
  */
-class SimpleAsterixMessage
+class SimpleAsterixRecord
 {
 public:
-    SimpleAsterixMessage();
-    ~SimpleAsterixMessage();
+    SimpleAsterixRecord();
+    ~SimpleAsterixRecord();
 
     void addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value);
 
@@ -47,6 +47,6 @@ private:
     std::map<AsterixItemCode, Poco::Dynamic::Var> _items;
 };
 
-using SimpleAsterixMessagePtr = std::shared_ptr<SimpleAsterixMessage>;
+using SimpleAsterixRecordPtr = std::shared_ptr<SimpleAsterixRecord>;
 
 } /* namespace astlib */

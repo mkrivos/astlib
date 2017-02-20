@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "SimpleAsterixMessage.h"
+#include "astlib/SimpleAsterixRecord.h"
 #include "ValueDecoder.h"
 
 namespace astlib
@@ -40,10 +40,10 @@ public:
     virtual void decodeString(const CodecContext& context, const std::string& value);
     virtual void end();
 
-    virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr) = 0;
+    virtual void onMessageDecoded(SimpleAsterixRecordPtr ptr) = 0;
 
 private:
-    SimpleAsterixMessagePtr _msg;
+    SimpleAsterixRecordPtr _msg;
 };
 
 } /* namespace astlib */

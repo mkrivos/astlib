@@ -10,42 +10,42 @@
 /// All rights reserved.
 ///
 
-#include "SimpleAsterixMessage.h"
+#include "SimpleAsterixRecord.h"
 
 namespace astlib
 {
 
-SimpleAsterixMessage::SimpleAsterixMessage()
+SimpleAsterixRecord::SimpleAsterixRecord()
 {
 }
 
-SimpleAsterixMessage::~SimpleAsterixMessage()
+SimpleAsterixRecord::~SimpleAsterixRecord()
 {
 }
 
-size_t SimpleAsterixMessage::size() const
+size_t SimpleAsterixRecord::size() const
 {
     return _items.size();
 }
 
-void SimpleAsterixMessage::clear()
+void SimpleAsterixRecord::clear()
 {
     _items.clear();
 }
 
-void SimpleAsterixMessage::addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value)
+void SimpleAsterixRecord::addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value)
 {
     //std::cout << asterixCodeToSymbol(code) << " = " << Poco::NumberFormatter::formatHex(code.value) << " = " << value.toString() << std::endl;
     _items[code] = std::move(value);
 }
 
-bool SimpleAsterixMessage::hasItem(AsterixItemCode code) const
+bool SimpleAsterixRecord::hasItem(AsterixItemCode code) const
 {
     auto iterator = _items.find(code);
     return (iterator != _items.end());
 }
 
-bool SimpleAsterixMessage::getBoolean(AsterixItemCode code, bool& value) const
+bool SimpleAsterixRecord::getBoolean(AsterixItemCode code, bool& value) const
 {
     poco_assert(code.type() == PrimitiveType::Boolean);
 
@@ -57,7 +57,7 @@ bool SimpleAsterixMessage::getBoolean(AsterixItemCode code, bool& value) const
     return true;
 }
 
-bool SimpleAsterixMessage::getUnsigned(AsterixItemCode code, Poco::UInt64& value) const
+bool SimpleAsterixRecord::getUnsigned(AsterixItemCode code, Poco::UInt64& value) const
 {
     poco_assert(code.type() == PrimitiveType::Unsigned);
 
@@ -69,7 +69,7 @@ bool SimpleAsterixMessage::getUnsigned(AsterixItemCode code, Poco::UInt64& value
     return true;
 }
 
-bool SimpleAsterixMessage::getSigned(AsterixItemCode code, Poco::Int64& value) const
+bool SimpleAsterixRecord::getSigned(AsterixItemCode code, Poco::Int64& value) const
 {
     poco_assert(code.type() == PrimitiveType::Integer);
 
@@ -81,7 +81,7 @@ bool SimpleAsterixMessage::getSigned(AsterixItemCode code, Poco::Int64& value) c
     return true;
 }
 
-bool SimpleAsterixMessage::getReal(AsterixItemCode code, double& value) const
+bool SimpleAsterixRecord::getReal(AsterixItemCode code, double& value) const
 {
     poco_assert(code.type() == PrimitiveType::Real);
 
@@ -93,7 +93,7 @@ bool SimpleAsterixMessage::getReal(AsterixItemCode code, double& value) const
     return true;
 }
 
-bool SimpleAsterixMessage::getString(AsterixItemCode code, std::string& value) const
+bool SimpleAsterixRecord::getString(AsterixItemCode code, std::string& value) const
 {
     poco_assert(code.type() == PrimitiveType::String);
 

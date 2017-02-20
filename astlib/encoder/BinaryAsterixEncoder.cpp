@@ -11,10 +11,12 @@
 ///
 
 #include "BinaryAsterixEncoder.h"
-
+#include "ValueEncoder.h"
 #include "FspecGenerator.h"
 #include "astlib/model/FixedItemDescription.h"
-#include "ValueEncoder.h"
+#include "astlib/model/VariableItemDescription.h"
+#include <iostream>
+
 
 namespace astlib
 {
@@ -67,6 +69,9 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
             case ItemFormat::Fixed:
                 len = encodeFixed(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
+            case ItemFormat::Variable:
+                len = encodeVariable(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
+                break;
         }
 
         if (len > 0)
@@ -88,6 +93,49 @@ size_t BinaryAsterixEncoder::encodeFixed(const ItemDescription& item, ValueEncod
     const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(item);
     const Fixed& fixed = fixedItem.getFixed();
     return encodeBitset(item, fixed, valueEncoder, buffer);
+}
+
+size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])
+{
+    const VariableItemDescription& varItem = static_cast<const VariableItemDescription&>(item);
+    const FixedVector& fixedVector = varItem.getFixedVector();
+    auto ptr = buffer;
+    int encodedByteCount = 0;
+
+    for(const Fixed& fixed: fixedVector)
+    {
+        auto len = fixed.length;
+        poco_assert(len == 1);
+        encodeBitset(item, fixed, valueEncoder, ptr);
+        encodedByteCount++;
+        ptr++;
+    }
+
+    if (encodedByteCount > 1)
+    {
+        auto aux = ptr-1;
+        for(int i = encodedByteCount-1; i > 0; i--)
+        {
+            if (*aux == 0)
+            {
+                encodedByteCount--;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    if (encodedByteCount > 1)
+    {
+        for(int i = 0; i < encodedByteCount-1; i++)
+        {
+            ptr[i] |= FX_BIT;
+        }
+    }
+
+    return encodedByteCount;
 }
 
 size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fixed& fixed, ValueEncoder& valueEncoder, Byte buffer[])
@@ -121,7 +169,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
                 mask = bits.bitMask();
                 leftShift = bits.to-1;
             }
-
+std::cout << bits.name << " = " << (value&mask) << " size = " << context.width << std::endl;
             data |= ((value & mask) << leftShift);
         }
     }
@@ -130,6 +178,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
     {
         int len = fixed.length;
         ByteUtils::pokeBigEndian(buffer, data, len);
+std::cout << "  " << Poco::NumberFormatter::formatHex(data) << std::endl;
         return len;
     }
 

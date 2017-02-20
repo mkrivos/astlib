@@ -10,7 +10,8 @@
 /// All rights reserved.
 ///
 
-#include "astlib/decoder/SimpleAsterixMessage.h"
+#include "../../astlib/SimpleAsterixRecord.h"
+
 #include "gtest/gtest.h"
 
 using namespace astlib;
@@ -28,7 +29,7 @@ using namespace astlib;
 
 TEST_F(SimpleAsterixMessageTest, basic)
 {
-    SimpleAsterixMessage msg;
+    SimpleAsterixRecord msg;
     EXPECT_EQ(0, msg.size());
 
     msg.addSimpleItem(0x01000001, "jano");
@@ -43,7 +44,7 @@ TEST_F(SimpleAsterixMessageTest, basic)
 
 TEST_F(SimpleAsterixMessageTest, booleanValue)
 {
-    SimpleAsterixMessage msg;
+    SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x01000001));
     msg.addSimpleItem(0x01000001, true);
@@ -56,7 +57,7 @@ TEST_F(SimpleAsterixMessageTest, booleanValue)
 
 TEST_F(SimpleAsterixMessageTest, signedValue)
 {
-    SimpleAsterixMessage msg;
+    SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x02000002));
     msg.addSimpleItem(0x02000002, Poco::Int64(-5782396523467L));
@@ -69,7 +70,7 @@ TEST_F(SimpleAsterixMessageTest, signedValue)
 
 TEST_F(SimpleAsterixMessageTest, realValue)
 {
-    SimpleAsterixMessage msg;
+    SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x04000003));
     msg.addSimpleItem(0x04000003, -5782396527.0);
@@ -82,7 +83,7 @@ TEST_F(SimpleAsterixMessageTest, realValue)
 
 TEST_F(SimpleAsterixMessageTest, stringValue)
 {
-    SimpleAsterixMessage msg;
+    SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x05000004));
     msg.addSimpleItem(0x05000004, "fgsdhajdgf45w35234");

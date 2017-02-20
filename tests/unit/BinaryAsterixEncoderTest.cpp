@@ -49,7 +49,7 @@ public:
     {
         bool encode(const CodecContext& ctx, Poco::UInt64& value)
         {
-            value = Poco::UInt64(0x1122334455667788UL);
+            value = Poco::UInt64(0x8877665544332211UL);
             return true;
         }
     } valueEncoder;
@@ -61,11 +61,11 @@ public:
 TEST_F( BinaryDataEncoderTest, zeroDecode)
 {
     std::vector<Byte> buffer;
-    EXPECT_EQ(7, encoder.encode(*codecSpecification, zeroEncoder, buffer, ""));
+    EXPECT_EQ(10, encoder.encode(*codecSpecification, zeroEncoder, buffer, ""));
 }
 
 TEST_F( BinaryDataEncoderTest, fullDecode)
 {
     std::vector<Byte> buffer;
-    EXPECT_EQ(66, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
+    EXPECT_EQ(71, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
 }

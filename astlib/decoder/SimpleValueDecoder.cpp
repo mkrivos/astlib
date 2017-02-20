@@ -25,7 +25,7 @@ SimpleValueDecoder::~SimpleValueDecoder()
 
 void SimpleValueDecoder::begin()
 {
-    _msg = std::make_shared<SimpleAsterixMessage>();
+    _msg = std::make_shared<SimpleAsterixRecord>();
 }
 
 void SimpleValueDecoder::dataItem(const ItemDescription& uapItem)

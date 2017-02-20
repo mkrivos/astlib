@@ -58,12 +58,12 @@ int main(int, char**)
         public SimpleValueDecoder
     {
     public:
-        virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr)
+        virtual void onMessageDecoded(SimpleAsterixRecordPtr ptr)
         {
             msg = ptr;
         }
 
-        SimpleAsterixMessagePtr msg;
+        SimpleAsterixRecordPtr msg;
     } myDecoder;
 
 

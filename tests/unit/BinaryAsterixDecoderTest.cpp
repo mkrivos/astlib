@@ -89,7 +89,7 @@ public:
     class MySimpleValueDecoder :
         public SimpleValueDecoder
     {
-        virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr)
+        virtual void onMessageDecoded(SimpleAsterixRecordPtr ptr)
         {
         }
     } defaultDecoder;
@@ -212,18 +212,18 @@ TEST_F(BinaryDataDekoderTest, validDecodeCat48Simple)
         public SimpleValueDecoder
     {
     public:
-        virtual void onMessageDecoded(SimpleAsterixMessagePtr ptr)
+        virtual void onMessageDecoded(SimpleAsterixRecordPtr ptr)
         {
             msg = ptr;
         }
 
-        SimpleAsterixMessagePtr msg;
+        SimpleAsterixRecordPtr msg;
     } myDecoder;
 
     dekoder.decode(codecSpecification2, myDecoder, standardMessage, sizeof(standardMessage));
 
     ASSERT_TRUE(myDecoder.msg.get());
-    SimpleAsterixMessage& message = *myDecoder.msg;
+    SimpleAsterixRecord& message = *myDecoder.msg;
 
     Poco::UInt64 unsignedValue;
     EXPECT_TRUE(message.hasItem(ASTERIX_CODE_SAC));
