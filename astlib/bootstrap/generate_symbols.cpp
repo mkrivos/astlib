@@ -348,7 +348,17 @@ public:
 
         }
 
-        symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type);
+        if (symbols.find(bits.name) == symbols.end())
+        {
+            symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type);
+        }
+        else
+        {
+            astlib::PrimitiveItem item = symbols[bits.name];
+            if (item.getDescription().size() < bits.description.size())
+                symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type);
+            // TODO: test type equality, other error
+        }
     }
 
     std::map<std::string, astlib::PrimitiveItem> symbols;
