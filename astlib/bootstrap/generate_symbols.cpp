@@ -317,7 +317,7 @@ public:
         if (Poco::icompare(bits.name,"FX") == 0 ||
             Poco::icompare(bits.name, "spare") == 0 ||
             Poco::icompare(bits.name, "unused") == 0 ||
-            bits.name.rfind(std::string(".presence")) == 0
+            bits.name.find(std::string(".presence")) != std::string::npos
         )
             return;
 
