@@ -14,7 +14,8 @@ Decoding
 - introduce enumeration as special case of unsigned
 - introduce table with symbols per item
 - BitsConst encoding
-  
+- do dictionary as dependent of xml specs files
+
 Encoding
 --------------------------------------
 
