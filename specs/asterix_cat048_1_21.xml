@@ -23,11 +23,11 @@
         <DataItemFormat desc="Two-octets fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -41,7 +41,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="6">
-                        <BitsShortName>TYP</BitsShortName>
+                        <BitsShortName>target.detection</BitsShortName>
                         <BitsName>TYP</BitsName>
                         <BitsValue val="0">No detection</BitsValue>
                         <BitsValue val="1">Single PSR detection</BitsValue>
@@ -53,26 +53,26 @@
                         <BitsValue val="7">PSR+ModeS Roll-Call</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>SIM</BitsShortName>
+                        <BitsShortName>target.simulated</BitsShortName>
                         <BitsName>SIM</BitsName>
                         <BitsValue val="0">Actual target report</BitsValue>
                         <BitsValue val="1">Simulated target report</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>RDP</BitsShortName>
+                        <BitsShortName>target.report.rdp</BitsShortName>
                         <BitsName>RDP</BitsName>
                         <BitsValue val="0">Report from RDP Chain 1</BitsValue>
                         <BitsValue val="1">Report from RDP Chain 2</BitsValue>
                     </Bits>
                     <Bits bit="3">
                         <BitsShortName>SPI</BitsShortName>
-                        <BitsName>SPI</BitsName>
+                        <BitsName>target.spi</BitsName>
                         <BitsValue val="0">Absence of SPI</BitsValue>
                         <BitsValue val="1">Special Position Identification</BitsValue>
                     </Bits>
                     <Bits bit="2">
                         <BitsShortName>RAB</BitsShortName>
-                        <BitsName>RAB</BitsName>
+                        <BitsName>traget.rab</BitsName>
                         <BitsValue val="0">Report from aircraft transponder</BitsValue>
                         <BitsValue val="1">Plot or track from a fixed transponder</BitsValue>
                     </Bits>
@@ -85,7 +85,7 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>TST</BitsShortName>
+                        <BitsShortName>target.test</BitsShortName>
                         <BitsName>TST</BitsName>
                         <BitsValue val="0">Real target report</BitsValue>
                         <BitsValue val="1">Test target report</BitsValue>
@@ -96,25 +96,25 @@
                         <BitsConst>0</BitsConst>                       
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>XPP</BitsShortName>
+                        <BitsShortName>target.xpulse</BitsShortName>
                         <BitsName>XPP</BitsName>
                         <BitsValue val="0">No X-Pulse present</BitsValue>
                         <BitsValue val="1">X-Pulse present</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>ME</BitsShortName>
+                        <BitsShortName>target.me</BitsShortName>
                         <BitsName>ME</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Military emergency</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>MI</BitsShortName>
+                        <BitsShortName>target.mi</BitsShortName>
                         <BitsName>MI</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Military identification</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>FOEFRI</BitsShortName>
+                        <BitsShortName>target.mode4</BitsShortName>
                         <BitsName>FOE/FRI</BitsName>
                         <BitsValue val="0">No mode 4 interrogation</BitsValue>
                         <BitsValue val="1">Friendly target</BitsValue>
@@ -139,7 +139,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="2">
-                        <BitsShortName>WE</BitsShortName>
+                        <BitsShortName>target.we</BitsShortName>
                         <BitsName>First warning/error condition value</BitsName>
                         <BitsValue val="0">Not defined, never used</BitsValue>
                         <BitsValue val="1">Multipath Reply (Reflection)</BitsValue>
@@ -183,11 +183,11 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
             <Fixed length="4">
                 <Bits from="32" to="17">
-                    <BitsShortName>RHO</BitsShortName>
+                    <BitsShortName>target.position.range</BitsShortName>
                     <BitsUnit max="256" scale="0.00390625">NM</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
-                    <BitsShortName>THETA</BitsShortName>
+                    <BitsShortName>target.position.azimuth</BitsShortName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
             </Fixed>
@@ -201,11 +201,11 @@
             <Fixed length="4">
                 <Bits from="32" to="17" encode="signed">
                     <BitsShortName>X</BitsShortName>
-                    <BitsName>X component</BitsName>
+                    <BitsName>target.position.x</BitsName>
                     <BitsUnit scale="0.0078125">NM</BitsUnit>               
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>Y</BitsShortName>
+                    <BitsShortName>target.position.y</BitsShortName>
                     <BitsName>Y component</BitsName>
                     <BitsUnit scale="0.0078125">NM</BitsUnit> 
                 </Bits>
@@ -632,7 +632,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="14" to="1" encode="signed">
-                    <BitsShortName>3D_Height</BitsShortName>
+                    <BitsShortName>track.altitude.height3d</BitsShortName>
                     <BitsName>3D_Height</BitsName>
                     <BitsUnit scale="25">ft</BitsUnit>
                 </Bits>
@@ -671,7 +671,7 @@
             </Variable>
                 <Fixed length="2">
                     <Bits bit="16">
-                        <BitsShortName>D</BitsShortName>
+                        <BitsShortName>target.doppler.validation</BitsShortName>
                         <BitsName>Doppler Speed Validation</BitsName>
                         <BitsValue val="0">Doppler speed is valid</BitsValue>
                         <BitsValue val="1">Doppler speed is doubtful</BitsValue>
@@ -682,7 +682,7 @@
                         <BitsConst>0</BitsConst>                      
                     </Bits>  
                     <Bits from="10" to="1" encode="signed" >
-                        <BitsShortName>CAL</BitsShortName>
+                        <BitsShortName>target.doppler.calculation</BitsShortName>
                         <BitsName>Calculated Doppler Speed</BitsName>
                         <BitsUnit>m/sec</BitsUnit>
                     </Bits>
@@ -690,17 +690,17 @@
                 <Repetitive>
                     <Fixed length="6">
                         <Bits from="48" to="33">
-                            <BitsShortName>DOP</BitsShortName>
+                            <BitsShortName>target.doppler.speed.value</BitsShortName>
                             <BitsName>Doppler speed</BitsName>
                             <BitsUnit scale="1">m/sec</BitsUnit>
                         </Bits>
                         <Bits from="32" to="17">
-                            <BitsShortName>AMB</BitsShortName>
+                            <BitsShortName>target.doppler.speed.ambiguity</BitsShortName>
                             <BitsName>Ambiguity</BitsName>
                             <BitsUnit scale="1">m/sec</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1">
-                            <BitsShortName>FRQ</BitsShortName>
+                            <BitsShortName>target.doppler.speed.frequency</BitsShortName>
                             <BitsName>Transmitted Frequency</BitsName>  
                             <BitsUnit scale="1">MHz</BitsUnit>
                         </Bits>
@@ -763,49 +763,49 @@
             </Variable>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>SRL</BitsShortName>
+                        <BitsShortName>target.ssr.runlenght</BitsShortName>
                         <BitsName>SSR Plot Runlength</BitsName>
                         <BitsUnit scale="0.0439453125">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>SRR</BitsShortName>
+                        <BitsShortName>target.ssr.replies</BitsShortName>
                         <BitsName>SSR-Number of received reply</BitsName>
                         <BitsUnit/>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed">
-                        <BitsShortName>SAM</BitsShortName>
+                        <BitsShortName>target.ssr.reply.amplitude</BitsShortName>
                         <BitsName>SSR-Reply amplitude</BitsName>
                         <BitsUnit scale="1">dBm</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>PRL</BitsShortName>
+                        <BitsShortName>target.psr.runlenght</BitsShortName>
                         <BitsName>Primary Plot Runlength</BitsName>
                         <BitsUnit scale="0.0439453125">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed">
-                        <BitsShortName>PAM</BitsShortName>
+                        <BitsShortName>target.psr.amplitude</BitsShortName>
                         <BitsName>Amplitude of Primary plot</BitsName>
                         <BitsUnit scale="1">dBm</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed" >
-                        <BitsShortName>RPD</BitsShortName>
+                        <BitsShortName>target.psrtossr.difference.range</BitsShortName>
                         <BitsName>Difference in Range between PSR and SSR plot</BitsName>
                         <BitsUnit scale="0.00390625">NM</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed" >
-                        <BitsShortName>APD</BitsShortName>
+                        <BitsShortName>target.psrtossr.difference.azimuth</BitsShortName>
                         <BitsName>Difference in Azimuth between PSR and SSR plot</BitsName>
                         <BitsUnit scale="0.02197265625">deg</BitsUnit>
                     </Bits>
@@ -821,7 +821,7 @@
         <DataItemFormat>
             <Fixed length="3">
                 <Bits from="24" to="1">
-                    <BitsShortName>ToD</BitsShortName>
+                    <BitsShortName>timeofday</BitsShortName>
                     <BitsName>Time Of Day</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -836,7 +836,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="12" to="1">
-                    <BitsShortName>Tn</BitsShortName>
+                    <BitsShortName>track.number</BitsShortName>
                     <BitsName>Track Number</BitsName>
                 </Bits>
             </Fixed>
@@ -851,13 +851,13 @@
             <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>CNF</BitsShortName>
+                        <BitsShortName>track.status.tentative</BitsShortName>
                         <BitsName>CNF</BitsName>
                         <BitsValue val="0">Confirmed Track</BitsValue>
                         <BitsValue val="1">Tentative Track</BitsValue>
                     </Bits>
                     <Bits from="7" to="6">
-                        <BitsShortName>RAD</BitsShortName>
+                        <BitsShortName>track.status.rad</BitsShortName>
                         <BitsName>RAD</BitsName>
                         <BitsValue val="0">Combined Track</BitsValue>
                         <BitsValue val="1">PSR Track</BitsValue>
@@ -865,19 +865,19 @@
                         <BitsValue val="3">Invalid</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>DOU</BitsShortName>
+                        <BitsShortName>track.status.doubt</BitsShortName>
                         <BitsName>DOU</BitsName>
                         <BitsValue val="0">Normal confidence</BitsValue>
                         <BitsValue val="1">Low confidence in plot to track association</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>MAH</BitsShortName>
+                        <BitsShortName>track.status.manouvering.horizontal</BitsShortName>
                         <BitsName>MAH</BitsName>
                         <BitsValue val="0">No horizontal man. sensed</BitsValue>
                         <BitsValue val="1">Horizontal manoeuvring sensed</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>CDM</BitsShortName>
+                        <BitsShortName>track.status.manouvering.vertical</BitsShortName>
                         <BitsName>CDM</BitsName>
                         <BitsValue val="0">Maintaining</BitsValue>
                         <BitsValue val="1">Climbing</BitsValue>
@@ -893,25 +893,25 @@
                 </Fixed>    
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>TRE</BitsShortName>
+                        <BitsShortName>track.status.end</BitsShortName>
                         <BitsName>TRE</BitsName>
                         <BitsValue val="0">Track still alive</BitsValue>
                         <BitsValue val="1">Last report for a track</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>GHO</BitsShortName>
+                        <BitsShortName>track.status.ghost</BitsShortName>
                         <BitsName>GHO</BitsName>
                         <BitsValue val="0">True target track</BitsValue>
                         <BitsValue val="1">Ghost target track</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>SUP</BitsShortName>
+                        <BitsShortName>track.status.clustered</BitsShortName>
                         <BitsName>SUP</BitsName>
                         <BitsValue val="0">Track from cluster network - NO</BitsValue>
                         <BitsValue val="1">Track from cluster network - YES</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>TCC</BitsShortName>
+                        <BitsShortName>track.status.slantrangecorrected</BitsShortName>
                         <BitsName>TCC</BitsName>
                         <BitsValue val="0">Radar plane</BitsValue>
                         <BitsValue val="1">Slant range correction</BitsValue>
@@ -939,12 +939,12 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
             <Fixed length="4">
                 <Bits from="32" to="17">
-                    <BitsShortName>CGS</BitsShortName>
+                    <BitsShortName>track.velocity.calculated.groundspeed</BitsShortName>
                     <BitsName>Calculated groundspeed</BitsName>
                     <BitsUnit scale="0.22">kt</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
-                    <BitsShortName>CHdg</BitsShortName>
+                    <BitsShortName>track.velocity.calculated.heading</BitsShortName>
                     <BitsName>Calculated heading</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
@@ -958,22 +958,22 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
                 <Fixed length="4">
                     <Bits from="32" to="25">
-                        <BitsShortName>SigmaX</BitsShortName>
+                        <BitsShortName>track.quality.SigmaX</BitsShortName>
                         <BitsName>SigmaX</BitsName>
                         <BitsUnit scale="0.0078125">NM</BitsUnit>
                     </Bits>
                     <Bits from="24" to="17">
-                        <BitsShortName>SigmaY</BitsShortName>
+                        <BitsShortName>track.quality.SigmaY</BitsShortName>
                         <BitsName>SigmaY</BitsName>
                         <BitsUnit scale="0.0078125">NM</BitsUnit>       
                     </Bits>
                     <Bits from="16" to="9">
-                        <BitsShortName>SigmaV</BitsShortName>
+                        <BitsShortName>track.quality.SigmaV</BitsShortName>
                         <BitsName>Sigma Groundspeed</BitsName>
                         <BitsUnit scale="0.22">Kt</BitsUnit>        
                     </Bits>
                     <Bits from="8" to="1">
-                        <BitsShortName>SigmaH</BitsShortName>
+                        <BitsShortName>track.quality.SigmaH</BitsShortName>
                         <BitsName>Sigma Heading</BitsName>
                         <BitsUnit scale="0.087890625">deg</BitsUnit>        
                     </Bits>                 
@@ -988,7 +988,7 @@
         <DataItemFormat>
             <Fixed length="3">
                 <Bits from="24" to="1" encode="hex">
-                    <BitsShortName>ACAddr</BitsShortName>
+                    <BitsShortName>aircraft.address</BitsShortName>
                     <BitsName>AircraftAddress</BitsName>
                 </Bits>
             </Fixed>
@@ -1001,15 +1001,15 @@
         <DataItemFormat>
             <Fixed length="2">
                 <Bits from="16" to="14">
-                    <BitsShortName>COM</BitsShortName>
+                    <BitsShortName>communication.acas.COM</BitsShortName>
                     <BitsName>COM</BitsName>
                 </Bits>
                 <Bits from="13" to="11">
-                    <BitsShortName>STAT</BitsShortName>
+                    <BitsShortName>communication.acas.STAT</BitsShortName>
                     <BitsName>STAT</BitsName>
                 </Bits>
                 <Bits bit="10">
-                    <BitsShortName>SI</BitsShortName>   
+                    <BitsShortName>communication.acas.SI</BitsShortName>   
                     <BitsName>SI/II Transponder Capability</BitsName>   
                     <BitsValue val="0">SI-Code Capable</BitsValue>
                     <BitsValue val="1">II-Code Capable</BitsValue>                  
@@ -1020,29 +1020,29 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="8">
-                    <BitsShortName>ModeSSSC</BitsShortName> 
+                    <BitsShortName>communication.acas.ModeSSSC</BitsShortName> 
                     <BitsName>ModeS Specific Service Capability</BitsName>  
                     <BitsValue val="0">No</BitsValue>
                     <BitsValue val="1">Yes</BitsValue>                  
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>ARC</BitsShortName>  
+                    <BitsShortName>communication.acas.ARC</BitsShortName>  
                     <BitsName>Altitude reporting capability</BitsName>
                     <BitsValue val="0">100ft resolution</BitsValue>
                     <BitsValue val="1">25ft resolution</BitsValue>                      
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>AIC</BitsShortName>  
+                    <BitsShortName>communication.acas.AIC</BitsShortName>  
                     <BitsName>Aircraft identification capability</BitsName> 
                     <BitsValue val="0">No</BitsValue>
                     <BitsValue val="1">Yes</BitsValue>                      
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>BDS16</BitsShortName>    
+                    <BitsShortName>communication.acas.BDS16</BitsShortName>    
                     <BitsName>BDS 1,0 bit 16</BitsName>                 
                 </Bits>
                 <Bits from="4" to="1">
-                    <BitsShortName>BDS37</BitsShortName>    
+                    <BitsShortName>communication.acas.BDS37</BitsShortName>    
                     <BitsName>BDS 1,0 bits 37/40</BitsName>                 
                 </Bits>
             </Fixed>
@@ -1055,7 +1055,7 @@
         <DataItemFormat desc="Six-octet fixed length Data Item.">
             <Fixed length="6">
                 <Bits from="1" to="48" encode="6bitschar">
-                    <BitsShortName>TId</BitsShortName>
+                    <BitsShortName>aircraft.identification</BitsShortName>
                     <BitsName>Characters 1-8 (coded on 6 bits each) defining target identification</BitsName>
                 </Bits>
             </Fixed>
@@ -1071,16 +1071,16 @@
             <Repetitive>
                 <Fixed length="8">
                     <Bits from="64" to="9" encode="hex">
-                        <BitsShortName>MBdata</BitsShortName>
+                        <BitsShortName>modes.MBdata</BitsShortName>
                         <BitsName>MBdata</BitsName>
                     </Bits>
 
                     <Bits from="8" to="5">
-                        <BitsShortName>DSB1</BitsShortName>
+                        <BitsShortName>modes.DSB1</BitsShortName>
                         <BitsName>Comm B Data Buffer Store 1</BitsName>
                     </Bits>
                     <Bits from="4" to="1">
-                        <BitsShortName>DSB2</BitsShortName>
+                        <BitsShortName>modes.DSB2</BitsShortName>
                         <BitsName>Comm B Data Buffer Store 2</BitsName>
                     </Bits>
                 </Fixed>
@@ -1106,97 +1106,97 @@
         <DataItemFormat desc="Seven-octet fixed length Data Item">
                     <Fixed length="7">
                         <Bits from="56" to="49" encode="hex">
-                            <BitsShortName>BDS30</BitsShortName>
+                            <BitsShortName>acas.resolution.BDS30</BitsShortName>
                             <BitsName>BDS code 3,0</BitsName>                        
                         </Bits>
                         <Bits bit="48">
-                            <BitsShortName>ARA41</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA41</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 41</BitsName>
 							<BitsValue val="0">There is more than one threat and the RA is intended to provide separation below some threat(s) and above some other threat(s) or no RA has been generated (when MTE = 0)</BitsValue>
 							<BitsValue val="1">Either there is only one threat or the RA is intended to provide separation in the same direction for all threats</BitsValue>
                         </Bits>
                         <Bits bit="47">
-                            <BitsShortName>ARA42</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA42</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 42</BitsName>
 							<BitsValue val="0">RA is preventive or RA does not require a correction in the upward sense</BitsValue>
 							<BitsValue val="1">RA is corrective or RA requires a correction in the upward sense</BitsValue>
                         </Bits>
                         <Bits bit="46">
-                            <BitsShortName>ARA43</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA43</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 43</BitsName>
 							<BitsValue val="0">Upward sense RA has been generated or RA does not require a positive climb</BitsValue>
 							<BitsValue val="1">Downward sense RA has been generated or RA requires a positive climb</BitsValue>
                         </Bits>
                         <Bits bit="45">
-                            <BitsShortName>ARA44</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA44</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 44</BitsName>
 							<BitsValue val="0">RA is not increased rate or RA does not require a correction in the downward sense</BitsValue>
 							<BitsValue val="1">RA is increased rate or RA requires a correction in the downward sense</BitsValue>
                         </Bits>
                         <Bits bit="44">
-                            <BitsShortName>ARA45</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA45</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 45</BitsName>
 							<BitsValue val="0">RA is not a sense reversal or RA does not require a positive descend</BitsValue>
 							<BitsValue val="1">RA is a sense reversal or RA requires a positive descend</BitsValue>
                         </Bits>
                         <Bits bit="43">
-                            <BitsShortName>ARA46</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA46</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 46</BitsName>
 							<BitsValue val="0">RA is not altitude crossing or RA does not require a crossing</BitsValue>
 							<BitsValue val="1">RA is altitude crossing or RA requires a crossing</BitsValue>
                         </Bits>
                         <Bits bit="42">
-                            <BitsShortName>ARA47</BitsShortName>
+                            <BitsShortName>acas.resolution.ARA47</BitsShortName>
                             <BitsName>Active Resolution Advisories bit 47</BitsName>
 							<BitsValue val="0">RA is vertical speed limit or RA is not a sense reversal</BitsValue>
 							<BitsValue val="1">RA is positive or RA is a sense reversal</BitsValue>
                         </Bits>
                         <Bits from="41" to="35">
-                            <BitsShortName>ACAS3</BitsShortName>
+                            <BitsShortName>acas.resolution.ACAS3</BitsShortName>
                             <BitsName>Reserved for ACAS III</BitsName>                        
                         </Bits>
                         <Bits bit="34">
-                            <BitsShortName>RAC55</BitsShortName>
+                            <BitsShortName>acas.resolution.RAC55</BitsShortName>
                             <BitsName>Resolution Advisory Complement bit 55</BitsName>
 							<BitsValue val="0">Not Active</BitsValue>
 							<BitsValue val="1">Active Do not pass below</BitsValue>
                         </Bits>
                         <Bits bit="34">
-                            <BitsShortName>RAC56</BitsShortName>
+                            <BitsShortName>acas.resolution.RAC56</BitsShortName>
                             <BitsName>Resolution Advisory Complement bit 56</BitsName>
 							<BitsValue val="0">Not Active</BitsValue>
 							<BitsValue val="1">Active Do not pass above</BitsValue>
                         </Bits>
                         <Bits bit="33">
-                            <BitsShortName>RAC57</BitsShortName>
+                            <BitsShortName>acas.resolution.RAC57</BitsShortName>
                             <BitsName>Resolution Advisory Complement bit 57</BitsName>
 							<BitsValue val="0">Not Active</BitsValue>
 							<BitsValue val="1">Active Do not turn left</BitsValue>
                         </Bits>
                         <Bits bit="31">
-                            <BitsShortName>RAC58</BitsShortName>
+                            <BitsShortName>acas.resolution.RAC58</BitsShortName>
                             <BitsName>Resolution Advisory Complement bit 58</BitsName>
 							<BitsValue val="0">Not Active</BitsValue>
 							<BitsValue val="1">Active Do not turn right</BitsValue>
                         </Bits>
                         <Bits from="34" to="31" encode="hex">
-                            <BitsShortName>RAC</BitsShortName>
+                            <BitsShortName>acas.resolution.RAC</BitsShortName>
                             <BitsName>RACs records</BitsName>                        
                         </Bits>
                         <Bits bit="30">
-                            <BitsShortName>RAT</BitsShortName>
+                            <BitsShortName>acas.resolution.RAT</BitsShortName>
                             <BitsName>RA Terminated</BitsName>                        
 							<BitsValue val="0">No</BitsValue>
 							<BitsValue val="1">Yes</BitsValue>                      
                         </Bits>
                         <Bits bit="29">
-                            <BitsShortName>MTE</BitsShortName>
+                            <BitsShortName>acas.resolution.MTE</BitsShortName>
                             <BitsName>Multiple Threat Encounter</BitsName>                        
 							<BitsValue val="0">No</BitsValue>
 							<BitsValue val="1">Yes</BitsValue>                      
                         </Bits>
                         <Bits from="28" to="27">
-                            <BitsShortName>TTI</BitsShortName>
+                            <BitsShortName>acas.resolution.TTI</BitsShortName>
                             <BitsName>Threat Type Indicator</BitsName>     
 							<BitsValue val="0">No identity data in TID</BitsValue>							
 							<BitsValue val="1">TID contains a Mode S transponder address</BitsValue>							
@@ -1204,7 +1204,7 @@
 							<BitsValue val="3">Not assigned</BitsValue>							
                         </Bits>
                         <Bits from="26" to="1">
-                            <BitsShortName>TID</BitsShortName>
+                            <BitsShortName>acas.resolution.TID</BitsShortName>
                             <BitsName>Threat Identity Data</BitsName>                        
                         </Bits>
                     </Fixed>

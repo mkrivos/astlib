@@ -30,8 +30,7 @@ public:
     BinaryDataDekoderTest()
     {
         CodecDeclarationLoader loader;
-        codecSpecification1 = *loader.load("specs/asterix_cat048_1_14.xml");
-        codecSpecification2 = *loader.load("specs/asterix_cat048_1_21.xml");
+        codecSpecification = *loader.load("specs/asterix_cat048_1_21.xml");
     }
     ~BinaryDataDekoderTest()
     {
@@ -94,8 +93,7 @@ public:
     } defaultDecoder;
 
     EmptyValueDecoder emptyDecoder;
-    CodecDescription codecSpecification1;
-    CodecDescription codecSpecification2;
+    CodecDescription codecSpecification;
     BinaryAsterixDecoder dekoder;
 
     static constexpr int SIZE = 1+2+3+2+3+2+4+2+2+8+3+6+2+4+2+2;
@@ -127,24 +125,24 @@ TEST_F( BinaryDataDekoderTest, badDecode)
     // too small packet
     {
         unsigned char bytes[3] = { 48, 0, 0};
-        EXPECT_THROW(dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(codecSpecification, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // bad lenght
     {
         unsigned char bytes[6] = { 48, 0, 0, 0, 0, 0};
-        EXPECT_THROW(dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(codecSpecification, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
     // no fspec data
     {
         unsigned char bytes[6] = { 48, 0, 6, 0, 0, 0};
-        EXPECT_THROW(dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes)), Exception);
+        EXPECT_THROW(dekoder.decode(codecSpecification, valueDecoder, bytes, sizeof(bytes)), Exception);
     }
 }
 
 TEST_F( BinaryDataDekoderTest, decodeCat48MultiRecord)
 {
     unsigned char bytes[9] = { 48, 0, 9, 0x80, 1, 2,   0x80, 3, 4 };
-    dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(codecSpecification, valueDecoder, bytes, sizeof(bytes));
 }
 
 TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
@@ -185,15 +183,14 @@ TEST_F( BinaryDataDekoderTest, completeProfileDecodeCat48)
         0xFF, 0xFF,// 60
 
     };
-    dekoder.decode(codecSpecification1, valueDecoder, bytes, sizeof(bytes));
-    dekoder.decode(codecSpecification2, valueDecoder, bytes, sizeof(bytes));
+    dekoder.decode(codecSpecification, valueDecoder, bytes, sizeof(bytes));
 }
 
 TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48Empty)
 {
     for(int i = 0; i < 10000; i++)
     {
-        dekoder.decode(codecSpecification2, emptyDecoder, standardMessage, sizeof(standardMessage));
+        dekoder.decode(codecSpecification, emptyDecoder, standardMessage, sizeof(standardMessage));
     }
 }
 
@@ -201,7 +198,7 @@ TEST_F(BinaryDataDekoderTest, cpuBoundDecodeCat48Simple)
 {
     for(int i = 0; i < 10000; i++)
     {
-        dekoder.decode(codecSpecification2, defaultDecoder, standardMessage, sizeof(standardMessage));
+        dekoder.decode(codecSpecification, defaultDecoder, standardMessage, sizeof(standardMessage));
     }
 }
 
@@ -219,17 +216,17 @@ TEST_F(BinaryDataDekoderTest, validDecodeCat48Simple)
         SimpleAsterixRecordPtr msg;
     } myDecoder;
 
-    dekoder.decode(codecSpecification2, myDecoder, standardMessage, sizeof(standardMessage));
+    dekoder.decode(codecSpecification, myDecoder, standardMessage, sizeof(standardMessage));
 
     ASSERT_TRUE(myDecoder.msg.get());
     SimpleAsterixRecord& message = *myDecoder.msg;
 
     Poco::UInt64 unsignedValue;
-    EXPECT_TRUE(message.hasItem(ASTERIX_CODE_SAC));
-    EXPECT_TRUE(message.getUnsigned(ASTERIX_CODE_SAC, unsignedValue));
+    EXPECT_TRUE(message.hasItem(DSI_SAC_CODE));
+    EXPECT_TRUE(message.getUnsigned(DSI_SAC_CODE, unsignedValue));
     EXPECT_EQ(5, unsignedValue);
 
-    EXPECT_TRUE(message.hasItem(ASTERIX_CODE_SIC));
-    EXPECT_TRUE(message.getUnsigned(ASTERIX_CODE_SIC, unsignedValue));
+    EXPECT_TRUE(message.hasItem(DSI_SIC_CODE));
+    EXPECT_TRUE(message.getUnsigned(DSI_SIC_CODE, unsignedValue));
     EXPECT_EQ(6, unsignedValue);
 }

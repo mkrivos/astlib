@@ -28,8 +28,8 @@ public:
 
 TEST_F(CodecRegisterTest, populateCodecsFromDirectory)
 {
-    EXPECT_EQ(21, codecRegister.enumerateAllCodecs().size());
-    EXPECT_EQ(19, codecRegister.enumerateAllCodecsByCategory().size());
+    EXPECT_EQ(3, codecRegister.enumerateAllCodecs().size());
+    EXPECT_EQ(3, codecRegister.enumerateAllCodecsByCategory().size());
 }
 
 TEST_F(CodecRegisterTest, getLatestCodecForCategory)
@@ -38,5 +38,5 @@ TEST_F(CodecRegisterTest, getLatestCodecForCategory)
     ASSERT_TRUE(codec.get());
 
     const CodecDescription::Dictionary symbols = codec->getDictionary();
-    EXPECT_EQ(142, symbols.size());
+    EXPECT_EQ(144, symbols.size());
 }

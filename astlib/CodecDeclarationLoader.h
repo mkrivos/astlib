@@ -48,8 +48,8 @@ private:
     ItemDescriptionPtr loadRepetitiveDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
     ItemDescriptionPtr loadCompoundDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
     ItemDescriptionPtr loadExplicitDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
-    BitsDescriptionArray loadBitsDeclaration(CodecDescription& codecDescription, const Poco::XML::Element& element);
-    Fixed loadFixed(CodecDescription& codecDescription, const Poco::XML::Element& element);
+    BitsDescriptionArray loadBitsDeclaration(CodecDescription& codecDescription, const Poco::XML::Element& element, bool repetitive);
+    Fixed loadFixed(CodecDescription& codecDescription, const Poco::XML::Element& element, bool repetitive = false);
     ItemDescriptionPtr loadFormatElement(CodecDescription& codecDescription, int id, const std::string& description, const Poco::XML::Element& element);
     void addPrimitiveItem(CodecDescription& codecDescription, const BitsDescription& bits);
 

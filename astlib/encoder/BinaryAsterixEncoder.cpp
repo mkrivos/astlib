@@ -153,7 +153,34 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
 
 size_t BinaryAsterixEncoder::encodeRepetitive(const ItemDescription& item, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])
 {
-    return 0;
+    const RepetitiveItemDescription& varItem = static_cast<const RepetitiveItemDescription&>(item);
+    const FixedVector& fixedVector = varItem.getFixedVector();
+
+    poco_assert(fixedVector.size());
+    AsterixItemCode firstItemCode = fixedVector.front().bitsDescriptions.front().code;
+    poco_assert(firstItemCode.isArray());
+
+    auto count = valueEncoder.getArraySize(firstItemCode);
+    // Empty array - no encoding
+    if (count == 0)
+        return 0;
+
+    auto bufferStart = buffer++;
+    size_t allByteCount = 0;
+
+    for(size_t i = 0; i < count; i++)
+    {
+        for(const Fixed& fixed: fixedVector)
+        {
+            allByteCount = encodeBitset(item, fixed, valueEncoder, buffer);
+            buffer += allByteCount;
+        }
+    }
+
+    // save repetition count
+    *bufferStart = Byte(count);
+
+    return 1+allByteCount;
 }
 
 size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])
@@ -162,7 +189,7 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
     const ItemDescriptionVector& items = compoundItem.getItemsVector();
     FspecGenerator localFspec;
     Byte local[MAX_PACKET_SIZE/2];
-    int allByteCount = 0;
+    size_t allByteCount = 0;
 
     for(ItemDescriptionPtr uapItem: items)
     {

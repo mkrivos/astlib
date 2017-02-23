@@ -19,7 +19,7 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>MsgTyp</BitsShortName>
+                    <BitsShortName>message.type</BitsShortName>
                     <BitsName>Message Type</BitsName>
                     <BitsValue val="1">North Marker message</BitsValue>
                     <BitsValue val="2">Sector crossing message</BitsValue>
@@ -36,11 +36,11 @@
         <DataItemFormat desc="Two-octets fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -53,7 +53,7 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>Azi</BitsShortName>
+                    <BitsShortName>antenna.azimuth</BitsShortName>
                     <BitsName>Antenna azimuth</BitsName>
                     <BitsUnit scale="1.40625">deg</BitsUnit>
                 </Bits>
@@ -68,7 +68,7 @@
         <DataItemFormat desc="Three-octet fixed length Data Item.">
             <Fixed length="3">
                 <Bits from="24" to="1">
-                    <BitsShortName>ToD</BitsShortName>
+                    <BitsShortName>timeofday</BitsShortName>
                     <BitsName>Time of day</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -83,7 +83,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item">
             <Fixed length="2">
                 <Bits from="16" to="1">
-                    <BitsShortName>RotS</BitsShortName>
+                    <BitsShortName>antenna.rotation.speed</BitsShortName>
                     <BitsName>Antenna rotation speed</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -144,43 +144,43 @@
                 
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>NOGO</BitsShortName>
+                        <BitsShortName>radar.status.nogo</BitsShortName>
                         <BitsName>Operational Release Status of the System</BitsName>
                         <BitsValue val="1">Operational use of System is inhibited, i.e. the data shall be discarded by an operational SDPS</BitsValue>
                         <BitsValue val="0">System is released for operational use</BitsValue>   
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>RDPC</BitsShortName>
+                        <BitsShortName>radar.status.processor.chain</BitsShortName>
                         <BitsName>Radar Data Processor Chain Selection Status</BitsName>
                         <BitsValue val="1">RDPC-2 selected</BitsValue>
                         <BitsValue val="0">RDPC-1 selected</BitsValue>  
                     </Bits>                         
                     <Bits bit="6">
-                        <BitsShortName>RDPR</BitsShortName>
+                        <BitsShortName>radar.status.processor.restart</BitsShortName>
                         <BitsName>Event to signal a reset/restart of the selected Radar Data Processor Chain</BitsName>
                         <BitsValue val="1">Reset of RDPC</BitsValue>
                         <BitsValue val="0">Default</BitsValue>  
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>OVLRDP</BitsShortName>
+                        <BitsShortName>radar.status.processor.overload</BitsShortName>
                         <BitsName>Radar Data Processor Overload Indicator</BitsName>
                         <BitsValue val="1">Overload in RDP</BitsValue>
                         <BitsValue val="0">No overload</BitsValue>  
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>OVLXMT</BitsShortName>
+                        <BitsShortName>radar.status.transmission.overload</BitsShortName>
                         <BitsName>Transmission Subsystem Overload Status</BitsName>
                         <BitsValue val="1">Transmission Subsystem Overload</BitsValue>
                         <BitsValue val="0">No overload</BitsValue>  
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>MSC</BitsShortName>
+                        <BitsShortName>radar.status.monitoring.connected</BitsShortName>
                         <BitsName>Monitoring System Connected Status</BitsName>
                         <BitsValue val="1">Monitoring system disconnected</BitsValue>
                         <BitsValue val="0">Monitoring system connected</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>TSV</BitsShortName>
+                        <BitsShortName>radar.status.timesource.valid</BitsShortName>
                         <BitsName>Time Source Validity</BitsName>
                         <BitsValue val="1">Time source invalid</BitsValue>
                         <BitsValue val="0">Time source valid</BitsValue>
@@ -194,13 +194,13 @@
                     
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>PSRANT</BitsShortName>
+                        <BitsShortName>radar.current.antenna</BitsShortName>
                         <BitsName>Selected PSR antenna</BitsName>
                         <BitsValue val="1">antenna 2</BitsValue>
                         <BitsValue val="0">antenna 1</BitsValue>    
                     </Bits>
                     <Bits from="7" to="6">
-                        <BitsShortName>PSRCHAB</BitsShortName>
+                        <BitsShortName>radar.channel.selection</BitsShortName>
                         <BitsName>PSR Channel A/B selection status</BitsName>
                         <BitsValue val="0">No channel selected</BitsValue>
                         <BitsValue val="1">Channel A only selected</BitsValue>
@@ -208,13 +208,13 @@
                         <BitsValue val="3">Diversity mode</BitsValue>
                     </Bits>                         
                     <Bits bit="5">
-                        <BitsShortName>PSROVL</BitsShortName>
+                        <BitsShortName>radar.pssr.overload</BitsShortName>
                         <BitsName>PSSR Overload condition</BitsName>
                         <BitsValue val="0">No overload</BitsValue>
                         <BitsValue val="1">Overload</BitsValue> 
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>PSRMSC</BitsShortName>
+                        <BitsShortName>radar.pssr.monitoring.connected</BitsShortName>
                         <BitsName>PSSR Monitoring System Connected Status</BitsName>
                         <BitsValue val="1">Monitoring system disconnected</BitsValue>
                         <BitsValue val="0">Monitoring system connected</BitsValue>
@@ -228,13 +228,13 @@
                     
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>SSRANT</BitsShortName>
+                        <BitsShortName>radar.ssr.selected.antenna</BitsShortName>
                         <BitsName>Selected SSR antenna</BitsName>
                         <BitsValue val="1">antenna 2</BitsValue>
                         <BitsValue val="0">antenna 1</BitsValue>    
                     </Bits>
                     <Bits from="7" to="6">
-                        <BitsShortName>SSRCHAB</BitsShortName>
+                        <BitsShortName>radar.ssr.channel.selection</BitsShortName>
                         <BitsName>SSR Channel A/B selection status</BitsName>
                         <BitsValue val="0">No channel selected</BitsValue>
                         <BitsValue val="1">Channel A only selected</BitsValue>
@@ -242,13 +242,13 @@
                         <BitsValue val="3">Invalid combination</BitsValue>
                     </Bits>                         
                     <Bits bit="5">
-                        <BitsShortName>SSROVL</BitsShortName>
+                        <BitsShortName>radar.ssr.overload</BitsShortName>
                         <BitsName>SSR Overload condition</BitsName>
                         <BitsValue val="0">No overload</BitsValue>
                         <BitsValue val="1">Overload</BitsValue> 
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>SSRMSC</BitsShortName>
+                        <BitsShortName>radar.ssr.monitoring.connected</BitsShortName>
                         <BitsName>SSR Monitoring System Connected Status</BitsName>
                         <BitsValue val="1">Monitoring system disconnected</BitsValue>
                         <BitsValue val="0">Monitoring system connected</BitsValue>
@@ -262,13 +262,13 @@
                     
                 <Fixed length="2">
                     <Bits bit="16">
-                        <BitsShortName>MDSANT</BitsShortName>
+                        <BitsShortName>radar.modes.antenna</BitsShortName>
                         <BitsName>Mode S Selected antenna</BitsName>
                         <BitsValue val="0">antenna 1</BitsValue>
                         <BitsValue val="1">antenna 2</BitsValue>    
                     </Bits>
                     <Bits from="15" to="14">
-                        <BitsShortName>MDSCHAB</BitsShortName>
+                        <BitsShortName>radar.modes.channel.selection</BitsShortName>
                         <BitsName>Mode S Channel A/B selection status for surveillance</BitsName>
                         <BitsValue val="0">No channel selected</BitsValue>
                         <BitsValue val="1">Channel A only selected</BitsValue>
@@ -276,37 +276,37 @@
                         <BitsValue val="3">Illegal combination</BitsValue>
                     </Bits>                         
                     <Bits bit="13">
-                        <BitsShortName>MDSOVLSUR</BitsShortName>
+                        <BitsShortName>radar.modes.overload</BitsShortName>
                         <BitsName>Mode S Overload condition</BitsName>
                         <BitsValue val="0">No overload</BitsValue>
                         <BitsValue val="1">Overload</BitsValue> 
                     </Bits>
                     <Bits bit="12">
-                        <BitsShortName>MDSMSC</BitsShortName>
+                        <BitsShortName>radar.modes.monitoring.connected</BitsShortName>
                         <BitsName>Mode S Monitoring System Connected Status</BitsName>
                         <BitsValue val="1">Monitoring system disconnected</BitsValue>
                         <BitsValue val="0">Monitoring system connected</BitsValue>
                     </Bits>
                     <Bits bit="11">
-                        <BitsShortName>MDSSCF</BitsShortName>
+                        <BitsShortName>radar.mode.channel.surveilance.selection</BitsShortName>
                         <BitsName>Mode S Channel A/B sellection for Surveillance Co-ordination Function</BitsName>
                         <BitsValue val="0">Channel A in use</BitsValue>
                         <BitsValue val="1">Channel B in use</BitsValue>
                     </Bits>
                     <Bits bit="10">
-                        <BitsShortName>MDSDLF</BitsShortName>
+                        <BitsShortName>radar.modes.channel.datalink.selection</BitsShortName>
                         <BitsName>Mode S Channel A/B sellection for Data Link Function</BitsName>
                         <BitsValue val="0">Channel A in use</BitsValue>
                         <BitsValue val="1">Channel B in use</BitsValue>
                     </Bits>
                     <Bits bit="9">
-                        <BitsShortName>MDSOVLSCF</BitsShortName>
+                        <BitsShortName>radar.mode.channel.surveilance.overload</BitsShortName>
                         <BitsName>Mode S Overload in Surveillance Co-ordination Function</BitsName>
                         <BitsValue val="0">No overload</BitsValue>
                         <BitsValue val="1">Overload</BitsValue> 
                     </Bits>
                     <Bits bit="8">
-                        <BitsShortName>MDSOVLDLF</BitsShortName>
+                        <BitsShortName>radar.modes.channel.datalink.overload</BitsShortName>
                         <BitsName>Mode S Overload in Data Link Function</BitsName>
                         <BitsValue val="0">No overload</BitsValue>
                         <BitsValue val="1">Overload</BitsValue> 
@@ -378,7 +378,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="7" to="5">
-                    <BitsShortName>REDRDP</BitsShortName>
+                    <BitsShortName>radar.processor.reduction.step</BitsShortName>
                     <BitsName>Reduction Steps in use for an overload of the RDP</BitsName>
                     <BitsValue val="0">No reduction active</BitsValue>
                     <BitsValue val="1">Reduction step 1 active</BitsValue>
@@ -390,7 +390,7 @@
                     <BitsValue val="7">Reduction step 7 active</BitsValue>
                 </Bits>                         
                 <Bits from="4" to="2">
-                    <BitsShortName>REDXMT</BitsShortName>
+                    <BitsShortName>radar.transmission.reduction.step</BitsShortName>
                     <BitsName>Reduction Steps in use for an overload of the Transmission subsystem</BitsName>
                     <BitsValue val="0">No reduction active</BitsValue>
                     <BitsValue val="1">Reduction step 1 active</BitsValue>
@@ -410,13 +410,13 @@
             
             <Fixed length="1">
                 <Bits bit="8">
-                    <BitsShortName>POL</BitsShortName>
+                    <BitsShortName>radar.psr.polarisation</BitsShortName>
                     <BitsName>Polarization in use by PSR</BitsName>
                     <BitsValue val="0">Linear</BitsValue>
                     <BitsValue val="1">Circular</BitsValue>
                 </Bits>
                 <Bits from="7" to="5">
-                    <BitsShortName>PSRREDRAD</BitsShortName>
+                    <BitsShortName>radar.psr.reduction</BitsShortName>
                     <BitsName>Reduction Steps in use as result of an overload within the PSR subsystem</BitsName>           
                     <BitsValue val="0">No reduction active</BitsValue>
                     <BitsValue val="1">Reduction step 1 active</BitsValue>
@@ -428,7 +428,7 @@
                     <BitsValue val="7">Reduction step 7 active</BitsValue>
                 </Bits>                         
                 <Bits from="4" to="3">
-                    <BitsShortName>STC</BitsShortName>
+                    <BitsShortName>radar.sensitivity.time.control.map</BitsShortName>
                     <BitsName>Sensitivity Time Control Map in use</BitsName>
                     <BitsValue val="0">STC Map-1</BitsValue>
                     <BitsValue val="1">STC Map-2</BitsValue>
@@ -445,7 +445,7 @@
             <Fixed length="1"> 
             
                 <Bits from="8" to="6">
-                    <BitsShortName>SSRREDRAD</BitsShortName>
+                    <BitsShortName>radar.ssr.reduction</BitsShortName>
                     <BitsName>Reduction Steps in use as result of an overload within the SSR subsystem</BitsName>           
                     <BitsValue val="0">No reduction active</BitsValue>
                     <BitsValue val="1">Reduction step 1 active</BitsValue>
@@ -465,7 +465,7 @@
             
             <Fixed length="1"> 
                 <Bits from="8" to="6">
-                    <BitsShortName>MDSREDRAD</BitsShortName>
+                    <BitsShortName>radar.modes.reduction</BitsShortName>
                     <BitsName>Reduction Steps in use as result of an overload within the Mode S subsystem</BitsName>            
                     <BitsValue val="0">No reduction active</BitsValue>
                     <BitsValue val="1">Reduction step 1 active</BitsValue>
@@ -477,7 +477,7 @@
                     <BitsValue val="7">Reduction step 7 active</BitsValue>
                 </Bits>         
                  <Bits bit="5">
-                    <BitsShortName>CLU</BitsShortName>
+                    <BitsShortName>radar.cluster.state</BitsShortName>
                     <BitsName>Cluster State</BitsName>
                     <BitsValue val="0">Autonomous</BitsValue>
                     <BitsValue val="1">Not autonomous</BitsValue>
@@ -500,7 +500,7 @@
             <Repetitive>
                 <Fixed length="2">
                     <Bits from="16" to="12">
-                        <BitsShortName>TYP</BitsShortName>
+                        <BitsShortName>message.counter.type</BitsShortName>
                         <BitsName>Type of message counter</BitsName>
                         <BitsValue val="0">No detection (number of misses)</BitsValue>
                         <BitsValue val="1">Single PSR target reports</BitsValue>
@@ -521,7 +521,7 @@
                         <BitsValue val="16">Filter for PSR+Enhanced Surveillance + all SSR/Mode S data</BitsValue>
                     </Bits>
                     <Bits from="11" to="1">
-                        <BitsShortName>counter</BitsShortName>
+                        <BitsShortName>message.counter.value</BitsShortName>
                         <BitsName>Counter value</BitsName>
                     </Bits>
                 </Fixed>
@@ -535,12 +535,12 @@
         <DataItemFormat desc="Two-octet fixed length Data Item">
             <Fixed length="2">
                 <Bits from="16" to="9" encode="signed">
-                    <BitsShortName>RngErr</BitsShortName>
+                    <BitsShortName>radar.error.collimation.range</BitsShortName>
                     <BitsName>Range Error</BitsName>
                     <BitsUnit scale="0.0078125">NM</BitsUnit>
                 </Bits>
                 <Bits from="8" to="1" encode="signed">
-                    <BitsShortName>AziErr</BitsShortName>
+                    <BitsShortName>radar.error.collimation.azimuth</BitsShortName>
                     <BitsName>Azimuth Error</BitsName>
                     <BitsUnit scale="0.02197265625">deg</BitsUnit>
                 </Bits>
@@ -553,24 +553,24 @@
         <DataItemDefinition>Geographical window defined in polar co-ordinates</DataItemDefinition>
         <DataItemFormat desc="Eight-octet fixed length Data Item">
             <Fixed length="8">
-                <Bits from="64" to="49">
-                    <BitsShortName>RhoS</BitsShortName>
+                <Bits from="64" to="47">
+                    <BitsShortName>radar.polar.window.rho.start</BitsShortName>
                     <BitsName>Rho start</BitsName>
                     <BitsUnit scale="0.00390625">NM</BitsUnit>
                 </Bits>
                 <Bits from="48" to="33">
-                    <BitsShortName>RhoE</BitsShortName>
+                    <BitsShortName>radar.polar.window.rho.end</BitsShortName>
                     <BitsName>Rho end</BitsName>
                     <BitsUnit scale="0.00390625">NM</BitsUnit>
                 </Bits>
                 <Bits from="32" to="17">
                     <BitsShortName>ThetaS</BitsShortName>
-                    <BitsName>Theta start</BitsName>
+                    <BitsName>radar.polar.window.theta.start</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
                     <BitsShortName>ThetaE</BitsShortName>
-                    <BitsName>Theta end</BitsName>
+                    <BitsName>radar.polar.window.theta.end</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
             </Fixed>
@@ -584,7 +584,7 @@
         <DataItemFormat desc="One octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>TYP</BitsShortName>
+                    <BitsShortName>radar.data.filter.type</BitsShortName>
                     <BitsName>TYP</BitsName>
                     <BitsValue val="0">Invalid value</BitsValue>
                     <BitsValue val="1">Filter for Weather data</BitsValue>
@@ -608,17 +608,17 @@
         <DataItemFormat desc="Eight-octet fixed length Data Item.">
             <Fixed length="8">
                 <Bits from="64" to="49">
-                    <BitsShortName>Height</BitsShortName>
+                    <BitsShortName>radar.position.height</BitsShortName>
                     <BitsName>Signed Height of the Data Source, expressed in meters above WGS 84 reference ellipsoid.</BitsName>
                     <BitsUnit  scale="1">m</BitsUnit>
                 </Bits>
                 <Bits from="48" to="25" encode="signed">
-                    <BitsShortName>LAT</BitsShortName>
+                    <BitsShortName>radar.position.latitude</BitsShortName>
                     <BitsName>Latitude in WGS-84</BitsName>
                     <BitsUnit  scale="0.00002145767">deg</BitsUnit>
                 </Bits>
                 <Bits from="24" to="1" encode="signed">
-                    <BitsShortName>Lon</BitsShortName>
+                    <BitsShortName>radar.position.longitude</BitsShortName>
                     <BitsName>Longitude in WGS-84</BitsName>
                     <BitsUnit scale="0.00002145767">deg</BitsUnit>
                 </Bits>

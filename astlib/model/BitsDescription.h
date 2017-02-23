@@ -37,7 +37,7 @@ public:
     int from = -1;
     int to = -1;
     bool fx = false;
-    bool repeat = false; // ???
+    bool repeat = false;
     double scale = 1.0;
     double min = -100000000000;
     double max = 100000000000;

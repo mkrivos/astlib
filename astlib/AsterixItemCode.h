@@ -27,8 +27,8 @@ struct AsterixItemCode
     constexpr AsterixItemCode(Poco::UInt32 value = 0) : value(value) {}
     constexpr AsterixItemCode(const AsterixItemCode& old ) : value(old.value) {}
 
-    constexpr AsterixItemCode(int code, int type) :
-        value((type << 24) | (code & 0x0FFF))
+    constexpr AsterixItemCode(int code, int type, bool array = false) :
+        value((array << 31) | (type << 24) | (code & 0x0FFF))
     {
     }
 
@@ -39,7 +39,12 @@ struct AsterixItemCode
 
     constexpr int type() const
     {
-        return (value>>24) & 0xFF;
+        return (value>>24) & 0xF;
+    }
+
+    constexpr bool isArray() const
+    {
+        return value & 0x80000000;
     }
 
     constexpr bool isValid() const

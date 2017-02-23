@@ -37,13 +37,13 @@ public:
 TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 {
     CodecDeclarationLoader loader(true);
-    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat048_1_14.xml");
+    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
     ASSERT_TRUE(codecSpecification.get());
 
     // Header
     const CategoryDescription& catDesc = codecSpecification->getCategoryDescription();
     EXPECT_EQ(48, catDesc.getCategory());
-    EXPECT_EQ(AsterixVersion(1,14), catDesc.getEdition());
+    EXPECT_EQ(AsterixVersion(1,21), catDesc.getEdition());
     EXPECT_EQ(AsterixFamily(AsterixFamily::Eurocontrol), catDesc.getFamily());
 
     // Uap
@@ -58,13 +58,13 @@ TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
 {
     CodecDeclarationLoader loader;
-    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat062_1_7.xml");
+    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat062_1_16.xml");
     ASSERT_TRUE(codecSpecification.get());
 
     // Header
     const CategoryDescription& catDesc = codecSpecification->getCategoryDescription();
     EXPECT_EQ(62, catDesc.getCategory());
-    EXPECT_EQ(AsterixVersion(1,7), catDesc.getEdition());
+    EXPECT_EQ(AsterixVersion(1,16), catDesc.getEdition());
     EXPECT_EQ(AsterixFamily(AsterixFamily::Eurocontrol), catDesc.getFamily());
 
     // Uap

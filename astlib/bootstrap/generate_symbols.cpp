@@ -161,9 +161,9 @@ public:
         loadFixed(element);
     }
 
-    void loadFixed(const Poco::XML::Element& element)
+    void loadFixed(const Poco::XML::Element& element, bool arrayType = false)
     {
-        loadBitsDeclaration(element);
+        loadBitsDeclaration(element, arrayType);
     }
 
     void loadVariableDeclaration(const Poco::XML::Element& parent)
@@ -185,7 +185,7 @@ public:
             const Poco::XML::Element* element = dynamic_cast<Poco::XML::Element*>(node);
             if (element && element->nodeName() == "Fixed")
             {
-                loadFixed(*element);
+                loadFixed(*element, true);
             }
         }
     }
@@ -207,7 +207,7 @@ public:
         // TODO:
     }
 
-    void loadBitsDeclaration(const Poco::XML::Element& parent)
+    void loadBitsDeclaration(const Poco::XML::Element& parent, bool arrayType)
     {
         for (auto node = parent.firstChild(); node; node = node->nextSibling())
         {
@@ -306,6 +306,7 @@ public:
                     }
                 }
 
+                bits.repeat = arrayType;
                 //std::cout << "      " << bits.toString() << " enc " << bits.encoding.toString() << std::endl;
                 addPrimitiveItem(bits);
             }
@@ -350,14 +351,18 @@ public:
 
         if (symbols.find(bits.name) == symbols.end())
         {
-            symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type);
+            symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat);
         }
         else
         {
             astlib::PrimitiveItem item = symbols[bits.name];
             if (item.getDescription().size() < bits.description.size())
-                symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type);
-            // TODO: test type equality, other error
+                symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
+
+            if (item.getType() != type)
+            {
+                std::cerr << bits.name << " type differs " << item.getType().toString() << " from " << type.toString() << std::endl;
+            }
         }
     }
 
@@ -407,7 +412,7 @@ int main(int argc, char* argv[])
             std::string upperName = Poco::toUpper(entry.first);
             Poco::replaceInPlace(upperName, ".", "_");
 
-            header << "constexpr AsterixItemCode ASTERIX_CODE_" << upperName << "(" << Poco::NumberFormatter::formatHex(index, 4, true) << ", PrimitiveType::" << item.getType().toString() << ");  ///< " << item.getDescription() << std::endl;
+            header << "constexpr AsterixItemCode " << upperName << "_CODE(" << Poco::NumberFormatter::formatHex(index, 4, true) << ", PrimitiveType::" << item.getType().toString() << ", " << item.isArray() << ");  ///< " << item.getDescription() << std::endl;
             index++;
         }
 
@@ -418,7 +423,7 @@ int main(int argc, char* argv[])
             std::string upperName = Poco::toUpper(entry.first);
             Poco::replaceInPlace(upperName, ".", "_");
 
-            header << "extern const std::string ASTERIX_SYMBOL_" << upperName << ";" << std::endl;
+            header << "extern const std::string SYMBOL_" << upperName << ";" << std::endl;
         }
         header << std::endl << "constexpr int ASTERIX_ITEM_COUNT = " << Poco::NumberFormatter::format(globals.size()) << ";" << std::endl << std::endl;
 
@@ -439,7 +444,7 @@ int main(int argc, char* argv[])
             std::string upperName = Poco::toUpper(entry.first);
             Poco::replaceInPlace(upperName, ".", "_");
 
-            source << "const std::string ASTERIX_SYMBOL_" << upperName << " = \"" << entry.first << "\";" << std::endl;
+            source << "const std::string " << upperName << "_SYMBOL = \"" << entry.first << "\";" << std::endl;
         }
 
         source << std::endl << std::endl;
@@ -450,7 +455,7 @@ int main(int argc, char* argv[])
             std::string upperName = Poco::toUpper(entry.first);
             Poco::replaceInPlace(upperName, ".", "_");
 
-            source << "    { ASTERIX_SYMBOL_" << upperName << ", \"\" }," << std::endl;
+            source << "    { " << upperName << "_SYMBOL, \"\" }," << std::endl;
         }
         source << "};" << std::endl << std::endl;
 
@@ -460,7 +465,7 @@ int main(int argc, char* argv[])
             std::string upperName = Poco::toUpper(entry.first);
             Poco::replaceInPlace(upperName, ".", "_");
 
-            source << "    { ASTERIX_SYMBOL_" << upperName << ", ASTERIX_CODE_" << upperName << " }," << std::endl;
+            source << "    { " << upperName << "_SYMBOL, " << upperName << "_CODE }," << std::endl;
         }
         source << "};" << std::endl << std::endl;
 

@@ -27,11 +27,11 @@
         <DataItemFormat>
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -45,7 +45,7 @@
         <DataItemFormat>
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>SID</BitsShortName>
+                    <BitsShortName>service.identification</BitsShortName>
                     <BitsName>Service Identification</BitsName>
                 </Bits>
             </Fixed>
@@ -59,7 +59,7 @@
         <DataItemFormat>
             <Fixed length="2">
                 <Bits from="16" to="1">
-                    <BitsShortName>TrkN</BitsShortName>
+                    <BitsShortName>track.number</BitsShortName>
                     <BitsName>Track number</BitsName>
                 </Bits>
             </Fixed>
@@ -78,7 +78,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="14">
-                    <BitsShortName>CH</BitsShortName>
+                    <BitsShortName>mode3a.change</BitsShortName>
                     <BitsName>Change in Mode 3/A</BitsName>
                     <BitsValue val="0">No Change</BitsValue>
                     <BitsValue val="1">Mode 3/A has changed</BitsValue>
@@ -89,7 +89,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1" encode="octal">
-                    <BitsShortName>Mode3A</BitsShortName>
+                    <BitsShortName>mode3a.value</BitsShortName>
                     <BitsName>Mode-3/A reply in octal representation</BitsName>
                 </Bits>
             </Fixed>
@@ -102,7 +102,7 @@
         <DataItemFormat>
             <Fixed length="3">
                 <Bits from="24" to="1">
-                    <BitsShortName>ToT</BitsShortName>
+                    <BitsShortName>track.information.time</BitsShortName>
                     <BitsName>Time Of Track Information</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -118,23 +118,23 @@
             <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>MON</BitsShortName>
+                        <BitsShortName>track.status.MON</BitsShortName>
                         <BitsValue val="0">Multisensor track</BitsValue>
                         <BitsValue val="1">Monosensor track</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>SPI</BitsShortName>
+                        <BitsShortName>track.status.SPI</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">SPI present in the last report received from a sensor capable of decoding this data</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>MRH</BitsShortName>
+                        <BitsShortName>track.status.MRH</BitsShortName>
                         <BitsName>Most Reliable Height</BitsName>
                         <BitsValue val="0">Barometric altitude (Mode C) more reliable</BitsValue>
                         <BitsValue val="1">Geometric altitude more reliable</BitsValue>
                     </Bits>
                     <Bits from="5" to="3">
-                        <BitsShortName>SRC</BitsShortName>
+                        <BitsShortName>track.status.altitude.source</BitsShortName>
                         <BitsName>Source of calculated track altitude for I062/130</BitsName>
                         <BitsValue val="0">no source</BitsValue>
                         <BitsValue val="1">GNSS</BitsValue>
@@ -146,7 +146,7 @@
                         <BitsValue val="7">multilateration</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>CNF</BitsShortName>
+                        <BitsShortName>track.status.tentative</BitsShortName>
                         <BitsValue val="0">Confirmed track</BitsValue>
                         <BitsValue val="1">Tentative track</BitsValue>
                     </Bits>
@@ -158,37 +158,37 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>SIM</BitsShortName>
+                        <BitsShortName>track.status.simulated</BitsShortName>
                         <BitsValue val="0">Actual track</BitsValue>
                         <BitsValue val="1">Simulated track</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>TSE</BitsShortName>
+                        <BitsShortName>track.status.end</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">last message transmitted to the user for the track</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>TSB</BitsShortName>
+                        <BitsShortName>track.status.begin</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">first message transmitted to the user for the track</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>FPC</BitsShortName>
+                        <BitsShortName>track.status.correlated</BitsShortName>
                         <BitsValue val="0">Not flight-plan correlated</BitsValue>
                         <BitsValue val="1">Flight plan correlated</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>AFF</BitsShortName>
+                        <BitsShortName>track.status.adsb.inconsistent</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">ADS-B data inconsistent with other surveillance information</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>STP</BitsShortName>
+                        <BitsShortName>track.status.STP</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">Slave Track Promotion</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>KOS</BitsShortName>
+                        <BitsShortName>track.status.KOS</BitsShortName>
                         <BitsValue val="0">Complementary service used</BitsValue>
                         <BitsValue val="1">Background service used</BitsValue>
                     </Bits>
@@ -200,29 +200,29 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>AMA</BitsShortName>
+                        <BitsShortName>track.status.amalgamated</BitsShortName>
                         <BitsValue val="0">track not resulting from amalgamation process</BitsValue>
                         <BitsValue val="1">track resulting from amalgamation process</BitsValue>
                     </Bits>
                     <Bits from="7" to="6">
-                        <BitsShortName>MD4</BitsShortName>
+                        <BitsShortName>track.status.mode4</BitsShortName>
                         <BitsValue val="0">No Mode 4 interrogation</BitsValue>
                         <BitsValue val="1">Friendly target</BitsValue>
                         <BitsValue val="2">Unknown target</BitsValue>
                         <BitsValue val="3">No reply</BitsValue>
                     </Bits> 
                     <Bits bit="5">
-                        <BitsShortName>ME</BitsShortName>
+                        <BitsShortName>track.status.ME</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">Military Emergency present in the last report received from a sensor capable of decoding this data</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>MI</BitsShortName>
+                        <BitsShortName>track.status.MI</BitsShortName>
                         <BitsValue val="0">default value</BitsValue>
                         <BitsValue val="1">Military Identification present in the last report received from a sensor capable of decoding this data</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>MD5</BitsShortName>
+                        <BitsShortName>track.status.mode5</BitsShortName>
                         <BitsValue val="0">No Mode 5 interrogation</BitsValue>
                         <BitsValue val="1">Friendly target</BitsValue>
                         <BitsValue val="2">Unknown target</BitsValue>
@@ -236,37 +236,37 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>CST</BitsShortName>
+                        <BitsShortName>track.status.predicted</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Age of the last received track update is higher than system dependent threshold (coasting)</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>PSR</BitsShortName>
+                        <BitsShortName>track.status.predicted.PSR</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Age of the last received PSR track update is higher than system dependent threshold</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>SSR</BitsShortName>
+                        <BitsShortName>track.status.predicted.SSR</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Age of the last received SSR track update is higher than system dependent threshold</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>MDS</BitsShortName>
+                        <BitsShortName>track.status.predicted.modes</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Age of the last received Mode S track update is higher than system dependent threshold</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>ADS</BitsShortName>
+                        <BitsShortName>track.status.predicted.adsb</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Age of the last received ADS-B track update is higher than system dependent threshold</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>SUC</BitsShortName>
+                        <BitsShortName>track.status.suc</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Special Used Code (Mode A codes to be defined in the system to mark a track with special interest)</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>AAC</BitsShortName>
+                        <BitsShortName>track.status.mode3a.conflict</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Assigned Mode A Code Conflict (same discrete Mode A Code assigned to another track)</BitsValue>
                     </Bits>
@@ -279,14 +279,14 @@
 
                 <Fixed length="1">
                     <Bits from="8" to="7">
-                        <BitsShortName>SDS</BitsShortName>
+                        <BitsShortName>track.status.predicted.SDS</BitsShortName>
                         <BitsValue val="0">Combined</BitsValue>
                         <BitsValue val="1">Co-operative only</BitsValue>
                         <BitsValue val="2">Non-Cooperative only</BitsValue>
                         <BitsValue val="3">Not defined</BitsValue>
                     </Bits>
                     <Bits from="6" to="4">
-                        <BitsShortName>EMS</BitsShortName>
+                        <BitsShortName>track.status.emergency</BitsShortName>
                         <BitsValue val="0">No emergency</BitsValue>
                         <BitsValue val="1">General emergency</BitsValue>
                         <BitsValue val="2">Lifeguard / medical</BitsValue>
@@ -297,12 +297,12 @@
                         <BitsValue val="7">Undefined</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>PFT</BitsShortName>
+                        <BitsShortName>track.status.PFT</BitsShortName>
                         <BitsValue val="0">No indication</BitsValue>
                         <BitsValue val="1">Potential False Track Indication</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>FPLT</BitsShortName>
+                        <BitsShortName>track.status.fpl.correlated</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Track created / updated with FPL data</BitsValue>
                     </Bits>
@@ -314,17 +314,17 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>DUPT</BitsShortName>
+                        <BitsShortName>track.status.DUPT</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Duplicate Mode 3/A Code</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>DUPF</BitsShortName>
+                        <BitsShortName>track.status.DUPF</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Duplicate Flight Plan</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>DUPM</BitsShortName>
+                        <BitsShortName>track.status.DUPM</BitsShortName>
                         <BitsValue val="0">Default value</BitsValue>
                         <BitsValue val="1">Duplicate Flight Plan due to manual correlation</BitsValue>
                     </Bits>
@@ -352,12 +352,12 @@
         <DataItemFormat>
             <Fixed length="6">
                 <Bits from="48" to="25" encode="signed">
-                    <BitsShortName>X</BitsShortName>
+                    <BitsShortName>target.position.x</BitsShortName>
                     <BitsName>X</BitsName>
                     <BitsUnit scale="0.5">m</BitsUnit>
                 </Bits>
                 <Bits from="24" to="1" encode="signed">
-                    <BitsShortName>Y</BitsShortName>
+                    <BitsShortName>target.position.y</BitsShortName>
                     <BitsName>Y</BitsName>
                     <BitsUnit scale="0.5">m</BitsUnit>
                 </Bits>
@@ -371,12 +371,12 @@
         <DataItemFormat>
             <Fixed length="8">
                 <Bits from="64" to="33" encode="signed">
-                    <BitsShortName>Lat</BitsShortName>
+                    <BitsShortName>target.position.latitude</BitsShortName>
                     <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; latitude &lt; 90 deg.</BitsName>
                     <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                 </Bits>
                 <Bits from="32" to="1" encode="signed">
-                    <BitsShortName>Lon</BitsShortName>
+                    <BitsShortName>target.position.longitude</BitsShortName>
                     <BitsName>Longitude in WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
                     <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                 </Bits>
@@ -393,37 +393,37 @@
                 <Variable>
                     <Fixed length="1">
                         <Bits bit="8">
-                            <BitsShortName>SUM</BitsShortName>
+                            <BitsShortName>mode5.SUM</BitsShortName>
                             <BitsName>Mode 5 Summary</BitsName>
                             <BitsPresence>1</BitsPresence>
                         </Bits>
                         <Bits bit="7">
-                            <BitsShortName>PMN</BitsShortName>
+                            <BitsShortName>mode5.PMN</BitsShortName>
                             <BitsName>Mode 5 PIN/ National Origin/Mission Code</BitsName>
                             <BitsPresence>2</BitsPresence>
                         </Bits>
                         <Bits bit="6">
-                            <BitsShortName>POS</BitsShortName>
+                            <BitsShortName>mode5.POS</BitsShortName>
                             <BitsName>Mode 5 Reported Position</BitsName>
                             <BitsPresence>3</BitsPresence>
                         </Bits>
                         <Bits bit="5">
-                            <BitsShortName>GA</BitsShortName>
+                            <BitsShortName>mode5.GA</BitsShortName>
                             <BitsName>Mode 5 GNSS-derived Altitude</BitsName>
                             <BitsPresence>4</BitsPresence>
                         </Bits>
                         <Bits bit="4">
-                            <BitsShortName>EM1</BitsShortName>
+                            <BitsShortName>mode1.EM1</BitsShortName>
                             <BitsName>Extended Mode 1 Code in Octal Representation</BitsName>
                             <BitsPresence>5</BitsPresence>
                         </Bits>
                         <Bits bit="3">
-                            <BitsShortName>TOS</BitsShortName>
+                            <BitsShortName>mode1.TOS</BitsShortName>
                             <BitsName>Time Offset for POS and GA.</BitsName>
                             <BitsPresence>6</BitsPresence>
                         </Bits>
                         <Bits bit="2">
-                            <BitsShortName>XP</BitsShortName>
+                            <BitsShortName>mode1.XP</BitsShortName>
                             <BitsName>X Pulse Presence</BitsName>
                             <BitsPresence>7</BitsPresence>
                         </Bits>
@@ -437,42 +437,42 @@
                 </Variable>
                     <Fixed length="1">
                         <Bits bit="8">
-                            <BitsShortName>M5</BitsShortName>
+                            <BitsShortName>mode5.interrogation</BitsShortName>
                             <BitsValue val="0">No Mode 5 interrogation</BitsValue>
                             <BitsValue val="1">Mode 5 interrogation</BitsValue>
                         </Bits>
                         <Bits bit="7">
-                            <BitsShortName>ID</BitsShortName>
+                            <BitsShortName>mode5.ID</BitsShortName>
                             <BitsValue val="0">No authenticated Mode 5 ID reply</BitsValue>
                             <BitsValue val="1">Authenticated Mode 5 ID reply</BitsValue>
                         </Bits>
                         <Bits bit="6">
-                            <BitsShortName>DA</BitsShortName>
+                            <BitsShortName>mode5.DA</BitsShortName>
                             <BitsValue val="0">No authenticated Mode 5 Data reply or Report</BitsValue>
                             <BitsValue val="1">Authenticated Mode 5 Data reply or Report (i.e any valid Mode 5 reply type other than ID)</BitsValue>
                         </Bits>
                         <Bits bit="5">
-                            <BitsShortName>M1</BitsShortName>
+                            <BitsShortName>mode5.M1</BitsShortName>
                             <BitsValue val="0">Mode 1 code not present or not from Mode 5 reply</BitsValue>
                             <BitsValue val="1">Mode 1 code from Mode 5 reply</BitsValue>
                         </Bits>
                         <Bits bit="4">
-                            <BitsShortName>M2</BitsShortName>
+                            <BitsShortName>mode5.M2</BitsShortName>
                             <BitsValue val="0">Mode 2 code not present or not from Mode 5 reply</BitsValue>
                             <BitsValue val="1">Mode 2 code from Mode 5 reply</BitsValue>
                         </Bits>
                         <Bits bit="3">
-                            <BitsShortName>M3</BitsShortName>
+                            <BitsShortName>mode5.M3</BitsShortName>
                             <BitsValue val="0">Mode 3 code not present or not from Mode 5 reply</BitsValue>
                             <BitsValue val="1">Mode 3 code from Mode 5 reply</BitsValue>
                         </Bits>
                         <Bits bit="2">
-                            <BitsShortName>MC</BitsShortName>
+                            <BitsShortName>mode5.MC</BitsShortName>
                             <BitsValue val="0">Mode C altitude not present or not from Mode 5 reply</BitsValue>
                             <BitsValue val="1">Mode C altitude from Mode 5 reply</BitsValue>
                         </Bits>
                         <Bits bit="1">
-                            <BitsShortName>X</BitsShortName>
+                            <BitsShortName>mode5.X</BitsShortName>
                             <BitsName>X-pulse from Mode 5 Data reply or Report.</BitsName>
                             <BitsValue val="0">X-pulse set to zero or no authenticated Data reply or Report received.</BitsValue>
                             <BitsValue val="1">X-pulse set to one.</BitsValue>
@@ -485,7 +485,7 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="17" to="30">
-                            <BitsShortName>PIN</BitsShortName>
+                            <BitsShortName>mode5.PIN</BitsShortName>
                             <BitsName>PIN Code</BitsName>
                         </Bits>
                         <Bits from="14" to="16">
@@ -494,7 +494,7 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="9" to="13">
-                            <BitsShortName>NAT</BitsShortName>
+                            <BitsShortName>mode5.NAT</BitsShortName>
                             <BitsName>National Origin</BitsName>
                         </Bits>
                         <Bits from="7" to="8">
@@ -503,18 +503,18 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="1" to="6">
-                            <BitsShortName>MIS</BitsShortName>
+                            <BitsShortName>mode5.MIS</BitsShortName>
                             <BitsName>Mission Code</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="6">
                         <Bits from="25" to="48" encode="signed">
-                            <BitsShortName>Lat</BitsShortName>
+                            <BitsShortName>mode5.latitude</BitsShortName>
                             <BitsName>Latitude in WGS.84 in two’s complement. Range -90 ≤ latitude ≤ 90 deg.</BitsName>
                             <BitsUnit scale="0.000021457672119140625">deg</BitsUnit>
                         </Bits>
                         <Bits from="1" to="24" encode="signed">
-                            <BitsShortName>Lon</BitsShortName>
+                            <BitsShortName>mode5.longitude</BitsShortName>
                             <BitsName>Longitude in WGS.84 in two’s complement. Range -180 ≤ longitude &lt; 180 deg.</BitsName>
                             <BitsUnit scale="0.000021457672119140625">deg</BitsUnit>
                         </Bits>
@@ -526,13 +526,13 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits bit="15">
-                            <BitsShortName>RES</BitsShortName>
+                            <BitsShortName>mode5.RES</BitsShortName>
                             <BitsName>Resolution with which the GNSS-derived Altitude (GA) is reported.</BitsName>
                             <BitsValue val="0">GA reported in 100 ft increments,</BitsValue>
                             <BitsValue val="1">GA reported in 25 ft increments.</BitsValue>
                         </Bits>
                         <Bits from="1" to="14" encode="signed">
-                            <BitsShortName>GA</BitsShortName>
+                            <BitsShortName>mode5.GA</BitsShortName>
                             <BitsName>GNSS-derived Altitude of target, expressed as height above WGS 84 ellipsoid.</BitsName>
                         </Bits>
                     </Fixed>
@@ -543,13 +543,13 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="1" to="12" encode="octal">
-                            <BitsShortName>EM1</BitsShortName>
+                            <BitsShortName>mode5.EM1</BitsShortName>
                             <BitsName>Extended Mode 1 Code in octal representation</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="1">
                         <Bits from="1" to="8" encode="signed">
-                            <BitsShortName>TOS</BitsShortName>
+                            <BitsShortName>mode5.TOS</BitsShortName>
                             <BitsName>Time Offset coded as a twos complement number with an LSB of 1/128 s. The time at which the Mode 5 Reported Position (Subfield #3) and Mode 5 GNSSderived Altitude (Subfield #4) are valid is given by Time of Day (I048/140) plus Time Offset.</BitsName>
                             <BitsUnit scale="0.0078125">s</BitsUnit>                        
                         </Bits>
@@ -561,31 +561,31 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits bit="5">
-                            <BitsShortName>X5</BitsShortName>
+                            <BitsShortName>mode5.X5</BitsShortName>
                             <BitsName>X-pulse from Mode 5 Data reply or Report.</BitsName>
                             <BitsValue val="0">X-pulse set to zero or no authenticated Data reply or Report received.</BitsValue>
                             <BitsValue val="1">X-pulse set to one (present).</BitsValue>
                         </Bits>
                         <Bits bit="4">
-                            <BitsShortName>XC</BitsShortName>
+                            <BitsShortName>mode5.XC</BitsShortName>
                             <BitsName>X-pulse from Mode C reply</BitsName>
                             <BitsValue val="0">X-pulse set to zero or no Mode C reply</BitsValue>
                             <BitsValue val="1">X-pulse set to one (present)</BitsValue>
                         </Bits>
                         <Bits bit="3">
-                            <BitsShortName>X3</BitsShortName>
+                            <BitsShortName>mode5.X3</BitsShortName>
                             <BitsName>X-pulse from Mode 3/A reply</BitsName>
                             <BitsValue val="0">X-pulse set to zero or no Mode 3/A reply</BitsValue>
                             <BitsValue val="1">X-pulse set to one (present)</BitsValue>
                         </Bits>
                         <Bits bit="2">
-                            <BitsShortName>X2</BitsShortName>
+                            <BitsShortName>mode5.X2</BitsShortName>
                             <BitsName>X-pulse from Mode 2 reply</BitsName>
                             <BitsValue val="0">X-pulse set to zero or no Mode 2 reply</BitsValue>
                             <BitsValue val="1">X-pulse set to one (present)</BitsValue>
                         </Bits>
                         <Bits bit="1">
-                            <BitsShortName>X1</BitsShortName>
+                            <BitsShortName>mode5.X1</BitsShortName>
                             <BitsName>X-pulse from Mode 1 reply</BitsName>
                             <BitsValue val="0">X-pulse set to zero or no Mode 1 reply</BitsValue>
                             <BitsValue val="1">X-pulse set to one (present)</BitsValue>
@@ -606,7 +606,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="1" to="12" encode="octal">
-                    <BitsShortName>Mode2</BitsShortName>
+                    <BitsShortName>Mode2.value</BitsShortName>
                     <BitsName>Mode-2 code in octal representation</BitsName>
                 </Bits>
             </Fixed>
@@ -619,7 +619,7 @@
         <DataItemFormat desc="Two-Octet fixed length data item">
             <Fixed length="2">
                 <Bits from="1" to="16" encode="signed">
-                    <BitsShortName>Alt</BitsShortName>
+                    <BitsShortName>track.altitude.geometric</BitsShortName>
                     <BitsName>Altitude</BitsName>
                     <BitsUnit scale="6.25" min="-1500" max="150000">ft</BitsUnit>
                 </Bits>
@@ -634,7 +634,7 @@
         <DataItemFormat desc="Two-Octet fixed length data item">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>QNH</BitsShortName>
+                    <BitsShortName>track.altitude.barometric</BitsShortName>
                     <BitsName>QNH</BitsName>
                     <BitsValue val="0">No QNH correction applied</BitsValue>
                     <BitsValue val="1">QNH correction applied</BitsValue>
@@ -655,7 +655,7 @@
         <DataItemFormat desc="Two-Octet fixed length data item">
             <Fixed length="2">
                 <Bits from="1" to="16" encode="signed">
-                    <BitsShortName>MFL</BitsShortName>
+                    <BitsShortName>track.flightlevel</BitsShortName>
                     <BitsName>Measured Flight Level</BitsName>
                     <BitsUnit scale="25" min="-1500" max="150000">ft</BitsUnit>
                 </Bits>
@@ -670,12 +670,12 @@
         <DataItemFormat desc="Four-octet fixed length Data Item .">
             <Fixed length="4">
                 <Bits from="32" to="17" encode="signed">
-                    <BitsShortName>Vx</BitsShortName>
+                    <BitsShortName>track.velocity.cartes.vx</BitsShortName>
                     <BitsName>Vx</BitsName>
                     <BitsUnit scale="0.25" min="-8192" max="8191.75">m/s</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>Vy</BitsShortName>
+                    <BitsShortName>track.velocity.cartes.vy</BitsShortName>
                     <BitsName>Vy</BitsName>
                     <BitsUnit scale="0.25" min="-8192" max="8191.75">m/s</BitsUnit>
                 </Bits>
@@ -848,37 +848,37 @@
                 <Variable>
                     <Fixed length="1">
                         <Bits bit="8">
-                            <BitsShortName>TRK</BitsShortName>
+                            <BitsShortName>update.age.track</BitsShortName>
                             <BitsName>Track age</BitsName>
                             <BitsPresence>1</BitsPresence>
                         </Bits>
                         <Bits bit="7">
-                            <BitsShortName>PSR</BitsShortName>
+                            <BitsShortName>update.age.psr</BitsShortName>
                             <BitsName>PSR age</BitsName>
                             <BitsPresence>2</BitsPresence>
                         </Bits>
                         <Bits bit="6">
-                            <BitsShortName>SSR</BitsShortName>
+                            <BitsShortName>update.age.ssr</BitsShortName>
                             <BitsName>SSR age</BitsName>
                             <BitsPresence>3</BitsPresence>
                         </Bits>
                         <Bits bit="5">
-                            <BitsShortName>MDS</BitsShortName>
+                            <BitsShortName>update.age.modes</BitsShortName>
                             <BitsName>Mode S age</BitsName>
                             <BitsPresence>4</BitsPresence>
                         </Bits>
                         <Bits bit="4">
-                            <BitsShortName>ADS</BitsShortName>
+                            <BitsShortName>update.age.ads</BitsShortName>
                             <BitsName>ADS-C age</BitsName>
                             <BitsPresence>5</BitsPresence>
                         </Bits>
                         <Bits bit="3">
-                            <BitsShortName>ES</BitsShortName>
+                            <BitsShortName>update.age.adsb.squitter</BitsShortName>
                             <BitsName>ADS-B Extended Squitter age</BitsName>
                             <BitsPresence>6</BitsPresence>
                         </Bits>
                         <Bits bit="2">
-                            <BitsShortName>VDL</BitsShortName>
+                            <BitsShortName>update.age.adsb.vdl</BitsShortName>
                             <BitsName>ADS-B VDL Mode 4 age</BitsName>
                             <BitsPresence>7</BitsPresence>
                         </Bits>
@@ -891,17 +891,17 @@
                     </Fixed>
                     <Fixed length="1">
                         <Bits bit="8">
-                            <BitsShortName>UAT</BitsShortName>
+                            <BitsShortName>update.age.adsb.uat</BitsShortName>
                             <BitsName>ADS-B UAT age</BitsName>
                             <BitsPresence>8</BitsPresence>
                         </Bits>
                         <Bits bit="7">
-                            <BitsShortName>LOP</BitsShortName>
+                            <BitsShortName>update.age.loop</BitsShortName>
                             <BitsName>Loop age</BitsName>
                             <BitsPresence>9</BitsPresence>
                         </Bits>
                         <Bits bit="6">
-                            <BitsShortName>MLT</BitsShortName>
+                            <BitsShortName>update.age.multilateration</BitsShortName>
                             <BitsName>Multilateration age</BitsName>
                             <BitsPresence>10</BitsPresence>
                         </Bits>
@@ -921,7 +921,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>TRK</BitsShortName>
+                        <BitsShortName>update.age.track.time</BitsShortName>
                         <BitsName>Actual track age since first occurence</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -929,7 +929,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>PSR</BitsShortName>
+                        <BitsShortName>update.age.psr.time</BitsShortName>
                         <BitsName>Age of the last primary detection used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -937,7 +937,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>SSR</BitsShortName>
+                        <BitsShortName>update.age.ssr.time</BitsShortName>
                         <BitsName>Age of the last secondary detection used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -945,7 +945,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>MDS</BitsShortName>
+                        <BitsShortName>update.age.modes.time</BitsShortName>
                         <BitsName>Age of the last Mode S detection used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -953,7 +953,7 @@
                 
                 <Fixed length="2">
                     <Bits from="16" to="1">
-                        <BitsShortName>ADS</BitsShortName>
+                        <BitsShortName>update.age.adsc.time</BitsShortName>
                         <BitsName>Age of the last ADS-C report used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -961,7 +961,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>ES</BitsShortName>
+                        <BitsShortName>update.age.adsb.squitter.time</BitsShortName>
                         <BitsName>Age of the last 1090 Extended Squitter ADS-B report used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -969,7 +969,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>VDL</BitsShortName>
+                        <BitsShortName>update.age.adsb.vdl.time</BitsShortName>
                         <BitsName>Age of the last VDL Mode 4 ADS-B report used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -977,7 +977,7 @@
 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>UAT</BitsShortName>
+                        <BitsShortName>update.age.adsb.uat.time</BitsShortName>
                         <BitsName>Age of the last UAT ADS-B report used to update the track</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -985,7 +985,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>LOP</BitsShortName>
+                        <BitsShortName>update.age.loop.time</BitsShortName>
                         <BitsName>Age of the last magnetic loop detection</BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>
@@ -993,7 +993,7 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>MLT</BitsShortName>
+                        <BitsShortName>update.age.multilateration.time</BitsShortName>
                         <BitsName>Age of the last MLT detection </BitsName>
                         <BitsUnit scale="0.25">sec</BitsUnit>                       
                     </Bits>

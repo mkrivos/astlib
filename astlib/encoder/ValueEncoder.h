@@ -24,6 +24,7 @@ public:
     virtual ~ValueEncoder() = default;
 
     virtual bool encode(const CodecContext& ctx, Poco::UInt64& value) = 0;
+    virtual size_t getArraySize(AsterixItemCode code) const = 0;
 };
 
 } /* namespace astlib */

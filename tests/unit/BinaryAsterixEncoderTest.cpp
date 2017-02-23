@@ -42,6 +42,10 @@ public:
         {
             return false;
         }
+        virtual size_t getArraySize(AsterixItemCode code) const
+        {
+            return 1;
+        }
     } zeroEncoder;
 
     class MyValueEncoder :
@@ -51,6 +55,10 @@ public:
         {
             value = Poco::UInt64(0x8877665544332211UL);
             return true;
+        }
+        virtual size_t getArraySize(AsterixItemCode code) const
+        {
+            return 2;
         }
     } valueEncoder;
 

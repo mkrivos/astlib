@@ -194,10 +194,11 @@ ItemDescriptionPtr CodecDeclarationLoader::loadFixedDeclaration(CodecDescription
     return std::make_shared<FixedItemDescription>(id, description, fixed);
 }
 
-Fixed CodecDeclarationLoader::loadFixed(CodecDescription& codecDescription, const Element& element)
+Fixed CodecDeclarationLoader::loadFixed(CodecDescription& codecDescription, const Element& element, bool repetitive)
 {
     int length = Poco::NumberParser::parse(element.getAttribute("length"));
-    BitsDescriptionArray bitsArray = loadBitsDeclaration(codecDescription, element);
+    BitsDescriptionArray bitsArray = loadBitsDeclaration(codecDescription, element, repetitive);
+    poco_assert(bitsArray.size());
     return Fixed(bitsArray, length);
 }
 
@@ -224,7 +225,7 @@ ItemDescriptionPtr CodecDeclarationLoader::loadRepetitiveDeclaration(CodecDescri
         const Element* element = dynamic_cast<Element*>(node);
         if (element && element->nodeName() == "Fixed")
         {
-            Fixed fixed = loadFixed(codecDescription, *element);
+            Fixed fixed = loadFixed(codecDescription, *element, true);
             fixeds.push_back(fixed);
         }
     }
@@ -252,7 +253,7 @@ ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(CodecDescript
     return nullptr;
 }
 
-BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescription& codecDescription, const Element& parent)
+BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescription& codecDescription, const Element& parent, bool repetitive)
 {
     BitsDescriptionArray bitsArray;
 
@@ -359,6 +360,8 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
                 }
             }
 
+            bits.repeat = repetitive;
+
             //std::cout << "      " << bits.toString() << " enc " << bits.encoding.toString() << std::endl;
             addPrimitiveItem(codecDescription, bits);
             bitsArray.push_back(bits);
@@ -429,7 +432,7 @@ void CodecDeclarationLoader::addPrimitiveItem(CodecDescription& codecDescription
         }
 
     }
-    codecDescription.addPrimitiveItem(bits.name, PrimitiveItem(bits.name, bits.description, type));
+    codecDescription.addPrimitiveItem(bits.name, PrimitiveItem(bits.name, bits.description, type, bits.repeat));
 }
 
 } /* namespace codecDescription */

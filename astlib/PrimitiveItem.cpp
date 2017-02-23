@@ -19,10 +19,11 @@ PrimitiveItem::PrimitiveItem()
 {
 }
 
-PrimitiveItem::PrimitiveItem(const std::string& name, const std::string& description, PrimitiveType type) :
+PrimitiveItem::PrimitiveItem(const std::string& name, const std::string& description, PrimitiveType type, bool arrayType) :
     _name(name),
     _description(description),
-    _type(type)
+    _type(type),
+    _arrayType(arrayType)
 {
 }
 
@@ -43,6 +44,11 @@ const std::string& PrimitiveItem::getDescription() const
 PrimitiveType PrimitiveItem::getType() const
 {
     return _type;
+}
+
+bool PrimitiveItem::isArray() const
+{
+    return _arrayType;
 }
 
 } /* namespace astlib */

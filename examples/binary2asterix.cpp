@@ -72,14 +72,14 @@ int main(int, char**)
     // Decode binary data stream ...
     dekoder.decode(*codecCat48, myDecoder, standardMessage, sizeof(standardMessage));
 
-    bool sacIsPresent = myDecoder.msg->hasItem(ASTERIX_CODE_3D_HEIGHT);
+    bool sacIsPresent = myDecoder.msg->hasItem(TRACK_ALTITUDE_HEIGHT3D_CODE);
 
     if (sacIsPresent)
     {
         // Get SAC value from message
         double sac;
-        myDecoder.msg->getReal(ASTERIX_CODE_3D_HEIGHT, sac);
-        std::cout << "3D_HEIGHT code is " << sac << " " << asterixCodeToSymbol(ASTERIX_CODE_3D_HEIGHT) << " hex = " << Poco::NumberFormatter::formatHex(ASTERIX_CODE_3D_HEIGHT.value) << std::endl;
+        myDecoder.msg->getReal(TRACK_ALTITUDE_HEIGHT3D_CODE, sac);
+        std::cout << "3D_HEIGHT code is " << sac << " " << asterixCodeToSymbol(TRACK_ALTITUDE_HEIGHT3D_CODE) << " hex = " << Poco::NumberFormatter::formatHex(TRACK_ALTITUDE_HEIGHT3D_CODE.value) << std::endl;
     }
     return 0;
 }
