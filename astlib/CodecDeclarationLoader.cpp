@@ -282,6 +282,12 @@ BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescriptio
                 {
                     bits.fx = Poco::NumberParser::parse(element->getAttribute("fx"));
                 }
+
+                const Poco::XML::Element* presenceNode = dynamic_cast<const Poco::XML::Element*>(element->getChildElement("BitsPresence"));
+                if (presenceNode)
+                {
+                    bits.presence = Poco::NumberParser::parse(presenceNode->innerText());
+                }
             }
             else
             {
@@ -401,8 +407,7 @@ void CodecDeclarationLoader::addPrimitiveItem(CodecDescription& codecDescription
 {
     if (Poco::icompare(bits.name,"FX") == 0 ||
         Poco::icompare(bits.name, "spare") == 0 ||
-        Poco::icompare(bits.name, "unused") == 0 ||
-        bits.name.rfind(std::string(".presence")) == 0
+        Poco::icompare(bits.name, "unused") == 0
     )
         return;
 

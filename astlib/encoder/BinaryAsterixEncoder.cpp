@@ -80,7 +80,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
                 len = encodeRepetitive(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
             case ItemFormat::Compound:
-             //   len = encodeCompound(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
+                len = encodeCompound(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
             case ItemFormat::Explicit:
              //   len = encodeExplicit(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
@@ -187,35 +187,55 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
 {
     const CompoundItemDescription& compoundItem = static_cast<const CompoundItemDescription&>(item);
     const ItemDescriptionVector& items = compoundItem.getItemsVector();
-    FspecGenerator localFspec;
     Byte local[MAX_PACKET_SIZE/2];
+    FspecGenerator localFspec;
     size_t allByteCount = 0;
+
+    // One variable + one more minimally
+    poco_assert(items.size() > 1);
+    std::vector<int> encodedIds;
+    int index = 0;
 
     for(ItemDescriptionPtr uapItem: items)
     {
         int decodedByteCount = 0;
 
+        if (index == 0)
+        {
+            ++index;
+            continue;
+        }
+
         switch(uapItem->getType().toValue())
         {
             case ItemFormat::Fixed:
-                decodedByteCount = encodeFixed(*uapItem, valueEncoder, uapItems, localFspec, local);
+                decodedByteCount = encodeFixed(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
                 break;
 
             case ItemFormat::Variable:
-                decodedByteCount = encodeVariable(*uapItem, valueEncoder, uapItems, localFspec, local);
+                decodedByteCount = encodeVariable(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
                 break;
 
             case ItemFormat::Repetitive:
-                decodedByteCount = encodeRepetitive(*uapItem, valueEncoder, uapItems, localFspec, local);
+                decodedByteCount = encodeRepetitive(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
                 break;
 
             default:
                 throw Exception("Unhandled SubItem type: " + uapItem->getType().toString());
         }
-        allByteCount += decodedByteCount;
+
+        if (decodedByteCount)
+        {
+            encodedIds.push_back(index);
+            allByteCount += decodedByteCount;
+        }
+
+        index++;
     }
 
     // TODO: zobrat redukovany fspec, pridat local buffer
+    const VariableItemDescription& variableItem = dynamic_cast<const VariableItemDescription&>(*items[0]);
+
     return allByteCount;
 }
 

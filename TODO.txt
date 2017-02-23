@@ -13,6 +13,7 @@ Decoding
 - encoding of arrays (SimpleAsterixMessage)
 - introduce enumeration as special case of unsigned
 - introduce table with symbols per item
+- BitsConst encoding
   
 Encoding
 --------------------------------------

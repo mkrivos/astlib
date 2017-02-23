@@ -218,6 +218,12 @@ public:
 
                 if (element->hasAttribute("bit"))
                 {
+                    const Poco::XML::Element* presenceNode = dynamic_cast<const Poco::XML::Element*>(element->getChildElement("BitsPresence"));
+                    if (presenceNode)
+                    {
+                        continue;
+                    }
+
                     bits.bit = Poco::NumberParser::parse(element->getAttribute("bit"));
                     if (element->hasAttribute("fx"))
                     {
@@ -317,8 +323,7 @@ public:
     {
         if (Poco::icompare(bits.name,"FX") == 0 ||
             Poco::icompare(bits.name, "spare") == 0 ||
-            Poco::icompare(bits.name, "unused") == 0 ||
-            bits.name.find(std::string(".presence")) != std::string::npos
+            Poco::icompare(bits.name, "unused") == 0
         )
             return;
 

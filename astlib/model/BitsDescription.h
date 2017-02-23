@@ -36,6 +36,7 @@ public:
     int bit = -1;
     int from = -1;
     int to = -1;
+    int presence = 0;
     bool fx = false;
     bool repeat = false;
     double scale = 1.0;
