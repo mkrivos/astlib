@@ -11,6 +11,7 @@
 ///
 
 #include "astlib/encoder/FspecGenerator.h"
+#include "astlib/Exception.h"
 #include "gtest/gtest.h"
 
 using namespace astlib;
@@ -57,4 +58,22 @@ TEST_F(FspecGeneratorTest, basic)
     EXPECT_EQ(0x81, fspec.data()[1]);
     EXPECT_EQ(0x80, fspec.data()[2]);
     EXPECT_EQ(3, fspec.size());
+}
+
+TEST_F(FspecGeneratorTest, reduce)
+{
+    EXPECT_EQ(0, FspecGenerator::reduce({}).size());
+    EXPECT_EQ(0, FspecGenerator::reduce({0x00}).size());
+    EXPECT_EQ(0, FspecGenerator::reduce({0x01, 0x00}).size());
+    EXPECT_EQ(0, FspecGenerator::reduce({0x01, 0x01, 0x01, 0x00}).size());
+
+    EXPECT_EQ(1, FspecGenerator::reduce({0x80}).size());
+    EXPECT_THROW(FspecGenerator::reduce({0xFF}).size(), Exception);
+
+    EXPECT_EQ(2, FspecGenerator::reduce({0x01, 0x80}).size());
+    EXPECT_EQ(2, FspecGenerator::reduce({0x01, 0x82}).size());
+
+    EXPECT_EQ(3, FspecGenerator::reduce({0x01, 0x01, 0x03, 0x00}).size());
+
+    EXPECT_EQ(4, FspecGenerator::reduce({0x01, 0x01, 0x01, 0x02}).size());
 }

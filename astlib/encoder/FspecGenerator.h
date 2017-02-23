@@ -59,6 +59,10 @@ public:
      */
     const Byte* data() const;
 
+    std::vector<Byte> getArray() const;
+
+    static std::vector<Byte> reduce(const std::vector<Byte>& sequence);
+
 private:
     std::vector<Byte> _fspec;
     int _byteMask = 0x100;

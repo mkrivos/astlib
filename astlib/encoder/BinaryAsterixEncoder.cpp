@@ -20,6 +20,7 @@
 #include "astlib/Exception.h"
 
 #include <iostream>
+#include <set>
 
 
 namespace astlib
@@ -41,14 +42,15 @@ size_t BinaryAsterixEncoder::encode(const CodecDescription& codec, ValueEncoder&
     const CodecDescription::UapItems& uapItems = codec.enumerateUapItems();
     size_t encodedSize = encodePayload(codec, valueEncoder, uapItems, fspec, aux);
 
-    size_t len = 1 + 2 + fspec.size() + encodedSize;
+    auto reducedFspec = fspec.getArray();
+    size_t len = 1 + 2 + reducedFspec.size() + encodedSize;
     buffer.resize(len);
     buffer[0] = codec.getCategoryDescription().getCategory();
     // TODO: pre littleendian treba zvlast vetvu
     buffer[1] = (len >> 8) & 0xFF;
     buffer[2] = len & 0xFF;
-    memcpy(&buffer[3], fspec.data(), fspec.size());
-    memcpy(&buffer[3+fspec.size()], aux, encodedSize);
+    memcpy(&buffer[3], reducedFspec.data(), reducedFspec.size());
+    memcpy(&buffer[3+reducedFspec.size()], aux, encodedSize);
 
     return len;
 }
@@ -83,10 +85,10 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
                 len = encodeCompound(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
             case ItemFormat::Explicit:
-             //   len = encodeExplicit(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
+                len = encodeExplicit(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
         }
-
+std::cout << "item " << item.getId() << " size = " << len << std::endl;
         if (len > 0)
         {
             bufferPosition += len;
@@ -117,11 +119,10 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
 
     for(const Fixed& fixed: fixedVector)
     {
-        auto len = fixed.length;
-        poco_assert(len == 1);
-        encodeBitset(item, fixed, valueEncoder, ptr);
-        encodedByteCount++;
-        ptr++;
+        poco_assert(fixed.length == 1);
+        auto len = encodeBitset(item, fixed, valueEncoder, ptr);
+        encodedByteCount += len;
+        ptr += len;
     }
 
     if (encodedByteCount > 1)
@@ -193,12 +194,12 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
 
     // One variable + one more minimally
     poco_assert(items.size() > 1);
-    std::vector<int> encodedIds;
+    std::set<int> encodedIds;
     int index = 0;
 
     for(ItemDescriptionPtr uapItem: items)
     {
-        int decodedByteCount = 0;
+        int encodedByteCount = 0;
 
         if (index == 0)
         {
@@ -209,34 +210,65 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
         switch(uapItem->getType().toValue())
         {
             case ItemFormat::Fixed:
-                decodedByteCount = encodeFixed(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
+                encodedByteCount = encodeFixed(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
                 break;
 
             case ItemFormat::Variable:
-                decodedByteCount = encodeVariable(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
+                encodedByteCount = encodeVariable(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
                 break;
 
             case ItemFormat::Repetitive:
-                decodedByteCount = encodeRepetitive(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
+                encodedByteCount = encodeRepetitive(*uapItem, valueEncoder, uapItems, localFspec, local+allByteCount);
                 break;
 
             default:
                 throw Exception("Unhandled SubItem type: " + uapItem->getType().toString());
         }
 
-        if (decodedByteCount)
+        if (encodedByteCount)
         {
-            encodedIds.push_back(index);
-            allByteCount += decodedByteCount;
+            encodedIds.insert(index);
+            allByteCount += encodedByteCount;
         }
 
         index++;
     }
 
+    if (allByteCount == 0)
+    {
+        poco_assert(encodedIds.empty());
+        return 0;
+    }
+
     // TODO: zobrat redukovany fspec, pridat local buffer
     const VariableItemDescription& variableItem = dynamic_cast<const VariableItemDescription&>(*items[0]);
+    const FixedVector& fixedVector = variableItem.getFixedVector();
+    std::vector<Byte> variableFspec;
 
-    return allByteCount;
+    for(const Fixed& fixed: fixedVector)
+    {
+        poco_assert(fixed.length == 1);
+        const BitsDescriptionArray& bitsArray = fixed.bitsDescriptions;
+        Byte presenceByte = 0;
+
+        for(const BitsDescription& bits: bitsArray)
+        {
+            if (bits.presence != 0)
+            {
+                if (encodedIds.find(bits.presence) != encodedIds.end())
+                {
+                    presenceByte |= (1 << (bits.bit-1));
+                }
+            }
+        }
+        variableFspec.push_back(presenceByte);
+    }
+
+    auto finalFspec = FspecGenerator::reduce(variableFspec);
+    memcpy(buffer, finalFspec.data(), finalFspec.size());
+    memcpy(buffer+finalFspec.size(), local, allByteCount);
+
+    return finalFspec.size() + allByteCount;
 }
 
 size_t BinaryAsterixEncoder::encodeExplicit(const ItemDescription& item, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])

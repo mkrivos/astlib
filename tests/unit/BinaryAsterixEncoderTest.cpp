@@ -11,7 +11,9 @@
 ///
 
 #include "astlib/encoder/BinaryAsterixEncoder.h"
+#include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
+#include "astlib/decoder/JsonValueDecoder.h"
 #include "astlib/CodecDeclarationLoader.h"
 #include "astlib/AsterixItemDictionary.h"
 #include "astlib/Exception.h"
@@ -44,7 +46,7 @@ public:
         }
         virtual size_t getArraySize(AsterixItemCode code) const
         {
-            return 1;
+            return 0;
         }
     } zeroEncoder;
 
@@ -64,16 +66,20 @@ public:
 
     CodecDescriptionPtr codecSpecification;
     BinaryAsterixEncoder encoder;
+    BinaryAsterixDecoder decoder;
 };
 
-TEST_F( BinaryDataEncoderTest, zeroDecode)
+TEST_F( BinaryDataEncoderTest, zeroEncode)
 {
     std::vector<Byte> buffer;
-    EXPECT_EQ(10, encoder.encode(*codecSpecification, zeroEncoder, buffer, ""));
+    EXPECT_EQ(3, encoder.encode(*codecSpecification, zeroEncoder, buffer, ""));
 }
 
-TEST_F( BinaryDataEncoderTest, fullDecode)
+TEST_F( BinaryDataEncoderTest, fullEncode)
 {
     std::vector<Byte> buffer;
-    EXPECT_EQ(71, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
+    EXPECT_EQ(98, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
+
+    JsonValueDecoder valueDecoder;
+    decoder.decode(*codecSpecification, valueDecoder, buffer.data(), buffer.size());
 }

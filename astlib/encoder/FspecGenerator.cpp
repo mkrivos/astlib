@@ -11,6 +11,8 @@
 ///
 
 #include "FspecGenerator.h"
+#include "astlib/Exception.h"
+#include <algorithm>
 
 namespace astlib
 {
@@ -57,6 +59,50 @@ size_t FspecGenerator::size() const
 const Byte* FspecGenerator::data() const
 {
     return _fspec.data();
+}
+
+std::vector<Byte> FspecGenerator::getArray() const
+{
+    return reduce(_fspec);
+}
+
+std::vector<Byte> FspecGenerator::reduce(const std::vector<Byte>& sequence)
+{
+    std::vector<Byte> array;
+
+    auto iterator = sequence.rbegin();
+    auto end = sequence.rend();
+    bool contains = false;
+
+    if (sequence.empty())
+        return array;
+
+    if (sequence.back() & FX_BIT)
+        throw Exception("FspecGenerator: FX bit is set at the end of byte sequence");
+
+    while (iterator != end)
+    {
+        Byte byte = *iterator;
+
+        if (contains == false)
+        {
+            contains = byte & 0xFE;
+        }
+        else
+        {
+            byte |= FX_BIT;
+        }
+
+        if (contains)
+        {
+            array.push_back(byte);
+        }
+        ++iterator;
+    }
+
+    std::reverse(array.begin(), array.end());
+
+    return array;
 }
 
 } /* namespace astlib */
