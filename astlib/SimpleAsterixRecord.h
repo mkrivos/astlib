@@ -41,6 +41,8 @@ public:
     bool getReal(AsterixItemCode code, double& value, int index = -1) const;
     bool getString(AsterixItemCode code, std::string& value, int index = -1) const;
 
+    std::string toString() const;
+
     size_t size() const;
     void clear();
 

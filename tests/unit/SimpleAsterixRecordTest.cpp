@@ -110,4 +110,6 @@ TEST_F(SimpleAsterixMessageTest, array)
     EXPECT_EQ(42, value);
     EXPECT_TRUE(msg.getSigned(code, value, 1));
     EXPECT_EQ(43, value);
+
+    std::cout << msg.toString() << std::endl;
 }

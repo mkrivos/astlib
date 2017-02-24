@@ -174,8 +174,7 @@ size_t BinaryAsterixEncoder::encodeRepetitive(const ItemDescription& item, Value
     {
         for(const Fixed& fixed: fixedVector)
         {
-            allByteCount = encodeBitset(item, fixed, valueEncoder, buffer, i);
-            buffer += allByteCount;
+            allByteCount += encodeBitset(item, fixed, valueEncoder, buffer + allByteCount, i);
         }
     }
 
@@ -308,7 +307,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
                 mask = bits.bitMask();
                 leftShift = bits.to-1;
             }
-std::cout << bits.name << " = " << (value&mask) << " size = " << context.width << std::endl;
+std::cout << bits.name << "[" << index << "] = " << (value&mask) << " size = " << context.width/8 << std::endl;
             data |= ((value & mask) << leftShift);
         }
     }

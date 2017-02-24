@@ -200,8 +200,8 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
             <Fixed length="4">
                 <Bits from="32" to="17" encode="signed">
-                    <BitsShortName>X</BitsShortName>
-                    <BitsName>target.position.x</BitsName>
+                    <BitsShortName>target.position.x</BitsShortName>
+                    <BitsName>X component</BitsName>
                     <BitsUnit scale="0.0078125">NM</BitsUnit>               
                 </Bits>
                 <Bits from="16" to="1" encode="signed">

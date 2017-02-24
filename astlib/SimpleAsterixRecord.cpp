@@ -14,6 +14,9 @@
 #include "AsterixItemDictionary.h"
 #include "Exception.h"
 
+#include <sstream>
+#include <iostream>
+
 namespace astlib
 {
 
@@ -169,6 +172,15 @@ bool SimpleAsterixRecord::getString(AsterixItemCode code, std::string& value, in
         value = iterator->second[index].convert<std::string>();
     }
     return true;
+}
+
+std::string SimpleAsterixRecord::toString() const
+{
+    std::stringstream stream;
+
+    for(auto& entry: _items)
+        std::cout << asterixCodeToSymbol(entry.first) << " = " << entry.second.toString() << std::endl;
+    return stream.str();
 }
 
 } /* namespace astlib */

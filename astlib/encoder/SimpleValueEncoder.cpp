@@ -27,27 +27,27 @@ size_t SimpleValueEncoder::getArraySize(AsterixItemCode code) const
 
 bool SimpleValueEncoder::encodeBoolean(const CodecContext& ctx, bool& value, int index)
 {
-    return _record->getBoolean(ctx.bits.code, value);
+    return _record->getBoolean(ctx.bits.code, value, index);
 }
 
 bool SimpleValueEncoder::encodeSigned(const CodecContext& ctx, Poco::Int64& value, int index)
 {
-    return _record->getSigned(ctx.bits.code, value);
+    return _record->getSigned(ctx.bits.code, value, index);
 }
 
 bool SimpleValueEncoder::encodeUnsigned(const CodecContext& ctx, Poco::UInt64& value, int index)
 {
-    return _record->getUnsigned(ctx.bits.code, value);
+    return _record->getUnsigned(ctx.bits.code, value, index);
 }
 
 bool SimpleValueEncoder::encodeReal(const CodecContext& ctx, double& value, int index)
 {
-    return _record->getReal(ctx.bits.code, value);
+    return _record->getReal(ctx.bits.code, value, index);
 }
 
 bool SimpleValueEncoder::encodeString(const CodecContext& ctx, std::string& value, int index)
 {
-    return _record->getString(ctx.bits.code, value);
+    return _record->getString(ctx.bits.code, value, index);
 }
 
 } /* namespace astlib */

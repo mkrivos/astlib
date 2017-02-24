@@ -43,27 +43,27 @@ void SimpleValueDecoder::beginArray(AsterixItemCode code, size_t size)
 
 void SimpleValueDecoder::decodeBoolean(const CodecContext& context, bool value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeSigned(const CodecContext& context, Poco::Int64 value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeUnsigned(const CodecContext& context, Poco::UInt64 value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeReal(const CodecContext& context, double value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeString(const CodecContext& context, const std::string& value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
+    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::end()
