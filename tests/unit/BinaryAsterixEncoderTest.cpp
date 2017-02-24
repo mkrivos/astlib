@@ -40,7 +40,7 @@ public:
     class zeroEncoder :
         public ValueEncoder
     {
-        bool encode(const CodecContext& ctx, Poco::UInt64& value)
+        bool encode(const CodecContext& ctx, Poco::UInt64& value, int index)
         {
             return false;
         }
@@ -53,7 +53,7 @@ public:
     class MyValueEncoder :
         public ValueEncoder
     {
-        bool encode(const CodecContext& ctx, Poco::UInt64& value)
+        bool encode(const CodecContext& ctx, Poco::UInt64& value, int index)
         {
             value = Poco::UInt64(0x8877665544332211UL);
             return true;

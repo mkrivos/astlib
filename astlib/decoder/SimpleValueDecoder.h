@@ -13,7 +13,7 @@
 #pragma once
 
 #include "astlib/SimpleAsterixRecord.h"
-#include "ValueDecoder.h"
+#include "TypedValueDecoder.h"
 
 namespace astlib
 {
@@ -29,15 +29,14 @@ public:
     virtual ~SimpleValueDecoder();
 
     virtual void begin();
-    virtual void dataItem(const ItemDescription& uapItem);
-    virtual void beginRepetitive(int);
-    virtual void repetitiveItem(int index);
-    virtual void endRepetitive();
-    virtual void decodeBoolean(const CodecContext& context, bool value);
-    virtual void decodeSigned(const CodecContext& context, Poco::Int64 value);
-    virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value);
-    virtual void decodeReal(const CodecContext& context, double value);
-    virtual void decodeString(const CodecContext& context, const std::string& value);
+    virtual void beginItem(const ItemDescription& uapItem);
+    virtual void beginRepetitive(size_t size);
+    virtual void beginArray(AsterixItemCode code, size_t size);
+    virtual void decodeBoolean(const CodecContext& context, bool value, int index);
+    virtual void decodeSigned(const CodecContext& context, Poco::Int64 value, int index);
+    virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value, int index);
+    virtual void decodeReal(const CodecContext& context, double value, int index);
+    virtual void decodeString(const CodecContext& context, const std::string& value, int index);
     virtual void end();
 
     virtual void onMessageDecoded(SimpleAsterixRecordPtr ptr) = 0;

@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include "astlib/CodecPolicy.h"
 #include "ValueDecoder.h"
 #include "astlib/model/CodecDescription.h"
 #include "astlib/model/Fixed.h"
@@ -28,7 +29,7 @@ class BinaryAsterixDecoder
 public:
     static constexpr int MAX_PACKET_SIZE = 8192;
 
-    BinaryAsterixDecoder();
+    BinaryAsterixDecoder(CodecPolicy policy = CodecPolicy());
     ~BinaryAsterixDecoder();
 
     /**
@@ -48,8 +49,9 @@ private:
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeCompound(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
 
-    void decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder);
+    void decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder, int index, int arraySize);
 
+    CodecPolicy _policy;
     int _depth = 0;
     bool _verbose = false;
 };

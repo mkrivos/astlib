@@ -27,22 +27,19 @@ class EmptyValueDecoder :
     virtual void begin()
     {
     }
-    virtual void dataItem(const ItemDescription& uapItem)
+    virtual void beginItem(const ItemDescription& uapItem)
     {
     }
-    virtual void beginRepetitive(int count)
+    virtual void beginRepetitive(size_t size)
     {
     }
-    virtual void repetitiveItem(int index)
-    {
-    }
-    virtual void endRepetitive()
-    {
-    }
-    virtual void decode(const CodecContext& bits, Poco::UInt64 value)
+    virtual void decode(const CodecContext& bits, Poco::UInt64 value, int index)
     {
     }
     virtual void end()
+    {
+    }
+    virtual void beginArray(AsterixItemCode code, size_t size)
     {
     }
 };

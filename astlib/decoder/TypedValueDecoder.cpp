@@ -1,6 +1,6 @@
 ///
 /// \package astlib
-/// \file ValueDecoder.cpp
+/// \file TypedValueDecoder.cpp
 ///
 /// \author Marian Krivos <marian.krivos@rsys.sk>
 /// \date 8Feb.,2017 
@@ -10,8 +10,10 @@
 /// All rights reserved.
 ///
 
-#include "ValueDecoder.h"
+#include "TypedValueDecoder.h"
 #include "ByteUtils.h"
+#include "astlib/AsterixItemDictionary.h"
+#include "astlib/Exception.h"
 
 #include <Poco/NumberFormatter.h>
 #include <iostream>
@@ -19,14 +21,26 @@
 namespace astlib
 {
 
-void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value)
+void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int index)
 {
+    AsterixItemCode code = ctx.bits.code;
+
+    if (index == -1 && code.isArray())
+    {
+        throw Exception("TypedValueDecoder::decode: " + asterixCodeToSymbol(code) + " array expects an index");
+    }
+
+    if (index != -1 && !code.isArray())
+    {
+        throw Exception("TypedValueDecoder::decode: " + asterixCodeToSymbol(code) + " scalar value doesn't expects an index");
+    }
+
     Encoding::ValueType encoding = ctx.bits.encoding.toValue();
 
-    switch(ctx.bits.code.type())
+    switch(code.type())
     {
         case PrimitiveType::Boolean:
-            decodeBoolean(ctx, bool(value));
+            decodeBoolean(ctx, bool(value), index);
             break;
 
         case PrimitiveType::Real:
@@ -48,21 +62,21 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value)
 
             if (encoding == Encoding::Unsigned)
             {
-                decodeReal(ctx, value * ctx.bits.scale * unit);
+                decodeReal(ctx, value * ctx.bits.scale * unit, index);
             }
             else
             {
-                decodeReal(ctx, ByteUtils::toSigned(value, ctx.width) * ctx.bits.scale * unit);
+                decodeReal(ctx, ByteUtils::toSigned(value, ctx.width) * ctx.bits.scale * unit, index);
             }
             break;
         }
 
         case PrimitiveType::Integer:
-            decodeSigned(ctx, ByteUtils::toSigned(value, ctx.width));
+            decodeSigned(ctx, ByteUtils::toSigned(value, ctx.width), index);
             break;
 
         case PrimitiveType::Unsigned:
-            decodeUnsigned(ctx, value);
+            decodeUnsigned(ctx, value, index);
             break;
 
         default:
@@ -70,16 +84,16 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value)
             switch (encoding)
             {
                 case Encoding::Ascii:
-                    decodeString(ctx, "");
+                    decodeString(ctx, "", index);
                     break;
                 case Encoding::Octal:
-                    decodeUnsigned(ctx, ByteUtils::oct2dec(value));
+                    decodeUnsigned(ctx, ByteUtils::oct2dec(value), index);
                     break;
                 case Encoding::SixBitsChar:
-                    decodeString(ctx, ByteUtils::fromSixBitString((const Byte*)&value));
+                    decodeString(ctx, ByteUtils::fromSixBitString((const Byte*)&value), index);
                     break;
                 case Encoding::Hex:
-                    decodeString(ctx, Poco::NumberFormatter::formatHex(value));
+                    decodeString(ctx, Poco::NumberFormatter::formatHex(value), index);
                     break;
             }
             break;

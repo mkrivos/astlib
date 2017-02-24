@@ -23,7 +23,9 @@ class ValueEncoder
 public:
     virtual ~ValueEncoder() = default;
 
-    virtual bool encode(const CodecContext& ctx, Poco::UInt64& value) = 0;
+    virtual bool encode(const CodecContext& ctx, Poco::UInt64& value, int index) = 0;
+
+    /// When encoding repetitive items, this method is used to return size of vector items
     virtual size_t getArraySize(AsterixItemCode code) const = 0;
 };
 

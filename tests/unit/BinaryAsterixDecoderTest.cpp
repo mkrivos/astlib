@@ -44,11 +44,11 @@ public:
         {
             std::cout << "Start -------------------------\n";
         }
-        virtual void dataItem(const ItemDescription& uapItem)
+        virtual void beginItem(const ItemDescription& uapItem)
         {
             std::cout << uapItem.getId() << " - " << uapItem.getDescription() << std::endl;
         }
-        virtual void beginRepetitive(int)
+        virtual void beginRepetitive(size_t size)
         {
         }
         virtual void repetitiveItem(int index)
@@ -58,23 +58,26 @@ public:
         virtual void endRepetitive()
         {
         }
-        virtual void decodeBoolean(const CodecContext& context, bool value)
+        virtual void beginArray(AsterixItemCode code, size_t size)
+        {
+        }
+        virtual void decodeBoolean(const CodecContext& context, bool value, int index)
         {
             std::cout << "  Boolean " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeSigned(const CodecContext& context, Poco::Int64 value)
+        virtual void decodeSigned(const CodecContext& context, Poco::Int64 value, int index)
         {
             std::cout << "  Integer " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value)
+        virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value, int index)
         {
             std::cout << "  Unsigned " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeReal(const CodecContext& context, double value)
+        virtual void decodeReal(const CodecContext& context, double value, int index)
         {
             std::cout << "  Real " << context.bits.name << " = " << Poco::NumberFormatter::format(value) << std::endl;
         }
-        virtual void decodeString(const CodecContext& context, const std::string& value)
+        virtual void decodeString(const CodecContext& context, const std::string& value, int index)
         {
             std::cout << "  Real " << context.bits.name << " = '" << value << "'" << std::endl;
         }

@@ -26,7 +26,8 @@
 namespace astlib
 {
 
-BinaryAsterixEncoder::BinaryAsterixEncoder()
+BinaryAsterixEncoder::BinaryAsterixEncoder(CodecPolicy policy) :
+    _policy(policy)
 {
 }
 
@@ -88,7 +89,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
                 len = encodeExplicit(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
         }
-std::cout << "item " << item.getId() << " size = " << len << std::endl;
+std::cout << "encode item " << item.getId() << " size = " << len << std::endl;
         if (len > 0)
         {
             bufferPosition += len;
@@ -107,7 +108,7 @@ size_t BinaryAsterixEncoder::encodeFixed(const ItemDescription& item, ValueEncod
 {
     const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(item);
     const Fixed& fixed = fixedItem.getFixed();
-    return encodeBitset(item, fixed, valueEncoder, buffer);
+    return encodeBitset(item, fixed, valueEncoder, buffer, -1);
 }
 
 size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])
@@ -120,7 +121,7 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
     for(const Fixed& fixed: fixedVector)
     {
         poco_assert(fixed.length == 1);
-        auto len = encodeBitset(item, fixed, valueEncoder, ptr);
+        auto len = encodeBitset(item, fixed, valueEncoder, ptr, -1);
         encodedByteCount += len;
         ptr += len;
     }
@@ -173,7 +174,7 @@ size_t BinaryAsterixEncoder::encodeRepetitive(const ItemDescription& item, Value
     {
         for(const Fixed& fixed: fixedVector)
         {
-            allByteCount = encodeBitset(item, fixed, valueEncoder, buffer);
+            allByteCount = encodeBitset(item, fixed, valueEncoder, buffer, i);
             buffer += allByteCount;
         }
     }
@@ -276,7 +277,7 @@ size_t BinaryAsterixEncoder::encodeExplicit(const ItemDescription& item, ValueEn
     return 0;
 }
 
-size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fixed& fixed, ValueEncoder& valueEncoder, Byte buffer[])
+size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fixed& fixed, ValueEncoder& valueEncoder, Byte buffer[], int index)
 {
     const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
     Poco::UInt64 data = 0;
@@ -287,7 +288,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
         CodecContext context(item, bits, 0);
         Poco::UInt64 value = 0;
 
-        if (valueEncoder.encode(context, value))
+        if (valueEncoder.encode(context, value, index))
         {
             encoded = true;
             Poco::UInt64 mask = 0;

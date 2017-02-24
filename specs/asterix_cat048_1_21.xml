@@ -240,7 +240,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1" encode="octal">
-                    <BitsShortName>Mode2.Code</BitsShortName>
+                    <BitsShortName>Mode2.value</BitsShortName>
                     <BitsName>Mode-2 code</BitsName>
                 </Bits>
             </Fixed>
@@ -269,7 +269,7 @@
                     <BitsValue val="1">Smoothed Mode-1 code as provided by a local tracker</BitsValue>
                 </Bits>
                 <Bits from="5" to="1">
-                    <BitsShortName>Mode1.Code</BitsShortName>
+                    <BitsShortName>Mode1.value</BitsShortName>
                     <BitsName>Mode-1 code</BitsName>
                 </Bits>
             </Fixed>
@@ -418,7 +418,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1" encode="octal">
-                    <BitsShortName>Mode3A.Code</BitsShortName>
+                    <BitsShortName>Mode3A.value</BitsShortName>
                     <BitsName>Mode-3/A reply code</BitsName>
                 </Bits>
             </Fixed>
@@ -507,18 +507,18 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>FlightLevel.V</BitsShortName>
+                    <BitsShortName>track.altitude.flightlevel.V</BitsShortName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="15">
-                    <BitsShortName>FlightLevel.G</BitsShortName>
+                    <BitsShortName>track.altitude.flightlevel.G</BitsShortName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
                 <Bits from="14" to="1" encode="signed">
-                    <BitsShortName>FL</BitsShortName>
-                    <BitsName>FlightLevel.Value</BitsName>
+                    <BitsShortName>track.altitude.flightlevel</BitsShortName>
+                    <BitsName>Flight Level</BitsName>
                     <BitsUnit scale="0.25">FL</BitsUnit>
                 </Bits>
             </Fixed>
@@ -547,7 +547,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="28" to="17">
-                    <BitsShortName>ModeC.Code</BitsShortName>
+                    <BitsShortName>ModeC.value</BitsShortName>
                     <BitsName>Mode-C reply in Gray notation</BitsName>
                     <!-- TODO gray notation -->
                 </Bits>

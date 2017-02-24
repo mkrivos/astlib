@@ -33,29 +33,18 @@ public:
     virtual ~ValueDecoder() = default;
 
     virtual void begin() = 0;
-    virtual void dataItem(const ItemDescription& uapItem) = 0;
-    virtual void beginRepetitive(int size) = 0;
-    virtual void repetitiveItem(int index) = 0;
-    virtual void endRepetitive() = 0;
-    virtual void decode(const CodecContext& ctx, Poco::UInt64 value) = 0;
+    virtual void beginItem(const ItemDescription& uapItem) = 0;
+    virtual void beginRepetitive(size_t size) = 0;
+    virtual void decode(const CodecContext& ctx, Poco::UInt64 value, int index) = 0;
     virtual void end() = 0;
-};
 
-/**
- * Wrapper for easy value type handling.
- * Implements decode() method, converts value to apropriate type and call its typed callback.
- */
-class TypedValueDecoder :
-    public ValueDecoder
-{
-public:
-    virtual void decode(const CodecContext& ctx, Poco::UInt64 value);
-
-    virtual void decodeBoolean(const CodecContext& ctx, bool value) = 0;
-    virtual void decodeSigned(const CodecContext& ctx, Poco::Int64 value) = 0;
-    virtual void decodeUnsigned(const CodecContext& ctx, Poco::UInt64 value) = 0;
-    virtual void decodeReal(const CodecContext& ctx, double value) = 0;
-    virtual void decodeString(const CodecContext& ctx, const std::string& value) = 0;
+    virtual void repetitiveItem(int index)
+    {
+    }
+    virtual void beginArray(AsterixItemCode code, size_t size) = 0;
+    virtual void endRepetitive()
+    {
+    }
 };
 
 }

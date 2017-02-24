@@ -343,7 +343,7 @@ public:
             {
                 type = astlib::PrimitiveType::Integer;
             }
-            else if (bits.encoding == astlib::Encoding::Unsigned)
+            else if (bits.encoding == astlib::Encoding::Unsigned || bits.encoding == astlib::Encoding::Octal)
             {
                 type = astlib::PrimitiveType::Unsigned;
             }

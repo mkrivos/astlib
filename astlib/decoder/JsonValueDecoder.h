@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "astlib/decoder/ValueDecoder.h"
+#include "TypedValueDecoder.h"
 
 #include "Poco/JSON/JSON.h"
 #include "Poco/JSON/Object.h"
@@ -31,16 +31,17 @@ class JsonValueDecoder :
     public TypedValueDecoder
 {
     virtual void begin();
-    virtual void dataItem(const astlib::ItemDescription& uapItem);
-    virtual void beginRepetitive(int count);
+    virtual void beginItem(const astlib::ItemDescription& uapItem);
+    virtual void beginRepetitive(size_t count);
     virtual void repetitiveItem(int index);
     virtual void endRepetitive();
+    virtual void beginArray(AsterixItemCode code, size_t size) {}
 
-    virtual void decodeBoolean(const CodecContext& context, bool value);
-    virtual void decodeSigned(const CodecContext& context, Poco::Int64 value);
-    virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value);
-    virtual void decodeReal(const CodecContext& context, double value);
-    virtual void decodeString(const CodecContext& context, const std::string& value);
+    virtual void decodeBoolean(const CodecContext& context, bool value, int index);
+    virtual void decodeSigned(const CodecContext& context, Poco::Int64 value, int index);
+    virtual void decodeUnsigned(const CodecContext& context, Poco::UInt64 value, int index);
+    virtual void decodeReal(const CodecContext& context, double value, int index);
+    virtual void decodeString(const CodecContext& context, const std::string& value, int index);
     virtual void end();
 
 private:

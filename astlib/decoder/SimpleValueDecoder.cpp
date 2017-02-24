@@ -28,43 +28,40 @@ void SimpleValueDecoder::begin()
     _msg = std::make_shared<SimpleAsterixRecord>();
 }
 
-void SimpleValueDecoder::dataItem(const ItemDescription& uapItem)
+void SimpleValueDecoder::beginItem(const ItemDescription& uapItem)
 {
 }
 
-void SimpleValueDecoder::beginRepetitive(int)
+void SimpleValueDecoder::beginRepetitive(size_t size)
 {
 }
 
-void SimpleValueDecoder::repetitiveItem(int index)
+void SimpleValueDecoder::beginArray(AsterixItemCode code, size_t size)
 {
+    _msg->initializeArray(code, size);
 }
 
-void SimpleValueDecoder::endRepetitive()
-{
-}
-
-void SimpleValueDecoder::decodeBoolean(const CodecContext& context, bool value)
+void SimpleValueDecoder::decodeBoolean(const CodecContext& context, bool value, int index)
 {
     _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeSigned(const CodecContext& context, Poco::Int64 value)
+void SimpleValueDecoder::decodeSigned(const CodecContext& context, Poco::Int64 value, int index)
 {
     _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeUnsigned(const CodecContext& context, Poco::UInt64 value)
+void SimpleValueDecoder::decodeUnsigned(const CodecContext& context, Poco::UInt64 value, int index)
 {
     _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeReal(const CodecContext& context, double value)
+void SimpleValueDecoder::decodeReal(const CodecContext& context, double value, int index)
 {
     _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }
 
-void SimpleValueDecoder::decodeString(const CodecContext& context, const std::string& value)
+void SimpleValueDecoder::decodeString(const CodecContext& context, const std::string& value, int index)
 {
     _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)));
 }

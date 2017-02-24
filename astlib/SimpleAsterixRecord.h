@@ -30,15 +30,16 @@ public:
     SimpleAsterixRecord();
     ~SimpleAsterixRecord();
 
-    void addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value);
-
+    void addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value, int index = -1);
+    void initializeArray(AsterixItemCode code, size_t size);
     bool hasItem(AsterixItemCode code) const;
+    size_t getArraySize(AsterixItemCode code) const;
 
-    bool getBoolean(AsterixItemCode code, bool& value) const;
-    bool getUnsigned(AsterixItemCode code, Poco::UInt64& value) const;
-    bool getSigned(AsterixItemCode code, Poco::Int64& value) const;
-    bool getReal(AsterixItemCode code, double& value) const;
-    bool getString(AsterixItemCode code, std::string& value) const;
+    bool getBoolean(AsterixItemCode code, bool& value, int index = -1) const;
+    bool getUnsigned(AsterixItemCode code, Poco::UInt64& value, int index = -1) const;
+    bool getSigned(AsterixItemCode code, Poco::Int64& value, int index = -1) const;
+    bool getReal(AsterixItemCode code, double& value, int index = -1) const;
+    bool getString(AsterixItemCode code, std::string& value, int index = -1) const;
 
     size_t size() const;
     void clear();

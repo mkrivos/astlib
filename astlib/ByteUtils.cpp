@@ -134,25 +134,26 @@ std::string ByteUtils::fromSixBitString(const Byte buffer[])
     return aux;
 }
 
-/*
+std::string ByteUtils::toSixBitString(const std::string sixbit)
 {
-    Byte aux[8];
-    size_t size = ident.size();
+    Byte buffer[8];
+    char aux[6];
+    size_t size = sixbit.size();
 
-    for (size_t i = 0; (i < size) && (i < sizeof(aux)); i++)
+    for (size_t i = 0; (i < size) && (i < sizeof(buffer)); i++)
     {
-        aux[i] = charToIa5(ident[i]);
+        buffer[i] = charToIa5(sixbit[i]);
     }
 
-    *(buffer++) = (aux[0] << 2) | ((aux[1] >> 4) & 0x03);
-    *(buffer++) = ((aux[1] << 4) & 0xF0) | ((aux[2] >> 2) & 0x0F);
-    *(buffer++) = ((aux[2] << 6) & 0xC0) | aux[3];
+    aux[0] = (buffer[0] << 2) | ((buffer[1] >> 4) & 0x03);
+    aux[1] = ((buffer[1] << 4) & 0xF0) | ((buffer[2] >> 2) & 0x0F);
+    aux[2] = ((buffer[2] << 6) & 0xC0) | buffer[3];
 
-    *(buffer++) = (aux[4] << 2) | ((aux[5] >> 4) & 0x03);
-    *(buffer++) = ((aux[5] << 4) & 0xF0) | ((aux[6] >> 2) & 0x0F);
-    *(buffer++) = ((aux[6] << 6) & 0xC0) | aux[7];
+    aux[3] = (buffer[4] << 2) | ((buffer[5] >> 4) & 0x03);
+    aux[4] = ((buffer[5] << 4) & 0xF0) | ((buffer[6] >> 2) & 0x0F);
+    aux[5] = ((buffer[6] << 6) & 0xC0) | buffer[7];
 
     return aux;
 }
-*/
+
 } /* namespace astlib */

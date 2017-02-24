@@ -93,3 +93,21 @@ TEST_F(SimpleAsterixMessageTest, stringValue)
     EXPECT_TRUE(msg.getString(0x05000004, value));
     EXPECT_EQ("fgsdhajdgf45w35234", value);
 }
+
+TEST_F(SimpleAsterixMessageTest, array)
+{
+    SimpleAsterixRecord msg;
+    AsterixItemCode code(1, 2, true);
+    Poco::Int64 value = 0;
+
+    msg.initializeArray(code, 2);
+    msg.addSimpleItem(code, 42, 0);
+    msg.addSimpleItem(code, 43, 1);
+    EXPECT_EQ(1, msg.size());
+    EXPECT_TRUE(code.isArray());
+    EXPECT_TRUE(msg.hasItem(code));
+    EXPECT_TRUE(msg.getSigned(code, value, 0));
+    EXPECT_EQ(42, value);
+    EXPECT_TRUE(msg.getSigned(code, value, 1));
+    EXPECT_EQ(43, value);
+}
