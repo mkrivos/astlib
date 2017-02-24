@@ -162,7 +162,7 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
             }
 
             if (_verbose)
-                std::cout << "  Item advance " << decodedByteCount << " bytes" << std::endl;
+                std::cout << "  " << uapItem.getId() << " Item advance " << decodedByteCount << " bytes" << std::endl;
 
             localPtr += decodedByteCount;
             currentFspecBit++;

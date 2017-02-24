@@ -80,6 +80,22 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
     std::vector<Byte> buffer;
     EXPECT_EQ(98, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
 
-    JsonValueDecoder valueDecoder;
+    for(unsigned char byte: buffer)
+        std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
+    std::cout << std::endl;
+
+    class MyDecoder:
+        public SimpleValueDecoder
+    {
+    public:
+        virtual void onMessageDecoded(SimpleAsterixRecordPtr ptr)
+        {
+            msg = ptr;
+        }
+
+        SimpleAsterixRecordPtr msg;
+    } valueDecoder;
     decoder.decode(*codecSpecification, valueDecoder, buffer.data(), buffer.size());
+
+    std::cout << valueDecoder.msg->toString() << std::endl;
 }

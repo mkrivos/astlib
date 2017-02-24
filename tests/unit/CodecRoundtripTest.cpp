@@ -28,9 +28,9 @@ TEST(CodecRoundtripTest, cat48)
     CodecDeclarationLoader loader;
     auto codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
 
-    unsigned char bytes[113] = {
+    unsigned char bytes[111] = {
         48, // CAT
-        0, 113, // size
+        0, 111, // size
         0xFF, 0xFF, 0xFF, 0xF8,// FSPEC
 
         5, 6,  // 10 - sac sic
@@ -50,7 +50,7 @@ TEST(CodecRoundtripTest, cat48)
         0xFF, 0xFE, // 170 - track status
 
         0xEE, 0xFF, 0xFF, 0xFF, // 210 - track quality
-        3,5,6, // 30 - WE Condition @@
+        6, // 30 - WE Condition @@
         0xFF, 0xFE, // 80 - mode 3a conf
         0xCC, 0xFF, 0xFF, 0xFF, // 100 - mode C conf
         0xDD, 0xFF, // 110 - 3d height

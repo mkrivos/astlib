@@ -146,7 +146,7 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
     {
         for(int i = 0; i < encodedByteCount-1; i++)
         {
-            ptr[i] |= FX_BIT;
+            ptr[i-encodedByteCount] |= FX_BIT;
         }
     }
 
