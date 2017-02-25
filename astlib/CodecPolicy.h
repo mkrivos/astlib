@@ -27,9 +27,10 @@ struct CodecPolicy
     };
 
     CodecPolicy() {}
-    CodecPolicy(Code mandatoryItems);
+    CodecPolicy(Code mandatoryItems, bool verbose);
 
     Code mandatoryItems = Error; ///< what to do when mandatory item is not present
+    bool verbose = false;
 };
 
 } /* namespace astlib */

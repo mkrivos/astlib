@@ -41,7 +41,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="6">
-                        <BitsShortName>target.detection</BitsShortName>
+                        <BitsShortName>track.detection</BitsShortName>
                         <BitsName>TYP</BitsName>
                         <BitsValue val="0">No detection</BitsValue>
                         <BitsValue val="1">Single PSR detection</BitsValue>
@@ -53,20 +53,20 @@
                         <BitsValue val="7">PSR+ModeS Roll-Call</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>target.simulated</BitsShortName>
+                        <BitsShortName>track.simulated</BitsShortName>
                         <BitsName>SIM</BitsName>
                         <BitsValue val="0">Actual target report</BitsValue>
                         <BitsValue val="1">Simulated target report</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>target.report.rdp</BitsShortName>
+                        <BitsShortName>track.report.rdp</BitsShortName>
                         <BitsName>RDP</BitsName>
                         <BitsValue val="0">Report from RDP Chain 1</BitsValue>
                         <BitsValue val="1">Report from RDP Chain 2</BitsValue>
                     </Bits>
                     <Bits bit="3">
                         <BitsShortName>SPI</BitsShortName>
-                        <BitsName>target.spi</BitsName>
+                        <BitsName>track.spi</BitsName>
                         <BitsValue val="0">Absence of SPI</BitsValue>
                         <BitsValue val="1">Special Position Identification</BitsValue>
                     </Bits>
@@ -85,7 +85,7 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>target.test</BitsShortName>
+                        <BitsShortName>track.test</BitsShortName>
                         <BitsName>TST</BitsName>
                         <BitsValue val="0">Real target report</BitsValue>
                         <BitsValue val="1">Test target report</BitsValue>
@@ -96,25 +96,25 @@
                         <BitsConst>0</BitsConst>                       
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>target.xpulse</BitsShortName>
+                        <BitsShortName>track.xpulse</BitsShortName>
                         <BitsName>XPP</BitsName>
                         <BitsValue val="0">No X-Pulse present</BitsValue>
                         <BitsValue val="1">X-Pulse present</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>target.me</BitsShortName>
+                        <BitsShortName>track.me</BitsShortName>
                         <BitsName>ME</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Military emergency</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>target.mi</BitsShortName>
+                        <BitsShortName>track.mi</BitsShortName>
                         <BitsName>MI</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Military identification</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>target.mode4</BitsShortName>
+                        <BitsShortName>track.mode4</BitsShortName>
                         <BitsName>FOE/FRI</BitsName>
                         <BitsValue val="0">No mode 4 interrogation</BitsValue>
                         <BitsValue val="1">Friendly target</BitsValue>
@@ -139,7 +139,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="2">
-                        <BitsShortName>target.we</BitsShortName>
+                        <BitsShortName>track.we</BitsShortName>
                         <BitsName>First warning/error condition value</BitsName>
                         <BitsValue val="0">Not defined, never used</BitsValue>
                         <BitsValue val="1">Multipath Reply (Reflection)</BitsValue>
@@ -183,11 +183,11 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
             <Fixed length="4">
                 <Bits from="32" to="17">
-                    <BitsShortName>target.position.range</BitsShortName>
+                    <BitsShortName>track.position.range</BitsShortName>
                     <BitsUnit max="256" scale="0.00390625">NM</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
-                    <BitsShortName>target.position.azimuth</BitsShortName>
+                    <BitsShortName>track.position.azimuth</BitsShortName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
             </Fixed>
@@ -200,12 +200,12 @@
         <DataItemFormat desc="Four-octet fixed length Data Item.">
             <Fixed length="4">
                 <Bits from="32" to="17" encode="signed">
-                    <BitsShortName>target.position.x</BitsShortName>
+                    <BitsShortName>track.position.x</BitsShortName>
                     <BitsName>X component</BitsName>
                     <BitsUnit scale="0.0078125">NM</BitsUnit>               
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>target.position.y</BitsShortName>
+                    <BitsShortName>track.position.y</BitsShortName>
                     <BitsName>Y component</BitsName>
                     <BitsUnit scale="0.0078125">NM</BitsUnit> 
                 </Bits>
@@ -671,7 +671,7 @@
             </Variable>
                 <Fixed length="2">
                     <Bits bit="16">
-                        <BitsShortName>target.doppler.validation</BitsShortName>
+                        <BitsShortName>track.doppler.validation</BitsShortName>
                         <BitsName>Doppler Speed Validation</BitsName>
                         <BitsValue val="0">Doppler speed is valid</BitsValue>
                         <BitsValue val="1">Doppler speed is doubtful</BitsValue>
@@ -682,7 +682,7 @@
                         <BitsConst>0</BitsConst>                      
                     </Bits>  
                     <Bits from="10" to="1" encode="signed" >
-                        <BitsShortName>target.doppler.calculation</BitsShortName>
+                        <BitsShortName>track.doppler.calculation</BitsShortName>
                         <BitsName>Calculated Doppler Speed</BitsName>
                         <BitsUnit>m/sec</BitsUnit>
                     </Bits>
@@ -690,17 +690,17 @@
                 <Repetitive>
                     <Fixed length="6">
                         <Bits from="48" to="33">
-                            <BitsShortName>target.doppler.speed.value</BitsShortName>
+                            <BitsShortName>track.doppler.speed.value</BitsShortName>
                             <BitsName>Doppler speed</BitsName>
                             <BitsUnit scale="1">m/sec</BitsUnit>
                         </Bits>
                         <Bits from="32" to="17">
-                            <BitsShortName>target.doppler.speed.ambiguity</BitsShortName>
+                            <BitsShortName>track.doppler.speed.ambiguity</BitsShortName>
                             <BitsName>Ambiguity</BitsName>
                             <BitsUnit scale="1">m/sec</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1">
-                            <BitsShortName>target.doppler.speed.frequency</BitsShortName>
+                            <BitsShortName>track.doppler.speed.frequency</BitsShortName>
                             <BitsName>Transmitted Frequency</BitsName>  
                             <BitsUnit scale="1">MHz</BitsUnit>
                         </Bits>
@@ -763,49 +763,49 @@
             </Variable>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>target.ssr.runlenght</BitsShortName>
+                        <BitsShortName>track.ssr.runlenght</BitsShortName>
                         <BitsName>SSR Plot Runlength</BitsName>
                         <BitsUnit scale="0.0439453125">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>target.ssr.replies</BitsShortName>
+                        <BitsShortName>track.ssr.replies</BitsShortName>
                         <BitsName>SSR-Number of received reply</BitsName>
                         <BitsUnit/>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed">
-                        <BitsShortName>target.ssr.reply.amplitude</BitsShortName>
+                        <BitsShortName>track.ssr.reply.amplitude</BitsShortName>
                         <BitsName>SSR-Reply amplitude</BitsName>
                         <BitsUnit scale="1">dBm</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>target.psr.runlenght</BitsShortName>
+                        <BitsShortName>track.psr.runlenght</BitsShortName>
                         <BitsName>Primary Plot Runlength</BitsName>
                         <BitsUnit scale="0.0439453125">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed">
-                        <BitsShortName>target.psr.amplitude</BitsShortName>
+                        <BitsShortName>track.psr.amplitude</BitsShortName>
                         <BitsName>Amplitude of Primary plot</BitsName>
                         <BitsUnit scale="1">dBm</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed" >
-                        <BitsShortName>target.psrtossr.difference.range</BitsShortName>
+                        <BitsShortName>track.psrtossr.difference.range</BitsShortName>
                         <BitsName>Difference in Range between PSR and SSR plot</BitsName>
                         <BitsUnit scale="0.00390625">NM</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed" >
-                        <BitsShortName>target.psrtossr.difference.azimuth</BitsShortName>
+                        <BitsShortName>track.psrtossr.difference.azimuth</BitsShortName>
                         <BitsName>Difference in Azimuth between PSR and SSR plot</BitsName>
                         <BitsUnit scale="0.02197265625">deg</BitsUnit>
                     </Bits>

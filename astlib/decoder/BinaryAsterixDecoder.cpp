@@ -132,6 +132,9 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
             {
                 valueDecoder.beginItem(uapItem);
 
+                if (_policy.verbose)
+                    std::cout << "Decode " << (mandatory?"mandatory ":"optional ") << uapItem.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << uapItem.getId() << ": " << uapItem.getDescription() << std::endl;
+
                 _depth++;
 
                 switch(uapItem.getType().toValue())
@@ -161,8 +164,15 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
                 // TODO: nepritomna ale povinna polozka ...
             }
 
-            if (_verbose)
-                std::cout << "  " << uapItem.getId() << " Item advance " << decodedByteCount << " bytes" << std::endl;
+            if (_policy.verbose && decodedByteCount>0)
+            {
+                for(int i = 0; i < decodedByteCount; i++)
+                {
+                    std::cout << " " << Poco::NumberFormatter::formatHex(localPtr[i], 2, false);
+                }
+                std::cout << std::endl;
+                std::cout << "  " << " Stream advance " << decodedByteCount << " bytes" << std::endl;
+            }
 
             localPtr += decodedByteCount;
             currentFspecBit++;

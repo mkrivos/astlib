@@ -352,12 +352,12 @@
         <DataItemFormat>
             <Fixed length="6">
                 <Bits from="48" to="25" encode="signed">
-                    <BitsShortName>target.position.x</BitsShortName>
+                    <BitsShortName>track.position.x</BitsShortName>
                     <BitsName>X</BitsName>
                     <BitsUnit scale="0.5">m</BitsUnit>
                 </Bits>
                 <Bits from="24" to="1" encode="signed">
-                    <BitsShortName>target.position.y</BitsShortName>
+                    <BitsShortName>track.position.y</BitsShortName>
                     <BitsName>Y</BitsName>
                     <BitsUnit scale="0.5">m</BitsUnit>
                 </Bits>
@@ -371,12 +371,12 @@
         <DataItemFormat>
             <Fixed length="8">
                 <Bits from="64" to="33" encode="signed">
-                    <BitsShortName>target.position.latitude</BitsShortName>
+                    <BitsShortName>track.position.latitude</BitsShortName>
                     <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; latitude &lt; 90 deg.</BitsName>
                     <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                 </Bits>
                 <Bits from="32" to="1" encode="signed">
-                    <BitsShortName>target.position.longitude</BitsShortName>
+                    <BitsShortName>track.position.longitude</BitsShortName>
                     <BitsName>Longitude in WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
                     <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                 </Bits>
@@ -681,12 +681,12 @@
                 </Bits>
             </Fixed>
         </DataItemFormat>
-        <DataItemNote>The y-axis points to the Geographical North at the location of the target.</DataItemNote>
+        <DataItemNote>The y-axis points to the Geographical North at the location of the track.</DataItemNote>
     </DataItem> 
     
     <DataItem id="200" rule="optional">
         <DataItemName>Mode of Movement</DataItemName>
-        <DataItemDefinition>Calculated Mode of Movement of a target.</DataItemDefinition>
+        <DataItemDefinition>Calculated Mode of Movement of a track.</DataItemDefinition>
         <DataItemFormat desc="One-Octet fixed length data item.">
             <Fixed length="1">
                 <Bits from="8" to="7">
@@ -746,7 +746,7 @@
                 </Bits>
             </Fixed>
         </DataItemFormat>
-        <DataItemNote>1. The y-axis points to the Geographical North at the location of the target. 2. Maximum value means maximum value or above.</DataItemNote>
+        <DataItemNote>1. The y-axis points to the Geographical North at the location of the track. 2. Maximum value means maximum value or above.</DataItemNote>
     </DataItem> 
     
     <DataItem id="220" rule="optional">

@@ -15,8 +15,9 @@
 namespace astlib
 {
 
-CodecPolicy::CodecPolicy(Code mandatoryItems) :
-    mandatoryItems(mandatoryItems)
+CodecPolicy::CodecPolicy(Code mandatoryItems, bool verbose) :
+    mandatoryItems(mandatoryItems),
+    verbose(verbose)
 {
 }
 

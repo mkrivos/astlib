@@ -83,10 +83,10 @@ TEST(CodecRoundtripTest, cat48)
     BinaryAsterixEncoder encoder;
     SimpleValueEncoder valueEncoder(valueDecoder.msg);
     EXPECT_EQ(sizeof(bytes), encoder.encode(*codecSpecification, valueEncoder, buffer));
+/*
     for(unsigned char byte: buffer)
         std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
-
     std::cout << valueDecoder.msg->toString() << std::endl;
-
     std::cout << std::endl;
+    */
 }

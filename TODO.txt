@@ -4,22 +4,18 @@ Decoding
 - Endian to formal description of codec
 - test to min/max value from bitset
 - handle multiple UAP per category (id as astring)
-- optimize dekoder UAP item lookup - use vector instead of map for items
 - correct presence attribute for UAP defonitions in XMLfiles
 - handle missing but mandatory item in decoder
-- integer enumeration of all asterix primitives
-- handle ascii encodings in decoder
-- ast2json: item 48/030 is variable repetitive and json doesn't catch this
-- encoding of arrays (SimpleAsterixMessage)
+- handle ascii/sixbits encodings in decoder
+* ast2json: item 48/030 is variable repetitive and json doesn't catch this
 - introduce enumeration as special case of unsigned
 - introduce table with symbols per item
-- BitsConst encoding
 - do dictionary as dependent of xml specs files
 
 Encoding
 --------------------------------------
+- BitsConst encoding
 
-Symbols
+Dictionary
 --------------------------------------
-Mode3A  = (XX, 0, Unknown)
-Mode3A.Code  = (XX, 1, Unsigned)
+- revise all symbols in XML

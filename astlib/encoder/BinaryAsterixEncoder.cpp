@@ -71,6 +71,9 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         const ItemDescription& item = *entry.second.item;
         size_t len = 0;
 
+        if (_policy.verbose)
+            std::cout << "Encoded item " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
+
         switch(item.getType().toValue())
         {
             case ItemFormat::Fixed:
@@ -89,7 +92,6 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
                 len = encodeExplicit(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
         }
-std::cout << "encode item " << item.getId() << " size = " << len << std::endl;
         if (len > 0)
         {
             bufferPosition += len;
@@ -307,7 +309,15 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
                 mask = bits.bitMask();
                 leftShift = bits.to-1;
             }
-std::cout << bits.name << "[" << index << "] = " << (value&mask) << " size = " << context.width/8 << std::endl;
+
+            if (_policy.verbose)
+            {
+                if (index == -1)
+                    std::cout << " " << bits.name << " = " << (value&mask) << " size = " << context.width/8 << std::endl;
+                else
+                    std::cout << " " << bits.name << "[" << index << "] = " << (value&mask) << " size = " << context.width/8 << std::endl;
+            }
+
             data |= ((value & mask) << leftShift);
         }
     }
@@ -316,7 +326,10 @@ std::cout << bits.name << "[" << index << "] = " << (value&mask) << " size = " <
     {
         int len = fixed.length;
         ByteUtils::pokeBigEndian(buffer, data, len);
-std::cout << "  " << Poco::NumberFormatter::formatHex(data) << std::endl;
+        if (_policy.verbose)
+        {
+            std::cout << "  " << Poco::NumberFormatter::formatHex(data, len*2) << std::endl;
+        }
         return len;
     }
 

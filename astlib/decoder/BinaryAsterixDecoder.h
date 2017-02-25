@@ -53,7 +53,6 @@ private:
 
     CodecPolicy _policy;
     int _depth = 0;
-    bool _verbose = false;
 };
 
 } /* namespace astlib */

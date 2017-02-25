@@ -28,7 +28,9 @@ class BinaryDataEncoderTest:
     public testing::Test
 {
 public:
-    BinaryDataEncoderTest()
+    BinaryDataEncoderTest() :
+        encoder(CodecPolicy(CodecPolicy::Error, true)),
+        decoder(CodecPolicy(CodecPolicy::Error, true))
     {
         CodecDeclarationLoader loader;
         codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
@@ -60,7 +62,7 @@ public:
         }
         virtual size_t getArraySize(AsterixItemCode code) const
         {
-            return 2;
+            return 1;
         }
     } valueEncoder;
 
@@ -80,9 +82,8 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
     std::vector<Byte> buffer;
     EXPECT_EQ(98, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
 
-    for(unsigned char byte: buffer)
-        std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
-    std::cout << std::endl;
+    //for(unsigned char byte: buffer) std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
+    //std::cout << std::endl;
 
     class MyDecoder:
         public SimpleValueDecoder
@@ -97,5 +98,5 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
     } valueDecoder;
     decoder.decode(*codecSpecification, valueDecoder, buffer.data(), buffer.size());
 
-    std::cout << valueDecoder.msg->toString() << std::endl;
+    //std::cout << valueDecoder.msg->toString() << std::endl;
 }
