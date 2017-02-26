@@ -2,7 +2,7 @@
 /// \package astlib
 /// \file CodecDeclarationLoader.h
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 31Jan.,2017 
 /// \brief Formal XML Description Loader (ASTERIXED format)
 ///

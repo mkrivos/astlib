@@ -2,9 +2,8 @@
 /// \package astlib
 /// \file Exception.h
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 31Jan.,2017 
-/// \brief definicia typu
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.

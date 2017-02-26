@@ -2,9 +2,8 @@
 /// \package astlib
 /// \file AsterixVersion.h
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date Apr 2, 2015 - 11:40:47 AM
-/// \brief definicia typu
 ///
 /// (C) Copyright 2015 R-SYS,s.r.o
 /// All rights reserved.

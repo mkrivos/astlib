@@ -32,11 +32,11 @@ TEST_F(SimpleAsterixMessageTest, basic)
     SimpleAsterixRecord msg;
     EXPECT_EQ(0, msg.size());
 
-    msg.addSimpleItem(0x01000001, "jano");
+    msg.setItem(0x01000001, "jano");
     EXPECT_EQ(1, msg.size());
-    msg.addSimpleItem(0x01000001, "jano");
+    msg.setItem(0x01000001, "jano");
     EXPECT_EQ(1, msg.size());
-    msg.addSimpleItem(0x01000002, "jano");
+    msg.setItem(0x01000002, "jano");
     EXPECT_EQ(2, msg.size());
     msg.clear();
     EXPECT_EQ(0, msg.size());
@@ -47,7 +47,7 @@ TEST_F(SimpleAsterixMessageTest, booleanValue)
     SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x01000001));
-    msg.addSimpleItem(0x01000001, true);
+    msg.setItem(0x01000001, true);
     EXPECT_TRUE(msg.hasItem(0x01000001));
 
     bool value = false;
@@ -60,7 +60,7 @@ TEST_F(SimpleAsterixMessageTest, signedValue)
     SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x02000002));
-    msg.addSimpleItem(0x02000002, Poco::Int64(-5782396523467L));
+    msg.setItem(0x02000002, Poco::Int64(-5782396523467L));
     EXPECT_TRUE(msg.hasItem(0x02000002));
 
     Poco::Int64 value = 0;
@@ -73,7 +73,7 @@ TEST_F(SimpleAsterixMessageTest, realValue)
     SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x04000003));
-    msg.addSimpleItem(0x04000003, -5782396527.0);
+    msg.setItem(0x04000003, -5782396527.0);
     EXPECT_TRUE(msg.hasItem(0x04000003));
 
     double value = 0;
@@ -86,7 +86,7 @@ TEST_F(SimpleAsterixMessageTest, stringValue)
     SimpleAsterixRecord msg;
 
     EXPECT_FALSE(msg.hasItem(0x05000004));
-    msg.addSimpleItem(0x05000004, "fgsdhajdgf45w35234");
+    msg.setItem(0x05000004, "fgsdhajdgf45w35234");
     EXPECT_TRUE(msg.hasItem(0x05000004));
 
     std::string value = "fgsdhajdgf45w35234";
@@ -101,8 +101,8 @@ TEST_F(SimpleAsterixMessageTest, array)
     Poco::Int64 value = 0;
 
     msg.initializeArray(code, 2);
-    msg.addSimpleItem(code, 42, 0);
-    msg.addSimpleItem(code, 43, 1);
+    msg.setItem(code, 42, 0);
+    msg.setItem(code, 43, 1);
     EXPECT_EQ(1, msg.size());
     EXPECT_TRUE(code.isArray());
     EXPECT_TRUE(msg.hasItem(code));

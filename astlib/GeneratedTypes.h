@@ -3,7 +3,7 @@
 /// \file GeneratedTypes.h
 /// \brief Tento subor needitovat, bol automaticky generovany programom codegen!
 ///
-/// \author marian.krivos@r-sys.sk
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 13.2.2017
 ///
 /// (C) Copyright 2017 R-SYS s.r.o

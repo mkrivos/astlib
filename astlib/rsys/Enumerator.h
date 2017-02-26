@@ -2,9 +2,8 @@
 /// \package rsys
 /// \file Enumerator.h
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date Aug 6, 2008 - 2:21:17 PM
-/// \brief Rozhranie ktore musia podporovat vsetky generovane enum a bitset.
 ///
 /// (C) Copyright 2008 R-SYS,s.r.o
 /// All rights reserved.

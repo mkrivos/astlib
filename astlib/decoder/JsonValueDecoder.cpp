@@ -2,9 +2,8 @@
 /// \package astlib
 /// \file JsonValueDecoder::.cpp
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 10Feb.,2017 
-/// \brief definicia typu
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.

@@ -2,7 +2,7 @@
 /// \package astlib
 /// \file CodecDeclarationLoaderEra.cpp
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 31Jan.,2017 
 /// \brief definicia typu
 ///

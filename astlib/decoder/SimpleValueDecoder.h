@@ -2,9 +2,8 @@
 /// \package astlib
 /// \file SimpleValueDecoder.h
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 13. 2. 2017 - 18:47:21
-/// \brief definicia typu
 ///
 /// (C) Copyright 2017 R-SYS,s.r.o
 /// All rights reserved.

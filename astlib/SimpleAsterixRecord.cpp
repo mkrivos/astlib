@@ -2,9 +2,8 @@
 /// \package astlib
 /// \file SimpleAsterixMessage.cpp
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 13. 2. 2017 - 18:54:38
-/// \brief definicia typu
 ///
 /// (C) Copyright 2017 R-SYS,s.r.o
 /// All rights reserved.
@@ -52,7 +51,7 @@ size_t SimpleAsterixRecord::getArraySize(AsterixItemCode code) const
     throw Exception("SimpleAsterixRecord::getArraySize(): invalid access " + asterixCodeToSymbol(code));
 }
 
-void SimpleAsterixRecord::addSimpleItem(AsterixItemCode code, Poco::Dynamic::Var&& value, int index)
+void SimpleAsterixRecord::setItem(AsterixItemCode code, Poco::Dynamic::Var&& value, int index)
 {
     //std::cout << asterixCodeToSymbol(code) << " = " << Poco::NumberFormatter::formatHex(code.value) << " = " << value.toString() << std::endl;
     if (index == -1)

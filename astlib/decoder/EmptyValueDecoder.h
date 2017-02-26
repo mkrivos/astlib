@@ -2,7 +2,7 @@
 /// \package astlib
 /// \file EmptyValueDecoder.h
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 13. 2. 2017 - 18:43:24
 /// \brief Zero decoder, simply throws any input.
 ///

@@ -2,9 +2,8 @@
 /// \package astlib
 /// \file SimpleValueDecoder.cpp
 ///
-/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \author Marian Krivos <nezmar@tutok.sk>
 /// \date 13. 2. 2017 - 18:47:22
-/// \brief definicia typu
 ///
 /// (C) Copyright 2017 R-SYS,s.r.o
 /// All rights reserved.
@@ -43,27 +42,27 @@ void SimpleValueDecoder::beginArray(AsterixItemCode code, size_t size)
 
 void SimpleValueDecoder::decodeBoolean(const CodecContext& context, bool value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
+    _msg->setItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeSigned(const CodecContext& context, Poco::Int64 value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
+    _msg->setItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeUnsigned(const CodecContext& context, Poco::UInt64 value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
+    _msg->setItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeReal(const CodecContext& context, double value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
+    _msg->setItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::decodeString(const CodecContext& context, const std::string& value, int index)
 {
-    _msg->addSimpleItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
+    _msg->setItem(context.bits.code, std::move(Poco::Dynamic::Var(value)), index);
 }
 
 void SimpleValueDecoder::end()
