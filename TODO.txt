@@ -11,11 +11,14 @@ Decoding
 - introduce enumeration as special case of unsigned
 - introduce table with symbols per item
 - do dictionary as dependent of xml specs files
+- per category ValueDecoder with special encoding/decoding rules
+- add special variable-repetitive hack for value types as 048/030
 
 Encoding
 --------------------------------------
 - BitsConst encoding
 
-Dictionary
+Dictionary & Record
 --------------------------------------
 - revise all symbols in XML
+- generate per category fixed structure with common interface
