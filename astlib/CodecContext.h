@@ -13,6 +13,7 @@
 
 #include "astlib/model/BitsDescription.h"
 #include "astlib/model/ItemDescription.h"
+#include "CodecPolicy.h"
 
 
 namespace astlib
@@ -21,8 +22,9 @@ namespace astlib
 class CodecContext
 {
 public:
-    CodecContext(const ItemDescription& uapItem, const BitsDescription& bits, int depth) :
+    CodecContext(const ItemDescription& uapItem, const CodecPolicy& policy, const BitsDescription& bits, int depth) :
         uapItem(uapItem),
+        policy(policy),
         bits(bits),
         depth(depth),
         width(bits.effectiveBitsWidth())
@@ -30,6 +32,7 @@ public:
     }
 
     const ItemDescription& uapItem;
+    const CodecPolicy& policy;
     const BitsDescription& bits;
     int depth = 0;
     int width = 1;

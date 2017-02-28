@@ -49,26 +49,32 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
 
         case PrimitiveType::Real:
         {
-            double unit = 1.0;
-
-            switch(ctx.bits.units.toValue())
-            {
-                case Units::FT:
-                    unit = 0.3048;
-                    break;
-                case Units::NM:
-                    unit = 1852.0;
-                    break;
-                case Units::FL:
-                    unit = 0.3048 * 100.0;
-                    break;
-            }
-
             double real;
             encoded = encodeReal(ctx, real, index);
             if (encoded)
             {
-                value = Poco::UInt64(real / (ctx.bits.scale * unit));
+                if (ctx.policy.normalizeValues)
+                {
+                    double unit = 1.0;
+
+                    switch(ctx.bits.units.toValue())
+                    {
+                        case Units::FT:
+                            unit = 0.3048;
+                            break;
+                        case Units::NM:
+                            unit = 1852.0;
+                            break;
+                        case Units::FL:
+                            unit = 0.3048 * 100.0;
+                            break;
+                    }
+                    value = Poco::UInt64(real / (ctx.bits.scale * unit));
+                }
+                else
+                {
+                    value = Poco::UInt64(real);
+                }
             }
             break;
         }

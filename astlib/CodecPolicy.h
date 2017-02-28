@@ -29,6 +29,7 @@ struct CodecPolicy
     CodecPolicy(Code mandatoryItems, bool verbose);
 
     Code mandatoryItems = Error; ///< what to do when mandatory item is not present
+    bool normalizeValues = true;
     bool verbose = false;
 };
 

@@ -285,11 +285,12 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
 
     for (const BitsDescription& bits : bitsDescriptions)
     {
-        CodecContext context(item, bits, 0);
+        CodecContext context(item, _policy, bits, 0);
         Poco::UInt64 value = 0;
 
         if (valueEncoder.encode(context, value, index))
         {
+            // TODO: obsluha rozsahu - treba detekovat pretecenie a nasledne bud hodit chybu alebo zalimitovat
             encoded = true;
             Poco::UInt64 mask = 0;
             int leftShift = 0;

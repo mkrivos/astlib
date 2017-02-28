@@ -197,7 +197,7 @@ void BinaryAsterixDecoder::decodeBitset(const ItemDescription& uapItem, const Fi
 
     for (const BitsDescription& bits : bitsDescriptions)
     {
-        CodecContext context(uapItem, bits, _depth);
+        CodecContext context(uapItem, _policy, bits, _depth);
 
         if (context.width == 1)
         {

@@ -46,17 +46,20 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int 
         {
             double unit = 1.0;
 
-            switch(ctx.bits.units.toValue())
+            if (ctx.policy.normalizeValues)
             {
-                case Units::FT:
-                    unit = 0.3048;
-                    break;
-                case Units::NM:
-                    unit = 1852.0;
-                    break;
-                case Units::FL:
-                    unit = 0.3048 * 100.0;
-                    break;
+                switch(ctx.bits.units.toValue())
+                {
+                    case Units::FT:
+                        unit = 0.3048;
+                        break;
+                    case Units::NM:
+                        unit = 1852.0;
+                        break;
+                    case Units::FL:
+                        unit = 0.3048 * 100.0;
+                        break;
+                }
             }
 
             if (encoding == Encoding::Unsigned)
