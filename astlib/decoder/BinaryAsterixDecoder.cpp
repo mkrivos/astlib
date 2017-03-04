@@ -181,7 +181,7 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
 
     valueDecoder.end();
 
-    return localPtr-startPtr;
+    return int(localPtr-startPtr);
 }
 
 void BinaryAsterixDecoder::decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder, int index, int arraySize)

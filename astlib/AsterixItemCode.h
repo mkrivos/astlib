@@ -43,7 +43,7 @@ struct AsterixItemCode
 
     constexpr bool isArray() const
     {
-        return value & 0x80000000;
+        return bool(value & 0x80000000);
     }
 
     constexpr bool isValid() const

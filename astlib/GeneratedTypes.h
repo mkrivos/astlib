@@ -16,9 +16,6 @@
 #include "rsys/Enumerator.h"
 #include <string>
 
-typedef unsigned char Byte;
-
-
 namespace astlib {
 
 #pragma pack(1) 

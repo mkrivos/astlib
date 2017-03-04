@@ -72,3 +72,5 @@ cmake_install.cmake
 *.log
 *.vcxproj
 *.filters
+/binary2asterix.dir/Debug
+/ast2json.dir/Debug

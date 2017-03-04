@@ -6,6 +6,7 @@ include_directories(.)
 set(CMAKE_CXX_STANDARD 14) 
 
 if (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -march=native -Wall -O0")
 endif()

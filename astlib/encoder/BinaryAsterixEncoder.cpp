@@ -49,9 +49,11 @@ size_t BinaryAsterixEncoder::encode(const CodecDescription& codec, ValueEncoder&
     // TODO: pre littleendian treba zvlast vetvu
     buffer[1] = (len >> 8) & 0xFF;
     buffer[2] = len & 0xFF;
-    memcpy(&buffer[3], reducedFspec.data(), reducedFspec.size());
-    memcpy(&buffer[3+reducedFspec.size()], aux, encodedSize);
-
+    if (reducedFspec.size())
+    {
+        memcpy(&buffer[3], reducedFspec.data(), reducedFspec.size());
+        memcpy(&buffer[3 + reducedFspec.size()], aux, encodedSize);
+    }
     return len;
 }
 
@@ -117,7 +119,7 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
     const VariableItemDescription& varItem = static_cast<const VariableItemDescription&>(item);
     const FixedVector& fixedVector = varItem.getFixedVector();
     auto ptr = buffer;
-    int encodedByteCount = 0;
+    size_t encodedByteCount = 0;
 
     for(const Fixed& fixed: fixedVector)
     {
@@ -196,7 +198,7 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
     // One variable + one more minimally
     poco_assert(items.size() > 1);
     std::set<int> encodedIds;
-    int index = 0;
+    size_t index = 0;
 
     for(ItemDescriptionPtr uapItem: items)
     {

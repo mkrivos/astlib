@@ -14,12 +14,13 @@
 #include "astlib/CodecPolicy.h"
 #include "astlib/model/CodecDescription.h"
 #include "ValueEncoder.h"
+#include "astlib/ByteUtils.h"
 
 namespace astlib
 {
 
 class FspecGenerator;
-class Fixed;
+struct Fixed;
 
 class BinaryAsterixEncoder
 {
