@@ -74,3 +74,4 @@ cmake_install.cmake
 *.filters
 /binary2asterix.dir/Debug
 /ast2json.dir/Debug
+/node_modules/

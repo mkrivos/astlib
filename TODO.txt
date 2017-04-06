@@ -13,6 +13,9 @@ Decoding
 - do dictionary as dependent of xml specs files
 - per category ValueDecoder with special encoding/decoding rules
 - add special variable-repetitive hack for value types as 048/030
+- introduce AsterixRecord iface
+- generate JS API (constants, codec version)
+- detect node.js
 
 Encoding
 --------------------------------------

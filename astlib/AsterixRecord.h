@@ -1,32 +1,29 @@
 ///
 /// \package astlib
-/// \file SimpleAsterixMessage.h
+/// \file AsterixRecord.h
 ///
-/// \author Marian Krivos <nezmar@tutok.sk>
-/// \date 13. 2. 2017 - 18:54:38
+/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \date 6. 4. 2017 
+/// \brief definicia typu
 ///
-/// (C) Copyright 2017 R-SYS,s.r.o
+/// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
 ///
 
 #pragma once
 
-#include "AsterixRecord.h"
-#include <map>
+#include "astlib/AsterixItemCode.h"
+#include <Poco/Dynamic/Var.h>
+#include <memory>
 
 
 namespace astlib
 {
 
-/**
- * Trivial implementation of AsterixRecord based on std::map.
- */
-class SimpleAsterixRecord :
-    public AsterixRecord
+class AsterixRecord
 {
 public:
-    SimpleAsterixRecord();
-    ~SimpleAsterixRecord();
+    virtual ~AsterixRecord() = default;
 
     /**
      * Set simple scalar data value.
@@ -34,26 +31,26 @@ public:
      * @param value value to move to the container
      * @param index index of value into the array (0 up to initialized size) or -1 for non array types
      */
-    void setItem(AsterixItemCode code, Poco::Dynamic::Var&& value, int index = -1) override;
+    virtual void setItem(AsterixItemCode code, Poco::Dynamic::Var&& value, int index = -1) = 0;
 
     /**
      * Initialize item as an array with fixed size.
      * @param code
      * @param size
      */
-    void initializeArray(AsterixItemCode code, size_t size) override;
+    virtual void initializeArray(AsterixItemCode code, size_t size) = 0;
 
     /**
      * @param code
      * @return true if item is already initialized and has value, otherwise false
      */
-    bool hasItem(AsterixItemCode code) const override;
+    virtual bool hasItem(AsterixItemCode code) const = 0;
 
     /**
      * @param code
      * @return size of the array item, for scalars returns value 1. If item does not exists, throw exception.
      */
-    size_t getArraySize(AsterixItemCode code) const override;
+    virtual size_t getArraySize(AsterixItemCode code) const = 0;
 
     /**
      * Get the value of item as boolean.
@@ -62,7 +59,7 @@ public:
      * @param index -1 for scalars, or index of item for array types (0 up to initialized size), if index is out of initialized range, exception is thrown.
      * @return true if value was found, otherwise false, if item is not boolean type, an exception is thrown.
      */
-    bool getBoolean(AsterixItemCode code, bool& value, int index = -1) const override;
+    virtual bool getBoolean(AsterixItemCode code, bool& value, int index = -1) const = 0;
 
     /**
      * Get the value of item as 64bit unsigned integer.
@@ -71,7 +68,7 @@ public:
      * @param index -1 for scalars, or index of item for array types (0 up to initialized size), if index is out of initialized range, exception is thrown.
      * @return true if value was found, otherwise false, if item is not boolean type, an exception is thrown.
      */
-    bool getUnsigned(AsterixItemCode code, Poco::UInt64& value, int index = -1) const override;
+    virtual bool getUnsigned(AsterixItemCode code, Poco::UInt64& value, int index = -1) const = 0;
 
     /**
      * Get the value of item as 64bit signed integer.
@@ -80,7 +77,7 @@ public:
      * @param index -1 for scalars, or index of item for array types (0 up to initialized size), if index is out of initialized range, exception is thrown.
      * @return true if value was found, otherwise false, if item is not boolean type, an exception is thrown.
      */
-    bool getSigned(AsterixItemCode code, Poco::Int64& value, int index = -1) const override;
+    virtual bool getSigned(AsterixItemCode code, Poco::Int64& value, int index = -1) const = 0;
 
     /**
      * Get the value of item as 64bit double.
@@ -89,7 +86,7 @@ public:
      * @param index -1 for scalars, or index of item for array types (0 up to initialized size), if index is out of initialized range, exception is thrown.
      * @return true if value was found, otherwise false, if item is not boolean type, an exception is thrown.
      */
-    bool getReal(AsterixItemCode code, double& value, int index = -1) const override;
+    virtual bool getReal(AsterixItemCode code, double& value, int index = -1) const = 0;
 
     /**
      * Get the value of item as string.
@@ -98,27 +95,15 @@ public:
      * @param index -1 for scalars, or index of item for array types (0 up to initialized size), if index is out of initialized range, exception is thrown.
      * @return true if value was found, otherwise false, if item is not boolean type, an exception is thrown.
      */
-    bool getString(AsterixItemCode code, std::string& value, int index = -1) const override;
+    virtual bool getString(AsterixItemCode code, std::string& value, int index = -1) const = 0;
 
     /**
      * @return human readable representation of object in form of key/value list
      */
-    std::string toString() const override;
-
-    /**
-     * @return initialized items count
-     */
-    size_t size() const;
-
-    /**
-     * Clears all existing items.
-     */
-    void clear();
-
-private:
-    std::map<AsterixItemCode, Poco::Dynamic::Var> _items;
+    virtual std::string toString() const = 0;
 };
 
-using SimpleAsterixRecordPtr = std::shared_ptr<SimpleAsterixRecord>;
+using AsterixRecordPtr = std::shared_ptr<AsterixRecord>;
 
 } /* namespace astlib */
+
