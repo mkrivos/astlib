@@ -1,0 +1,9 @@
+{
+  "name": "astlib",
+  "version": "1.0.0",
+  "description": "Native astlib module wrapper",
+  "dependencies": {
+    "cmake-js": "^3.4.1",
+    "nan": "^2.6.1"
+  }
+}

@@ -14,3 +14,5 @@ Node.js support (or https://www.npmjs.com/package/node-cmake)
  1. install nodejs package
  2. sudo install --save nan
  2. sudo install -g cmake-js [https://www.npmjs.com/package/cmake-js]
+ 
+ 1. cmake-js build
