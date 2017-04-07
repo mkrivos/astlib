@@ -19,6 +19,6 @@ aux_source_directory(model srcs)
 aux_source_directory(decoder srcs)
 aux_source_directory(encoder srcs)
 
-add_library(astlib ${srcs})
+add_library(astlib SHARED ${srcs})
 target_link_libraries(astlib ${Poco_LIBRARIES})
 

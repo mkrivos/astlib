@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 project(addon)
 
 include_directories(.. /opt/rsys/platform/include)
+link_directories(${PROJECT_NAME} ../../obj/astlib )
 
 # Build a shared library named after the project from the files in `src/`
 file(GLOB SOURCE_FILES "src/*.cpp" "src/*.h")
@@ -18,4 +19,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_JS_INC})
 
 # Essential library files to link to a node addon
 # You should add this line in every CMake.js based project
-target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
+target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} astlib )
