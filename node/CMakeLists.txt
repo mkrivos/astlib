@@ -3,12 +3,12 @@ cmake_minimum_required(VERSION 2.8)
 # Name of the project (will be the name of the plugin)
 project(addon)
 
-include_directories(.. . /opt/rsys/platform/include)
+include_directories(.. . node_modules/v8pp /opt/rsys/platform/include)
 link_directories(${PROJECT_NAME} ../../obj/astlib )
 
 # Build a shared library named after the project from the files in `src/`
-#file(GLOB SOURCE_FILES "src/*.cpp" "src/*.h")
-set(SOURCE_FILES hello.cc)
+file(GLOB SOURCE_FILES "*.cpp" "*.h")
+#set(SOURCE_FILES hello.cc)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 
