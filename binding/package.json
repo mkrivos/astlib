@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Native astlib module wrapper",
   "dependencies": {
+    "bindings": "^1.2.1",
     "cmake-js": "^3.4.1",
     "nan": "^2.6.1"
   }
