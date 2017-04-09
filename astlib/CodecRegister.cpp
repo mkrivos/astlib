@@ -119,4 +119,14 @@ CodecDescriptionPtr CodecRegister::getLatestCodecForCategory(int category) const
     return iterator->second;
 }
 
+CodecDescriptionPtr CodecRegister::getCodecForSignature(const std::string& fullName) const
+{
+    auto iterator = _tableBySignature.find(fullName);
+
+    if (iterator == _tableBySignature.end())
+        return nullptr;
+
+    return iterator->second;
+}
+
 } /* namespace astlib */

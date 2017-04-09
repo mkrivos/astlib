@@ -40,3 +40,11 @@ TEST_F(CodecRegisterTest, getLatestCodecForCategory)
     const CodecDescription::Dictionary symbols = codec->getDictionary();
     EXPECT_EQ(144, symbols.size());
 }
+
+TEST_F(CodecRegisterTest, getCodecForString)
+{
+    auto codec = codecRegister.getCodecForSignature("Eurocontrol-48:1.21");
+    ASSERT_TRUE(codec.get());
+
+    EXPECT_EQ(48, codec->getCategoryDescription().getCategory());
+}

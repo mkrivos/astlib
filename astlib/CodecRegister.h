@@ -70,6 +70,8 @@ public:
      */
     CodecDescriptionPtr getLatestCodecForCategory(int category) const;
 
+    CodecDescriptionPtr getCodecForSignature(const std::string& fullName) const;
+
 private:
     std::map<int, CodecDescriptionPtr> _tableByCategory;
     std::map<std::string, CodecDescriptionPtr> _tableBySignature;
