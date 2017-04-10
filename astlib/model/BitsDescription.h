@@ -19,7 +19,7 @@
 namespace astlib
 {
 
-class BitsDescription
+class ASTLIB_API BitsDescription
 {
 public:
     using ValueMap = std::map<std::string, int>;

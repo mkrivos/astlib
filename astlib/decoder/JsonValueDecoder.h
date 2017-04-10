@@ -26,7 +26,7 @@ namespace astlib
 /**
  * Decoder that prints decoded values in Json form to console.
  */
-class JsonValueDecoder :
+class ASTLIB_API JsonValueDecoder :
     public TypedValueDecoder
 {
     virtual void begin();

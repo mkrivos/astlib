@@ -26,7 +26,7 @@ namespace astlib
  * - each decoded primite value
  * - end of record
  */
-class ValueDecoder
+class ASTLIB_API ValueDecoder
 {
 public:
     virtual ~ValueDecoder() = default;

@@ -13,6 +13,7 @@
 #pragma once
 
 #include "GeneratedTypes.h"
+#include "Astlib.h"
 
 namespace astlib
 {

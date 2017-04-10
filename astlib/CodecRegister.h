@@ -24,7 +24,7 @@ namespace astlib
  * All codecs are stored by signature (codec.toString()) key, i.e. multiple codecs
  * with the same category but different edition are supported.
  */
-class CodecRegister
+class ASTLIB_API CodecRegister
 {
 public:
     CodecRegister();

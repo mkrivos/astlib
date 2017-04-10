@@ -17,7 +17,7 @@
 namespace astlib
 {
 
-class TypedValueEncoder :
+class ASTLIB_API TypedValueEncoder :
     public ValueEncoder
 {
 public:

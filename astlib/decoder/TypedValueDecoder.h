@@ -21,7 +21,7 @@ namespace astlib
  * Wrapper for easy value type handling.
  * Implements decode() method, converts value to apropriate type and call its typed callback.
  */
-class TypedValueDecoder :
+class ASTLIB_API TypedValueDecoder :
     public ValueDecoder
 {
 public:

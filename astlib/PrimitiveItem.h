@@ -12,11 +12,12 @@
 #pragma once
 
 #include "GeneratedTypes.h"
+#include "Astlib.h"
 
 namespace astlib
 {
 
-class PrimitiveItem
+class ASTLIB_API PrimitiveItem
 {
 public:
     PrimitiveItem();

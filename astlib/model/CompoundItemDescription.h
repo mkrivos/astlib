@@ -15,7 +15,7 @@
 namespace astlib
 {
 
-class CompoundItemDescription :
+class ASTLIB_API CompoundItemDescription :
     public ItemDescription
 {
 public:

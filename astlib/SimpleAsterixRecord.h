@@ -21,7 +21,7 @@ namespace astlib
 /**
  * Trivial implementation of AsterixRecord based on std::map.
  */
-class SimpleAsterixRecord :
+class ASTLIB_API SimpleAsterixRecord :
     public AsterixRecord
 {
 public:

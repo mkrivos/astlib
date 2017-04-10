@@ -14,12 +14,13 @@
 #define _GeneratedTypes_H_
 
 #include "rsys/Enumerator.h"
+#include "Astlib.h"
 #include <string>
 
 namespace astlib {
 
 #pragma pack(1) 
-class ItemFormat
+class ASTLIB_API ItemFormat
   : public rsys::Enumerator
 { 
 public:
@@ -64,7 +65,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class AsterixFamily
+class ASTLIB_API AsterixFamily
   : public rsys::Enumerator
 { 
 public:
@@ -107,7 +108,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class Rule
+class ASTLIB_API Rule
   : public rsys::Enumerator
 { 
 public:
@@ -149,7 +150,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class Units
+class ASTLIB_API Units
   : public rsys::Enumerator
 { 
 public:
@@ -196,7 +197,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class Encoding
+class ASTLIB_API Encoding
   : public rsys::Enumerator
 { 
 public:
@@ -242,7 +243,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class PrimitiveType
+class ASTLIB_API PrimitiveType
   : public rsys::Enumerator
 { 
 public:

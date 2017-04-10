@@ -16,7 +16,7 @@
 namespace astlib
 {
 
-class VariableItemDescription:
+class ASTLIB_API VariableItemDescription :
     public ItemDescription
 {
 public:

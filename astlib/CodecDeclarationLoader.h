@@ -26,7 +26,7 @@ namespace astlib
 /**
  * Class for loading Asterix description based on 'ASTERIXED' format.
  */
-class CodecDeclarationLoader
+class ASTLIB_API CodecDeclarationLoader
 {
 public:
     CodecDeclarationLoader(bool verbose = false);

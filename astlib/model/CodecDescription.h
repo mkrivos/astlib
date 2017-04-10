@@ -32,7 +32,7 @@ namespace astlib
  * Description has table with all data items plus User Asterix Profile table.
  * With iterations over this items we can interpret all decode/encode rules.
  */
-class CodecDescription
+class ASTLIB_API CodecDescription
 {
 public:
     struct UapItem

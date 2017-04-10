@@ -17,7 +17,7 @@
 namespace astlib
 {
 
-class RepetitiveItemDescription:
+class ASTLIB_API RepetitiveItemDescription:
     public ItemDescription
 {
 public:

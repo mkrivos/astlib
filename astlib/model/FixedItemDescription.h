@@ -18,7 +18,7 @@
 namespace astlib
 {
 
-class FixedItemDescription:
+class ASTLIB_API FixedItemDescription:
     public ItemDescription
 {
 public:

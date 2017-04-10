@@ -11,13 +11,15 @@
 
 #pragma once
 
+#include "Astlib.h"
+
 namespace astlib
 {
 
 /**
  * Define policies for code/encode operations.
  */
-struct CodecPolicy
+struct ASTLIB_API CodecPolicy
 {
     enum Code {
         Ignore,   ///< ignore error

@@ -11,13 +11,15 @@
 
 #pragma once
 
+#include "Astlib.h"
+
 #include <string>
 #include <exception>
 
 namespace astlib
 {
 
-class Exception:
+class ASTLIB_API Exception:
     public std::exception
 {
 public:

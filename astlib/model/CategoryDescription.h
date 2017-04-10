@@ -19,7 +19,7 @@
 namespace astlib
 {
 
-class CategoryDescription
+class ASTLIB_API CategoryDescription
 {
 public:
     CategoryDescription();

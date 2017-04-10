@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include "Astlib.h"
 #include <Poco/Types.h>
 #include <cstddef>
 
@@ -21,7 +22,7 @@ using Byte = unsigned char;
 
 constexpr int FX_BIT = 1;
 
-class ByteUtils
+class ASTLIB_API ByteUtils
 {
 public:
     ByteUtils();

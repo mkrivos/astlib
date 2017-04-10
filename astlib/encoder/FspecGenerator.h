@@ -25,7 +25,7 @@ namespace astlib
  * FX bit is added automaticaly when needed.
  * When done, user can ask for binary representation by calling data() and size() methods.
  */
-class FspecGenerator
+class ASTLIB_API FspecGenerator
 {
 public:
     FspecGenerator();

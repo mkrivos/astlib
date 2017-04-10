@@ -20,7 +20,7 @@ namespace astlib
 /**
  * Trival decoder that creates SimpleAsterixMessage on each decoded asterix record.
  */
-class SimpleValueDecoder:
+class ASTLIB_API SimpleValueDecoder:
     public TypedValueDecoder
 {
 public:

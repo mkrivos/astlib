@@ -24,7 +24,7 @@ namespace astlib
 class ItemDescription;
 using ItemDescriptionPtr = std::shared_ptr<ItemDescription>;
 
-class ItemDescription
+class ASTLIB_API ItemDescription
 {
 public:
     static const int FX = -1;
