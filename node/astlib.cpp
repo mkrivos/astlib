@@ -9,7 +9,8 @@
 #include "astlib/SimpleAsterixRecord.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
-
+#include "astlib/decoder/SimpleValueDecoder.h"
+#include "astlib/decoder/BinaryAsterixDecoder.h"
 
 template <typename T>
 class Wrapper
@@ -25,6 +26,20 @@ public:
 using AsterixRecordWrapper = Wrapper<astlib::SimpleAsterixRecord>;
 using CodecWrapper = Wrapper<astlib::CodecDescriptionPtr>;
 
+static astlib::CodecRegister codecRegister;
+static astlib::CodecDescriptionVector codecDescriptions;
+
+static void loadCodecs()
+{
+    if (codecDescriptions.empty())
+    {
+        codecRegister.populateCodecsFromDirectory("../specs");
+        codecDescriptions = codecRegister.enumerateAllCodecsByCategory();
+    }
+}
+
+// TODO init kde sa nacitaju kodeky, error ak ziadny nenajde
+
 v8::Handle<v8::Object> createAsterixRecord(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     AsterixRecordWrapper* obj = new AsterixRecordWrapper(args);
@@ -33,9 +48,7 @@ v8::Handle<v8::Object> createAsterixRecord(const v8::FunctionCallbackInfo<v8::Va
 
 v8::Handle<v8::Array> enumerateAllCodecs()
 {
-    astlib::CodecRegister codecRegister;
-    codecRegister.populateCodecsFromDirectory("../specs");
-    auto codecs = codecRegister.enumerateAllCodecsByCategory();
+    loadCodecs();
 
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
     // We will be creating temporary handles so we use a handle scope.
@@ -43,7 +56,7 @@ v8::Handle<v8::Array> enumerateAllCodecs()
     v8::Local<v8::Array> array = v8::Array::New(isolate, 2);
 
     int index = 0;
-    for(auto codec: codecs)
+    for(auto codec: codecDescriptions)
     {
         array->Set(index++, v8::String::NewFromUtf8(isolate, codec->getCategoryDescription().toString().c_str()));
     }
@@ -51,14 +64,39 @@ v8::Handle<v8::Array> enumerateAllCodecs()
     return handleScope.Escape(array);
 }
 
-v8::Handle<v8::Object> createCodecBySignature(const v8::FunctionCallbackInfo<v8::Value>& args)
+// AsterixRecord[] decodeAsterixBuffer(codecName, Buffer, Policy);
+v8::Handle<v8::Object> decodeAsterixBuffer(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
-    astlib::CodecRegister codecRegister;
-    codecRegister.populateCodecsFromDirectory("../specs");
-    auto codec = codecRegister.getCodecForSignature("");
+    loadCodecs();
 
-    CodecWrapper* obj = new CodecWrapper(args);
-    return v8pp::class_<CodecWrapper>::import_external(args.GetIsolate(), obj);
+    std::string fullName;
+
+    astlib::CodecDescriptionPtr codec = codecRegister.getCodecForSignature(fullName);
+
+    if (codec)
+    {
+        class MySimpleValueDecoder :
+            public astlib::SimpleValueDecoder
+        {
+        public:
+            virtual void onMessageDecoded(astlib::SimpleAsterixRecordPtr ptr)
+            {
+                msgs.push_back(ptr);
+            }
+
+            std::vector<astlib::SimpleAsterixRecordPtr> msgs;
+        } myDecoder;
+
+        astlib::BinaryAsterixDecoder decoder;
+        decoder.decode(*codec, myDecoder, buf, bytes);
+
+        if (myDecoder.msgs.size())
+        {
+            //zakoduj pole
+        }
+    }
+
+    return v8::Null();
 }
 
 std::string toString(AsterixRecordWrapper& obj)
@@ -93,6 +131,8 @@ bool getBooleanItem(AsterixRecordWrapper& obj, int code)
     return value;
 }
 
+// TODO: ostatne gettery pre record
+
 void InitAll(v8::Handle<v8::Object> exports)
 {
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
@@ -103,7 +143,7 @@ void InitAll(v8::Handle<v8::Object> exports)
     addon.set("MyObject", MyObject_class);
     addon.set("createAsterixRecord", &createAsterixRecord);
     addon.set("enumerateAllCodecs", &enumerateAllCodecs);
-    addon.set("createCodecBySignature", &createCodecBySignature);
+    addon.set("decodeAsterixBuffer", &decodeAsterixBuffer);
 
     addon.set("hasItem", &hasItem);
     addon.set("setNumberItem", &setNumberItem);

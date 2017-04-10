@@ -5,12 +5,14 @@
   "main": "astlib.js",
   "scripts": {
     "test": "echo 'Error: no test specified' && exit 1"
+    "install": "cmake-js compile"
+    "start": "node astlib.js"
+    "build": "cmake-js build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bindings": "^1.2.1",
-    "underscore": "^1.8.3",
     "v8pp": "^1.4.0"
   }
 }
