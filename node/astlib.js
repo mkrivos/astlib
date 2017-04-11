@@ -34,7 +34,5 @@ console.log(astlib.hasItem(obj1, ACAS_RESOLUTION_ARA41_CODE));
 console.log(astlib.hasItem(obj1, ACAS_RESOLUTION_ARA42_CODE));
 console.log(astlib.getBooleanItem(obj1, ACAS_RESOLUTION_ARA42_CODE));
 
-for(var i = 0; i < 100000; i++) {
-	astlib.setBooleanItem(obj1, ACAS_RESOLUTION_ARA42_CODE, false);	
-}
-
+const buffer = Buffer.from("06349065345 ");
+astlib.decodeAsterixBuffer(array[1], buffer);
