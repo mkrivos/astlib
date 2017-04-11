@@ -12,7 +12,6 @@ set(GENERATED_SOURCE "${GENERATED_MODULE}.cpp")
 add_custom_command(OUTPUT ${GENERATED_SOURCE} PRE_BUILD COMMAND generator ${CMAKE_SOURCE_DIR}/specs ${GENERATED_MODULE} DEPENDS generator)
   
 include_directories(. ${CMAKE_CURRENT_BINARY_DIR})
-add_definitions(-DASTLIB_EXPORTS)
 
 set(srcs ${GENERATED_SOURCE})
 aux_source_directory(. srcs)
@@ -21,5 +20,7 @@ aux_source_directory(decoder srcs)
 aux_source_directory(encoder srcs)
 
 add_library(astlib SHARED ${srcs})
-target_link_libraries(astlib ${Poco_LIBRARIES})
 
+target_link_libraries(astlib ${Poco_LIBRARIES})
+set_target_properties(astlib PROPERTIES VERSION 1.0.0 SOVERSION 1.0.0 DEFINE_SYMBOL ASTLIB_EXPORTS)
+target_compile_definitions(astlib PRIVATE "-DASTLIB_DLL")

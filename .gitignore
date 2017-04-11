@@ -75,3 +75,6 @@ cmake_install.cmake
 /binary2asterix.dir/Debug
 /ast2json.dir/Debug
 /node_modules/
+/build
+/Win32/Debug/ZERO_CHECK/ZERO_CHECK.tlog
+/x64/Debug

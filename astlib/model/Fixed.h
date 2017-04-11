@@ -17,7 +17,7 @@
 namespace astlib
 {
 
-struct Fixed
+struct ASTLIB_API Fixed
 {
     BitsDescriptionArray bitsDescriptions;
     int length = 0;

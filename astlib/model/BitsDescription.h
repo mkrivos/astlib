@@ -49,6 +49,8 @@ public:
     Poco::UInt64 bitMask() const;
 
     std::string toString() const;
+
+	BitsDescription& operator =(const BitsDescription&);
 };
 
 using BitsDescriptionArray = std::vector<BitsDescription>;

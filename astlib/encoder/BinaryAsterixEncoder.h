@@ -22,7 +22,7 @@ namespace astlib
 class FspecGenerator;
 struct Fixed;
 
-class BinaryAsterixEncoder
+class ASTLIB_API BinaryAsterixEncoder
 {
 public:
     static constexpr int MAX_PACKET_SIZE = 8192;

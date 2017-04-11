@@ -431,8 +431,8 @@ int main(int argc, char* argv[])
             }
             header << std::endl << "constexpr int ASTERIX_ITEM_COUNT = " << Poco::NumberFormatter::format(globals.size()) << ";" << std::endl << std::endl;
 
-            header << "AsterixItemCode asterixSymbolToCode(const std::string& symbol);" << std::endl;
-            header << "const std::string& asterixCodeToSymbol(AsterixItemCode code);" << std::endl;
+            header << "ASTLIB_API AsterixItemCode asterixSymbolToCode(const std::string& symbol);" << std::endl;
+            header << "ASTLIB_API const std::string& asterixCodeToSymbol(AsterixItemCode code);" << std::endl;
             header << std::endl << "}" << std::endl;
         }
 
