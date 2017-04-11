@@ -6,33 +6,18 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
+
+var should = require("should");
 var astlib = require('./build/Release/addon.node');
-var asterixItems = require('./asterixitems.js');
-for (var key in asterixItems)
-	  global[key] = asterixItems[key]
+const ASTERIX = require('./asterixitems.js');
 
-const Unknown = 0;
-const Boolean = 1;
-const Integer = 2;
-const Unsigned = 3;
-const Real = 4;
-const String = 5;
+var asterixRecord = astlib.createAsterixRecord();
+should.exists(asterixRecord);
 
-const ACAS_RESOLUTION_ACAS3_CODE = global.ACAS_RESOLUTION_ACAS3; // ((0 << 31) | (Unsigned << 24) | (1 & 0x0FFF));
-const ACAS_RESOLUTION_ARA41_CODE = ((0 << 31) | (Boolean << 24) | (2 & 0x0FFF));
-const ACAS_RESOLUTION_ARA42_CODE = ((0 << 31) | (Boolean << 24) | (3 & 0x0FFF));
+astlib.setNumber(asterixRecord, ASTERIX.TRACK_POSITION_LATITUDE, 3.14);
+should(astlib.hasItem(asterixRecord, ASTERIX.TRACK_POSITION_LATITUDE) == true);	
+should(astlib.getNumber(asterixRecord, ASTERIX.TRACK_POSITION_LATITUDE) == 3.14);
 
-var obj1 = astlib.createAsterixRecord();
-astlib.setNumberItem(obj1, ACAS_RESOLUTION_ARA41_CODE, 3.14);
-astlib.setBooleanItem(obj1, ACAS_RESOLUTION_ARA42_CODE, false);
-var result = astlib.toString(obj1);
+astlib.setBoolean(asterixRecord, ASTERIX.ACAS_RESOLUTION_ARA42, false);
+var result = astlib.toString(asterixRecord);
 var array = astlib.enumerateAllCodecs();
-
-console.log(array);
-console.log(result); 
-console.log(astlib.hasItem(obj1, ACAS_RESOLUTION_ARA41_CODE));
-console.log(astlib.hasItem(obj1, ACAS_RESOLUTION_ARA42_CODE));
-console.log(astlib.getBooleanItem(obj1, ACAS_RESOLUTION_ARA42_CODE));
-
-const buffer = Buffer.from("06349065345 ");
-astlib.decodeAsterixBuffer(array[1], buffer);

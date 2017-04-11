@@ -499,6 +499,8 @@ int main(int argc, char* argv[])
             js << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
 
             int index = 1;
+            js << "var exports = module.exports = {\n";
+
             for (const auto& entry : globals)
             {
                 astlib::PrimitiveItem item = entry.second;
@@ -506,10 +508,11 @@ int main(int argc, char* argv[])
                 Poco::replaceInPlace(upperName, ".", "_");
 
                 astlib::AsterixItemCode code(index, item.getType().toValue(), item.isArray());
-                js << "const " << upperName << " = " << Poco::NumberFormatter::formatHex(code.value, 4, true) << ";  ///< " << item.getDescription() << std::endl;
+                js << "    " << upperName << ": " << Poco::NumberFormatter::formatHex(code.value, 4, true) << ",  ///< " << item.getDescription() << std::endl;
                 index++;
             }
 
+            js << "};\n";
             js << std::endl;
         }
 

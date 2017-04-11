@@ -159,25 +159,36 @@ bool hasItem(AsterixRecordWrapper& obj, int code)
     return obj.value.hasItem(code);
 }
 
-void setNumberItem(AsterixRecordWrapper& obj, int code, double value)
+void setNumber(AsterixRecordWrapper& obj, int code, double value)
 {
+    // FIXME: test type
     obj.value.setItem(code, value);
 }
 
-void setStringItem(AsterixRecordWrapper& obj, int code, std::string value)
+void setString(AsterixRecordWrapper& obj, int code, std::string value)
 {
+    // FIXME: test type
     obj.value.setItem(code, value);
 }
 
-void setBooleanItem(AsterixRecordWrapper& obj, int code, bool value)
+void setBoolean(AsterixRecordWrapper& obj, int code, bool value)
 {
+    // FIXME: test type
     obj.value.setItem(code, value);
 }
 
-bool getBooleanItem(AsterixRecordWrapper& obj, int code)
+bool getBoolean(AsterixRecordWrapper& obj, int code)
 {
     bool value = false;
     obj.value.getBoolean(code, value);
+    return value;
+}
+
+double getNumber(AsterixRecordWrapper& obj, int code)
+{
+    double value = 0.0;
+    //FIXME: switch pre int a unsigned
+    obj.value.getReal(code, value);
     return value;
 }
 
@@ -196,10 +207,11 @@ void InitAll(v8::Handle<v8::Object> exports)
     addon.set("decodeAsterixBuffer", &decodeAsterixBuffer);
 
     addon.set("hasItem", &hasItem);
-    addon.set("setNumberItem", &setNumberItem);
-    addon.set("setStringItem", &setStringItem);
-    addon.set("setBooleanItem", &setBooleanItem);
-    addon.set("getBooleanItem", &getBooleanItem);
+    addon.set("setNumber", &setNumber);
+    addon.set("getNumber", &getNumber);
+    addon.set("setString", &setString);
+    addon.set("setBoolean", &setBoolean);
+    addon.set("getBoolean", &getBoolean);
     addon.set("toString", &toString);
 
     exports->SetPrototype(addon.new_instance());
