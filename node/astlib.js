@@ -12,6 +12,7 @@ var astlib = require('./build/Release/addon.node');
 const ASTERIX = require('./asterixitems.js');
 
 var asterixRecord = astlib.createAsterixRecord();
+var codecs = astlib.enumerateAllCodecs();
 
 describe('AsterixRecord', function() {
 	describe('#create', function() {
@@ -125,7 +126,7 @@ describe('AsterixRecord', function() {
 		});
 		 */
 		it('Stringify', function() {
-			assert.equal(astlib.toString(asterixRecord).length, 310);	
+			assert.equal(astlib.toString(asterixRecord).length, 309);	
 		});
 	
 		// TODO: JSONify
@@ -133,6 +134,16 @@ describe('AsterixRecord', function() {
 });
 
 
+describe('Asterix Encoder', function() {	
+	var codecs = astlib.enumerateAllCodecs();
+	
+	describe('#encode', function() {
+		it('empty record', function() {
+			//console.log(astlib.toString(asterixRecord));
+			var buffer = astlib.encodeAsterixRecord(asterixRecord, codecs[0]);			
+			assert.ok(buffer != null);			
+			assert.equal(buffer.length, 3);
+		});
+	}); 	
+});
 
-var result = astlib.toString(asterixRecord);
-var array = astlib.enumerateAllCodecs();

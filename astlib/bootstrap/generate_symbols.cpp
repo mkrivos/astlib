@@ -484,7 +484,7 @@ int main(int argc, char* argv[])
                 "{\n"
                 "    int index = code.code();\n"
                 "    poco_assert(index < ASTERIX_ITEM_COUNT);\n"
-                "    return codeToNameTable[index+1].name;\n"
+                "    return codeToNameTable[index-1].name;\n"
                 "}\n";
 
             source << functions << std::endl;

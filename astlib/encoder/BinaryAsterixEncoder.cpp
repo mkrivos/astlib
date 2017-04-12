@@ -73,7 +73,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         size_t len = 0;
 
         if (_policy.verbose)
-            std::cout << "Encoded item " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
+            std::cout << "Encoding item " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
 
         switch(item.getType().toValue())
         {
@@ -147,7 +147,7 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
 
     if (encodedByteCount > 1)
     {
-        for(int i = 0; i < encodedByteCount-1; i++)
+        for(size_t i = 0; i < encodedByteCount-1; i++)
         {
             ptr[i-encodedByteCount] |= FX_BIT;
         }
@@ -162,9 +162,11 @@ size_t BinaryAsterixEncoder::encodeRepetitive(const ItemDescription& item, Value
     const FixedVector& fixedVector = varItem.getFixedVector();
 
     poco_assert(fixedVector.size());
-    AsterixItemCode firstItemCode = fixedVector.front().bitsDescriptions.front().code;
-    poco_assert(firstItemCode.isArray());
+    auto& bits = fixedVector.front().bitsDescriptions.front();
+    AsterixItemCode firstItemCode = bits.code;
+    poco_assert_msg(firstItemCode.isArray(), bits.toString().c_str());
 
+    //valueEncoder.
     auto count = valueEncoder.getArraySize(firstItemCode);
     // Empty array - no encoding
     if (count == 0)

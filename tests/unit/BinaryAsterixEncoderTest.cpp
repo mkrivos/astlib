@@ -11,6 +11,7 @@
 ///
 
 #include "astlib/encoder/BinaryAsterixEncoder.h"
+#include "astlib/encoder/SimpleValueEncoder.h"
 #include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/decoder/JsonValueDecoder.h"
@@ -34,6 +35,7 @@ public:
     {
         CodecDeclarationLoader loader;
         codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
+        codecSpecification04 = loader.load("specs/asterix_cat004_1_8.xml");
     }
     ~BinaryDataEncoderTest()
     {
@@ -67,6 +69,7 @@ public:
     } valueEncoder;
 
     CodecDescriptionPtr codecSpecification;
+    CodecDescriptionPtr codecSpecification04;
     BinaryAsterixEncoder encoder;
     BinaryAsterixDecoder decoder;
 };
@@ -100,3 +103,14 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
 
     //std::cout << valueDecoder.msg->toString() << std::endl;
 }
+
+TEST_F( BinaryDataEncoderTest, simpleEncode)
+{
+    std::vector<Byte> buffer;
+    astlib::CodecPolicy policy;
+    policy.verbose = true;
+    astlib::BinaryAsterixEncoder encoder(policy);
+    astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
+    encoder.encode(*codecSpecification04, valueEncoder, buffer);
+}
+

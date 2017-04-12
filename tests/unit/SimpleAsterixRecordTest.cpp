@@ -10,7 +10,8 @@
 /// All rights reserved.
 ///
 
-#include "../../astlib/SimpleAsterixRecord.h"
+#include "astlib/SimpleAsterixRecord.h"
+#include "astlib/AsterixItemDictionary.h"
 
 #include "gtest/gtest.h"
 
@@ -112,4 +113,22 @@ TEST_F(SimpleAsterixMessageTest, array)
     EXPECT_EQ(43, value);
 
     std::cout << msg.toString() << std::endl;
+}
+
+TEST_F(SimpleAsterixMessageTest, toString)
+{
+    SimpleAsterixRecord msg;
+    double value = 0;
+
+    msg.initializeArray(AICRAFT_DERIVED_LAT_CODE, 2);
+    msg.setItem(AICRAFT_DERIVED_LAT_CODE, 42.67, 0);
+    msg.setItem(AICRAFT_DERIVED_LAT_CODE, -64542.7, 1);
+
+    EXPECT_TRUE(msg.hasItem(AICRAFT_DERIVED_LAT_CODE));
+    EXPECT_TRUE(msg.getReal(AICRAFT_DERIVED_LAT_CODE, value, 0));
+    EXPECT_EQ(42.67, value);
+    EXPECT_TRUE(msg.getReal(AICRAFT_DERIVED_LAT_CODE, value, 1));
+    EXPECT_EQ(-64542.7, value);
+
+    std::cout << AICRAFT_DERIVED_LAT_CODE.code() << " " << msg.toString() << std::endl;
 }

@@ -48,7 +48,8 @@ size_t SimpleAsterixRecord::getArraySize(AsterixItemCode code) const
     if (iterator != _items.end())
         return iterator->second.size();
 
-    throw Exception("SimpleAsterixRecord::getArraySize(): invalid access " + asterixCodeToSymbol(code));
+    return 0;
+    //throw Exception("SimpleAsterixRecord::getArraySize(): invalid access " + asterixCodeToSymbol(code));
 }
 
 void SimpleAsterixRecord::setItem(AsterixItemCode code, Poco::Dynamic::Var&& value, int index)

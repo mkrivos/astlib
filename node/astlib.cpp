@@ -56,7 +56,7 @@ v8::Handle<v8::Value> toV8Object(v8::Isolate* isolate, int value)
     return v8::Number::New(isolate, value);
 }
 */
-template<typename T>
+template<typename T, typename T2>
 class Wrapper
 {
 public:
@@ -64,11 +64,11 @@ public:
     {
     }
 
-    T value;
+    T value { new T2() };
 };
 
-using AsterixRecordWrapper = Wrapper<astlib::SimpleAsterixRecord>;
-using CodecWrapper = Wrapper<astlib::CodecDescriptionPtr>;
+using AsterixRecordWrapper = Wrapper<astlib::SimpleAsterixRecordPtr, astlib::SimpleAsterixRecord>;
+//using CodecWrapper = Wrapper<astlib::CodecDescriptionPtr>;
 
 static astlib::CodecRegister codecRegister;
 static astlib::CodecDescriptionVector codecDescriptions;
@@ -157,32 +157,37 @@ std::cout << "dec " << fullName << " len " << bytes << std::endl;
 }
 
 // Buffer encodeAsterixRecord(codecName, AsterixRecord, Policy);
-v8::Handle<v8::Value> encodeAsterixRecord(const v8::FunctionCallbackInfo<v8::Value>& args)
+v8::Handle<v8::Value> encodeAsterixRecord(AsterixRecordWrapper& obj, const std::string& fullname /* const v8::FunctionCallbackInfo<v8::Value>& args*/)
 {
     loadCodecs();
 
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
     v8::EscapableHandleScope handleScope(isolate);
 
-    std::string fullName = fromV8String(args[0]);
+    //    std::string fullname = fromV8String(args[1]);
+    astlib::SimpleAsterixRecordPtr record = obj.value;
+    astlib::CodecDescriptionPtr codec = codecRegister.getCodecForSignature(fullname);
 
-    astlib::CodecDescriptionPtr codec = codecRegister.getCodecForSignature(fullName);
+    //std::cout << "ENC " << fullname << " " << record->toString() << std::endl;
 
     if (codec)
     {
         std::vector<astlib::Byte> buffer;
-        astlib::BinaryAsterixEncoder encoder;
-/*
+        astlib::CodecPolicy policy;
+        //policy.verbose = true;
+        astlib::BinaryAsterixEncoder encoder(policy);
+
         try
         {
-            astlib::SimpleValueEncoder valueEncoder;
+            astlib::SimpleValueEncoder valueEncoder(record);
             encoder.encode(*codec, valueEncoder, buffer);
+            //std::cout << "enc " << fullname << " len " << buffer.size() << std::endl;
+            return node::Buffer::New(isolate, (char*)buffer.data(), buffer.size()).ToLocalChecked();
         }
         catch(astlib::Exception& e)
         {
             std::cerr << e.displayText() << std::endl;
         }
-        */
     }
 
     return handleScope.Escape(v8::Null(isolate)); // v8::Object::New(isolate)
@@ -190,18 +195,18 @@ v8::Handle<v8::Value> encodeAsterixRecord(const v8::FunctionCallbackInfo<v8::Val
 
 std::string toString(AsterixRecordWrapper& obj)
 {
-    std::string value(obj.value.toString());
+    std::string value(obj.value->toString());
     return value;
 }
 
 bool hasItem(AsterixRecordWrapper& obj, int code)
 {
-    return obj.value.hasItem(code);
+    return obj.value->hasItem(code);
 }
 
 void allocateArray(AsterixRecordWrapper& obj, int code, int size)
 {
-    return obj.value.initializeArray(code, size);
+    return obj.value->initializeArray(code, size);
 }
 
 double getNumberAt(AsterixRecordWrapper& obj, int code, int index)
@@ -213,16 +218,16 @@ double getNumberAt(AsterixRecordWrapper& obj, int code, int index)
     switch(itemType(code))
     {
         case astlib::PrimitiveType::Real:
-            obj.value.getReal(code, value, index);
+            obj.value->getReal(code, value, index);
             break;
 
         case astlib::PrimitiveType::Integer:
-            obj.value.getSigned(code, value1, index);
+            obj.value->getSigned(code, value1, index);
             value = value1;
             break;
 
         case astlib::PrimitiveType::Unsigned:
-            obj.value.getUnsigned(code, value2, index);
+            obj.value->getUnsigned(code, value2, index);
             value = value2;
             break;
 
@@ -243,15 +248,15 @@ void setNumberAt(AsterixRecordWrapper& obj, int code, double value, int index)
     switch(itemType(code))
     {
         case astlib::PrimitiveType::Real:
-            obj.value.setItem(code, value, index);
+            obj.value->setItem(code, value, index);
             break;
 
         case astlib::PrimitiveType::Integer:
-            obj.value.setItem(code, Poco::Int64(value), index);
+            obj.value->setItem(code, Poco::Int64(value), index);
             break;
 
         case astlib::PrimitiveType::Unsigned:
-            obj.value.setItem(code, Poco::UInt64(value), index);
+            obj.value->setItem(code, Poco::UInt64(value), index);
             break;
 
         default:
@@ -266,49 +271,49 @@ void setNumber(AsterixRecordWrapper& obj, int code, double value)
 
 void setString(AsterixRecordWrapper& obj, int code, std::string value)
 {
-    obj.value.setItem(code, value);
+    obj.value->setItem(code, value);
 }
 
 void setStringAt(AsterixRecordWrapper& obj, int code, std::string value, int index)
 {
-    obj.value.setItem(code, value, index);
+    obj.value->setItem(code, value, index);
 }
 
 std::string getString(AsterixRecordWrapper& obj, int code)
 {
     std::string value;
-    obj.value.getString(code, value);
+    obj.value->getString(code, value);
     return value;
 }
 
 std::string getStringAt(AsterixRecordWrapper& obj, int code, int index)
 {
     std::string value;
-    obj.value.getString(code, value, index);
+    obj.value->getString(code, value, index);
     return value;
 }
 
 void setBoolean(AsterixRecordWrapper& obj, int code, bool value)
 {
-    obj.value.setItem(code, value);
+    obj.value->setItem(code, value);
 }
 
 bool getBoolean(AsterixRecordWrapper& obj, int code)
 {
     bool value = false;
-    obj.value.getBoolean(code, value);
+    obj.value->getBoolean(code, value);
     return value;
 }
 
 void setBooleanAt(AsterixRecordWrapper& obj, int code, bool value, int index)
 {
-    obj.value.setItem(code, value, index);
+    obj.value->setItem(code, value, index);
 }
 
 bool getBooleanAt(AsterixRecordWrapper& obj, int code, int index)
 {
     bool value = false;
-    obj.value.getBoolean(code, value, index);
+    obj.value->getBoolean(code, value, index);
     return value;
 }
 
