@@ -12,7 +12,7 @@
                28.11.2016. (dsalantic) Implemented changes to 1.26 version 
 --> 
 
-<Category id="34" name="Transmission of Monoroadar Service Messages" ver="1.0">
+<Category id="34" name="Transmission of Monoradar Service Messages" ver="1.0">
     <DataItem id="000">
         <DataItemName>Message Type</DataItemName>
         <DataItemDefinition>This Data Item allows for a more convenient handling of the messages at the receiver side by further defining the type of transaction.</DataItemDefinition>

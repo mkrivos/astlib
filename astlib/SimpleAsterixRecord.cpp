@@ -178,7 +178,7 @@ std::string SimpleAsterixRecord::toString() const
     std::stringstream stream;
 
     for(auto& entry: _items)
-        std::cout << asterixCodeToSymbol(entry.first) << " = " << entry.second.toString() << std::endl;
+        stream << asterixCodeToSymbol(entry.first) << " = " << entry.second.toString() << std::endl;
     return stream.str();
 }
 

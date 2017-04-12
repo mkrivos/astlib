@@ -18,7 +18,7 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>MessageType</BitsShortName>
+                    <BitsShortName>message.type</BitsShortName>
                     <BitsName>Message Type</BitsName>
                     <BitsValue val="1">Alive Message</BitsValue>
                     <BitsValue val="2">Route Adherence Monitor Longitudinal Deviation</BitsValue>
@@ -51,11 +51,11 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -70,11 +70,11 @@
             <Repetitive>
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>spds.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>spds.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -89,7 +89,7 @@
         <DataItemFormat desc="Three-octet fixed length Data Item.">
             <Fixed length="3">
                 <Bits from="24" to="1">
-                    <BitsShortName>ToM</BitsShortName>
+                    <BitsShortName>timeofday</BitsShortName>
                     <BitsName>Time Of Message</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -1152,7 +1152,7 @@
         </DataItemFormat>
     </DataItem>
 
-<DataItem id="RE">
+	<DataItem id="RE">
         <DataItemName>Reserved Expansion Data Field</DataItemName>
         <DataItemDefinition>Field used to introduce intermediate changes for elementary surveillance</DataItemDefinition>
         <DataItemFormat desc="One byte length field, followed by a two byte fixed length data item.">

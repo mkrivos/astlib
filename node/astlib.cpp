@@ -13,10 +13,17 @@
 #include "astlib/Exception.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/decoder/BinaryAsterixDecoder.h"
+#include "astlib/encoder/SimpleValueEncoder.h"
+#include "astlib/encoder/BinaryAsterixEncoder.h"
 
 #include <type_traits> // C++0x
 #include <exception>
 #include <iostream>
+
+static int itemType(int value)
+{
+    return (value>>24) & 0xF;
+}
 
 template<typename T>
 T fromV8Value(v8::Handle<v8::Value> value)
@@ -149,9 +156,42 @@ std::cout << "dec " << fullName << " len " << bytes << std::endl;
     return handleScope.Escape(v8::Null(isolate)); // v8::Object::New(isolate)
 }
 
+// Buffer encodeAsterixRecord(codecName, AsterixRecord, Policy);
+v8::Handle<v8::Value> encodeAsterixRecord(const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+    loadCodecs();
+
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
+    v8::EscapableHandleScope handleScope(isolate);
+
+    std::string fullName = fromV8String(args[0]);
+
+    astlib::CodecDescriptionPtr codec = codecRegister.getCodecForSignature(fullName);
+
+    if (codec)
+    {
+        std::vector<astlib::Byte> buffer;
+        astlib::BinaryAsterixEncoder encoder;
+/*
+        try
+        {
+            astlib::SimpleValueEncoder valueEncoder;
+            encoder.encode(*codec, valueEncoder, buffer);
+        }
+        catch(astlib::Exception& e)
+        {
+            std::cerr << e.displayText() << std::endl;
+        }
+        */
+    }
+
+    return handleScope.Escape(v8::Null(isolate)); // v8::Object::New(isolate)
+}
+
 std::string toString(AsterixRecordWrapper& obj)
 {
-    return obj.value.toString();
+    std::string value(obj.value.toString());
+    return value;
 }
 
 bool hasItem(AsterixRecordWrapper& obj, int code)
@@ -159,21 +199,97 @@ bool hasItem(AsterixRecordWrapper& obj, int code)
     return obj.value.hasItem(code);
 }
 
+void allocateArray(AsterixRecordWrapper& obj, int code, int size)
+{
+    return obj.value.initializeArray(code, size);
+}
+
+double getNumberAt(AsterixRecordWrapper& obj, int code, int index)
+{
+    double value;
+    Poco::Int64 value1 = 0;
+    Poco::UInt64 value2 = 0;
+
+    switch(itemType(code))
+    {
+        case astlib::PrimitiveType::Real:
+            obj.value.getReal(code, value, index);
+            break;
+
+        case astlib::PrimitiveType::Integer:
+            obj.value.getSigned(code, value1, index);
+            value = value1;
+            break;
+
+        case astlib::PrimitiveType::Unsigned:
+            obj.value.getUnsigned(code, value2, index);
+            value = value2;
+            break;
+
+        default:
+            throw std::bad_cast();
+    }
+
+    return value;
+}
+
+double getNumber(AsterixRecordWrapper& obj, int code)
+{
+    return getNumberAt(obj, code, -1);
+}
+
+void setNumberAt(AsterixRecordWrapper& obj, int code, double value, int index)
+{
+    switch(itemType(code))
+    {
+        case astlib::PrimitiveType::Real:
+            obj.value.setItem(code, value, index);
+            break;
+
+        case astlib::PrimitiveType::Integer:
+            obj.value.setItem(code, Poco::Int64(value), index);
+            break;
+
+        case astlib::PrimitiveType::Unsigned:
+            obj.value.setItem(code, Poco::UInt64(value), index);
+            break;
+
+        default:
+            throw std::bad_cast();
+    }
+}
+
 void setNumber(AsterixRecordWrapper& obj, int code, double value)
 {
-    // FIXME: test type
-    obj.value.setItem(code, value);
+    setNumberAt(obj, code, value, -1);
 }
 
 void setString(AsterixRecordWrapper& obj, int code, std::string value)
 {
-    // FIXME: test type
     obj.value.setItem(code, value);
+}
+
+void setStringAt(AsterixRecordWrapper& obj, int code, std::string value, int index)
+{
+    obj.value.setItem(code, value, index);
+}
+
+std::string getString(AsterixRecordWrapper& obj, int code)
+{
+    std::string value;
+    obj.value.getString(code, value);
+    return value;
+}
+
+std::string getStringAt(AsterixRecordWrapper& obj, int code, int index)
+{
+    std::string value;
+    obj.value.getString(code, value, index);
+    return value;
 }
 
 void setBoolean(AsterixRecordWrapper& obj, int code, bool value)
 {
-    // FIXME: test type
     obj.value.setItem(code, value);
 }
 
@@ -184,11 +300,15 @@ bool getBoolean(AsterixRecordWrapper& obj, int code)
     return value;
 }
 
-double getNumber(AsterixRecordWrapper& obj, int code)
+void setBooleanAt(AsterixRecordWrapper& obj, int code, bool value, int index)
 {
-    double value = 0.0;
-    //FIXME: switch pre int a unsigned
-    obj.value.getReal(code, value);
+    obj.value.setItem(code, value, index);
+}
+
+bool getBooleanAt(AsterixRecordWrapper& obj, int code, int index)
+{
+    bool value = false;
+    obj.value.getBoolean(code, value, index);
     return value;
 }
 
@@ -204,14 +324,24 @@ void InitAll(v8::Handle<v8::Object> exports)
     addon.set("MyObject", MyObject_class);
     addon.set("createAsterixRecord", &createAsterixRecord);
     addon.set("enumerateAllCodecs", &enumerateAllCodecs);
+
     addon.set("decodeAsterixBuffer", &decodeAsterixBuffer);
+    addon.set("encodeAsterixRecord", &encodeAsterixRecord);
 
     addon.set("hasItem", &hasItem);
+    addon.set("allocateArray", &allocateArray);
     addon.set("setNumber", &setNumber);
     addon.set("getNumber", &getNumber);
+    addon.set("setNumberAt", &setNumberAt);
+    addon.set("getNumberAt", &getNumberAt);
     addon.set("setString", &setString);
+    addon.set("getString", &getString);
+    addon.set("setStringAt", &setStringAt);
+    addon.set("getStringAt", &getStringAt);
     addon.set("setBoolean", &setBoolean);
     addon.set("getBoolean", &getBoolean);
+    addon.set("setBooleanAt", &setBooleanAt);
+    addon.set("getBooleanAt", &getBooleanAt);
     addon.set("toString", &toString);
 
     exports->SetPrototype(addon.new_instance());
