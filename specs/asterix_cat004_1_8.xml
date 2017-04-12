@@ -1373,30 +1373,30 @@
     </DataItem>
 
     <UAP>
-        <UAPItem bit="0" presence="1">010</UAPItem>
-        <UAPItem bit="1" presence="2">000</UAPItem>
-        <UAPItem bit="2" presence="3">015</UAPItem>
-        <UAPItem bit="3" presence="4">020</UAPItem>
-        <UAPItem bit="4" presence="5">040</UAPItem>
-        <UAPItem bit="5" presence="6">045</UAPItem>
-        <UAPItem bit="6" presence="7">060</UAPItem>
-        <UAPItem bit="7" presence="FX">-</UAPItem>
-        <UAPItem bit="8" presence="8">030</UAPItem>
-        <UAPItem bit="9" presence="9">170</UAPItem>
-        <UAPItem bit="10" presence="10">120</UAPItem>
-        <UAPItem bit="11" presence="11">070</UAPItem>
-        <UAPItem bit="12" presence="12">076</UAPItem>
-        <UAPItem bit="13" presence="13">074</UAPItem>
-        <UAPItem bit="14" presence="14">075</UAPItem>
-        <UAPItem bit="15" presence="FX">-</UAPItem>
-        <UAPItem bit="16" presence="15">100</UAPItem>
-        <UAPItem bit="17" presence="16">035</UAPItem>
-        <UAPItem bit="18" presence="17">171</UAPItem>
-        <UAPItem bit="19" presence="18">110</UAPItem>
-        <UAPItem bit="20" presence="19">-</UAPItem>
-        <UAPItem bit="21" presence="20">RE</UAPItem>
-        <UAPItem bit="22" presence="21">SP</UAPItem>
-        <UAPItem bit="23" presence="FX">-</UAPItem>
+        <UAPItem bit="0" presence="O">010</UAPItem>
+        <UAPItem bit="1" presence="O">000</UAPItem>
+        <UAPItem bit="2" presence="O">015</UAPItem>
+        <UAPItem bit="3" presence="O">020</UAPItem>
+        <UAPItem bit="4" presence="O">040</UAPItem>
+        <UAPItem bit="5" presence="O">045</UAPItem>
+        <UAPItem bit="6" presence="O">060</UAPItem>
+        <UAPItem bit="7" presence="O">-</UAPItem>
+        <UAPItem bit="8" presence="O">030</UAPItem>
+        <UAPItem bit="9" presence="O">170</UAPItem>
+        <UAPItem bit="10" presence="O">120</UAPItem>
+        <UAPItem bit="11" presence="O">070</UAPItem>
+        <UAPItem bit="12" presence="O">076</UAPItem>
+        <UAPItem bit="13" presence="O">074</UAPItem>
+        <UAPItem bit="14" presence="O">075</UAPItem>
+        <UAPItem bit="15" presence="O">-</UAPItem>
+        <UAPItem bit="16" presence="O">100</UAPItem>
+        <UAPItem bit="17" presence="O">035</UAPItem>
+        <UAPItem bit="18" presence="O">171</UAPItem>
+        <UAPItem bit="19" presence="O">110</UAPItem>
+        <UAPItem bit="20" presence="O">-</UAPItem>
+        <UAPItem bit="21" presence="O">RE</UAPItem>
+        <UAPItem bit="22" presence="O">SP</UAPItem>
+        <UAPItem bit="23" presence="O">-</UAPItem>
     </UAP>
 
 </Category>
