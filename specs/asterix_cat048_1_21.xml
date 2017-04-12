@@ -719,37 +719,37 @@
             <Variable>   
                 <Fixed length="1">
                     <Bits bit="8">
-                            <BitsShortName>SRLP</BitsShortName>
+                        <BitsShortName>plot.SRLP</BitsShortName>
                         <BitsName>SRL Presence</BitsName>
                         <BitsPresence>1</BitsPresence>
                     </Bits>
                     <Bits bit="7">
-                            <BitsShortName>SRRP</BitsShortName>
+                        <BitsShortName>plot.SRRP</BitsShortName>
                         <BitsName>SRR Presence</BitsName>
                         <BitsPresence>2</BitsPresence>
                     </Bits>  
                     <Bits bit="6">
-                            <BitsShortName>SAMP</BitsShortName>
+                        <BitsShortName>plot.SAMP</BitsShortName>
                         <BitsName>SAM Presence</BitsName>
                         <BitsPresence>3</BitsPresence>
                     </Bits>  
                     <Bits bit="5">
-                            <BitsShortName>PRLP</BitsShortName>
+                            <BitsShortName>plot.PRLP</BitsShortName>
                         <BitsName>PRL Presence</BitsName>
                         <BitsPresence>4</BitsPresence>
                     </Bits>  
                     <Bits bit="4">
-                            <BitsShortName>PAMP</BitsShortName>
+                            <BitsShortName>plot.PAMP</BitsShortName>
                         <BitsName>PAM Presence</BitsName>
                         <BitsPresence>5</BitsPresence>
                     </Bits>  
                     <Bits bit="3">
-                            <BitsShortName>RPDP</BitsShortName>
+                            <BitsShortName>plot.RPDP</BitsShortName>
                         <BitsName>RPD Presence</BitsName>
                         <BitsPresence>6</BitsPresence>
                     </Bits>  
                     <Bits bit="2">
-                            <BitsShortName>APDP</BitsShortName>
+                            <BitsShortName>plot.APDP</BitsShortName>
                         <BitsName>APD Presence</BitsName>
                         <BitsPresence>7</BitsPresence>
                     </Bits>  
@@ -763,49 +763,49 @@
             </Variable>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>track.ssr.runlenght</BitsShortName>
+                        <BitsShortName>plot.ssr.runlenght</BitsShortName>
                         <BitsName>SSR Plot Runlength</BitsName>
                         <BitsUnit scale="0.0439453125">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>track.ssr.replies</BitsShortName>
+                        <BitsShortName>plot.ssr.replies</BitsShortName>
                         <BitsName>SSR-Number of received reply</BitsName>
                         <BitsUnit/>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed">
-                        <BitsShortName>track.ssr.reply.amplitude</BitsShortName>
+                        <BitsShortName>plot.ssr.reply.amplitude</BitsShortName>
                         <BitsName>SSR-Reply amplitude</BitsName>
                         <BitsUnit scale="1">dBm</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" >
-                        <BitsShortName>track.psr.runlenght</BitsShortName>
+                        <BitsShortName>plot.psr.runlenght</BitsShortName>
                         <BitsName>Primary Plot Runlength</BitsName>
                         <BitsUnit scale="0.0439453125">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed">
-                        <BitsShortName>track.psr.amplitude</BitsShortName>
+                        <BitsShortName>plot.psr.amplitude</BitsShortName>
                         <BitsName>Amplitude of Primary plot</BitsName>
                         <BitsUnit scale="1">dBm</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed" >
-                        <BitsShortName>track.psrtossr.difference.range</BitsShortName>
+                        <BitsShortName>plot.psrtossr.difference.range</BitsShortName>
                         <BitsName>Difference in Range between PSR and SSR plot</BitsName>
                         <BitsUnit scale="0.00390625">NM</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">                  
                     <Bits from="8" to="1" encode="signed" >
-                        <BitsShortName>track.psrtossr.difference.azimuth</BitsShortName>
+                        <BitsShortName>plot.psrtossr.difference.azimuth</BitsShortName>
                         <BitsName>Difference in Azimuth between PSR and SSR plot</BitsName>
                         <BitsUnit scale="0.02197265625">deg</BitsUnit>
                     </Bits>

@@ -5,6 +5,7 @@ Global
 Decoding
 --------------------------------------
 - Explicit data item
+- misc. appendixes
 - Endian to formal description of codec
 - test to min/max value from bitset
 - handle multiple UAP per category (id as astring)

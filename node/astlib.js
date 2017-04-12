@@ -144,6 +144,32 @@ describe('Asterix Encoder', function() {
 			assert.ok(buffer != null);			
 			assert.equal(buffer.length, 3);
 		});
+		
+		it('cat. 48 plot', function() {
+			var plot = astlib.createAsterixRecord();
+			astlib.setNumber(plot, ASTERIX.DSI_SAC, 44);
+			astlib.setNumber(plot, ASTERIX.DSI_SIC, 144);
+			astlib.setNumber(plot, ASTERIX.TIMEOFDAY, 3600);
+			astlib.setNumber(plot, ASTERIX.TRACK_DETECTION, 3);
+			astlib.setBoolean(plot, ASTERIX.TRACK_TEST, true);
+			astlib.setBoolean(plot, ASTERIX.TRACK_SIMULATED, true);
+			
+			astlib.setNumber(plot, ASTERIX.TRACK_POSITION_RANGE, 10000.0);
+			astlib.setNumber(plot, ASTERIX.TRACK_POSITION_AZIMUTH, 45.0);
+			
+			astlib.setBoolean(plot, ASTERIX.MODE3A_V, true);
+			astlib.setBoolean(plot, ASTERIX.MODE3A_G, true);
+			astlib.setBoolean(plot, ASTERIX.MODE3A_L, true);
+			astlib.setNumber(plot, ASTERIX.MODE3A_VALUE, 9053);
+			console.log(astlib.toString(plot));
+			var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
+			assert.ok(buffer != null);			
+			assert.equal(buffer.length, 17);
+			console.log(buffer);
+			
+			var record = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
+			console.log(astlib.toString(record));
+		});
 	}); 	
 });
 
