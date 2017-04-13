@@ -147,7 +147,9 @@ void CodecDeclarationLoader::loadUap(CodecDescription& codecDescription, const E
                     id = ItemDescription::SP;
                 else if (idString == "RE")
                     id = ItemDescription::RE;
-                else if (idString == "-" || idString == "FX")
+                else if (idString == "-")
+                    id = ItemDescription::NONE;
+                else if (idString == "FX")
                     id = ItemDescription::FX;
                 else
                     id = Poco::NumberParser::parse(idString);

@@ -24,20 +24,23 @@ server.on('error', (err) => {
 	});
 
 server.on('message', (msg, rinfo) => {
-  console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+  console.log(`server got: ${msg.toString()} from ${rinfo.address}:${rinfo.port}`);
   var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', msg);
-  for(var record in records) {
-  //var record = records[0];
-	if (record == null)
+  var record = records[0];
+/*  
+  for(var record in records) 
+  {
+	if ((record == null) || (record == undefined))
 		continue;
+	*/
   	console.log(astlib.toString(record));
   
   	astlib.setNumber(record, ASTERIX.TRACK_NUMBER, 1111);
   
   	var buffer2 = astlib.encodeAsterixRecord(record, 'Eurocontrol-62:1.16');
-  
-  	client.send(buffer2, 50001, 'localhost', (err) => { client.close(); });
-  }
+  	if (buffer2)
+  		client.send(buffer2, 50001, 'localhost', (err) => { /*client.close();*/ });
+  //}
 });
 
 server.on('listening', () => {
@@ -46,12 +49,3 @@ server.on('listening', () => {
 });
 
 server.bind(50000);
-
-/*
-for(var i = 0; i < 30000; i++) {
-	var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
-	var record = records[0];
-	var buffer2 = astlib.encodeAsterixRecord(record, 'Eurocontrol-48:1.21');			
-}
-
-*/

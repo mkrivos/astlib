@@ -133,7 +133,6 @@ describe('AsterixRecord', function() {
 	}); 	
 });
 
-
 describe('Asterix Encoder/Decoder', function() {	
 	var codecs = astlib.enumerateAllCodecs();
 	

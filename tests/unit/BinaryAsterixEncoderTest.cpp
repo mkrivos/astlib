@@ -36,6 +36,7 @@ public:
     {
         CodecDeclarationLoader loader;
         codecSpecification48 = loader.load("specs/asterix_cat048_1_21.xml");
+        codecSpecification62 = loader.load("specs/asterix_cat062_1_16.xml");
         codecSpecification04 = loader.load("specs/asterix_cat004_1_8.xml");
     }
     ~BinaryDataEncoderTest()
@@ -81,8 +82,9 @@ public:
         SimpleAsterixRecordPtr msg;
     } valueDecoder;
 
-    CodecDescriptionPtr codecSpecification48;
     CodecDescriptionPtr codecSpecification04;
+    CodecDescriptionPtr codecSpecification48;
+    CodecDescriptionPtr codecSpecification62;
     astlib::CodecPolicy policy;
     BinaryAsterixEncoder encoder;
     BinaryAsterixDecoder decoder;
@@ -107,11 +109,25 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
     //std::cout << valueDecoder.msg->toString() << std::endl;
 }
 
-TEST_F( BinaryDataEncoderTest, simpleEncode)
+TEST_F( BinaryDataEncoderTest, simpleEncode04)
 {
     std::vector<Byte> buffer;
     astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
     encoder.encode(*codecSpecification04, valueEncoder, buffer);
+}
+
+TEST_F( BinaryDataEncoderTest, simpleEncode48)
+{
+    std::vector<Byte> buffer;
+    astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
+    encoder.encode(*codecSpecification48, valueEncoder, buffer);
+}
+
+TEST_F( BinaryDataEncoderTest, simpleEncode62)
+{
+    std::vector<Byte> buffer;
+    astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
+    encoder.encode(*codecSpecification62, valueEncoder, buffer);
 }
 
 TEST_F( BinaryDataEncoderTest, mbDataEncode)

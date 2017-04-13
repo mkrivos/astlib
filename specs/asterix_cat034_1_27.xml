@@ -634,7 +634,7 @@
         <UAPItem bit="4" presence="O">041</UAPItem>
         <UAPItem bit="5" presence="O">050</UAPItem>
         <UAPItem bit="6" presence="O">060</UAPItem>
-        <UAPItem bit="7" presence="O">-</UAPItem>
+        <UAPItem bit="7" presence="O">FX</UAPItem>
         <UAPItem bit="8" presence="O">070</UAPItem>
         <UAPItem bit="9" presence="O">100</UAPItem>
         <UAPItem bit="10" presence="O">110</UAPItem>
@@ -642,7 +642,7 @@
         <UAPItem bit="12" presence="O">090</UAPItem>
         <UAPItem bit="13" presence="O">RE</UAPItem>
         <UAPItem bit="14" presence="O">SP</UAPItem>
-        <UAPItem bit="15" presence="O">-</UAPItem>        
+        <UAPItem bit="15" presence="O">FX</UAPItem>        
     </UAP>
                 
 </Category>

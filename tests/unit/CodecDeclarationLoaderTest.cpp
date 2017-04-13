@@ -69,9 +69,9 @@ TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
 
     // Uap
     const CodecDescription::UapItems& uap = codecSpecification->enumerateUapItems();
-    EXPECT_EQ(29, uap.size());
+    EXPECT_EQ(35, uap.size());
 
     // Data items
     const CodecDescription::ItemDescriptionTable& dataItems = codecSpecification->enumerateDataItems();
-    EXPECT_EQ(29, dataItems.size());
+    EXPECT_EQ(30, dataItems.size());
 }

@@ -13,8 +13,8 @@
 #include "astlib/ByteUtils.h"
 #include "astlib/AsterixItemDictionary.h"
 #include "astlib/Exception.h"
-
 #include <Poco/NumberParser.h>
+#include <iostream>
 
 namespace astlib
 {
@@ -22,6 +22,12 @@ namespace astlib
 bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int index)
 {
     AsterixItemCode code = ctx.bits.code;
+
+    if (!code.value)
+    {
+        //std::cout << "Skipped " << ctx.bits.toString() << std::endl;
+        return false;
+    }
 
     if (index == -1 && code.isArray())
     {

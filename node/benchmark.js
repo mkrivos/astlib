@@ -1,11 +1,14 @@
-//
-// Copyright (c) 2013-2016 Pavel Medvedev. All rights reserved.
-//
-// This file is part of v8pp (https://github.com/pmed/v8pp) project.
-//
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
+///
+/// \package astlib
+/// \file benchmark.cpp
+///
+/// \author Marian Krivos <nezmar@tutok.sk>
+/// \date 13.4.2017 
+///
+/// (C) Copyright 2017 R-SYS s.r.o
+/// All rights reserved.
+///
+
 
 var astlib = require('./build/Release/addon.node');
 const ASTERIX = require('./asterixitems.js');

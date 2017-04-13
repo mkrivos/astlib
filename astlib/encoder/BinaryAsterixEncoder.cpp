@@ -72,9 +72,12 @@ size_t BinaryAsterixEncoder::encode(const CodecDescription& codec, ValueEncoder&
 size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])
 {
     size_t bufferPosition = 0;
+    int currentItem = -1;
 
     for(const auto& entry: uapItems)
     {
+        currentItem++;
+
         if (!entry.second.item)
         {
             fspec.skipItem();
@@ -85,7 +88,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         size_t len = 0;
 
         if (_policy.verbose)
-            std::cout << " Encoding " << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
+            std::cout << " Encoding [" << currentItem << ']' << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
 
         switch(item.getType().toValue())
         {
@@ -105,6 +108,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
                 len = encodeExplicit(item, valueEncoder, uapItems, fspec, buffer + bufferPosition);
                 break;
         }
+
         if (len > 0)
         {
             bufferPosition += len;
@@ -135,7 +139,8 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
 
     for(const Fixed& fixed: fixedVector)
     {
-        poco_assert(fixed.length == 1);
+        // 062/510 je Compound-Variable s dlzkou 3 bajty kde bit 0 je FX bit ...
+        //poco_assert(fixed.length == 1);
         auto len = encodeBitset(item, fixed, valueEncoder, ptr, -1);
         encodedByteCount += len;
         ptr += len;
