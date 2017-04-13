@@ -132,11 +132,34 @@ TEST_F( BinaryDataEncoderTest, mbDataEncode)
     record->setItem(MODE3A_V_CODE, true);
     record->setItem(MODE3A_G_CODE, true);
     record->setItem(MODE3A_L_CODE, true);
-    record->setItem(MODE3A_VALUE_CODE, 9053);
+    record->setItem(MODE3A_VALUE_CODE, 7777);
+
+    record->setItem(AIRCRAFT_IDENTIFICATION_CODE, "PAKON321");
+    record->initializeArray(MODES_MBDATA_CODE, 2);
+    record->setItem(MODES_MBDATA_CODE, "0123456AB12345", 0);
+    record->setItem(MODES_MBDATA_CODE, "01010101ABABAB", 1);
 
     astlib::SimpleValueEncoder valueEncoder(record);
     encoder.encode(*codecSpecification48, valueEncoder, buffer);
 
     decoder.decode(*codecSpecification48, valueDecoder, buffer.data(), buffer.size());
+    auto record2 = valueDecoder.msg;
+
+    Poco::UInt64 mode3aValue;
+    EXPECT_TRUE(record2->getUnsigned(MODE3A_VALUE_CODE, mode3aValue));
+    EXPECT_EQ(7777, mode3aValue);
+
+    std::string ident;
+    EXPECT_TRUE(record2->getString(AIRCRAFT_IDENTIFICATION_CODE, ident));
+    EXPECT_EQ("PAKON321", ident);
+
+    std::string mbdata;
+    EXPECT_TRUE(record2->getString(MODES_MBDATA_CODE, mbdata, 0));
+    EXPECT_EQ("0123456AB12345", mbdata);
+
+    EXPECT_TRUE(record2->getString(MODES_MBDATA_CODE, mbdata, 1));
+    EXPECT_EQ("01010101ABABAB", mbdata);
+
+    EXPECT_THROW(record2->getString(MODES_MBDATA_CODE, mbdata, 2), Poco::Exception);
 }
 

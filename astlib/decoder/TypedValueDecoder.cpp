@@ -78,7 +78,10 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int 
             break;
 
         case PrimitiveType::Unsigned:
-            decodeUnsigned(ctx, value, index);
+            if (encoding == Encoding::Octal)
+                decodeUnsigned(ctx, ByteUtils::oct2dec(value), index);
+            else
+                decodeUnsigned(ctx, value, index);
             break;
 
         default:
@@ -95,7 +98,7 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int 
                     decodeString(ctx, ByteUtils::fromSixBitString((const Byte*)&value), index);
                     break;
                 case Encoding::Hex:
-                    decodeString(ctx, Poco::NumberFormatter::formatHex(value), index);
+                    decodeString(ctx, Poco::NumberFormatter::formatHex(value, ctx.width/8*2), index);
                     break;
             }
             break;

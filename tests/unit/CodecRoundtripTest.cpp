@@ -80,7 +80,7 @@ TEST(CodecRoundtripTest, cat48)
     decoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
 
     std::vector<Byte> buffer;
-    BinaryAsterixEncoder encoder;
+    BinaryAsterixEncoder encoder(CodecPolicy(CodecPolicy::Error, true));
     SimpleValueEncoder valueEncoder(valueDecoder.msg);
     EXPECT_EQ(sizeof(bytes), encoder.encode(*codecSpecification, valueEncoder, buffer));
 /*

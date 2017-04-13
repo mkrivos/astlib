@@ -91,6 +91,8 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
         case PrimitiveType::Unsigned:
         {
             encoded = encodeUnsigned(ctx, value, index);
+            if (encoding == Encoding::Octal)
+                value = ByteUtils::dec2oct(value);
             break;
         }
 
@@ -118,7 +120,13 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
                     encoded = encodeString(ctx, str, index);
                     if (encoded)
                     {
-                        ByteUtils::toSixBitString(str);
+                        str = ByteUtils::toSixBitString(str);
+                        std::reverse(str.begin(), str.end());
+                        for(Byte byte: str)
+                        {
+                            value <<= 8;
+                            value |= byte;
+                        }
                     }
                     break;
                 }

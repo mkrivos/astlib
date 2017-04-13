@@ -1072,7 +1072,7 @@
                 <Fixed length="8">
                     <Bits from="64" to="9" encode="hex">
                         <BitsShortName>modes.MBdata</BitsShortName>
-                        <BitsName>MBdata</BitsName>
+                        <BitsName>MB data</BitsName>
                     </Bits>
 
                     <Bits from="8" to="5">

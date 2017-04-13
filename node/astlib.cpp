@@ -140,9 +140,9 @@ v8::Handle<v8::Value> decodeAsterixBuffer(const v8::FunctionCallbackInfo<v8::Val
 
         astlib::Byte* buf = (astlib::Byte*) node::Buffer::Data(args[1]);
         size_t bytes = node::Buffer::Length(args[1]);
-std::cout << "dec " << fullName << " len " << bytes << std::endl;
+//std::cout << "dec " << fullName << " len " << bytes << std::endl;
         astlib::CodecPolicy policy;
-        policy.verbose = true;
+        policy.verbose = false;
         astlib::BinaryAsterixDecoder decoder(policy);
 
         try
@@ -192,14 +192,14 @@ v8::Handle<v8::Value> encodeAsterixRecord(AsterixRecordWrapper& obj, const std::
     {
         std::vector<astlib::Byte> buffer;
         astlib::CodecPolicy policy;
-        policy.verbose = true;
+        policy.verbose = false;
         astlib::BinaryAsterixEncoder encoder(policy);
 
         try
         {
             astlib::SimpleValueEncoder valueEncoder(record);
             encoder.encode(*codec, valueEncoder, buffer);
-            std::cout << "enc " << fullname << " len " << buffer.size() << std::endl;
+//            std::cout << "enc " << fullname << " len " << buffer.size() << std::endl;
             return node::Buffer::Copy(isolate, (char*)buffer.data(), buffer.size()).ToLocalChecked();
         }
         catch(astlib::Exception& e)

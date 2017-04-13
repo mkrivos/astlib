@@ -134,10 +134,10 @@ describe('AsterixRecord', function() {
 });
 
 
-describe('Asterix Encoder', function() {	
+describe('Asterix Encoder/Decoder', function() {	
 	var codecs = astlib.enumerateAllCodecs();
 	
-	describe('#encode', function() {
+	describe('#codec 48', function() {
 		it('empty record', function() {
 			//console.log(astlib.toString(asterixRecord));
 			var buffer = astlib.encodeAsterixRecord(asterixRecord, codecs[0]);			
@@ -145,7 +145,7 @@ describe('Asterix Encoder', function() {
 			assert.equal(buffer.length, 3);
 		});
 		
-		it('cat. 48 plot', function() {
+		it('plot', function() {
 			var plot = astlib.createAsterixRecord();
 			astlib.setNumber(plot, ASTERIX.DSI_SAC, 44);
 			astlib.setNumber(plot, ASTERIX.DSI_SIC, 144);
@@ -160,16 +160,77 @@ describe('Asterix Encoder', function() {
 			astlib.setBoolean(plot, ASTERIX.MODE3A_V, true);
 			astlib.setBoolean(plot, ASTERIX.MODE3A_G, true);
 			astlib.setBoolean(plot, ASTERIX.MODE3A_L, true);
-			astlib.setNumber(plot, ASTERIX.MODE3A_VALUE, 9053);
-			console.log(astlib.toString(plot));
+			astlib.setNumber(plot, ASTERIX.MODE3A_VALUE, 7777);
+			//console.log(astlib.toString(plot));
 			var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
 			assert.ok(buffer != null);			
 			assert.equal(buffer.length, 17);
 			console.log(buffer);
 			
-			var record = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
-			console.log(astlib.toString(record[0]));
+			var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
+			assert.ok(records.length);
+			var record = records[0];
+			console.log(astlib.toString(record));
+			
+			assert.equal(astlib.getBoolean(plot, ASTERIX.TRACK_TEST), astlib.getBoolean(record, ASTERIX.TRACK_TEST));
+			assert.equal(astlib.getBoolean(plot, ASTERIX.TRACK_SIMULATED), astlib.getBoolean(record, ASTERIX.TRACK_SIMULATED));
+		
+			assert.equal(astlib.getNumber(plot, ASTERIX.DSI_SAC), astlib.getNumber(record, ASTERIX.DSI_SAC));
+			assert.equal(astlib.getNumber(plot, ASTERIX.DSI_SIC), astlib.getNumber(record, ASTERIX.DSI_SIC));
+			assert.equal(astlib.getNumber(plot, ASTERIX.TIMEOFDAY), astlib.getNumber(record, ASTERIX.TIMEOFDAY));
+
+			assert.equal(astlib.getNumber(plot, ASTERIX.TRACK_DETECTION), astlib.getNumber(record, ASTERIX.TRACK_DETECTION));
+
+			assert.ok((astlib.getNumber(plot, ASTERIX.TRACK_POSITION_RANGE) - astlib.getNumber(record, ASTERIX.TRACK_POSITION_RANGE)) < 4);
+			assert.equal(astlib.getNumber(plot, ASTERIX.TRACK_POSITION_AZIMUTH), astlib.getNumber(record, ASTERIX.TRACK_POSITION_AZIMUTH));
+
+			assert.equal(astlib.getBoolean(plot, ASTERIX.MODE3A_V), astlib.getBoolean(record, ASTERIX.MODE3A_V));
+			assert.equal(astlib.getBoolean(plot, ASTERIX.MODE3A_G), astlib.getBoolean(record, ASTERIX.MODE3A_G));
+			assert.equal(astlib.getBoolean(plot, ASTERIX.MODE3A_L), astlib.getBoolean(record, ASTERIX.MODE3A_L));			
+			assert.equal(astlib.getNumber(plot, ASTERIX.MODE3A_VALUE), astlib.getNumber(record, ASTERIX.MODE3A_VALUE));
 		});
+		
+		it('track', function() {
+			var plot = astlib.createAsterixRecord();
+			astlib.setNumber(plot, ASTERIX.DSI_SAC, 44);
+			astlib.setNumber(plot, ASTERIX.DSI_SIC, 144);
+			astlib.setNumber(plot, ASTERIX.TIMEOFDAY, 3600);
+			
+			astlib.setNumber(plot, ASTERIX.TRACK_POSITION_X, -10000.0);
+			astlib.setNumber(plot, ASTERIX.TRACK_POSITION_Y, -50000.0);
+			
+			astlib.setBoolean(plot, ASTERIX.MODE2_V, true);
+			astlib.setBoolean(plot, ASTERIX.MODE2_G, true);
+			astlib.setBoolean(plot, ASTERIX.MODE2_L, true);
+			astlib.setNumber(plot, ASTERIX.MODE2_VALUE, 7777);
+			
+			astlib.setNumber(plot, ASTERIX.TRACK_NUMBER, 1111);
+			astlib.setString(plot, ASTERIX.AIRCRAFT_ADDRESS, '23FFAA');
+			astlib.setString(plot, ASTERIX.AIRCRAFT_IDENTIFICATION, 'PAKON321');
+			
+			console.log(astlib.toString(plot));
+			var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
+			assert.ok(buffer != null);			
+			assert.equal(buffer.length, 29);
+			console.log(buffer);
+			
+			var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
+			assert.ok(records.length);
+			var record = records[0];
+			console.log(astlib.toString(record));
+			
+			assert.ok((astlib.getNumber(plot, ASTERIX.TRACK_POSITION_X) - astlib.getNumber(record, ASTERIX.TRACK_POSITION_X)) < 3);
+			assert.ok((astlib.getNumber(plot, ASTERIX.TRACK_POSITION_Y) - astlib.getNumber(record, ASTERIX.TRACK_POSITION_Y)) < 3);
+			
+			assert.equal(astlib.getBoolean(plot, ASTERIX.MODE2_V), astlib.getBoolean(record, ASTERIX.MODE2_V));
+			assert.equal(astlib.getBoolean(plot, ASTERIX.MODE2_G), astlib.getBoolean(record, ASTERIX.MODE2_G));
+			assert.equal(astlib.getBoolean(plot, ASTERIX.MODE2_L), astlib.getBoolean(record, ASTERIX.MODE2_L));			
+			assert.equal(astlib.getNumber(plot, ASTERIX.MODE2_VALUE), astlib.getNumber(record, ASTERIX.MODE2_VALUE));
+			
+			assert.equal(astlib.getNumber(plot, ASTERIX.TRACK_NUMBER), astlib.getNumber(record, ASTERIX.TRACK_NUMBER));
+			assert.equal(astlib.getString(plot, ASTERIX.AIRCRAFT_ADDRESS), astlib.getString(record, ASTERIX.AIRCRAFT_ADDRESS));
+			assert.equal(astlib.getString(plot, ASTERIX.AIRCRAFT_IDENTIFICATION), astlib.getString(record, ASTERIX.AIRCRAFT_IDENTIFICATION));
+		});		
 	}); 	
 });
 
