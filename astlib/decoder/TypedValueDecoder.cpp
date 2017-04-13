@@ -24,6 +24,8 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int 
 {
     AsterixItemCode code = ctx.bits.code;
 
+    //if (!code.value) std::cout << "ZERO " << ctx.bits.toString() << std::endl;
+
     if (index == -1 && code.isArray())
     {
         throw Exception("TypedValueDecoder::decode: " + asterixCodeToSymbol(code) + " array expects an index");

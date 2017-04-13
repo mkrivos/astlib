@@ -199,6 +199,11 @@ void BinaryAsterixDecoder::decodeBitset(const ItemDescription& uapItem, const Fi
     {
         CodecContext context(uapItem, _policy, bits, _depth);
 
+        if (_policy.verbose)
+        {
+            std::cout << "  decode " << bits.toString() << std::endl;
+        }
+
         if (context.width == 1)
         {
             // Send non FX bits only

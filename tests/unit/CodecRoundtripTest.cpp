@@ -76,11 +76,13 @@ TEST(CodecRoundtripTest, cat48)
         SimpleAsterixRecordPtr msg;
     } valueDecoder;
 
-    BinaryAsterixDecoder decoder;
+    BinaryAsterixDecoder decoder(CodecPolicy(CodecPolicy::Error, false));
     decoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
 
+    //std::cout << valueDecoder.msg->toString() << std::endl;
+
     std::vector<Byte> buffer;
-    BinaryAsterixEncoder encoder(CodecPolicy(CodecPolicy::Error, true));
+    BinaryAsterixEncoder encoder(CodecPolicy(CodecPolicy::Error, false));
     SimpleValueEncoder valueEncoder(valueDecoder.msg);
     EXPECT_EQ(sizeof(bytes), encoder.encode(*codecSpecification, valueEncoder, buffer));
 /*

@@ -360,7 +360,7 @@ public:
         else
         {
             astlib::PrimitiveItem item = symbols[bits.name];
-            if (item.getDescription().size() < bits.description.size())
+            if (item.getDescription().empty() || (item.getDescription().size() < bits.description.size()))
                 symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
 
             if (item.getType() != type)
@@ -518,6 +518,7 @@ int main(int argc, char* argv[])
 
         Poco::File jsFile("asterixitems.js");
         jsFile.moveTo("../../node");
+        std::cout << "Generated " << globals.size() << " unique symbols\n;";
     }
     catch(Poco::Exception& e)
     {

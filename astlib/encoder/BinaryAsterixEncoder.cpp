@@ -41,7 +41,7 @@ size_t BinaryAsterixEncoder::encode(const CodecDescription& codec, ValueEncoder&
 
     if (_policy.verbose)
     {
-        std::cout << "Encoding record with " << codec.getCategoryDescription().toString() << std::endl;
+        std::cout << "ENCODING RECORD with " << codec.getCategoryDescription().toString() << std::endl;
     }
 
     const CodecDescription::UapItems& uapItems = codec.enumerateUapItems();
@@ -85,7 +85,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         size_t len = 0;
 
         if (_policy.verbose)
-            std::cout << "Encoding " << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
+            std::cout << " Encoding " << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
 
         switch(item.getType().toValue())
         {
@@ -220,6 +220,7 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
 
         if (index == 0)
         {
+            // Skip PSEUDO FSPEC bits
             ++index;
             continue;
         }
@@ -329,9 +330,9 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
             if (_policy.verbose)
             {
                 if (index == -1)
-                    std::cout << " " << bits.name << " = " << (value&mask) << " size = " << context.width/8 << std::endl;
+                    std::cout << "  " << bits.name << " = " << (value&mask) << " (" << context.width << " bits)" << std::endl;
                 else
-                    std::cout << " " << bits.name << "[" << index << "] = " << (value&mask) << " size = " << context.width/8 << std::endl;
+                    std::cout << "  " << bits.name << "[" << index << "] = " << (value&mask) << " (" << context.width << " bits)"<< std::endl;
             }
 
             data |= ((value & mask) << leftShift);
@@ -344,7 +345,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
         ByteUtils::pokeBigEndian(buffer, data, len);
         if (_policy.verbose)
         {
-            std::cout << "  " << Poco::NumberFormatter::formatHex(data, len*2) << std::endl;
+            std::cout << "   " << Poco::NumberFormatter::formatHex(data, len*2) << std::endl;
         }
         return len;
     }
