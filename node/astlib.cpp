@@ -60,6 +60,11 @@ template<typename T, typename T2>
 class Wrapper
 {
 public:
+    explicit Wrapper(T obj) :
+        value(obj)
+    {
+    }
+
     explicit Wrapper(const v8::FunctionCallbackInfo<v8::Value>& args)
     {
     }
@@ -149,9 +154,20 @@ std::cout << "dec " << fullName << " len " << bytes << std::endl;
             std::cerr << e.displayText() << std::endl;
         }
 
-        if (myDecoder.msgs.size())
+        if (size_t size = myDecoder.msgs.size())
         {
-            //zakoduj pole
+            v8::EscapableHandleScope handleScope(isolate);
+            v8::Local < v8::Array > array = v8::Array::New(isolate, size);
+
+            int index = 0;
+            for (auto msg : myDecoder.msgs)
+            {
+                AsterixRecordWrapper* obj = new AsterixRecordWrapper(msg);
+                auto record = v8pp::class_<AsterixRecordWrapper>::import_external(args.GetIsolate(), obj);
+                array->Set(index++, record);
+            }
+
+            return handleScope.Escape(array);
         }
     }
 

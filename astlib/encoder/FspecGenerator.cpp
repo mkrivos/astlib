@@ -101,6 +101,8 @@ std::vector<Byte> FspecGenerator::reduce(const std::vector<Byte>& sequence)
 
     std::reverse(array.begin(), array.end());
 
+    if (array.size())
+        array.back() &= 0xFE; // clear FX at the end
     return array;
 }
 

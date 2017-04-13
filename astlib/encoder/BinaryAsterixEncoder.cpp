@@ -39,10 +39,22 @@ size_t BinaryAsterixEncoder::encode(const CodecDescription& codec, ValueEncoder&
     FspecGenerator fspec;
     Byte aux[MAX_PACKET_SIZE];
 
+    if (_policy.verbose)
+    {
+        std::cout << "Encoding record with " << codec.getCategoryDescription().toString() << std::endl;
+    }
+
     const CodecDescription::UapItems& uapItems = codec.enumerateUapItems();
     size_t encodedSize = encodePayload(codec, valueEncoder, uapItems, fspec, aux);
 
     auto reducedFspec = fspec.getArray();
+    if (_policy.verbose)
+    {
+        std::cout << "Encoded FSPEC: ";
+        ByteUtils::printHex(reducedFspec);
+        std::cout << std::endl;
+    }
+
     size_t len = 1 + 2 + reducedFspec.size() + encodedSize;
     buffer.resize(len);
     buffer[0] = codec.getCategoryDescription().getCategory();
@@ -73,7 +85,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         size_t len = 0;
 
         if (_policy.verbose)
-            std::cout << "Encoding item " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
+            std::cout << "Encoding " << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
 
         switch(item.getType().toValue())
         {

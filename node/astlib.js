@@ -168,7 +168,7 @@ describe('Asterix Encoder', function() {
 			console.log(buffer);
 			
 			var record = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
-			console.log(astlib.toString(record));
+			console.log(astlib.toString(record[0]));
 		});
 	}); 	
 });

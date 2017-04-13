@@ -10,6 +10,8 @@
 ///
 
 #include "ByteUtils.h"
+#include <Poco/NumberFormatter.h>
+#include <iostream>
 
 namespace astlib
 {
@@ -153,6 +155,14 @@ std::string ByteUtils::toSixBitString(const std::string sixbit)
     aux[5] = ((buffer[6] << 6) & 0xC0) | buffer[7];
 
     return aux;
+}
+
+void ByteUtils::printHex(const std::vector<Byte>& buffer)
+{
+    for(Byte byte: buffer)
+    {
+        std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << ' ';
+    }
 }
 
 } /* namespace astlib */

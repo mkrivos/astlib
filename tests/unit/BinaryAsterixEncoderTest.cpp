@@ -30,11 +30,12 @@ class BinaryDataEncoderTest:
 {
 public:
     BinaryDataEncoderTest() :
-        encoder(CodecPolicy(CodecPolicy::Error, true)),
-        decoder(CodecPolicy(CodecPolicy::Error, true))
+        policy(CodecPolicy::Error, true),
+        encoder(policy),
+        decoder(policy)
     {
         CodecDeclarationLoader loader;
-        codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
+        codecSpecification48 = loader.load("specs/asterix_cat048_1_21.xml");
         codecSpecification04 = loader.load("specs/asterix_cat004_1_8.xml");
     }
     ~BinaryDataEncoderTest()
@@ -68,26 +69,6 @@ public:
         }
     } valueEncoder;
 
-    CodecDescriptionPtr codecSpecification;
-    CodecDescriptionPtr codecSpecification04;
-    BinaryAsterixEncoder encoder;
-    BinaryAsterixDecoder decoder;
-};
-
-TEST_F( BinaryDataEncoderTest, zeroEncode)
-{
-    std::vector<Byte> buffer;
-    EXPECT_EQ(3, encoder.encode(*codecSpecification, zeroEncoder, buffer, ""));
-}
-
-TEST_F( BinaryDataEncoderTest, fullEncode)
-{
-    std::vector<Byte> buffer;
-    EXPECT_EQ(98, encoder.encode(*codecSpecification, valueEncoder, buffer, ""));
-
-    //for(unsigned char byte: buffer) std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
-    //std::cout << std::endl;
-
     class MyDecoder:
         public SimpleValueDecoder
     {
@@ -99,7 +80,29 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
 
         SimpleAsterixRecordPtr msg;
     } valueDecoder;
-    decoder.decode(*codecSpecification, valueDecoder, buffer.data(), buffer.size());
+
+    CodecDescriptionPtr codecSpecification48;
+    CodecDescriptionPtr codecSpecification04;
+    astlib::CodecPolicy policy;
+    BinaryAsterixEncoder encoder;
+    BinaryAsterixDecoder decoder;
+};
+
+TEST_F( BinaryDataEncoderTest, zeroEncode)
+{
+    std::vector<Byte> buffer;
+    EXPECT_EQ(3, encoder.encode(*codecSpecification48, zeroEncoder, buffer, ""));
+}
+
+TEST_F( BinaryDataEncoderTest, fullEncode)
+{
+    std::vector<Byte> buffer;
+    EXPECT_EQ(98, encoder.encode(*codecSpecification48, valueEncoder, buffer, ""));
+
+    //for(unsigned char byte: buffer) std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
+    //std::cout << std::endl;
+
+    decoder.decode(*codecSpecification48, valueDecoder, buffer.data(), buffer.size());
 
     //std::cout << valueDecoder.msg->toString() << std::endl;
 }
@@ -107,10 +110,33 @@ TEST_F( BinaryDataEncoderTest, fullEncode)
 TEST_F( BinaryDataEncoderTest, simpleEncode)
 {
     std::vector<Byte> buffer;
-    astlib::CodecPolicy policy;
-    policy.verbose = true;
-    astlib::BinaryAsterixEncoder encoder(policy);
     astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
     encoder.encode(*codecSpecification04, valueEncoder, buffer);
+}
+
+TEST_F( BinaryDataEncoderTest, mbDataEncode)
+{
+    std::vector<Byte> buffer;
+
+    auto record = std::make_shared<astlib::SimpleAsterixRecord>();
+    record->setItem(astlib::DSI_SAC_CODE, 44);
+    record->setItem(DSI_SIC_CODE, 144);
+    record->setItem(TIMEOFDAY_CODE, 3600);
+    record->setItem(TRACK_DETECTION_CODE, 3);
+    record->setItem(TRACK_TEST_CODE, true);
+    record->setItem(TRACK_SIMULATED_CODE, true);
+
+    record->setItem(TRACK_POSITION_RANGE_CODE, 10000.0);
+    record->setItem(TRACK_POSITION_AZIMUTH_CODE, 45.0);
+
+    record->setItem(MODE3A_V_CODE, true);
+    record->setItem(MODE3A_G_CODE, true);
+    record->setItem(MODE3A_L_CODE, true);
+    record->setItem(MODE3A_VALUE_CODE, 9053);
+
+    astlib::SimpleValueEncoder valueEncoder(record);
+    encoder.encode(*codecSpecification48, valueEncoder, buffer);
+
+    decoder.decode(*codecSpecification48, valueDecoder, buffer.data(), buffer.size());
 }
 

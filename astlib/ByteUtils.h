@@ -14,6 +14,7 @@
 #include "Astlib.h"
 #include <Poco/Types.h>
 #include <cstddef>
+#include <vector>
 
 namespace astlib
 {
@@ -41,6 +42,8 @@ public:
     static std::string toSixBitString(const std::string sixbit);
 
     static void pokeBigEndian(Byte buffer[], Poco::UInt64 value, size_t len);
+
+    static void printHex(const std::vector<Byte>& buffer);
 };
 
 } /* namespace astlib */
