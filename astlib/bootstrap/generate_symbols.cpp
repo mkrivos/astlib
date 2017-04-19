@@ -461,7 +461,7 @@ int main(int argc, char* argv[])
                 std::string upperName = Poco::toUpper(entry.first);
                 Poco::replaceInPlace(upperName, ".", "_");
 
-                source << "    { " << upperName << "_SYMBOL, \"\" }," << std::endl;
+                source << "    { " << upperName << "_SYMBOL, \"" << entry.first << "\" }," << std::endl;
             }
             source << "};" << std::endl << std::endl;
 
