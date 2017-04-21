@@ -13,21 +13,19 @@
 -->
 
 <Category id="021" name="Surveillance Data Exchange - Part 12 ADS-B Reports" ver="1.8">
-
-
     <DataItem id="008" rule="optional">
         <DataItemName>Aircraft Operational Status</DataItemName>
         <DataItemDefinition>Identification of the operational services available in the aircraft while airborne.</DataItemDefinition>
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits bit="8">
-                    <BitsShortName>RA</BitsShortName>
+                    <BitsShortName>aircraft.status.RA</BitsShortName>
                     <BitsName>TCAS Resolution Advisory active</BitsName>
                     <BitsValue val="0">TCAS II or ACAS RA not active</BitsValue>
                     <BitsValue val="1">TCAS RA active</BitsValue>
                 </Bits>
                 <Bits from="7" to="6">
-                    <BitsShortName>TC</BitsShortName>
+                    <BitsShortName>aircraft.status.TC</BitsShortName>
                     <BitsName>Target Change Report Capability</BitsName>
                     <BitsValue val="0">no capability for Trajectory Change Reports</BitsValue>
                     <BitsValue val="1">support for TC+0 reports only</BitsValue>
@@ -35,25 +33,25 @@
                     <BitsValue val="3">reserved</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>TS</BitsShortName>
+                    <BitsShortName>aircraft.status.TS</BitsShortName>
                     <BitsName>Target State Report Capability</BitsName>
                     <BitsValue val="0">no capability to support Target State Reports</BitsValue>
                     <BitsValue val="1">capable of supporting target State Reports</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>ARV</BitsShortName>
+                    <BitsShortName>aircraft.status.ARV</BitsShortName>
                     <BitsName>Air-Referenced Velocity Report Capability</BitsName>
                     <BitsValue val="0">no capability to generate ARV-reports</BitsValue>
                     <BitsValue val="1">capable of generate ARV-reports</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>CDTI_A</BitsShortName>
+                    <BitsShortName>aircraft.status.CDTI_A</BitsShortName>
                     <BitsName>Cockpit Display of Traffic Information airborne</BitsName>
                     <BitsValue val="0">CDTI not operational</BitsValue>
                     <BitsValue val="1">CDTI operational</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>not_TCAS</BitsShortName>
+                    <BitsShortName>aircraft.status.not_TCAS</BitsShortName>
                     <BitsName>TCAS System Status</BitsName>
                     <BitsValue val="0">TCAS operational or unknown</BitsValue>
                     <BitsValue val="1">TCAS not installed or not operational</BitsValue>
@@ -117,7 +115,7 @@
         <DataItemFormat desc="One-Octet fixed length data item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>ECAT</BitsShortName>
+                    <BitsShortName>emitor.category</BitsShortName>
                     <BitsName>Emitter Category</BitsName>
                     <BitsValue val="0">No ADS-B Emitter Category Information</BitsValue>
                     <BitsValue val="1">light aircraft &lt;= 15500 lbs</BitsValue>
@@ -548,36 +546,36 @@
                 <Repetitive>
                     <Fixed length="15">
                         <Bits bit="120">
-                            <BitsShortName>TCA</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.unavailable</BitsShortName>
                             <BitsValue val="0">TCP number available</BitsValue>
                             <BitsValue val="1">TCP number not available</BitsValue>
                         </Bits>
                         <Bits bit="119">
-                            <BitsShortName>NC</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.noncompliant</BitsShortName>
                             <BitsValue val="0">TCP compliance</BitsValue>
                             <BitsValue val="1">TCP non-compliance</BitsValue>
                         </Bits>
                         <Bits from="118" to="113">
-                            <BitsShortName>TcpN</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.number</BitsShortName>
                             <BitsName>Trajectory Change Point Number</BitsName>
                         </Bits>
                         <Bits from="112" to="97" encode="signed">
-                            <BitsShortName>Alt</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.altitude</BitsShortName>
                             <BitsName>Altitude</BitsName>
                             <BitsUnit scale="10" min="-1500" max="150000">ft</BitsUnit>
                         </Bits>
                         <Bits from="96" to="73" encode="signed">
-                            <BitsShortName>Lat</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.latitude</BitsShortName>
                             <BitsName>Latitude</BitsName>
                             <BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
                         </Bits>
                         <Bits from="72" to="49" encode="signed">
-                            <BitsShortName>Lon</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.longitude</BitsShortName>
                             <BitsName>Longitude</BitsName>
                             <BitsUnit scale="0.000021457672119140625" min="-180" max="180">deg</BitsUnit>
                         </Bits>
                         <Bits from="48" to="45">
-                            <BitsShortName>PType</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.type</BitsShortName>
                             <BitsName>Point Type</BitsName>
                             <BitsValue val="0">Unknown</BitsValue>
                             <BitsValue val="1">Fly by waypoint (LT)</BitsValue>
@@ -593,30 +591,30 @@
                             <BitsValue val="11">Transition altitude (VT)</BitsValue>
                         </Bits>
                         <Bits from="44" to="43">
-                            <BitsShortName>TD</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.TD</BitsShortName>
                             <BitsValue val="0">N/A</BitsValue>
                             <BitsValue val="1">Turn right</BitsValue>
                             <BitsValue val="2">Turn left</BitsValue>
                             <BitsValue val="3">No turn</BitsValue>
                         </Bits>
                         <Bits bit="42">
-                            <BitsShortName>TRA</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.TRA</BitsShortName>
                             <BitsName>Turn Radius Availability</BitsName>
                             <BitsValue val="0">TTR not available</BitsValue>
                             <BitsValue val="1">TTR available</BitsValue>
                         </Bits>
                         <Bits bit="41">
-                            <BitsShortName>TOA</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.TOA</BitsShortName>
                             <BitsValue val="0">TOV available</BitsValue>
                             <BitsValue val="1">TOV not available</BitsValue>
                         </Bits>
                         <Bits from="40" to="17">
-                            <BitsShortName>TOV</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.TOV</BitsShortName>
                             <BitsName>Time Over Point</BitsName>
                             <BitsUnit scale="1">s</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1">
-                            <BitsShortName>TTR</BitsShortName>
+                            <BitsShortName>trajectory.intent.tcp.TTR</BitsShortName>
                             <BitsName>TCP Turn radius</BitsName>
                             <BitsUnit scale="0.01" max="655.35">Nm</BitsUnit>
                         </Bits>
@@ -670,7 +668,7 @@
         <DataItemFormat desc="One-Octet fixed length data item.">
             <Fixed length="1">
                 <Bits from="8" to="1" encode="signed">
-                    <BitsShortName>MAM</BitsShortName>
+                    <BitsShortName>message.amplitude</BitsShortName>
                     <BitsName>Message Amplitude</BitsName>
                     <BitsUnit scale="1">dBm</BitsUnit>
                 </Bits>
@@ -684,7 +682,7 @@
         <DataItemFormat desc="Two-Octet fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>geometric_height</BitsShortName>
+                    <BitsShortName>track.altitude.geometric_height</BitsShortName>
                     <BitsName>Geometric Height</BitsName>
                     <BitsUnit scale="6.25" min="-1500" max="150000">ft</BitsUnit>
                 </Bits>
@@ -698,7 +696,7 @@
         <DataItemFormat desc="Two-Octet fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>flightlevel</BitsShortName>
+                    <BitsShortName>track.altitude.flightlevel</BitsShortName>
                     <BitsName>Flight Level</BitsName>
                     <BitsUnit scale="0.25" min="-15" max="1500">FL</BitsUnit>
                 </Bits>
@@ -712,13 +710,13 @@
         <DataItemFormat desc="Two-Octet fixed length data item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>SAS</BitsShortName>
+                    <BitsShortName>altitude.intermediate.selected.availability</BitsShortName>
                     <BitsName>Source Availability</BitsName>
                     <BitsValue val="0">No source information provided</BitsValue>
                     <BitsValue val="1">Source Information provided</BitsValue>
                 </Bits>
                 <Bits from="15" to="14">
-                    <BitsShortName>Source</BitsShortName>
+                    <BitsShortName>altitude.intermediate.selected.source</BitsShortName>
                     <BitsName>Source</BitsName>
                     <BitsValue val="0">Unknown</BitsValue>
                     <BitsValue val="1">Aircraft Altitude (Holding Altitude)</BitsValue>
@@ -726,7 +724,7 @@
                     <BitsValue val="3">FMS Selected Altitude</BitsValue>
                 </Bits>
                 <Bits from="13" to="1" encode="signed">
-                    <BitsShortName>Alt</BitsShortName>
+                    <BitsShortName>altitude.intermediate.selected.value</BitsShortName>
                     <BitsName>Altitude</BitsName>
                     <BitsUnit scale="25" min="-1300" max="100000">ft</BitsUnit>
                 </Bits>
@@ -740,25 +738,25 @@
         <DataItemFormat desc="Two-Octet fixed length data item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>MV</BitsShortName>
+                    <BitsShortName>altitude.final.selected.active</BitsShortName>
                     <BitsName>Manage Vertical Mode</BitsName>
                     <BitsValue val="0">Not active</BitsValue>
                     <BitsValue val="1">Active</BitsValue>
                 </Bits>
                 <Bits bit="15">
-                    <BitsShortName>AH</BitsShortName>
+                    <BitsShortName>altitude.final.selected.holdmode</BitsShortName>
                     <BitsName>Altitude Hold Mode</BitsName>
                     <BitsValue val="0">Not active</BitsValue>
                     <BitsValue val="1">Active</BitsValue>
                 </Bits>
                 <Bits bit="14">
-                    <BitsShortName>AM</BitsShortName>
+                    <BitsShortName>altitude.final.selected.approachmode</BitsShortName>
                     <BitsName>Approach Mode</BitsName>
                     <BitsValue val="0">Not active</BitsValue>
                     <BitsValue val="1">Active</BitsValue>
                 </Bits>
                 <Bits from="13" to="1" encode="signed">
-                    <BitsShortName>Alt</BitsShortName>
+                    <BitsShortName>altitude.final.selected.value</BitsShortName>
                     <BitsName>Altitude</BitsName>
                     <BitsUnit scale="25" min="-1300" max="100000">ft</BitsUnit>
                 </Bits>
@@ -772,13 +770,13 @@
         <DataItemFormat desc="Two-Octet fixed length data item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>IM</BitsShortName>
+                    <BitsShortName>calculatedairspeed.type</BitsShortName>
                     <BitsName>Air Speed type</BitsName>
                     <BitsValue val="0">Air Speed = IAS</BitsValue>
                     <BitsValue val="1">Air Speed = Mach</BitsValue>
                 </Bits>
                 <Bits from="15" to="1">
-                    <BitsShortName>ASpeed</BitsShortName>
+                    <BitsShortName>calculatedairspeed.value</BitsShortName>
                     <BitsName>Air Speed (IAS or Mach)</BitsName>
                 </Bits>
             </Fixed>
@@ -791,7 +789,7 @@
         <DataItemFormat desc="Two-Octet fixed length data item.">
             <Fixed length="2">
                 <Bits bit="16">
-                    <BitsShortName>RE</BitsShortName>
+                    <BitsShortName>trueairspeedexceeded</BitsShortName>
                     <BitsName>Range Exceeded Indicator</BitsName>
                     <BitsValue val="0">Value in defined range</BitsValue>
                     <BitsValue val="1">Value exceeds defined range</BitsValue>
@@ -868,18 +866,18 @@
         <DataItemFormat desc="Four-Octet fixed length data item.">
             <Fixed length="4">
                 <Bits bit="16">
-                    <BitsShortName>RE</BitsShortName>
+                    <BitsShortName>groundspeed.exceeded</BitsShortName>
                     <BitsName>Range Exceeded Indicator</BitsName>
                     <BitsValue val="0">Value in defined range</BitsValue>
                     <BitsValue val="1">Value exceeds defined range</BitsValue>
                 </Bits>
                 <Bits from="31" to="17">
-                    <BitsShortName>GS</BitsShortName>
+                    <BitsShortName>groundspeed.advance</BitsShortName>
                     <BitsName>Ground Speed referenced to WGS-84</BitsName>
                     <BitsUnit scale="0.00006103515625">NM/s</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
-                    <BitsShortName>TA</BitsShortName>
+                    <BitsShortName>groundspeed.angle</BitsShortName>
                     <BitsName>Track Angle clockwise reference to True North</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
@@ -982,20 +980,20 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>VNS</BitsShortName>
+                    <BitsShortName>mops.version.notsuported</BitsShortName>
                     <BitsName>Version Not Supported</BitsName>
                     <BitsValue val="0">The MOPS Version is supported by the GS</BitsValue>
                     <BitsValue val="1">The MOPS Version is not supported by the GS</BitsValue>
                 </Bits>
                 <Bits from="6" to="4">
-                    <BitsShortName>VN</BitsShortName>
+                    <BitsShortName>mops.version.number</BitsShortName>
                     <BitsName>Version Number</BitsName>
                     <BitsValue val="0">DO-260 [Ref. 8]</BitsValue>
                     <BitsValue val="1">DO-260A [Ref. 9]</BitsValue>
                     <BitsValue val="2">DO-260B</BitsValue>
                 </Bits>
                 <Bits from="3" to="1">
-                    <BitsShortName>LTT</BitsShortName>
+                    <BitsShortName>mops.linktechnology</BitsShortName>
                     <BitsName>Link Technology Type</BitsName>
                     <BitsValue val="0">Other</BitsValue>
                     <BitsValue val="1">UAT</BitsValue>
@@ -1103,16 +1101,16 @@
         <DataItemFormat desc="Repetitive Data Item starting with a one-octet Field Repetition Indicator (REP) followed by at least one BDS message comprising one seven octet BDS register and one octet BDS code.">
             <Repetitive>
                 <Fixed length="8">
-                    <Bits from="64" to="9">
-                        <BitsShortName>MB</BitsShortName>
+                    <Bits from="64" to="9" encode="hex">  
+                        <BitsShortName>modes.MBdata</BitsShortName>
                         <BitsName>(MB Data) 56-bit message conveying Mode S Comm B message data</BitsName>
                     </Bits>
                     <Bits from="8" to="5">
-                        <BitsShortName>BDS1</BitsShortName>
+                        <BitsShortName>modes.DBS1</BitsShortName>
                         <BitsName>Comm B Data Buffer Store 1 Address</BitsName>
                     </Bits>
                     <Bits from="4" to="1">
-                        <BitsShortName>BDS2</BitsShortName>
+                        <BitsShortName>modes.DBS2</BitsShortName>
                         <BitsName>Comm B Data Buffer Store 2 Address</BitsName>
                     </Bits>
                 </Fixed>
@@ -1126,7 +1124,7 @@
         <DataItemFormat desc="Seven-octet fixed length Data Item.">
             <Fixed length="7">
                 <Bits from="56" to="1">
-                    <BitsShortName>AcasRA</BitsShortName>
+                    <BitsShortName>acas.resolution.raw</BitsShortName>
                     <BitsName>Information conveyed in an active ACAS Resoulution Advisory.</BitsName>
                 </Bits>
             </Fixed>
@@ -1145,31 +1143,31 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>POA</BitsShortName>
+                        <BitsShortName>aircraft.surface.caps.POA</BitsShortName>
                         <BitsName>Position Offset Applied</BitsName>
                         <BitsValue val="0">Position transmitted is not ADS-B position reference point</BitsValue>
                         <BitsValue val="1">Position transmitted is the ADS-B position reference point</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>CDTI_S</BitsShortName>
+                        <BitsShortName>aircraft.surface.caps.CDTI_S</BitsShortName>
                         <BitsName>Cockpit Display of Traffic Information Surface</BitsName>
                         <BitsValue val="0">CDTI not operational</BitsValue>
                         <BitsValue val="1">CDTI operational</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>B2_low</BitsShortName>
+                        <BitsShortName>aircraft.surface.caps.B2_low</BitsShortName>
                         <BitsName>Class B2 transmit power less than 70 Watts</BitsName>
                         <BitsValue val="0">&gt;= 70 Watts</BitsValue>
                         <BitsValue val="1">&lt; 70 Watts</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>RAS</BitsShortName>
+                        <BitsShortName>aircraft.surface.caps.RAS</BitsShortName>
                         <BitsName>Receiving ATC Services</BitsName>
                         <BitsValue val="0">Aircraft not receiving ATC-services</BitsValue>
                         <BitsValue val="1">Aircraft receiving ATC services</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>IDENT</BitsShortName>
+                        <BitsShortName>aircraft.surface.caps.IDENT</BitsShortName>
                         <BitsName>Setting of “IDENT”-switch</BitsName>
                         <BitsValue val="0">IDENT switch not active</BitsValue>
                         <BitsValue val="1">IDENT switch active</BitsValue>
@@ -1188,7 +1186,7 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits from="4" to="1">
-                        <BitsShortName>length_width</BitsShortName>
+                        <BitsShortName>aircraft.surface.caps.length_width</BitsShortName>
                         <BitsName>Length and width of the aircraft</BitsName>
                     </Bits>
                 </Fixed>
@@ -1357,161 +1355,161 @@
                 </Variable>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>AOS</BitsShortName>
+                        <BitsShortName>update.age.AOS</BitsShortName>
                         <BitsName>Age of the latest received information transmitted in item I021/008.</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>TRD</BitsShortName>
+                        <BitsShortName>update.age.TRD</BitsShortName>
                         <BitsName>Age of the last update of the Target Report Descriptor, item I021/040</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>M3A</BitsShortName>
+                        <BitsShortName>update.age.M3A</BitsShortName>
                         <BitsName>Age of the last update of the Mode 3/A Code, item I021/070</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>QI</BitsShortName>
+                        <BitsShortName>update.age.QI</BitsShortName>
                         <BitsName>Age of the latest information received to update the Quality Indicators, item I021/090</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>TI</BitsShortName>
+                        <BitsShortName>update.age.TI</BitsShortName>
                         <BitsName>Age of the last update of the Trajectory Intent information updating item I021/110</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>MAM</BitsShortName>
+                        <BitsShortName>update.age.MAM</BitsShortName>
                         <BitsName>Age of the latest measurement of the message amplitude, item I021/132</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>GH</BitsShortName>
+                        <BitsShortName>update.age.GH</BitsShortName>
                         <BitsName>Age of the information contained in item 021/140</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>FL</BitsShortName>
+                        <BitsShortName>update.age.FL</BitsShortName>
                         <BitsName>Age of the Flight Level information in item I021/145</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>ISA</BitsShortName>
+                        <BitsShortName>update.age.ISA</BitsShortName>
                         <BitsName>Age of the Intermediate State Selected Altitude in item I021/146</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>FSA</BitsShortName>
+                        <BitsShortName>update.age.FSA</BitsShortName>
                         <BitsName>Age of the Final State Selected Altitude in item I021/148</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>AS</BitsShortName>
+                        <BitsShortName>update.age.AS</BitsShortName>
                         <BitsName>Age of the Air Speed contained in item I021/150</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>TAS</BitsShortName>
+                        <BitsShortName>update.age.TAS</BitsShortName>
                         <BitsName>Age of the value for the True Air Speed in item I021/151</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>MH</BitsShortName>
+                        <BitsShortName>update.age.MH</BitsShortName>
                         <BitsName>Age of the value for the Magnetic Heading in item I021/152</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>BVR</BitsShortName>
+                        <BitsShortName>update.age.BVR</BitsShortName>
                         <BitsName>Age of the Barometric Vertical Rate contained in I021/155</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>GVR</BitsShortName>
+                        <BitsShortName>update.age.GVR</BitsShortName>
                         <BitsName>Age of the Geometric Vertical Rate in item I021/157</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>GV</BitsShortName>
+                        <BitsShortName>update.age.GV</BitsShortName>
                         <BitsName>Age of the Ground Vector in item I021/160</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>TAR</BitsShortName>
+                        <BitsShortName>update.age.TAR</BitsShortName>
                         <BitsName>Age of item I021/165 Track Angle Rate</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>TI</BitsShortName>
+                        <BitsShortName>update.age.TI</BitsShortName>
                         <BitsName>Age of the Target Identification in item I021/170</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>TS</BitsShortName>
+                        <BitsShortName>update.age.TS</BitsShortName>
                         <BitsName>Age of the Target Status as contained in item I021/200</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>MET</BitsShortName>
+                        <BitsShortName>update.age.MET</BitsShortName>
                         <BitsName>Age of the Meteorological data contained in I021/220</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>ROA</BitsShortName>
+                        <BitsShortName>update.age.ROA</BitsShortName>
                         <BitsName>Age of the Roll Angle value as in item I021/230</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>ARA</BitsShortName>
+                        <BitsShortName>update.age.ARA</BitsShortName>
                         <BitsName>Age of the latest update of an active ACAS Resolution Advisory</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="1" to="8">
-                        <BitsShortName>SCC</BitsShortName>
+                        <BitsShortName>update.age.SCC</BitsShortName>
                         <BitsName>Age of the latest information received on the surface capabilities and characteristics of the respective target</BitsName>
                         <BitsUnit scale="0.1" max="25.5">s</BitsUnit>
                     </Bits>

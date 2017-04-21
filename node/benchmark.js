@@ -15,8 +15,8 @@ const ASTERIX = require('./asterixitems.js');
 
 var asterixRecord = astlib.createAsterixRecord();
 var codecs = astlib.enumerateAllCodecs();
-
 var plot = astlib.createAsterixRecord();
+
 astlib.setNumber(plot, ASTERIX.DSI_SAC, 44);
 astlib.setNumber(plot, ASTERIX.DSI_SIC, 144);
 astlib.setNumber(plot, ASTERIX.TIMEOFDAY, 3600);

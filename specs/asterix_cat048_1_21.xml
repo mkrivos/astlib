@@ -1076,11 +1076,11 @@
                     </Bits>
 
                     <Bits from="8" to="5">
-                        <BitsShortName>modes.DSB1</BitsShortName>
+                        <BitsShortName>modes.DBS1</BitsShortName>
                         <BitsName>Comm B Data Buffer Store 1</BitsName>
                     </Bits>
                     <Bits from="4" to="1">
-                        <BitsShortName>modes.DSB2</BitsShortName>
+                        <BitsShortName>modes.DBS2</BitsShortName>
                         <BitsName>Comm B Data Buffer Store 2</BitsName>
                     </Bits>
                 </Fixed>

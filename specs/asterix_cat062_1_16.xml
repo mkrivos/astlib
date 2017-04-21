@@ -1843,52 +1843,52 @@
                 
                 <Fixed length="3">
                     <Bits from="24" to="1" encode="hex">
-                        <BitsShortName>aicraft.derived.ADR</BitsShortName>
+                        <BitsShortName>aircraft.derived.ADR</BitsShortName>
                         <BitsName>Target Address</BitsName>
                     </Bits>
                 </Fixed>
                 <Fixed length="6">
                     <Bits from="1" to="48" encode="6bitschar">
-                        <BitsShortName>aicraft.derived.ACID</BitsShortName>
+                        <BitsShortName>aircraft.derived.ACID</BitsShortName>
                         <BitsName>Target Identification</BitsName>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits from="16" to="1">
-                        <BitsShortName>aicraft.derived.MAH</BitsShortName>
+                        <BitsShortName>aircraft.derived.MAH</BitsShortName>
                         <BitsName>Magnetic Heading</BitsName>
                         <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits bit="16">
-                        <BitsShortName>aicraft.derived.IM</BitsShortName>
+                        <BitsShortName>aircraft.derived.IM</BitsShortName>
                         <BitsName>IAS/Mach No</BitsName>
                                    <BitsValue val="0">Air Speed = IAS (LSB 2^-14 NM/s)</BitsValue>
                                         <BitsValue val="1">Air Speed = Mach (LSB 0.001)</BitsValue> 
                     </Bits>
             
                     <Bits from="15" to="1">
-                        <BitsShortName>aicraft.derived.AS</BitsShortName>
+                        <BitsShortName>aircraft.derived.AS</BitsShortName>
                         <BitsName>Air Speed</BitsName>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits from="16" to="1">
-                        <BitsShortName>aicraft.derived.TAS</BitsShortName>
+                        <BitsShortName>aircraft.derived.TAS</BitsShortName>
                         <BitsName>True Air Speed</BitsName>
                         <BitsUnit scale="1" min="0" max="2046">knot</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits bit="16">
-                        <BitsShortName>aicraft.derived.SAS</BitsShortName>
+                        <BitsShortName>aircraft.derived.SAS</BitsShortName>
                         <BitsName>SAS</BitsName>
                                    <BitsValue val="0">No source information provided</BitsValue>
                                         <BitsValue val="1">Source Information provided</BitsValue>  
                     </Bits>
                     <Bits from="15" to="14">
-                        <BitsShortName>aicraft.derived.SRC</BitsShortName>
+                        <BitsShortName>aircraft.derived.SRC</BitsShortName>
                         <BitsName>Source</BitsName>
                         <BitsValue val="0">Unknown</BitsValue>
                                         <BitsValue val="1">Aircraft Altitude</BitsValue>
@@ -1897,32 +1897,32 @@
                     </Bits>
 
                     <Bits from="13" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.Alt</BitsShortName>
+                        <BitsShortName>aircraft.derived.Alt</BitsShortName>
                         <BitsName>Altitude</BitsName>                       
                         <BitsUnit scale="25" min="-1300" max="100000">ft</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits bit="16">
-                        <BitsShortName>aicraft.derived.MV</BitsShortName>
+                        <BitsShortName>aircraft.derived.MV</BitsShortName>
                         <BitsName>Manage Vertical Mode</BitsName>
                                    <BitsValue val="0">Not active</BitsValue>
                                         <BitsValue val="1">Active</BitsValue>   
                     </Bits>
                     <Bits bit="15">
-                        <BitsShortName>aicraft.derived.AH</BitsShortName>
+                        <BitsShortName>aircraft.derived.AH</BitsShortName>
                         <BitsName>Altitude Hold</BitsName>
                                    <BitsValue val="0">Not active</BitsValue>
                                         <BitsValue val="1">Active</BitsValue>   
                     </Bits>
                     <Bits bit="14">
-                        <BitsShortName>aicraft.derived.AM</BitsShortName>
+                        <BitsShortName>aircraft.derived.AM</BitsShortName>
                         <BitsName>Approach Mode</BitsName>
                                    <BitsValue val="0">Not active</BitsValue>
                                         <BitsValue val="1">Active</BitsValue>   
                     </Bits>
                     <Bits from="13" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.Alt</BitsShortName>
+                        <BitsShortName>aircraft.derived.Alt</BitsShortName>
                         <BitsName>Altitude</BitsName>   
                                <BitsUnit scale="25" min="-1300" max="100000">ft</BitsUnit>
                     </Bits>
@@ -1931,13 +1931,13 @@
                 <Fixed length="1">
                 
                     <Bits bit="8">
-                        <BitsShortName>aicraft.derived.NAV</BitsShortName>
+                        <BitsShortName>aircraft.derived.NAV</BitsShortName>
                         <BitsName>TID available</BitsName>
                                    <BitsValue val="0">Trajectory Intent Data is available for this aircraft</BitsValue>
                                         <BitsValue val="1">Trajectory Intent Data is not available for this aircraft</BitsValue>    
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>aicraft.derived.NVB</BitsShortName>
+                        <BitsShortName>aircraft.derived.NVB</BitsShortName>
                         <BitsName>TID valid</BitsName>
                                    <BitsValue val="0">Trajectory Intent Data is valid</BitsValue>
                                         <BitsValue val="1">Trajectory Intent Data is not valid</BitsValue>  
@@ -1957,38 +1957,38 @@
                 <Repetitive>
 			          <Fixed length="15">
 			            <Bits bit="120">
-			                <BitsShortName>aicraft.derived.TCA</BitsShortName>
+			                <BitsShortName>aircraft.derived.TCA</BitsShortName>
 			                <BitsName>TCP number availability</BitsName>
 			                <BitsValue val="0">TCP number available</BitsValue>
 			                <BitsValue val="1">TCP number not available</BitsValue>
 			            </Bits>
 			            <Bits bit="119">
-			                <BitsShortName>aicraft.derived.NC</BitsShortName>
+			                <BitsShortName>aircraft.derived.NC</BitsShortName>
 			                <BitsName>TCP compliance</BitsName>
 			                <BitsValue val="0">TCP compliance</BitsValue>
 			                <BitsValue val="1">TCP non-compliance</BitsValue>
 			            </Bits>
 			                        <Bits from="118" to="113" encode="signed">
-			                            <BitsShortName>aicraft.derived.TCPnum</BitsShortName>
+			                            <BitsShortName>aircraft.derived.TCPnum</BitsShortName>
 			                            <BitsName>Trajectory Change Point number</BitsName>
 			            </Bits>
 			            <Bits from="112" to="97" encode="signed">
-			                            <BitsShortName>aicraft.derived.Alt</BitsShortName>
+			                            <BitsShortName>aircraft.derived.Alt</BitsShortName>
 			                <BitsName>Altitude</BitsName>
 			                <BitsUnit scale="10" min="-1500" max="150000">ft</BitsUnit>
 			            </Bits>
 			            <Bits from="96" to="73" encode="signed">
-			                            <BitsShortName>aicraft.derived.Lat</BitsShortName>
+			                            <BitsShortName>aircraft.derived.Lat</BitsShortName>
 			                            <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; Lat &lt; 90 deg.</BitsName>
 			                <BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
 			            </Bits>
 			            <Bits from="72" to="49" encode="signed">
-			                            <BitsShortName>aicraft.derived.Lon</BitsShortName>
+			                            <BitsShortName>aircraft.derived.Lon</BitsShortName>
 			                            <BitsName>Longitude In WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
 			                            <BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
 			            </Bits>
 			            <Bits from="48" to="45">
-			                            <BitsShortName>aicraft.derived.PT</BitsShortName>
+			                            <BitsShortName>aircraft.derived.PT</BitsShortName>
 			                            <BitsName>Point type</BitsName>
 			                <BitsValue val="0">Unknown</BitsValue>
 			                <BitsValue val="1">Fly by waypoint (LT)</BitsValue>
@@ -2004,7 +2004,7 @@
 			                <BitsValue val="11">Transition altitude (VT)</BitsValue>
 			            </Bits>
 			            <Bits from="44" to="43">
-			                <BitsShortName>aicraft.derived.TD</BitsShortName>
+			                <BitsShortName>aircraft.derived.TD</BitsShortName>
 			                            <BitsName>Turn Direction</BitsName>
 			                <BitsValue val="0">N/A</BitsValue>
 			                <BitsValue val="1">Turn right</BitsValue>
@@ -2012,24 +2012,24 @@
 			                <BitsValue val="3">No turn</BitsValue>
 			            </Bits>
 			            <Bits bit="42">
-			                <BitsShortName>aicraft.derived.TRA</BitsShortName>
+			                <BitsShortName>aircraft.derived.TRA</BitsShortName>
 			                <BitsName>Turn Radius Availability</BitsName>
 			                <BitsValue val="0">TTR not available</BitsValue>
 			                <BitsValue val="1">TTR available</BitsValue>
 			            </Bits>
 			            <Bits bit="41">
-			                <BitsShortName>aicraft.derived.TOA</BitsShortName>
+			                <BitsShortName>aircraft.derived.TOA</BitsShortName>
 			                <BitsName>TOV available</BitsName>
 			                <BitsValue val="0">TOV available</BitsValue>
 			                <BitsValue val="1">TOV not available</BitsValue>
 			            </Bits>
 			                <Bits from="40" to="17" encode="unsigned">
-			                <BitsShortName>aicraft.derived.TOV</BitsShortName>
+			                <BitsShortName>aircraft.derived.TOV</BitsShortName>
 			                <BitsName>Time Over Point</BitsName>
 			                <BitsUnit scale="1">s</BitsUnit>
 			            </Bits>
 			                <Bits from="16" to="1" encode="unsigned">
-			                <BitsShortName>aicraft.derived.TTR</BitsShortName>
+			                <BitsShortName>aircraft.derived.TTR</BitsShortName>
 			                <BitsName>Turn radius</BitsName>
 			                <BitsUnit scale="0.01" min="0" max="655.35">Nm</BitsUnit>
 			            </Bits>
@@ -2038,7 +2038,7 @@
                 
                 <Fixed length="2">
                     <Bits from="14" to="16">
-                        <BitsShortName>aicraft.derived.COM</BitsShortName>
+                        <BitsShortName>aircraft.derived.COM</BitsShortName>
                         <BitsName>Communications capability of the transponder</BitsName>
                         <BitsValue val="0">No communications capability (surveillance only)</BitsValue>
                         <BitsValue val="1">Comm. A and Comm. B capability</BitsValue>
@@ -2050,7 +2050,7 @@
                         <BitsValue val="7">Not assigned</BitsValue>
                     </Bits>
                     <Bits from="11" to="13">
-                        <BitsShortName>aicraft.derived.STAT</BitsShortName>
+                        <BitsShortName>aircraft.derived.STAT</BitsShortName>
                         <BitsName>Flight Status</BitsName>
                         <BitsValue val="0">No alert, no SPI, aircraft airborne</BitsValue>
                         <BitsValue val="1">No alert, no SPI, aircraft on ground</BitsValue>
@@ -2067,36 +2067,36 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits bit="8">
-                        <BitsShortName>aicraft.derived.SSC</BitsShortName>
+                        <BitsShortName>aircraft.derived.SSC</BitsShortName>
                         <BitsName>Specific service capability</BitsName>
                         <BitsValue val="0">No</BitsValue>
                         <BitsValue val="1">Yes</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>aicraft.derived.ARC</BitsShortName>
+                        <BitsShortName>aircraft.derived.ARC</BitsShortName>
                         <BitsName>Altitude reporting capability</BitsName>
                         <BitsValue val="0">100 ft resolution</BitsValue>
                         <BitsValue val="1">25 ft resolution</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>aicraft.derived.AIC</BitsShortName>
+                        <BitsShortName>aircraft.derived.AIC</BitsShortName>
                         <BitsName>Aircraft identification capability</BitsName>
                         <BitsValue val="0">No</BitsValue>
                         <BitsValue val="1">Yes</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>aicraft.derived.B1A</BitsShortName>
+                        <BitsShortName>aircraft.derived.B1A</BitsShortName>
                         <BitsName>BDS 1,0 bit 16</BitsName>
                     </Bits>
                     <Bits from="1" to="4">
-                        <BitsShortName>aicraft.derived.B1B</BitsShortName>
+                        <BitsShortName>aircraft.derived.B1B</BitsShortName>
                         <BitsName>BDS 1,0 bits 37/40</BitsName>
                     </Bits>
                 </Fixed>
                 
                 <Fixed length="2">
                     <Bits from="16" to="15">
-                        <BitsShortName>aicraft.derived.AC</BitsShortName>
+                        <BitsShortName>aircraft.derived.AC</BitsShortName>
                         <BitsName>ACAS status</BitsName>
                         <BitsValue val="0">unknown</BitsValue>
                         <BitsValue val="1">ACAS not operational</BitsValue>
@@ -2104,7 +2104,7 @@
                         <BitsValue val="3">invalid</BitsValue>
                     </Bits>
                     <Bits from="14" to="13">
-                        <BitsShortName>aicraft.derived.MN</BitsShortName>
+                        <BitsShortName>aircraft.derived.MN</BitsShortName>
                         <BitsName>Multiple navigational aids status</BitsName>
                         <BitsValue val="0">unknown</BitsValue>
                         <BitsValue val="1">Multiple navigational aids not operating</BitsValue>
@@ -2112,7 +2112,7 @@
                         <BitsValue val="3">invalid</BitsValue>
                     </Bits>
                     <Bits from="12" to="11">
-                        <BitsShortName>aicraft.derived.DC</BitsShortName>
+                        <BitsShortName>aircraft.derived.DC</BitsShortName>
                         <BitsName>Differential correction status</BitsName>
                         <BitsValue val="0">unknown</BitsValue>
                         <BitsValue val="1">Differential correction</BitsValue>
@@ -2120,7 +2120,7 @@
                         <BitsValue val="3">invalid</BitsValue>
                     </Bits>
                     <Bits bit="10">
-                        <BitsShortName>aicraft.derived.GBS</BitsShortName>
+                        <BitsShortName>aircraft.derived.GBS</BitsShortName>
                         <BitsName>Ground Bit Set</BitsName>
                         <BitsValue val="0">Transponder Ground Bit not set or unknown</BitsValue>
                         <BitsValue val="1">Transponder Ground Bit set</BitsValue>
@@ -2131,7 +2131,7 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits from="3" to="1">
-                        <BitsShortName>aicraft.derived.STAT</BitsShortName>
+                        <BitsShortName>aircraft.derived.STAT</BitsShortName>
                         <BitsName>Flight Status</BitsName>
                         <BitsValue val="0">No emergency</BitsValue>
                         <BitsValue val="1">General emergency</BitsValue>
@@ -2146,27 +2146,27 @@
                 
                 <Fixed length="7">
                     <Bits from="56" to="1" encode="hex">
-                        <BitsShortName>aicraft.derived.ACASAD</BitsShortName>
+                        <BitsShortName>aircraft.derived.ACASAD</BitsShortName>
                         <BitsName>ACAS Resolution Advisory Report - BDS 3,0</BitsName>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits from="16" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.BVR</BitsShortName>
+                        <BitsShortName>aircraft.derived.BVR</BitsShortName>
                         <BitsName>Barometric Vertical Rate</BitsName>
                          <BitsUnit scale="6.25">ft/min</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits from="16" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.GVR</BitsShortName>
+                        <BitsShortName>aircraft.derived.GVR</BitsShortName>
                         <BitsName>Geometric Vertical Rate</BitsName>
                         <BitsUnit scale="6.25">ft/min</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="2">
                     <Bits from="16" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.RAN</BitsShortName>
+                        <BitsShortName>aircraft.derived.RAN</BitsShortName>
                         <BitsName>Roll Angle</BitsName>
                         <BitsUnit scale="0.01" min="-180" max="180">deg</BitsUnit>
                     </Bits>
@@ -2174,7 +2174,7 @@
                 
                 <Fixed length="2">
                     <Bits from="16" to="15">
-                        <BitsShortName>aicraft.derived.TI</BitsShortName>
+                        <BitsShortName>aircraft.derived.TI</BitsShortName>
                         <BitsName>Turn Indicator</BitsName>
                         <BitsValue val="0">Not available</BitsValue>
                         <BitsValue val="1">Left</BitsValue>
@@ -2198,7 +2198,7 @@
                 
                 <Fixed length="2">
                     <Bits from="16" to="1">
-                        <BitsShortName>aicraft.derived.TAN</BitsShortName>
+                        <BitsShortName>aircraft.derived.TAN</BitsShortName>
                         <BitsName>Track Angle</BitsName>
                         <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                     </Bits>
@@ -2206,7 +2206,7 @@
                 
                 <Fixed length="2">
                     <Bits from="16" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.GS</BitsShortName>
+                        <BitsShortName>aircraft.derived.GS</BitsShortName>
                         <BitsName>Ground Speed</BitsName>
                         <BitsUnit scale="0.00006103515625" min="-2" max="2">NM/s</BitsUnit>
                     </Bits>
@@ -2214,32 +2214,32 @@
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>aicraft.derived.VUN</BitsShortName>
+                        <BitsShortName>aircraft.derived.VUN</BitsShortName>
                         <BitsName>Velocity Uncertainty Category</BitsName>
                     </Bits>
                 </Fixed>
                 
                 <Fixed length="8">
                     <Bits bit="64">
-                        <BitsShortName>aicraft.derived.WS</BitsShortName>
+                        <BitsShortName>aircraft.derived.WS</BitsShortName>
                         <BitsName>Wind Speed Valid</BitsName>
                         <BitsValue val="0">Not Valid</BitsValue>
                         <BitsValue val="1">Valid</BitsValue>
                     </Bits>
                     <Bits bit="63">
-                        <BitsShortName>aicraft.derived.WD</BitsShortName>
+                        <BitsShortName>aircraft.derived.WD</BitsShortName>
                         <BitsName>Wind Direction Valid</BitsName>
                         <BitsValue val="0">Not Valid</BitsValue>
                         <BitsValue val="1">Valid</BitsValue>
                     </Bits>
                     <Bits bit="62">
-                        <BitsShortName>aicraft.derived.TMP</BitsShortName>
+                        <BitsShortName>aircraft.derived.TMP</BitsShortName>
                         <BitsName>Temperature Valid</BitsName>
                         <BitsValue val="0">Not Valid</BitsValue>
                         <BitsValue val="1">Valid</BitsValue>
                     </Bits>
                     <Bits bit="61">
-                        <BitsShortName>aicraft.derived.TRB</BitsShortName>
+                        <BitsShortName>aircraft.derived.TRB</BitsShortName>
                         <BitsName>Turbulence Valid</BitsName>
                         <BitsValue val="0">Not Valid</BitsValue>
                         <BitsValue val="1">Valid</BitsValue>
@@ -2249,29 +2249,29 @@
                         <BitsName>Spare Bits set to zero</BitsName>
                     </Bits>
                     <Bits from="56" to="41">
-                        <BitsShortName>aicraft.derived.WS_D</BitsShortName>
+                        <BitsShortName>aircraft.derived.WS_D</BitsShortName>
                         <BitsName>Wind Speed</BitsName>
                         <BitsUnit scale="1" min="0" max="300">kt</BitsUnit>
                     </Bits>
                     <Bits from="40" to="25">
-                        <BitsShortName>aicraft.derived.WD_D</BitsShortName>
+                        <BitsShortName>aircraft.derived.WD_D</BitsShortName>
                         <BitsName>Wind Direction</BitsName>
                         <BitsUnit scale="1" min="0" max="360">deg</BitsUnit>
                     </Bits>
                     <Bits from="24" to="9" encode="signed">
-                        <BitsShortName>aicraft.derived.TMP_D</BitsShortName>
+                        <BitsShortName>aircraft.derived.TMP_D</BitsShortName>
                         <BitsName>Temperature</BitsName>
                         <BitsUnit scale="0.25" min="-100" max="100">deg C</BitsUnit>
                     </Bits>
                     <Bits from="8" to="1">
-                        <BitsShortName>aicraft.derived.TRB_D</BitsShortName>
+                        <BitsShortName>aircraft.derived.TRB_D</BitsShortName>
                         <BitsName>Turbulence</BitsName>
                     </Bits> 
                 </Fixed>
                 
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>aicraft.derived.ECAT</BitsShortName>
+                        <BitsShortName>aircraft.derived.ECAT</BitsShortName>
                         <BitsName>Emitter Category</BitsName>
                         <BitsValue val="1">light aircraft less than 7000 kg</BitsValue>
                         <BitsValue val="2">reserved</BitsValue>
@@ -2302,12 +2302,12 @@
                 
                 <Fixed length="6">
                     <Bits from="48" to="25" encode="signed">
-                        <BitsShortName>aicraft.derived.Lat2</BitsShortName>
+                        <BitsShortName>aircraft.derived.Lat2</BitsShortName>
                         <BitsName>Latitude in WGS.84 in two’s complement. Range -90 ≤ Lat ≤ 90 deg.</BitsName>
                     	<BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                 	</Bits>
                 	<Bits from="24" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.Lon2</BitsShortName>
+                        <BitsShortName>aircraft.derived.Lon2</BitsShortName>
                         <BitsName>Longitude in WGS.84 in two’s complement. Range -180 ≤ longitude &lt; 180 deg.</BitsName>
                     	<BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                 	</Bits>
@@ -2315,7 +2315,7 @@
                 
                 <Fixed length="2">
                     <Bits from="16" to="1" encode="signed">
-                        <BitsShortName>aicraft.derived.GAL</BitsShortName>
+                        <BitsShortName>aircraft.derived.GAL</BitsShortName>
                         <BitsName>Geometric Altitude</BitsName>
                         <BitsUnit scale="6.25" min="-1500" max="150000">ft</BitsUnit>
                     </Bits>
@@ -2327,7 +2327,7 @@
                         <BitsName>Spare bits set to zero</BitsName>
                     </Bits>
                     <Bits from="4" to="1">
-                        <BitsShortName>aicraft.derived.PUN</BitsShortName>
+                        <BitsShortName>aircraft.derived.PUN</BitsShortName>
                         <BitsName>Position Uncertainty</BitsName>
                     </Bits>
                 </Fixed>
@@ -2335,15 +2335,15 @@
                 <Repetitive>
                 <Fixed length="8">
                     <Bits from="9" to="64">
-                            <BitsShortName>aicraft.derived.MB</BitsShortName>
+                            <BitsShortName>aircraft.derived.MB</BitsShortName>
                         <BitsName>56 bit message conveying Mode S B message data</BitsName>
                     </Bits>
                     <Bits from="5" to="8">
-                        <BitsShortName>aicraft.derived.BDS1</BitsShortName>
+                        <BitsShortName>aircraft.derived.BDS1</BitsShortName>
                         <BitsName>Comm B data Buffer Store 1 Address</BitsName>
                     </Bits>
                     <Bits from="1" to="4">
-                        <BitsShortName>aicraft.derived.BDS2</BitsShortName>
+                        <BitsShortName>aircraft.derived.BDS2</BitsShortName>
                         <BitsName>Comm B data Buffer Store 2 Address</BitsName>
                     </Bits>
                 </Fixed>
@@ -2351,14 +2351,14 @@
                 
                 <Fixed length="2">
                     <Bits from="16" to="1">
-                        <BitsShortName>aicraft.derived.IAS</BitsShortName>
+                        <BitsShortName>aircraft.derived.IAS</BitsShortName>
                         <BitsName>Indicated Air Speed</BitsName>
                         <BitsUnit scale="1" min="0" max="1100">kt</BitsUnit>
                     </Bits>
                 </Fixed>                
                 <Fixed length="2">
                     <Bits from="16" to="1">
-                        <BitsShortName>aicraft.derived.MNO</BitsShortName>
+                        <BitsShortName>aircraft.derived.MNO</BitsShortName>
                         <BitsName>Mach Number</BitsName>
                         <BitsUnit scale="0.008" min="0" max="4.096">Mach</BitsUnit>
                     </Bits>
@@ -2371,7 +2371,7 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits from="12" to="1">
-                        <BitsShortName>aicraft.derived.BPS</BitsShortName>
+                        <BitsShortName>aircraft.derived.BPS</BitsShortName>
                         <BitsName>Barometric Pressure Setting</BitsName>
                         <BitsUnit scale="0.1" min="0" max="409.6">mbar</BitsUnit>
                     </Bits>
