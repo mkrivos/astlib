@@ -1957,38 +1957,38 @@
                 <Repetitive>
 			          <Fixed length="15">
 			            <Bits bit="120">
-			                <BitsShortName>aircraft.derived.TCA</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.unavailable</BitsShortName>
 			                <BitsName>TCP number availability</BitsName>
 			                <BitsValue val="0">TCP number available</BitsValue>
 			                <BitsValue val="1">TCP number not available</BitsValue>
 			            </Bits>
 			            <Bits bit="119">
-			                <BitsShortName>aircraft.derived.NC</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.noncompliant</BitsShortName>
 			                <BitsName>TCP compliance</BitsName>
 			                <BitsValue val="0">TCP compliance</BitsValue>
 			                <BitsValue val="1">TCP non-compliance</BitsValue>
 			            </Bits>
 			                        <Bits from="118" to="113" encode="signed">
-			                            <BitsShortName>aircraft.derived.TCPnum</BitsShortName>
+			                            <BitsShortName>trajectory.intent.TCP.number</BitsShortName>
 			                            <BitsName>Trajectory Change Point number</BitsName>
 			            </Bits>
 			            <Bits from="112" to="97" encode="signed">
-			                            <BitsShortName>aircraft.derived.Alt</BitsShortName>
+			                            <BitsShortName>trajectory.intent.tcp.altitude</BitsShortName>
 			                <BitsName>Altitude</BitsName>
 			                <BitsUnit scale="10" min="-1500" max="150000">ft</BitsUnit>
 			            </Bits>
 			            <Bits from="96" to="73" encode="signed">
-			                            <BitsShortName>aircraft.derived.Lat</BitsShortName>
+			                            <BitsShortName>trajectory.intent.tcp.Latitude</BitsShortName>
 			                            <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; Lat &lt; 90 deg.</BitsName>
 			                <BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
 			            </Bits>
 			            <Bits from="72" to="49" encode="signed">
-			                            <BitsShortName>aircraft.derived.Lon</BitsShortName>
+			                            <BitsShortName>trajectory.intent.tcp.Longitude</BitsShortName>
 			                            <BitsName>Longitude In WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
-			                            <BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
+			                            <BitsUnit scale="0.000021457672119140625" min="-180" max="180">deg</BitsUnit>
 			            </Bits>
 			            <Bits from="48" to="45">
-			                            <BitsShortName>aircraft.derived.PT</BitsShortName>
+			                            <BitsShortName>trajectory.intent.tcp.type</BitsShortName>
 			                            <BitsName>Point type</BitsName>
 			                <BitsValue val="0">Unknown</BitsValue>
 			                <BitsValue val="1">Fly by waypoint (LT)</BitsValue>
@@ -2004,7 +2004,7 @@
 			                <BitsValue val="11">Transition altitude (VT)</BitsValue>
 			            </Bits>
 			            <Bits from="44" to="43">
-			                <BitsShortName>aircraft.derived.TD</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.TD</BitsShortName>
 			                            <BitsName>Turn Direction</BitsName>
 			                <BitsValue val="0">N/A</BitsValue>
 			                <BitsValue val="1">Turn right</BitsValue>
@@ -2012,24 +2012,24 @@
 			                <BitsValue val="3">No turn</BitsValue>
 			            </Bits>
 			            <Bits bit="42">
-			                <BitsShortName>aircraft.derived.TRA</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.TRA</BitsShortName>
 			                <BitsName>Turn Radius Availability</BitsName>
 			                <BitsValue val="0">TTR not available</BitsValue>
 			                <BitsValue val="1">TTR available</BitsValue>
 			            </Bits>
 			            <Bits bit="41">
-			                <BitsShortName>aircraft.derived.TOA</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.TOA</BitsShortName>
 			                <BitsName>TOV available</BitsName>
 			                <BitsValue val="0">TOV available</BitsValue>
 			                <BitsValue val="1">TOV not available</BitsValue>
 			            </Bits>
 			                <Bits from="40" to="17" encode="unsigned">
-			                <BitsShortName>aircraft.derived.TOV</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.TOV</BitsShortName>
 			                <BitsName>Time Over Point</BitsName>
 			                <BitsUnit scale="1">s</BitsUnit>
 			            </Bits>
 			                <Bits from="16" to="1" encode="unsigned">
-			                <BitsShortName>aircraft.derived.TTR</BitsShortName>
+			                <BitsShortName>trajectory.intent.tcp.TTR</BitsShortName>
 			                <BitsName>Turn radius</BitsName>
 			                <BitsUnit scale="0.01" min="0" max="655.35">Nm</BitsUnit>
 			            </Bits>

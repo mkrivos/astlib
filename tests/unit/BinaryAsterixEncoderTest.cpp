@@ -130,12 +130,44 @@ TEST_F( BinaryDataEncoderTest, simpleEncode62)
     encoder.encode(*codecSpecification62, valueEncoder, buffer);
 }
 
+TEST_F( BinaryDataEncoderTest, aircraftDerivedData62)
+{
+    auto record = std::make_shared<astlib::SimpleAsterixRecord>();
+
+    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE_CODE, 2);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE_CODE, true, 0);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE_CODE, false, 1);
+
+    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 2);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 42.67, 0);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, -64542.7, 1);
+
+    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, 2);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, 42.67, 0);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, -64542.7, 1);
+
+    std::vector<Byte> buffer;
+    astlib::SimpleValueEncoder valueEncoder(record);
+    encoder.encode(*codecSpecification62, valueEncoder, buffer);
+
+    decoder.decode(*codecSpecification62, valueDecoder, buffer.data(), buffer.size());
+    auto record2 = valueDecoder.msg;
+    std::cout << record2->toString() << std::endl;
+    double value;
+    EXPECT_TRUE(record->hasItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE));
+    EXPECT_TRUE(record->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, value, 0));
+    EXPECT_EQ(42.67, value);
+    EXPECT_TRUE(record->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, value, 1));
+    EXPECT_EQ(-64542.7, value);
+
+}
+
 TEST_F( BinaryDataEncoderTest, mbDataEncode)
 {
     std::vector<Byte> buffer;
 
     auto record = std::make_shared<astlib::SimpleAsterixRecord>();
-    record->setItem(astlib::DSI_SAC_CODE, 44);
+    record->setItem(DSI_SAC_CODE, 44);
     record->setItem(DSI_SIC_CODE, 144);
     record->setItem(TIMEOFDAY_CODE, 3600);
     record->setItem(TRACK_DETECTION_CODE, 3);

@@ -23,6 +23,18 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
 {
     AsterixItemCode code = ctx.bits.code;
 
+    if (code.value == TRAJECTORY_INTENT_TCP_LATITUDE_CODE.value)
+    {
+        value = 0xFFFFFF;
+        return true;
+    }
+
+    if (code.value == TRAJECTORY_INTENT_TCP_LONGITUDE_CODE.value)
+    {
+        value = 0x123456;
+        return true;
+    }
+
     if (!code.value)
     {
         //std::cout << "Skipped " << ctx.bits.toString() << std::endl;

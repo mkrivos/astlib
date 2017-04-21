@@ -264,6 +264,15 @@ public:
                 Poco::replaceInPlace(bits.name, "_", ".");
                 Poco::replaceInPlace(bits.name, "/", "_");
 
+                if (parent.hasAttribute("length"))
+                {
+                    auto len = Poco::NumberParser::parse(parent.getAttribute("length"));
+                    if (len > 8)
+                    {
+                        std::cout << bits.name << " " << len << " bytes\n";
+                    }
+                }
+
                 const Poco::XML::Element* descrNode = dynamic_cast<const Poco::XML::Element*>(element->getChildElement("BitsName"));
                 if (descrNode)
                 {

@@ -559,7 +559,7 @@
                             <BitsShortName>trajectory.intent.tcp.number</BitsShortName>
                             <BitsName>Trajectory Change Point Number</BitsName>
                         </Bits>
-                        <Bits from="112" to="97" encode="signed">
+                        <Bits from="112" to="97" encode="signed"> 
                             <BitsShortName>trajectory.intent.tcp.altitude</BitsShortName>
                             <BitsName>Altitude</BitsName>
                             <BitsUnit scale="10" min="-1500" max="150000">ft</BitsUnit>
@@ -616,7 +616,7 @@
                         <Bits from="16" to="1">
                             <BitsShortName>trajectory.intent.tcp.TTR</BitsShortName>
                             <BitsName>TCP Turn radius</BitsName>
-                            <BitsUnit scale="0.01" max="655.35">Nm</BitsUnit>
+                            <BitsUnit scale="0.01" min="0" max="655.35">Nm</BitsUnit>
                         </Bits>
                     </Fixed>
                 </Repetitive>

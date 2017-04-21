@@ -88,7 +88,7 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         size_t len = 0;
 
         if (_policy.verbose)
-            std::cout << " Encoding [" << currentItem << ']' << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
+            std::cout << " Encoding[" << currentItem << "] " << item.getType().toString() << " " << codec.getCategoryDescription().getCategory() << "/" << item.getId() << ": " << item.getDescription() << std::endl;
 
         switch(item.getType().toValue())
         {
@@ -113,6 +113,8 @@ size_t BinaryAsterixEncoder::encodePayload(const CodecDescription& codec, ValueE
         {
             bufferPosition += len;
             fspec.addItem();
+            if (_policy.verbose)
+                std::cout << "    encoded data length: " << len << "bytes" << std::endl;
         }
         else
         {
@@ -185,7 +187,7 @@ size_t BinaryAsterixEncoder::encodeRepetitive(const ItemDescription& item, Value
 
     //valueEncoder.
     auto count = valueEncoder.getArraySize(firstItemCode);
-    // Empty array - no encoding
+    // Empty array - no encoding - velkost prveho pola je smerodatna
     if (count == 0)
         return 0;
 
@@ -303,7 +305,11 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
 {
     const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
     Poco::UInt64 data = 0;
+    Poco::UInt64 data2 = 0;
     bool encoded = false;
+    int length = fixed.length;
+
+    poco_assert(length <= 16);
 
     for (const BitsDescription& bits : bitsDescriptions)
     {
@@ -340,19 +346,45 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
                     std::cout << "  " << bits.name << "[" << index << "] = " << (value&mask) << " (" << context.width << " bits)"<< std::endl;
             }
 
-            data |= ((value & mask) << leftShift);
+            if (leftShift < 63)
+            {
+                data |= ((value & mask) << leftShift);
+                // FIXME: prechod cez hranicu 8 bajtov
+                if ((leftShift+context.width) >= 64)
+                {
+                    data2 |= ((value & mask) >> (64-leftShift));
+                }
+            }
+            else
+            {
+                data2 |= ((value & mask) << (leftShift-64));
+            }
         }
     }
 
     if (encoded)
     {
-        int len = fixed.length;
-        ByteUtils::pokeBigEndian(buffer, data, len);
+        if (length <= 8)
+        {
+            ByteUtils::pokeBigEndian(buffer, data, length);
+        }
+        else
+        {
+            auto partialLen = 8-length;
+            ByteUtils::pokeBigEndian(buffer, data2, partialLen);
+            ByteUtils::pokeBigEndian(buffer+partialLen, data, 8);
+        }
+
         if (_policy.verbose)
         {
-            std::cout << "   " << Poco::NumberFormatter::formatHex(data, len*2) << std::endl;
+            if (length <= 8)
+                std::cout << "   " << Poco::NumberFormatter::formatHex(data, length*2) << std::endl;
+            else
+            {
+                std::cout << "   " << Poco::NumberFormatter::formatHex(data2, (8 - length)*2) << ' ' << Poco::NumberFormatter::formatHex(data, 8*2) << std::endl;
+            }
         }
-        return len;
+        return length;
     }
 
     return 0;
