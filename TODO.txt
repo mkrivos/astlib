@@ -1,7 +1,6 @@
 Global
 --------------------------------------
 + Windows DLL EXPORT
-- cat 62 ma polozky ktore maju viac ako 64bitov ... spracovat ako 2x 64bit ?
 - move rule/mandatory from DataItem to UAPItem (because this UAP property)
  
 Decoding

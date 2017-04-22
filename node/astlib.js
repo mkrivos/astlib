@@ -32,15 +32,15 @@ describe('AsterixRecord', function() {
 
 		it('Real Number Array', function() {
 			var pi2 = [ 3.14, 6.28 ];
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT) == false);
-			astlib.allocateArray(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT, 2);
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT) == true);
-			astlib.setNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT, pi2[0], 0);
-			assert(astlib.getNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT, 0) == pi2[0]);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE) == false);
+			astlib.allocateArray(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE, 2);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE) == true);
+			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE, pi2[0], 0);
+			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE, 0) == pi2[0]);
 			
-			astlib.setNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT, pi2[1], 1);
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT) == true);	
-			assert(astlib.getNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_LAT, 1) == pi2[1]);
+			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE, pi2[1], 1);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE) == true);	
+			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_LATITUDE, 1) == pi2[1]);
 		});
 
 		it('Integer Number', function() {
@@ -53,14 +53,14 @@ describe('AsterixRecord', function() {
 
 		it('Integer Number Array', function() {
 			var i2 = [ 3, -6 ];
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM) == false);
-			astlib.allocateArray(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM, 2);
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM) == true);
-			astlib.setNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM, i2[0], 0);
-			assert(astlib.getNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM, 0) == i2[0]);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER) == false);
+			astlib.allocateArray(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, 2);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER) == true);
+			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, i2[0], 0);
+			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, 0) == i2[0]);
 			
-			astlib.setNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM, i2[1], 1);
-			assert(astlib.getNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TCPNUM, 1) == i2[1]);
+			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, i2[1], 1);
+			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, 1) == i2[1]);
 		});
 
 		it('Unsigned Number', function() {
@@ -73,14 +73,14 @@ describe('AsterixRecord', function() {
 
 		it('Unsigned Number Array', function() {
 			var i2 = [ 34324563466, 67457456375 ];
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD) == false);
-			astlib.allocateArray(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD, 2);
-			assert(astlib.hasItem(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD) == true);
-			astlib.setNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD, i2[0], 0);
-			assert(astlib.getNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD, 0) == i2[0]);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD) == false);
+			astlib.allocateArray(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD, 2);
+			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD) == true);
+			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD, i2[0], 0);
+			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD, 0) == i2[0]);
 			
-			astlib.setNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD, i2[1], 1);
-			assert(astlib.getNumberAt(asterixRecord, ASTERIX.AICRAFT_DERIVED_TD, 1) == i2[1]);
+			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD, i2[1], 1);
+			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_TD, 1) == i2[1]);
 		});
 
 		it('String', function() {
@@ -126,7 +126,7 @@ describe('AsterixRecord', function() {
 		});
 		 */
 		it('Stringify', function() {
-			assert.equal(astlib.toString(asterixRecord).length, 309);	
+			assert.equal(astlib.toString(asterixRecord).length, 332);	
 		});
 	
 		// TODO: JSONify

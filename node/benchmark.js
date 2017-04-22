@@ -13,6 +13,7 @@
 var astlib = require('./build/Release/addon.node');
 const ASTERIX = require('./asterixitems.js');
 
+
 var asterixRecord = astlib.createAsterixRecord();
 var codecs = astlib.enumerateAllCodecs();
 var plot = astlib.createAsterixRecord();

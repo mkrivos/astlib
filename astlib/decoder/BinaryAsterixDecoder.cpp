@@ -184,55 +184,6 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
     return int(localPtr-startPtr);
 }
 
-void BinaryAsterixDecoder::decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder, int index, int arraySize)
-{
-    const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
-    Poco::UInt64 data = 0;
-
-    for (int i = 0; i < fixed.length; i++)
-    {
-        data <<= 8;
-        data |= localPtr[i];
-    }
-
-    for (const BitsDescription& bits : bitsDescriptions)
-    {
-        CodecContext context(uapItem, _policy, bits, _depth);
-
-        if (_policy.verbose)
-        {
-            std::cout << "  decode " << bits.toString() << std::endl;
-        }
-
-        if (context.width == 1)
-        {
-            // Send non FX bits only
-            if (!bits.fx)
-            {
-                Poco::UInt64 value = ((data >> (bits.bit - 1)) & 1);
-                if (index == 0)
-                {
-                    // Preinitialize array
-                    valueDecoder.beginArray(bits.code, arraySize);
-                }
-                valueDecoder.decode(context, value, index);
-            }
-        }
-        else
-        {
-            Poco::UInt64 mask = bits.bitMask();
-            Poco::UInt64 value = ((data >> (bits.to - 1)) & mask);
-
-            if (index == 0)
-            {
-                // Preinitialize array
-                valueDecoder.beginArray(bits.code, arraySize);
-            }
-            valueDecoder.decode(context, value, index);
-        }
-    }
-}
-
 int BinaryAsterixDecoder::decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
 {
     const FixedItemDescription& fixedItem = static_cast<const FixedItemDescription&>(uapItem);
@@ -362,6 +313,87 @@ int BinaryAsterixDecoder::decodeCompound(const ItemDescription& uapItem, ValueDe
     }
 
     return allByteCount;
+}
+
+void BinaryAsterixDecoder::decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte* localPtr, ValueDecoder& valueDecoder, int index, int arraySize)
+{
+    const BitsDescriptionArray& bitsDescriptions = fixed.bitsDescriptions;
+    Poco::UInt64 data = 0;
+    Poco::UInt64 data2 = 0;
+    int length = fixed.length;
+    Poco::UInt64 value;
+
+    for (int i = 0; i < length; i++)
+    {
+    	data2 <<= 8;
+    	data2 |= ((data >> 56) & 0xFF);
+        data <<= 8;
+        data |= localPtr[i];
+    }
+
+    for (const BitsDescription& bits : bitsDescriptions)
+    {
+        CodecContext context(uapItem, _policy, bits, _depth);
+        bool over64bits = bits.to > 64;
+
+        if (_policy.verbose)
+        {
+            std::cout << "  decode " << bits.toString() << std::endl;
+        }
+
+        if (context.width == 1)
+        {
+            int lowBit = bits.bit - 1;
+            // Send non FX bits only
+            if (!bits.fx)
+            {
+                if (!over64bits)
+                	value = ((data >> lowBit) & 1);
+                else
+                	value = ((data2 >> (lowBit-64)) & 1);
+
+                if (index == 0)
+                {
+                    // Preinitialize array
+                    valueDecoder.beginArray(bits.code, arraySize);
+                }
+                valueDecoder.decode(context, value, index);
+            }
+        }
+        else
+        {
+            Poco::UInt64 mask = bits.bitMask();
+            int lowBit = bits.to - 1;
+
+            if (!over64bits)
+            {
+            	value = ((data >> lowBit) & mask);
+            }
+            else
+            {
+            	if (lowBit >= 64)
+            	{
+            		value = ((data2 >> (lowBit-64)) & mask);
+            	}
+            	else
+            	{
+            		// partially data and data2
+            		int shift1 = lowBit;
+            		int shift2 = 64-lowBit;
+            		Poco::UInt64 aux1 = ((data & (mask<<lowBit)) >> shift1);
+            		Poco::UInt64 aux2 = (data2 << shift2) & mask;
+            		value = (aux1 | aux2) & mask;
+            	}
+            }
+
+            if (index == 0)
+            {
+                // Preinitialize array
+                valueDecoder.beginArray(bits.code, arraySize);
+            }
+            valueDecoder.decode(context, value, index);
+        }
+    }
 }
 
 } /* namespace astlib */

@@ -140,15 +140,19 @@ TEST_F( BinaryDataEncoderTest, aircraftDerivedData62)
 
     record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 2);
     record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 42.67, 0);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, -64542.7, 1);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, -6.7, 1);
 
     record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, 2);
     record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, 42.67, 0);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, -64542.7, 1);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, -6.7, 1);
 
     std::vector<Byte> buffer;
     astlib::SimpleValueEncoder valueEncoder(record);
     encoder.encode(*codecSpecification62, valueEncoder, buffer);
+
+    for(unsigned char byte: buffer)
+        std::cout << Poco::NumberFormatter::formatHex(byte, 2, false) << " ";
+    std::cout << std::endl;
 
     decoder.decode(*codecSpecification62, valueDecoder, buffer.data(), buffer.size());
     auto record2 = valueDecoder.msg;

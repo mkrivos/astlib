@@ -26,6 +26,9 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int 
 
     //if (!code.value) std::cout << "ZERO " << ctx.bits.toString() << std::endl;
 
+//    if (code.value == TRAJECTORY_INTENT_TCP_TTR_CODE.value)
+//    	std::cout << "Skipped " << ctx.bits.toString() << std::endl;
+
     if (index == -1 && code.isArray())
     {
         throw Exception("TypedValueDecoder::decode: " + asterixCodeToSymbol(code) + " array expects an index");

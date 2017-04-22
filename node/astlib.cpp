@@ -192,7 +192,7 @@ v8::Handle<v8::Value> encodeAsterixRecord(AsterixRecordWrapper& obj, const std::
     {
         std::vector<astlib::Byte> buffer;
         astlib::CodecPolicy policy;
-        policy.verbose = true;
+        policy.verbose = false;
         astlib::BinaryAsterixEncoder encoder(policy);
 
         try

@@ -370,7 +370,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
         }
         else
         {
-            auto partialLen = 8-length;
+            auto partialLen = length-8;
             ByteUtils::pokeBigEndian(buffer, data2, partialLen);
             ByteUtils::pokeBigEndian(buffer+partialLen, data, 8);
         }
