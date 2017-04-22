@@ -101,6 +101,8 @@ public:
 
     void loadCategory(const Poco::XML::Element& root)
     {
+        _signature = "cat" + root.getAttribute("id") + "-" + root.getAttribute("ver");
+
         for (auto node = root.firstChild(); node; node = node->nextSibling())
         {
             const Poco::XML::Element* element = dynamic_cast<Poco::XML::Element*>(node);
@@ -269,7 +271,7 @@ public:
                     auto len = Poco::NumberParser::parse(parent.getAttribute("length"));
                     if (len > 8)
                     {
-                        std::cout << bits.name << " " << len << " bytes\n";
+                       // std::cout << bits.name << " " << len << " bytes\n";
                     }
                 }
 
@@ -377,9 +379,13 @@ public:
                 std::cerr << bits.name << " type differs " << item.getType().toString() << " from " << type.toString() << std::endl;
             }
         }
+
+        categories[bits.name].insert(_signature);
     }
 
     std::map<std::string, astlib::PrimitiveItem> symbols;
+    std::map<std::string, std::set<std::string>> categories;
+    std::string _signature;
 };
 
 
@@ -409,17 +415,31 @@ int main(int argc, char* argv[])
         auto& globals = bits.symbols;
 
         {
+            for(auto file: files)
+            {
+                bits.load(file);
+            }
+
+            {
+            	Poco::FileOutputStream csv("asterix_items.csv");
+				for (const auto& entry : globals)
+				{
+					astlib::PrimitiveItem item = entry.second;
+
+					csv << item.getType().toString() << ", " << (item.isArray() ? " Vector, " : " Scalar, " ) << entry.first << ", " << "\"" << item.getDescription() << "\",";
+					for(auto cat: bits.categories[entry.first])
+					{
+						csv << "\"" << cat << "\"" << ',';
+					}
+					csv << std::endl;
+				}
+            }
+
             Poco::FileOutputStream header(module + ".h");
             header << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
             header << "#pragma once" << std::endl << std::endl;
             header << "#include \"astlib/AsterixItemCode.h\"" << std::endl << std::endl;
             header << "namespace astlib {" << std::endl << std::endl;
-
-
-            for(auto file: files)
-            {
-                bits.load(file);
-            }
 
             int index = 1;
             for (const auto& entry : globals)
