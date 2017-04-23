@@ -134,17 +134,17 @@ TEST_F( BinaryDataEncoderTest, aircraftDerivedData62)
 {
     auto record = std::make_shared<astlib::SimpleAsterixRecord>();
 
-    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE_CODE, 2);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE_CODE, true, 0);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE_CODE, false, 1);
+    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE, 2);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE, true, 0);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_UNAVAILABLE, false, 1);
 
-    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 2);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 42.67, 0);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, -6.7, 1);
+    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, 2);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, 42.67, 0);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, -6.7, 1);
 
-    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, 2);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, 42.67, 0);
-    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE_CODE, -6.7, 1);
+    record->initializeArray(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE, 2);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE, 42.67, 0);
+    record->setItem(astlib::TRAJECTORY_INTENT_TCP_LONGITUDE, -6.7, 1);
 
     std::vector<Byte> buffer;
     astlib::SimpleValueEncoder valueEncoder(record);
@@ -156,13 +156,13 @@ TEST_F( BinaryDataEncoderTest, aircraftDerivedData62)
 
     decoder.decode(*codecSpecification62, valueDecoder, buffer.data(), buffer.size());
     auto record2 = valueDecoder.msg;
-    std::cout << record2->toString() << std::endl;
+    //std::cout << record2->toString() << std::endl;
     double value;
-    EXPECT_TRUE(record->hasItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE));
-    EXPECT_TRUE(record->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, value, 0));
-    EXPECT_EQ(42.67, value);
-    EXPECT_TRUE(record->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE_CODE, value, 1));
-    EXPECT_EQ(-64542.7, value);
+    EXPECT_TRUE(record2->hasItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE));
+    EXPECT_TRUE(record2->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, value, 0));
+    EXPECT_NEAR(42.67, value, 0.001);
+    EXPECT_TRUE(record2->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, value, 1));
+    EXPECT_NEAR(-6.7, value, 0.01);
 
 }
 
@@ -171,25 +171,25 @@ TEST_F( BinaryDataEncoderTest, mbDataEncode)
     std::vector<Byte> buffer;
 
     auto record = std::make_shared<astlib::SimpleAsterixRecord>();
-    record->setItem(DSI_SAC_CODE, 44);
-    record->setItem(DSI_SIC_CODE, 144);
-    record->setItem(TIMEOFDAY_CODE, 3600);
-    record->setItem(TRACK_DETECTION_CODE, 3);
-    record->setItem(TRACK_TEST_CODE, true);
-    record->setItem(TRACK_SIMULATED_CODE, true);
+    record->setItem(DSI_SAC, 44);
+    record->setItem(DSI_SIC, 144);
+    record->setItem(TIMEOFDAY, 3600);
+    record->setItem(TRACK_DETECTION, 3);
+    record->setItem(TRACK_TEST, true);
+    record->setItem(TRACK_SIMULATED, true);
 
-    record->setItem(TRACK_POSITION_RANGE_CODE, 10000.0);
-    record->setItem(TRACK_POSITION_AZIMUTH_CODE, 45.0);
+    record->setItem(TRACK_POSITION_RANGE, 10000.0);
+    record->setItem(TRACK_POSITION_AZIMUTH, 45.0);
 
-    record->setItem(MODE3A_V_CODE, true);
-    record->setItem(MODE3A_G_CODE, true);
-    record->setItem(MODE3A_L_CODE, true);
-    record->setItem(MODE3A_VALUE_CODE, 7777);
+    record->setItem(MODE3A_V, true);
+    record->setItem(MODE3A_G, true);
+    record->setItem(MODE3A_L, true);
+    record->setItem(MODE3A_VALUE, 7777);
 
-    record->setItem(AIRCRAFT_IDENTIFICATION_CODE, "PAKON321");
-    record->initializeArray(MODES_MBDATA_CODE, 2);
-    record->setItem(MODES_MBDATA_CODE, "0123456AB12345", 0);
-    record->setItem(MODES_MBDATA_CODE, "01010101ABABAB", 1);
+    record->setItem(AIRCRAFT_IDENTIFICATION, "PAKON321");
+    record->initializeArray(MODES_MBDATA, 2);
+    record->setItem(MODES_MBDATA, "0123456AB12345", 0);
+    record->setItem(MODES_MBDATA, "01010101ABABAB", 1);
 
     astlib::SimpleValueEncoder valueEncoder(record);
     encoder.encode(*codecSpecification48, valueEncoder, buffer);
@@ -198,20 +198,20 @@ TEST_F( BinaryDataEncoderTest, mbDataEncode)
     auto record2 = valueDecoder.msg;
 
     Poco::UInt64 mode3aValue;
-    EXPECT_TRUE(record2->getUnsigned(MODE3A_VALUE_CODE, mode3aValue));
+    EXPECT_TRUE(record2->getUnsigned(MODE3A_VALUE, mode3aValue));
     EXPECT_EQ(7777, mode3aValue);
 
     std::string ident;
-    EXPECT_TRUE(record2->getString(AIRCRAFT_IDENTIFICATION_CODE, ident));
+    EXPECT_TRUE(record2->getString(AIRCRAFT_IDENTIFICATION, ident));
     EXPECT_EQ("PAKON321", ident);
 
     std::string mbdata;
-    EXPECT_TRUE(record2->getString(MODES_MBDATA_CODE, mbdata, 0));
+    EXPECT_TRUE(record2->getString(MODES_MBDATA, mbdata, 0));
     EXPECT_EQ("0123456AB12345", mbdata);
 
-    EXPECT_TRUE(record2->getString(MODES_MBDATA_CODE, mbdata, 1));
+    EXPECT_TRUE(record2->getString(MODES_MBDATA, mbdata, 1));
     EXPECT_EQ("01010101ABABAB", mbdata);
 
-    EXPECT_THROW(record2->getString(MODES_MBDATA_CODE, mbdata, 2), Poco::Exception);
+    EXPECT_THROW(record2->getString(MODES_MBDATA, mbdata, 2), Poco::Exception);
 }
 

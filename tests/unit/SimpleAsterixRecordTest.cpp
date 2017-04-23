@@ -120,15 +120,15 @@ TEST_F(SimpleAsterixMessageTest, toString)
     SimpleAsterixRecord msg;
     double value = 0;
 
-    msg.initializeArray(TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 2);
-    msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE_CODE, 42.67, 0);
-    msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE_CODE, -64542.7, 1);
+    msg.initializeArray(TRAJECTORY_INTENT_TCP_LATITUDE, 2);
+    msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE, 42.67, 0);
+    msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE, -64542.7, 1);
 
-    EXPECT_TRUE(msg.hasItem(TRAJECTORY_INTENT_TCP_LATITUDE_CODE));
-    EXPECT_TRUE(msg.getReal(TRAJECTORY_INTENT_TCP_LATITUDE_CODE, value, 0));
+    EXPECT_TRUE(msg.hasItem(TRAJECTORY_INTENT_TCP_LATITUDE));
+    EXPECT_TRUE(msg.getReal(TRAJECTORY_INTENT_TCP_LATITUDE, value, 0));
     EXPECT_EQ(42.67, value);
-    EXPECT_TRUE(msg.getReal(TRAJECTORY_INTENT_TCP_LATITUDE_CODE, value, 1));
+    EXPECT_TRUE(msg.getReal(TRAJECTORY_INTENT_TCP_LATITUDE, value, 1));
     EXPECT_EQ(-64542.7, value);
 
-    std::cout << TRAJECTORY_INTENT_TCP_LATITUDE_CODE.code() << " " << msg.toString() << std::endl;
+    std::cout << TRAJECTORY_INTENT_TCP_LATITUDE.code() << " " << msg.toString() << std::endl;
 }
