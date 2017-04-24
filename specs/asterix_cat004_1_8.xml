@@ -70,11 +70,11 @@
             <Repetitive>
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>spds.sac</BitsShortName>
+                    <BitsShortName>sdps.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>spds.sic</BitsShortName>
+                    <BitsShortName>sdps.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
