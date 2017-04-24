@@ -19,7 +19,7 @@
     Modified:  05.05.2014. (dsalantic) Item 110 format fixed
 -->
 
-<Category id="62" name="SDPS Track Messages" ver="1.16">
+<Category id="062" name="SDPS Track Messages" ver="1.16">
     
     <DataItem id="010" rule="mandatory" >
         <DataItemName>Data Source Identifier</DataItemName> 
@@ -1468,8 +1468,8 @@
         <DataItemFormat desc="One octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>vehicle.fleet.id</BitsShortName>
-                    <BitsName>VFI</BitsName>
+                    <BitsShortName>vehicle.fleet.identification</BitsShortName>
+                    <BitsName>Vehicle Fleet Identification</BitsName>
                     <BitsValue val="0">Unknown</BitsValue>
           <BitsValue val="1">ATC equipment maintenance</BitsValue>
           <BitsValue val="2">Airport maintenance</BitsValue>
@@ -1968,28 +1968,28 @@
 			                <BitsValue val="0">TCP compliance</BitsValue>
 			                <BitsValue val="1">TCP non-compliance</BitsValue>
 			            </Bits>
-			                        <Bits from="118" to="113" encode="signed">
-			                            <BitsShortName>trajectory.intent.TCP.number</BitsShortName>
-			                            <BitsName>Trajectory Change Point number</BitsName>
-			            </Bits>
-			            <Bits from="112" to="97" encode="signed">
-			                            <BitsShortName>trajectory.intent.tcp.altitude</BitsShortName>
-			                <BitsName>Altitude</BitsName>
-			                <BitsUnit scale="10" min="-1500" max="150000">ft</BitsUnit>
-			            </Bits>
-			            <Bits from="96" to="73" encode="signed">
-			                            <BitsShortName>trajectory.intent.tcp.Latitude</BitsShortName>
-			                            <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; Lat &lt; 90 deg.</BitsName>
-			                <BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
-			            </Bits>
-			            <Bits from="72" to="49" encode="signed">
-			                            <BitsShortName>trajectory.intent.tcp.Longitude</BitsShortName>
-			                            <BitsName>Longitude In WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
-			                            <BitsUnit scale="0.000021457672119140625" min="-180" max="180">deg</BitsUnit>
-			            </Bits>
+						<Bits from="118" to="113">
+							<BitsShortName>trajectory.intent.TCP.number</BitsShortName>
+							<BitsName>Trajectory Change Point number</BitsName>
+						</Bits>
+						<Bits from="112" to="97" encode="signed">
+							<BitsShortName>trajectory.intent.tcp.altitude</BitsShortName>
+							<BitsName>Altitude</BitsName>
+							<BitsUnit scale="10" min="-1500" max="150000">ft</BitsUnit>
+						</Bits>
+						<Bits from="96" to="73" encode="signed">
+							<BitsShortName>trajectory.intent.tcp.Latitude</BitsShortName>
+							<BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; Lat	&lt; 90 deg.</BitsName>
+							<BitsUnit scale="0.000021457672119140625" min="-90" max="90">deg</BitsUnit>
+						</Bits>
+						<Bits from="72" to="49" encode="signed">
+							<BitsShortName>trajectory.intent.tcp.Longitude</BitsShortName> 
+							<BitsName>Longitude In WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
+							<BitsUnit scale="0.000021457672119140625" min="-180" max="180">deg</BitsUnit>
+						</Bits>
 			            <Bits from="48" to="45">
-			                            <BitsShortName>trajectory.intent.tcp.type</BitsShortName>
-			                            <BitsName>Point type</BitsName>
+		                    <BitsShortName>trajectory.intent.tcp.type</BitsShortName>
+		                    <BitsName>Point type</BitsName>
 			                <BitsValue val="0">Unknown</BitsValue>
 			                <BitsValue val="1">Fly by waypoint (LT)</BitsValue>
 			                <BitsValue val="2">Fly over waypoint (LT)</BitsValue>
@@ -2023,12 +2023,12 @@
 			                <BitsValue val="0">TOV available</BitsValue>
 			                <BitsValue val="1">TOV not available</BitsValue>
 			            </Bits>
-			                <Bits from="40" to="17" encode="unsigned">
+			                <Bits from="40" to="17">
 			                <BitsShortName>trajectory.intent.tcp.TOV</BitsShortName>
 			                <BitsName>Time Over Point</BitsName>
 			                <BitsUnit scale="1">s</BitsUnit>
 			            </Bits>
-			                <Bits from="16" to="1" encode="unsigned">
+			                <Bits from="16" to="1">
 			                <BitsShortName>trajectory.intent.tcp.TTR</BitsShortName>
 			                <BitsName>Turn radius</BitsName>
 			                <BitsUnit scale="0.01" min="0" max="655.35">Nm</BitsUnit>

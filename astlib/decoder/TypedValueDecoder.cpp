@@ -94,8 +94,12 @@ void TypedValueDecoder::decode(const CodecContext& ctx, Poco::UInt64 value, int 
             switch (encoding)
             {
                 case Encoding::Ascii:
-                    decodeString(ctx, "", index);
+                {
+                    std::string str((const char*)&value, ctx.bits.effectiveBitsWidth()/8);
+                    std::reverse(str.begin(), str.end());
+                    decodeString(ctx, str, index);
                     break;
+                }
                 case Encoding::Octal:
                     decodeUnsigned(ctx, ByteUtils::oct2dec(value), index);
                     break;

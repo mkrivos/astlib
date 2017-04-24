@@ -18,6 +18,9 @@
 namespace astlib
 {
 
+class ASTLIB_API SimpleAsterixRecord;
+using SimpleAsterixRecordPtr = std::shared_ptr<SimpleAsterixRecord>;
+
 /**
  * Trivial implementation of AsterixRecord based on std::map.
  */
@@ -105,6 +108,8 @@ public:
      */
     std::string toString() const override;
 
+    std::string toJson() const;
+
     /**
      * @return initialized items count
      */
@@ -115,10 +120,11 @@ public:
      */
     void clear();
 
+    static SimpleAsterixRecordPtr fromJson(const std::string& json);
+
 private:
     std::map<AsterixItemCode, Poco::Dynamic::Var> _items;
 };
 
-using SimpleAsterixRecordPtr = std::shared_ptr<SimpleAsterixRecord>;
 
 } /* namespace astlib */

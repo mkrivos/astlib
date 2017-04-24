@@ -102,12 +102,15 @@ public:
     void loadCategory(const Poco::XML::Element& root)
     {
         _signature = "cat" + root.getAttribute("id") + "-" + root.getAttribute("ver");
+        std::cout << "Compiling: " << _signature << std::endl;
 
         for (auto node = root.firstChild(); node; node = node->nextSibling())
         {
             const Poco::XML::Element* element = dynamic_cast<Poco::XML::Element*>(node);
             if (element)
             {
+                _itemId = root.getAttribute("id") + "/" + element->getAttribute("id");
+
                 auto name = element->nodeName();
                 if (name == "DataItem")
                 {
@@ -367,25 +370,43 @@ public:
         if (symbols.find(bits.name) == symbols.end())
         {
             symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat);
+            //std::cout << bits.name << " for " << _signature << std::endl;
         }
         else
         {
             astlib::PrimitiveItem item = symbols[bits.name];
-            if (item.getDescription().empty() || (item.getDescription().size() < bits.description.size()))
-                symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
 
-            if (item.getType() != type)
+            if (item.getDescription().empty() || (item.getDescription().size() < bits.description.size()))
+            {
+                symbols[bits.name].setDescription(bits.description);
+                //astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
+            }
+
+            if (bits.repeat)
+            {
+                symbols[bits.name].setArrayType(true);
+            }
+
+            // Existing type is lower
+            if (item.getType().toValue() != type.toValue())
             {
                 std::cerr << bits.name << " type differs " << item.getType().toString() << " from " << type.toString() << std::endl;
+
+                if (item.getType().toValue() < type.toValue())
+                {
+                    symbols[bits.name].setType(type);
+                    std::cerr << "  change type to " << type.toString() << " will be ignored" << std::endl;
+                }
             }
         }
 
-        categories[bits.name].insert(_signature);
+        categories[bits.name].insert(_itemId);
     }
 
     std::map<std::string, astlib::PrimitiveItem> symbols;
     std::map<std::string, std::set<std::string>> categories;
     std::string _signature;
+    std::string _itemId;
 };
 
 

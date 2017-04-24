@@ -114,9 +114,20 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
             switch (encoding)
             {
                 case Encoding::Ascii:
-                    // FIXME:
-                    //encoded = encodeString(ctx, "");
+                {
+                    std::string str;
+                    encoded = encodeString(ctx, str, index);
+                    if (encoded)
+                    {
+                        //std::reverse(str.begin(), str.end());
+                        for(Byte byte: str)
+                        {
+                            value <<= 8;
+                            value |= byte;
+                        }
+                    }
                     break;
+                }
                 case Encoding::Octal:
                 {
                     Poco::UInt64 aux = 0;

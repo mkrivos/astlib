@@ -2,6 +2,7 @@ Global
 --------------------------------------
 + Windows DLL EXPORT
 - move rule/mandatory from DataItem to UAPItem (because this UAP property)
+- conditional UAP item decoding (after message.type for cat 10)
  
 Decoding
 --------------------------------------

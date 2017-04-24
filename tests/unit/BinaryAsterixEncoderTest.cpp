@@ -158,11 +158,19 @@ TEST_F( BinaryDataEncoderTest, aircraftDerivedData62)
     auto record2 = valueDecoder.msg;
     //std::cout << record2->toString() << std::endl;
     double value;
+<<<<<<< HEAD
     EXPECT_TRUE(record2->hasItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE));
     EXPECT_TRUE(record2->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, value, 0));
     EXPECT_NEAR(42.67, value, 0.001);
     EXPECT_TRUE(record2->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, value, 1));
     EXPECT_NEAR(-6.7, value, 0.01);
+=======
+    EXPECT_TRUE(record->hasItem(astlib::TRAJECTORY_INTENT_TCP_LATITUDE));
+    EXPECT_TRUE(record->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, value, 0));
+    EXPECT_EQ(42.67, value);
+    EXPECT_TRUE(record->getReal(astlib::TRAJECTORY_INTENT_TCP_LATITUDE, value, 1));
+    EXPECT_EQ(-6.7, value);
+>>>>>>> 46f3d68df76f2ac547e1908d7153ab2a82fbd9f2
 
 }
 

@@ -29,6 +29,10 @@ public:
     bool isArray() const;
     PrimitiveType getType() const;
 
+    void setArrayType(bool arrayType);
+    void setDescription(const std::string& description);
+    void setType(const PrimitiveType& type);
+
 private:
     std::string _name;
     std::string _description;

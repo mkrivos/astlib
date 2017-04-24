@@ -52,10 +52,12 @@ describe('AsterixRecord', function() {
 		});
 
 		it('Integer Number Array', function() {
-			var i2 = [ 3, -6 ];
+			var i2 = [ 3, 6 ];
 			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER) == false);
+			
 			astlib.allocateArray(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, 2);
 			assert(astlib.hasItem(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER) == true);
+
 			astlib.setNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, i2[0], 0);
 			assert(astlib.getNumberAt(asterixRecord, ASTERIX.TRAJECTORY_INTENT_TCP_NUMBER, 0) == i2[0]);
 			
@@ -126,7 +128,7 @@ describe('AsterixRecord', function() {
 		});
 		 */
 		it('Stringify', function() {
-			assert.equal(astlib.toString(asterixRecord).length, 332);	
+			assert.equal(331, astlib.toString(asterixRecord).length);	
 		});
 	
 		// TODO: JSONify
@@ -204,7 +206,7 @@ describe('Asterix Encoder/Decoder', function() {
 			astlib.setNumber(plot, ASTERIX.MODE2_VALUE, 7777);
 			
 			astlib.setNumber(plot, ASTERIX.TRACK_NUMBER, 1111);
-			astlib.setString(plot, ASTERIX.AIRCRAFT_ADDRESS, '23FFAA');
+			astlib.setString(plot, ASTERIX.TARGET_ADDRESS, '23FFAA');
 			astlib.setString(plot, ASTERIX.AIRCRAFT_IDENTIFICATION, 'PAKON321');
 			
 			console.log(astlib.toString(plot));
@@ -227,7 +229,7 @@ describe('Asterix Encoder/Decoder', function() {
 			assert.equal(astlib.getNumber(plot, ASTERIX.MODE2_VALUE), astlib.getNumber(record, ASTERIX.MODE2_VALUE));
 			
 			assert.equal(astlib.getNumber(plot, ASTERIX.TRACK_NUMBER), astlib.getNumber(record, ASTERIX.TRACK_NUMBER));
-			assert.equal(astlib.getString(plot, ASTERIX.AIRCRAFT_ADDRESS), astlib.getString(record, ASTERIX.AIRCRAFT_ADDRESS));
+			assert.equal(astlib.getString(plot, ASTERIX.TARGET_ADDRESS), astlib.getString(record, ASTERIX.TARGET_ADDRESS));
 			assert.equal(astlib.getString(plot, ASTERIX.AIRCRAFT_IDENTIFICATION), astlib.getString(record, ASTERIX.AIRCRAFT_IDENTIFICATION));
 		});		
 	}); 	
