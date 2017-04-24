@@ -104,7 +104,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="1">
-                    <BitsShortName>TrkN</BitsShortName>
+                    <BitsShortName>conflict.track.number1</BitsShortName>
                     <BitsName>Track number</BitsName>
                 </Bits>
             </Fixed>
@@ -118,7 +118,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="1">
-                    <BitsShortName>TrkN</BitsShortName>
+                    <BitsShortName>conflict.track.number2</BitsShortName>
                     <BitsName>Track number</BitsName>
                 </Bits>
             </Fixed>
@@ -132,7 +132,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="1">
-                    <BitsShortName>AlrtI</BitsShortName>
+                    <BitsShortName>conflict.alert.identifier</BitsShortName>
                     <BitsName>Alert Identifier</BitsName>
                 </Bits>
             </Fixed>
@@ -151,7 +151,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="4" to="2">
-                    <BitsShortName>STAT</BitsShortName>
+                    <BitsShortName>conflict.alert.status</BitsShortName>
                     <BitsName>Status of the alert</BitsName>
                 </Bits>
                 <Bits bit="1">
@@ -171,37 +171,37 @@
             <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>MRVA</BitsShortName>
+                        <BitsShortName>safetynet.status.MRVA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">MRVA function</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>RAMLD</BitsShortName>
+                        <BitsShortName>safetynet.status.RAMLD</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">RAMLD function</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>RAMHD</BitsShortName>
+                        <BitsShortName>safetynet.status.RAMHD</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">RAMHD function</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>MSAW</BitsShortName>
+                        <BitsShortName>safetynet.status.MSAW</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">MSAW function</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>APW</BitsShortName>
+                        <BitsShortName>safetynet.status.APW</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">APW function</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>CLAM</BitsShortName>
+                        <BitsShortName>safetynet.status.CLAM</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">CLAM function</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>STCA</BitsShortName>
+                        <BitsShortName>safetynet.status.STCA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">STCA function</BitsValue>
                     </Bits>
@@ -213,37 +213,37 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>AFDA</BitsShortName>
+                        <BitsShortName>safetynet.status.AFDA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">AFDA function</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>RIMCA</BitsShortName>
+                        <BitsShortName>safetynet.status.RIMCA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">RIMCA function</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>ACASRA</BitsShortName>
+                        <BitsShortName>safetynet.status.ACASRA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">ACAS RA function</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>NTCA</BitsShortName>
+                        <BitsShortName>safetynet.status.NTCA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">NTCA function</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>DG</BitsShortName>
+                        <BitsShortName>safetynet.status.DG</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">System degraded</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>OF</BitsShortName>
+                        <BitsShortName>safetynet.status.OF</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Overflow error</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>OL</BitsShortName>
+                        <BitsShortName>safetynet.status.OL</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Overload error</BitsValue>
                     </Bits>
@@ -310,43 +310,43 @@
                 </Variable>
                     <Fixed length="3">
                         <Bits from="24" to="1">
-                            <BitsShortName>TC</BitsShortName>
+                            <BitsShortName>conflict.timeto.conflict</BitsShortName>
                             <BitsName>Time to Conflict</BitsName>
                             <BitsUnit scale="0.0078125">s</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="3">
                         <Bits from="24" to="1">
-                            <BitsShortName>TCA</BitsShortName>
+                            <BitsShortName>conflict.timeto.closestapproach</BitsShortName>
                             <BitsName>Time to Closest Approach</BitsName>
                             <BitsUnit scale="0.0078125">s</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="3">
                         <Bits from="24" to="1">
-                            <BitsShortName>CHS</BitsShortName>
+                            <BitsShortName>conflict.separation.current.horizontal</BitsShortName>
                             <BitsName>Current Horizontal Separation</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1">
-                            <BitsShortName>MHS</BitsShortName>
-                            <BitsName>Estimated Minimun Horizontal Separation</BitsName>
+                            <BitsShortName>conflict.separation.estimated.horizontal</BitsShortName>
+                            <BitsName>Estimated Minimum Horizontal Separation</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1">
-                            <BitsShortName>CVS</BitsShortName>
+                            <BitsShortName>conflict.separation.current.vertical</BitsShortName>
                             <BitsName>Current Vertical Separation</BitsName>
                             <BitsUnit scale="25">ft</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1">
-                            <BitsShortName>MVS</BitsShortName>
-                            <BitsName>Estimated Minimun Vertical Separation</BitsName>
+                            <BitsShortName>conflict.separation.estimated.vertical</BitsShortName>
+                            <BitsName>Estimated Minimum Vertical Separation</BitsName>
                             <BitsUnit scale="25">ft</BitsUnit>
                         </Bits>
                     </Fixed>
@@ -360,7 +360,7 @@
         <DataItemFormat desc="Two-Octet fixed length Data Item">
             <Fixed length="2">
                         <Bits from="16" to="1">
-                            <BitsShortName>LD</BitsShortName>
+                            <BitsShortName>deviation.Longitudinal</BitsShortName>
                             <BitsName>Longitudinal deviation</BitsName>
                             <BitsUnit scale="32">m</BitsUnit>
                         </Bits>
@@ -374,7 +374,7 @@
         <DataItemDefinition>Transversal distance deviation for Route Adherence Monitoring, in two’s complement form.</DataItemDefinition>
         <DataItemFormat desc="Three-Octet fixed length Data Item">
             <Fixed length="3">
-                        <Bits from="24" to="1">
+                        <Bits from="24" to="1" encode="signed" >
                             <BitsShortName>CHS</BitsShortName>
                             <BitsName>Current horizontal separation)</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
@@ -389,7 +389,7 @@
         <DataItemDefinition>Vertical Deviation from planned altitude, in two’s complement form.</DataItemDefinition>
         <DataItemFormat desc="Two-Octet fixed length Data Item">
             <Fixed length="2">
-                        <Bits from="16" to="1">
+                        <Bits from="16" to="1" encode="signed" >
                             <BitsShortName>LD</BitsShortName>
                             <BitsName>Longitudinal deviation</BitsName>
                             <BitsUnit scale="25">ft</BitsUnit>
@@ -746,7 +746,7 @@
                 </Variable>
                     <Fixed length="7">
                         <Bits from="56" to="1" encode="ascii">
-                            <BitsShortName>AI1</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.identifier</BitsShortName>
                             <BitsName>Aircraft Identifier 1</BitsName>
                         </Bits>
                     </Fixed>
@@ -757,54 +757,54 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="12" to="1" encode="octal">
-                            <BitsShortName>M31</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.mode3a</BitsShortName>
                             <BitsName>Mode 3/A Code Aircraft 1</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="10">
                         <Bits from="80" to="49" encode="signed">
-                            <BitsShortName>Latitude</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.Latitude</BitsShortName>
                             <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; latitude &lt; 90 deg.</BitsName>
                             <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                         </Bits>
                         <Bits from="48" to="17" encode="signed">
-                            <BitsShortName>Longitude</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.Longitude</BitsShortName>
                             <BitsName>Longitude in WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
                             <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>Altitude</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.Altitude</BitsShortName>
                             <BitsName>Altitude of predicted conflict</BitsName>
                             <BitsUnit scale="25" min="-1500" max="150000">ft</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="8">
                         <Bits from="64" to="41" encode="signed">
-                            <BitsShortName>X</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.X</BitsShortName>
                             <BitsName>Starting X-position of the conflict</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
                         <Bits from="40" to="17" encode="signed">
-                            <BitsShortName>Y</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.Y</BitsShortName>
                             <BitsName>Starting Y-position of the conflict</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>Z</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.Z</BitsShortName>
                             <BitsName>Starting Z-position of the conflict</BitsName>
                             <BitsUnit scale="25" min="-1500" max="150000">ft</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="3">
                         <Bits from="24" to="1" encode="signed">
-                            <BitsShortName>TTA1</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.TTA</BitsShortName>
                             <BitsName>Time to Threshold Aircraft 1</BitsName>
                             <BitsUnit scale="0.0078125">s</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>DTA1</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.DTA1</BitsShortName>
                             <BitsName>Distance to Threshold Aircraft 1</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
@@ -812,28 +812,28 @@
                 <Variable>
                     <Fixed length="1">
                         <Bits from="8" to="7">
-                            <BitsShortName>GAT/OAT</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.GATOAT</BitsShortName>
                             <BitsValue val="0">Unknown</BitsValue>
                             <BitsValue val="1">General Air Traffic</BitsValue>
                             <BitsValue val="2">Operational Air Traffic</BitsValue>
                             <BitsValue val="3">Not applicable</BitsValue>
                         </Bits>
                         <Bits from="6" to="5">
-                            <BitsShortName>FR1FR2</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.FR1FR2</BitsShortName>
                             <BitsValue val="0">Instrument Flight Rules</BitsValue>
                             <BitsValue val="1">Visual Flight rules</BitsValue>
                             <BitsValue val="2">Not applicable</BitsValue>
                             <BitsValue val="3">Controlled Visual Flight Rules</BitsValue>
                         </Bits>
                         <Bits from="4" to="3">
-                            <BitsShortName>RVSM</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.RVSM</BitsShortName>
                             <BitsValue val="0">Unknown</BitsValue>
                             <BitsValue val="1">Approved</BitsValue>
                             <BitsValue val="2">Exempt</BitsValue>
                             <BitsValue val="3">Not Approved</BitsValue>
                         </Bits>
                         <Bits bit="2">
-                            <BitsShortName>HPR</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.HPR</BitsShortName>
                             <BitsValue val="0">Normal Priority Flight</BitsValue>
                             <BitsValue val="1">High Priority Flight</BitsValue>
                         </Bits>
@@ -845,19 +845,19 @@
                     </Fixed>
                     <Fixed length="1">
                         <Bits from="8" to="7">
-                            <BitsShortName>CDM</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.CDM</BitsShortName>
                             <BitsValue val="0">Maintaining</BitsValue>
                             <BitsValue val="1">Climbing</BitsValue>
                             <BitsValue val="2">Descending</BitsValue>
                             <BitsValue val="3">Invalid</BitsValue>
                         </Bits>
                         <Bits bit="6">
-                            <BitsShortName>PRI</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.PRI</BitsShortName>
                             <BitsValue val="0">Non primary target</BitsValue>
                             <BitsValue val="1">Primary target</BitsValue>
                         </Bits>
                         <Bits bit="5">
-                            <BitsShortName>GV</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.GV</BitsShortName>
                             <BitsValue val="0">Default</BitsValue>
                             <BitsValue val="1">Ground Vehicle</BitsValue>
                         </Bits>
@@ -875,7 +875,7 @@
                 </Variable> 
                     <Fixed length="6">
                         <Bits from="48" to="1" encode="6bitschar">
-                            <BitsShortName>MS1</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.modes</BitsShortName>
                             <BitsName>Mode-S Identifier Aircraft 1</BitsName>
                         </Bits>
                     </Fixed>
@@ -886,13 +886,13 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="27" to="1">
-                            <BitsShortName>NBR</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.NBR</BitsShortName>
                             <BitsName>Number of the Flight Plan Correlated to Aircraft 1 Involved in the Conflict</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>CFL</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.CFL</BitsShortName>
                             <BitsName>Cleared Flight Level</BitsName>
                             <BitsUnit scale="0.25">FL</BitsUnit>
                         </Bits>
@@ -981,7 +981,7 @@
                 </Variable>
                     <Fixed length="7">
                         <Bits from="56" to="1" encode="ascii">
-                            <BitsShortName>AI2</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.identifier</BitsShortName>
                             <BitsName>Aircraft Identifier 2</BitsName>
                         </Bits>
                     </Fixed>
@@ -992,54 +992,54 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="12" to="1" encode="octal">
-                            <BitsShortName>M32</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.mode3a</BitsShortName>
                             <BitsName>Mode 3/A Code Aircraft 2</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="10">
                         <Bits from="80" to="49" encode="signed">
-                            <BitsShortName>Latitude</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.Latitude</BitsShortName>
                             <BitsName>Latitude in WGS.84 in twos complement. Range -90 &lt; latitude &lt; 90 deg.</BitsName>
                             <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                         </Bits>
                         <Bits from="48" to="17" encode="signed">
-                            <BitsShortName>Longitude</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.Longitude</BitsShortName>
                             <BitsName>Longitude in WGS.84 in twos complement. Range -180 &lt; longitude &lt; 180 deg.</BitsName>
                             <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>Altitude</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.Altitude</BitsShortName>
                             <BitsName>Altitude of predicted conflict</BitsName>
                             <BitsUnit scale="25" min="-1500" max="150000">ft</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="8">
                         <Bits from="64" to="41" encode="signed">
-                            <BitsShortName>X</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.X</BitsShortName>
                             <BitsName>Starting X-position of the conflict</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
                         <Bits from="40" to="17" encode="signed">
-                            <BitsShortName>Y</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.Y</BitsShortName>
                             <BitsName>Starting Y-position of the conflict</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>Z</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.Z</BitsShortName>
                             <BitsName>Starting Z-position of the conflict</BitsName>
                             <BitsUnit scale="25" min="-1500" max="150000">ft</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="3">
                         <Bits from="24" to="1" encode="signed">
-                            <BitsShortName>TTA2</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.TTA2</BitsShortName>
                             <BitsName>Time to Threshold Aircraft 2</BitsName>
                             <BitsUnit scale="0.0078125">s</BitsUnit>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>DTA2</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.DTA2</BitsShortName>
                             <BitsName>Distance to Threshold Aircraft 2</BitsName>
                             <BitsUnit scale="0.5">m</BitsUnit>
                         </Bits>
@@ -1047,28 +1047,28 @@
                 <Variable>
                     <Fixed length="1">
                         <Bits from="8" to="7">
-                            <BitsShortName>GATOAT</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.GATOAT</BitsShortName>
                             <BitsValue val="0">Unknown</BitsValue>
                             <BitsValue val="1">General Air Traffic</BitsValue>
                             <BitsValue val="2">Operational Air Traffic</BitsValue>
                             <BitsValue val="3">Not applicable</BitsValue>
                         </Bits>
                         <Bits from="6" to="5">
-                            <BitsShortName>FR1FR2</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.FR1FR2</BitsShortName>
                             <BitsValue val="0">Instrument Flight Rules</BitsValue>
                             <BitsValue val="1">Visual Flight rules</BitsValue>
                             <BitsValue val="2">Not applicable</BitsValue>
                             <BitsValue val="3">Controlled Visual Flight Rules</BitsValue>
                         </Bits>
                         <Bits from="4" to="3">
-                            <BitsShortName>RVSM</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.RVSM</BitsShortName>
                             <BitsValue val="0">Unknown</BitsValue>
                             <BitsValue val="1">Approved</BitsValue>
                             <BitsValue val="2">Exempt</BitsValue>
                             <BitsValue val="3">Not Approved</BitsValue>
                         </Bits>
                         <Bits bit="2">
-                            <BitsShortName>HPR</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.HPR</BitsShortName>
                             <BitsValue val="0">Normal Priority Flight</BitsValue>
                             <BitsValue val="1">High Priority Flight</BitsValue>
                         </Bits>
@@ -1080,19 +1080,19 @@
                     </Fixed>
                     <Fixed length="1">
                         <Bits from="8" to="7">
-                            <BitsShortName>CDM</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.CDM</BitsShortName>
                             <BitsValue val="0">Maintaining</BitsValue>
                             <BitsValue val="1">Climbing</BitsValue>
                             <BitsValue val="2">Descending</BitsValue>
                             <BitsValue val="3">Invalid</BitsValue>
                         </Bits>
                         <Bits bit="6">
-                            <BitsShortName>PRI</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.PRI</BitsShortName>
                             <BitsValue val="0">Non primary target</BitsValue>
                             <BitsValue val="1">Primary target</BitsValue>
                         </Bits>
                         <Bits bit="5">
-                            <BitsShortName>GV</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.GV</BitsShortName>
                             <BitsValue val="0">Default</BitsValue>
                             <BitsValue val="1">Ground Vehicle</BitsValue>
                         </Bits>
@@ -1110,7 +1110,7 @@
                 </Variable> 
                     <Fixed length="6">
                         <Bits from="48" to="1" encode="6bitschar">
-                            <BitsShortName>MS2</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.modes</BitsShortName>
                             <BitsName>Mode-S Identifier Aircraft 2</BitsName>
                         </Bits>
                     </Fixed>
@@ -1121,13 +1121,13 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="27" to="1">
-                            <BitsShortName>NBR</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.NBR</BitsShortName>
                             <BitsName>Number of the Flight Plan Correlated to Aircraft 2 Involved in the Conflict</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>CFL</BitsShortName>
+                            <BitsShortName>conflict.aircraft2.CFL</BitsShortName>
                             <BitsName>Cleared Flight Level</BitsName>
                             <BitsUnit scale="0.25">FL</BitsUnit>
                         </Bits>
@@ -1144,7 +1144,7 @@
             <Explicit>
                 <Fixed length="1">
                     <Bits from="8" to="1" encode="hex">
-                        <BitsShortName>TRI</BitsShortName>                      
+                        <BitsShortName>targer.report.identifier</BitsShortName>                      
                         <BitsName>TargetReportIdentifier</BitsName>                     
                     </Bits>
                 </Fixed>
@@ -1220,24 +1220,24 @@
                                 </Fixed>
                             </Variable>
                                 <Fixed length="8">
-                                    <Bits from="64" to="33">
+                                    <Bits from="64" to="33" encode="signed" >
                                         <BitsShortName>Lat</BitsShortName>
                                         <BitsName>Latitude</BitsName>
                                         <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                                     </Bits>
-                                    <Bits from="32" to="1">
+                                    <Bits from="32" to="1" encode="signed" >
                                         <BitsShortName>Lon</BitsShortName>
                                         <BitsName>Longitude</BitsName>
                                         <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                                     </Bits>
                                 </Fixed>
                                 <Fixed length="6">
-                                    <Bits from="48" to="25">
+                                    <Bits from="48" to="25" encode="signed" >
                                         <BitsShortName>X</BitsShortName>
                                         <BitsName>X-Coordinate</BitsName>
                                         <BitsUnit scale="0.5">m</BitsUnit>
                                     </Bits>
-                                    <Bits from="24" to="1">
+                                    <Bits from="24" to="1" encode="signed" >
                                         <BitsShortName>Y</BitsShortName>
                                         <BitsName>Y-Coordinate</BitsName>
                                         <BitsUnit scale="0.5">m</BitsUnit>
@@ -1263,12 +1263,12 @@
                                     </Bits>
                                 </Fixed>
                                 <Fixed length="4">
-                                    <Bits from="32" to="17">
+                                    <Bits from="32" to="17" encode="signed" >
                                         <BitsShortName>Vx</BitsShortName>
                                         <BitsName>Velocity, x-component</BitsName>
                                         <BitsUnit scale="0.25">m/s</BitsUnit>
                                     </Bits>
-                                    <Bits from="16" to="1">
+                                    <Bits from="16" to="1" encode="signed" >
                                         <BitsShortName>Vy</BitsShortName>
                                         <BitsName>Velocity, y-component</BitsName>
                                         <BitsUnit scale="0.25">m/s</BitsUnit>
@@ -1312,24 +1312,24 @@
                                 </Fixed>
                             </Variable>
                                 <Fixed length="8">
-                                    <Bits from="64" to="33">
+                                    <Bits from="64" to="33" encode="signed" >
                                         <BitsShortName>Lat</BitsShortName>
                                         <BitsName>Latitude</BitsName>
                                         <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                                     </Bits>
-                                    <Bits from="32" to="1">
+                                    <Bits from="32" to="1" encode="signed" >
                                         <BitsShortName>Lon</BitsShortName>
                                         <BitsName>Longitude</BitsName>
                                         <BitsUnit scale="0.00000536441802978515625">deg</BitsUnit>
                                     </Bits>
                                 </Fixed>
                                 <Fixed length="6">
-                                    <Bits from="48" to="25">
+                                    <Bits from="48" to="25" encode="signed" >
                                         <BitsShortName>X</BitsShortName>
                                         <BitsName>X-Coordinate</BitsName>
                                         <BitsUnit scale="0.5">m</BitsUnit>
                                     </Bits>
-                                    <Bits from="24" to="1">
+                                    <Bits from="24" to="1" encode="signed" >
                                         <BitsShortName>Y</BitsShortName>
                                         <BitsName>Y-Coordinate</BitsName>
                                         <BitsUnit scale="0.5">m</BitsUnit>

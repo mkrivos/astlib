@@ -102,6 +102,7 @@ public:
     void loadCategory(const Poco::XML::Element& root)
     {
         _signature = "cat" + root.getAttribute("id") + "-" + root.getAttribute("ver");
+        std::cout << "Compiling: " << _signature << std::endl;
 
         for (auto node = root.firstChild(); node; node = node->nextSibling())
         {
@@ -367,6 +368,7 @@ public:
         if (symbols.find(bits.name) == symbols.end())
         {
             symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat);
+            std::cout << bits.name << " for " << _signature << std::endl;
         }
         else
         {

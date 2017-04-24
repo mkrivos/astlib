@@ -1468,8 +1468,8 @@
         <DataItemFormat desc="One octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>vehicle.fleet.id</BitsShortName>
-                    <BitsName>VFI</BitsName>
+                    <BitsShortName>vehicle.fleet.identification</BitsShortName>
+                    <BitsName>Vehicle Fleet Identification</BitsName>
                     <BitsValue val="0">Unknown</BitsValue>
           <BitsValue val="1">ATC equipment maintenance</BitsValue>
           <BitsValue val="2">Airport maintenance</BitsValue>

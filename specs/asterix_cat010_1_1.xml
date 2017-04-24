@@ -56,7 +56,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="6">
-                        <BitsShortName>TYP</BitsShortName>
+                        <BitsShortName>track.detection</BitsShortName>
                         <BitsName>TYP</BitsName>
                         <BitsValue val="0">SSR multilateration</BitsValue>
                         <BitsValue val="1">Mode-S multilateration</BitsValue>
@@ -68,24 +68,24 @@
                         <BitsValue val="7">Other types</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>DCR</BitsShortName>
+                        <BitsShortName>track.DCR</BitsShortName>
                         <BitsName>Differential Correction</BitsName>
                         <BitsValue val="0">No differential correction (ADS-B)</BitsValue>
                         <BitsValue val="1">Differential correction (ADS-B)</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>CHN</BitsShortName>
+                        <BitsShortName>track.rdp</BitsShortName>
                         <BitsValue val="0">Chain 1</BitsValue>
                         <BitsValue val="1">Chain 2</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>GBS</BitsShortName>
+                        <BitsShortName>track.GBS</BitsShortName>
                         <BitsName>Ground Bit Setting</BitsName>
                         <BitsValue val="0">Ground Bit not set</BitsValue>
                         <BitsValue val="1">Ground Bit set</BitsValue>
                     </Bits>         
                     <Bits bit="2">
-                        <BitsShortName>CRT</BitsShortName>
+                        <BitsShortName>track.corrupted</BitsShortName>
                         <BitsValue val="0">No Corrupted reply in multilateration</BitsValue>
                         <BitsValue val="1">Corrupted reply in multilateration</BitsValue>
                     </Bits>
@@ -97,29 +97,29 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>SIM</BitsShortName>
+                        <BitsShortName>track.simulated</BitsShortName>
                         <BitsValue val="0">Actual target report</BitsValue>
                         <BitsValue val="1">Simulated target report</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>TST</BitsShortName>
+                        <BitsShortName>track.test</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Test Target</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>RAB</BitsShortName>
+                        <BitsShortName>track.RAB</BitsShortName>
                         <BitsValue val="0">Report from target transponder</BitsValue>
                         <BitsValue val="1">Report from field monitor (fixed transponder)</BitsValue>
                     </Bits>
                     <Bits from="5" to="4">
-                        <BitsShortName>LOP</BitsShortName>
+                        <BitsShortName>track.LOP</BitsShortName>
                         <BitsName>LOP</BitsName>
                         <BitsValue val="0">Undetermined</BitsValue>
                         <BitsValue val="1">Loop start</BitsValue>
                         <BitsValue val="2">Loop stop</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>TOT</BitsShortName>
+                        <BitsShortName>track.TOT</BitsShortName>
                         <BitsName>Type of target</BitsName>
                         <BitsValue val="0">Undetermined</BitsValue>
                         <BitsValue val="1">Aircraft</BitsValue>
@@ -134,7 +134,7 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>SPI</BitsShortName>
+                        <BitsShortName>track.SPI</BitsShortName>
                         <BitsValue val="0">Absence of SPI</BitsValue>
                         <BitsValue val="1">Special Position Identification</BitsValue>
                     </Bits>
@@ -198,12 +198,12 @@
             <Fixed length="4">
                 <Bits from="32" to="17" encode="signed">
                     <BitsShortName>track.position.X</BitsShortName>
-                    <BitsName>X</BitsName>
+                    <BitsName>X Position in Cartesian Coordinates</BitsName>
                     <BitsUnit scale="1" min="-32768" max="32768">m</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
                     <BitsShortName>track.position.Y</BitsShortName>
-                    <BitsName>Y</BitsName>
+                    <BitsName>Y Position in Cartesian Coordinates</BitsName>
                     <BitsUnit scale="1" min="-32768" max="32768">m</BitsUnit>
                 </Bits>
             </Fixed>
@@ -217,13 +217,13 @@
             <Fixed length="2">
                 <Bits bit="16">
                     <BitsShortName>mode3a.V</BitsShortName>
-                    <BitsName>V</BitsName>
+                    <BitsName>Validated</BitsName>
                     <BitsValue val="0">Code validated</BitsValue>
                     <BitsValue val="1">Code not validated</BitsValue>
                 </Bits>
                 <Bits bit="15">
                     <BitsShortName>mode3a.G</BitsShortName>
-                    <BitsName>G</BitsName>
+                    <BitsName>Garbled</BitsName>
                     <BitsValue val="0">Default</BitsValue>
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
@@ -336,7 +336,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>CNF</BitsShortName>
+                        <BitsShortName>track.confirmed</BitsShortName>
                         <BitsValue val="0">Confirmed track</BitsValue>
                         <BitsValue val="1">Track in initiation phase</BitsValue>
                     </Bits>
@@ -406,7 +406,7 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>GHO</BitsShortName>
+                        <BitsShortName>track.ghost</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Ghost track</BitsValue>
                     </Bits>
