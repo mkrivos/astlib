@@ -56,7 +56,7 @@ public:
 
     virtual bool encodeString(const CodecContext& ctx, std::string& value, int index)
     {
-        value = "ABCDEF";
+        value = "ABCDEFGH";
         return true;
     }
 
@@ -79,7 +79,10 @@ public:
 
     virtual void decodeString(const CodecContext& ctx, const std::string& value, int index)
     {
+        strResult = value;
     }
+
+    std::string strResult;
 };
 
 class TypedValueCodecTest:
@@ -104,7 +107,10 @@ TEST_F(TypedValueCodecTest, asciiEncoding)
     CodecContext ctx(uapItem, policy, bits, depth);
     TypedEncoder encoder;
 
-    Poco::UInt64 value;
+    Poco::UInt64 value = 0;
     EXPECT_TRUE(encoder.encode(ctx, value, -1));
-    EXPECT_EQ(0x65666768696AULL, value);
+    EXPECT_EQ(0x4142434445464748ULL, value);
+
+    encoder.decode(ctx, value, -1);
+    EXPECT_EQ("ABCDEFGH", encoder.strResult);
 }
