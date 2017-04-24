@@ -19,7 +19,7 @@
     Modified:  05.05.2014. (dsalantic) Item 110 format fixed
 -->
 
-<Category id="62" name="SDPS Track Messages" ver="1.16">
+<Category id="062" name="SDPS Track Messages" ver="1.16">
     
     <DataItem id="010" rule="mandatory" >
         <DataItemName>Data Source Identifier</DataItemName> 

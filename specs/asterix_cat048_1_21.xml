@@ -15,7 +15,7 @@
     Modified:  29.12.2016. (dsalantic)   Added I260 ACAS definition
 -->  
 
-<Category id="48" name="Transmission of Monoroadar Data" ver="1.21">
+<Category id="048" name="Transmission of Monoroadar Data" ver="1.21">
 
     <DataItem id="010">
         <DataItemName>Data Source Identifier</DataItemName>

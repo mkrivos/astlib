@@ -375,6 +375,7 @@ public:
         else
         {
             astlib::PrimitiveItem item = symbols[bits.name];
+
             if (item.getDescription().empty() || (item.getDescription().size() < bits.description.size()))
                 symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
 

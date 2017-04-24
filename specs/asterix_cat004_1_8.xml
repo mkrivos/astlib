@@ -10,7 +10,7 @@
     Modified: 24.11.2015.
 -->
 
-<Category id="4" name="Safety Net Messages" ver="1.8">
+<Category id="004" name="Safety Net Messages" ver="1.8">
 
     <DataItem id="000" rule="mandatory">
         <DataItemName>Message Type</DataItemName>   
