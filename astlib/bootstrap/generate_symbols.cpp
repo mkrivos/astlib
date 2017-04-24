@@ -377,12 +377,26 @@ public:
             astlib::PrimitiveItem item = symbols[bits.name];
 
             if (item.getDescription().empty() || (item.getDescription().size() < bits.description.size()))
-                symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
+            {
+                symbols[bits.name].setDescription(bits.description);
+                //astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat|item.isArray());
+            }
 
-            if (item.getType() != type)
+            if (bits.repeat)
+            {
+                symbols[bits.name].setArrayType(true);
+            }
+
+            // Existing type is lower
+            if (item.getType().toValue() != type.toValue())
             {
                 std::cerr << bits.name << " type differs " << item.getType().toString() << " from " << type.toString() << std::endl;
-                std::cerr << "  change type to " << type.toString() << std::endl;
+
+                if (item.getType().toValue() < type.toValue())
+                {
+                    symbols[bits.name].setType(type);
+                    std::cerr << "  change type to " << type.toString() << " will be ignored" << std::endl;
+                }
             }
         }
 

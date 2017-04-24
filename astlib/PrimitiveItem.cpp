@@ -50,5 +50,20 @@ bool PrimitiveItem::isArray() const
     return _arrayType;
 }
 
+void PrimitiveItem::setArrayType(bool arrayType)
+{
+    _arrayType = arrayType;
+}
+
+void PrimitiveItem::setDescription(const std::string& description)
+{
+    _description = description;
+}
+
+void PrimitiveItem::setType(const PrimitiveType& type)
+{
+    _type = type;
+}
+
 } /* namespace astlib */
 
