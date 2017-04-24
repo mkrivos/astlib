@@ -109,6 +109,8 @@ public:
             const Poco::XML::Element* element = dynamic_cast<Poco::XML::Element*>(node);
             if (element)
             {
+                _itemId = root.getAttribute("id") + "/" + element->getAttribute("id");
+
                 auto name = element->nodeName();
                 if (name == "DataItem")
                 {
@@ -368,7 +370,7 @@ public:
         if (symbols.find(bits.name) == symbols.end())
         {
             symbols[bits.name] = astlib::PrimitiveItem(bits.name, bits.description, type, bits.repeat);
-            std::cout << bits.name << " for " << _signature << std::endl;
+            //std::cout << bits.name << " for " << _signature << std::endl;
         }
         else
         {
@@ -383,12 +385,13 @@ public:
             }
         }
 
-        categories[bits.name].insert(_signature);
+        categories[bits.name].insert(_itemId);
     }
 
     std::map<std::string, astlib::PrimitiveItem> symbols;
     std::map<std::string, std::set<std::string>> categories;
     std::string _signature;
+    std::string _itemId;
 };
 
 
