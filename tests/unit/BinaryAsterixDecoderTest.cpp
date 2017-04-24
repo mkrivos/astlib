@@ -225,11 +225,11 @@ TEST_F(BinaryDataDekoderTest, validDecodeCat48Simple)
     SimpleAsterixRecord& message = *myDecoder.msg;
 
     Poco::UInt64 unsignedValue;
-    EXPECT_TRUE(message.hasItem(DSI_SAC_CODE));
-    EXPECT_TRUE(message.getUnsigned(DSI_SAC_CODE, unsignedValue));
+    EXPECT_TRUE(message.hasItem(DSI_SAC));
+    EXPECT_TRUE(message.getUnsigned(DSI_SAC, unsignedValue));
     EXPECT_EQ(5, unsignedValue);
 
-    EXPECT_TRUE(message.hasItem(DSI_SIC_CODE));
-    EXPECT_TRUE(message.getUnsigned(DSI_SIC_CODE, unsignedValue));
+    EXPECT_TRUE(message.hasItem(DSI_SIC));
+    EXPECT_TRUE(message.getUnsigned(DSI_SIC, unsignedValue));
     EXPECT_EQ(6, unsignedValue);
 }

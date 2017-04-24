@@ -988,7 +988,7 @@
         <DataItemFormat>
             <Fixed length="3">
                 <Bits from="24" to="1" encode="hex">
-                    <BitsShortName>aircraft.address</BitsShortName>
+                    <BitsShortName>target.address</BitsShortName>
                     <BitsName>AircraftAddress</BitsName>
                 </Bits>
             </Fixed>
@@ -1070,7 +1070,7 @@
         <DataItemFormat desc="Repetetive">
             <Repetitive>
                 <Fixed length="8">
-                    <Bits from="64" to="9" encode="hex">
+                    <Bits from="64" to="9" encode="hex"> 
                         <BitsShortName>modes.MBdata</BitsShortName>
                         <BitsName>MB data</BitsName>
                     </Bits>
