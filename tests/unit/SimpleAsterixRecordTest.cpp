@@ -129,6 +129,30 @@ TEST_F(SimpleAsterixMessageTest, toString)
     EXPECT_EQ(42.67, value);
     EXPECT_TRUE(msg.getReal(TRAJECTORY_INTENT_TCP_LATITUDE, value, 1));
     EXPECT_EQ(-64542.7, value);
+}
 
-    std::cout << TRAJECTORY_INTENT_TCP_LATITUDE.code() << " " << msg.toString() << std::endl;
+TEST_F(SimpleAsterixMessageTest, fromToJson)
+{
+    SimpleAsterixRecord msg;
+
+    msg.setItem(SYSTEM_STATUS_NOGO, true);
+    msg.setItem(DSI_SAC, 100);
+    msg.setItem(DSI_SIC, 200);
+    msg.setItem(TRACK_DOPPLER_CALCULATION, -11111);
+    msg.setItem(TIMEOFDAY, 2000.10);
+    msg.setItem(TARGET_ADDRESS, "JANO44 342");
+
+    msg.initializeArray(TRAJECTORY_INTENT_TCP_LATITUDE, 2);
+    msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE, 42.67, 0);
+    msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE, -64542.7, 1);
+
+    std::string json = msg.toJson();
+    std::cout << json << std::endl;
+    EXPECT_EQ(192, json.size());
+
+    SimpleAsterixRecordPtr msg2 = SimpleAsterixRecord::fromJson(json);
+    std::string json2 = msg2->toJson();
+    std::cout << json2 << std::endl;
+    EXPECT_EQ(206, json2.size());
+
 }

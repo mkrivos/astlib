@@ -10,6 +10,9 @@
 ///
 
 #include "SimpleAsterixRecord.h"
+
+#include <Poco/Dynamic/Struct.h>
+
 #include "AsterixItemDictionary.h"
 #include "Exception.h"
 
@@ -181,6 +184,47 @@ std::string SimpleAsterixRecord::toString() const
     for(auto& entry: _items)
         stream << asterixCodeToSymbol(entry.first) << " = " << entry.second.toString() << std::endl;
     return stream.str();
+}
+
+std::string SimpleAsterixRecord::toJson() const
+{
+    std::stringstream stream;
+    bool first = true;
+
+    stream << '{';
+    for (auto& item: _items)
+    {
+        AsterixItemCode code = item.first;
+
+        if (!code.isValid())
+            continue;
+
+        if (!first)
+            stream << ',';
+
+        stream << '\"' << asterixCodeToSymbol(code) << "\":" << Poco::Dynamic::Var::toString(item.second);
+        first = false;
+    }
+    stream << '}';
+    return stream.str();
+}
+
+SimpleAsterixRecordPtr SimpleAsterixRecord::fromJson(const std::string& json)
+{
+    Poco::Dynamic::Var object(Poco::Dynamic::Var::parse(json));
+    poco_assert(object.isStruct());
+
+    const Poco::DynamicStruct structObject = object.extract<Poco::DynamicStruct>();
+    SimpleAsterixRecordPtr instance = std::make_shared<SimpleAsterixRecord>();
+
+    for(auto& record: structObject)
+    {
+        // TODO: kontrolovat ci je symbol znamy!!!
+        // TODO: destringify - vsetky hodnoty ine ako STRING, konvertovat na primitivne objekty
+        instance->_items[asterixSymbolToCode(record.first)] = record.second;
+    }
+
+    return instance;
 }
 
 } /* namespace astlib */
