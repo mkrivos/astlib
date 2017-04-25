@@ -155,8 +155,4 @@ TEST_F(SimpleAsterixMessageTest, fromToJson)
     std::cout << json2 << std::endl;
     EXPECT_EQ(206, json2.size());
 
-<<<<<<< HEAD
-    std::cout << TRAJECTORY_INTENT_TCP_LATITUDE.code() << " " << msg.toString() << std::endl;
-=======
->>>>>>> 46f3d68df76f2ac547e1908d7153ab2a82fbd9f2
 }

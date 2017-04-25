@@ -217,6 +217,12 @@ std::string toString(AsterixRecordWrapper& obj)
     return value;
 }
 
+std::string toJson(AsterixRecordWrapper& obj)
+{
+    std::string value(obj.value->toJson());
+    return value;
+}
+
 bool hasItem(AsterixRecordWrapper& obj, int code)
 {
     return obj.value->hasItem(code);
@@ -366,6 +372,7 @@ void InitAll(v8::Handle<v8::Object> exports)
     addon.set("setBooleanAt", &setBooleanAt);
     addon.set("getBooleanAt", &getBooleanAt);
     addon.set("toString", &toString);
+    addon.set("toJson", &toJson);
 
     exports->SetPrototype(addon.new_instance());
 

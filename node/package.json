@@ -1,19 +1,22 @@
 {
   "name": "astlib",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Generated with Eclipse npm Tools",
   "main": "astlib.js",
   "scripts": {
-    "test": "echo 'Error: no test specified' && exit 1",
+    "test": "mocha astlib",
     "install": "cmake-js compile",
-    "start": "node astlib.js",
+    "start": "node fusion.js",
     "build": "cmake-js build"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Marian Krivos",
+  "license": "MIT",
   "dependencies": {
     "bindings": "^1.2.1",
-    "should": "^11.2.1",
     "v8pp": "^1.4.0"
+  },
+  "devDependencies": {
+    "cmake-js": "^3.4.1",
+    "mocha": "^3.3.0"
   }
 }

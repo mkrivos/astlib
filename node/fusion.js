@@ -13,7 +13,7 @@ const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 const client = dgram.createSocket('udp4');
 const astlib = require('./build/Release/addon.node');
-const ASTERIX = require('./asterixitems.js');
+const ASTERIX = require('./asterix_codes.js');
 const codecs = astlib.enumerateAllCodecs();
 
 console.log(codecs);

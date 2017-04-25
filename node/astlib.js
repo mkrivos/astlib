@@ -9,14 +9,14 @@
 
 var assert = require("assert");
 var astlib = require('./build/Release/addon.node');
-const ASTERIX = require('./asterixitems.js');
+const ASTERIX = require('./asterix_codes.js');
 
 var asterixRecord = astlib.createAsterixRecord();
 var codecs = astlib.enumerateAllCodecs();
 
 describe('AsterixRecord', function() {
 	describe('#create', function() {
-		it('"assert exists', function() {
+		it('msg exists', function() {
 			assert.ok(asterixRecord != null);			
 		});
 	}); 	
@@ -127,11 +127,17 @@ describe('AsterixRecord', function() {
 			assert(astlib.getBooleanAt(asterixRecord, ASTERIX.MODES_MBDATA, 1) == s2[1]);
 		});
 		 */
+		
 		it('Stringify', function() {
 			assert.equal(331, astlib.toString(asterixRecord).length);	
 		});
 	
-		// TODO: JSONify
+		it('Jsonify', function() {
+			 var json = astlib.toJson(asterixRecord);
+			 var msg = JSON.parse(json);
+			 assert.equal("54363", msg["modes.mbdata"][0]);
+			 assert.equal("67457456375", msg["modes.mbdata"][1]);
+		});
 	}); 	
 });
 
@@ -166,12 +172,12 @@ describe('Asterix Encoder/Decoder', function() {
 			var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
 			assert.ok(buffer != null);			
 			assert.equal(buffer.length, 17);
-			console.log(buffer);
+			//console.log(buffer);
 			
 			var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
 			assert.ok(records.length);
 			var record = records[0];
-			console.log(astlib.toString(record));
+			//console.log(astlib.toString(record));
 			
 			assert.equal(astlib.getBoolean(plot, ASTERIX.TRACK_TEST), astlib.getBoolean(record, ASTERIX.TRACK_TEST));
 			assert.equal(astlib.getBoolean(plot, ASTERIX.TRACK_SIMULATED), astlib.getBoolean(record, ASTERIX.TRACK_SIMULATED));
@@ -209,16 +215,16 @@ describe('Asterix Encoder/Decoder', function() {
 			astlib.setString(plot, ASTERIX.TARGET_ADDRESS, '23FFAA');
 			astlib.setString(plot, ASTERIX.AIRCRAFT_IDENTIFICATION, 'PAKON321');
 			
-			console.log(astlib.toString(plot));
+			//console.log(astlib.toString(plot));
 			var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
 			assert.ok(buffer != null);			
 			assert.equal(buffer.length, 29);
-			console.log(buffer);
+			//console.log(buffer);
 			
 			var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
 			assert.ok(records.length);
 			var record = records[0];
-			console.log(astlib.toString(record));
+			//console.log(astlib.toString(record));
 			
 			assert.ok((astlib.getNumber(plot, ASTERIX.TRACK_POSITION_X) - astlib.getNumber(record, ASTERIX.TRACK_POSITION_X)) < 3);
 			assert.ok((astlib.getNumber(plot, ASTERIX.TRACK_POSITION_Y) - astlib.getNumber(record, ASTERIX.TRACK_POSITION_Y)) < 3);
