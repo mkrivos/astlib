@@ -81,7 +81,14 @@ static void loadCodecs()
 {
     if (codecDescriptions.empty())
     {
-        codecRegister.populateCodecsFromDirectory("../specs");
+        try
+        {
+            codecRegister.populateCodecsFromDirectory("../specs");
+        }
+        catch(Poco::Exception&)
+        {
+            codecRegister.populateCodecsFromDirectory("specs");
+        }
         codecDescriptions = codecRegister.enumerateAllCodecsByCategory();
     }
 }

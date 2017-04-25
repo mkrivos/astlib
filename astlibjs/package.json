@@ -4,7 +4,7 @@
   "description": "Generated with Eclipse npm Tools",
   "main": "astlib.js",
   "scripts": {
-    "test": "mocha astlib",
+    "test": "mocha astlib_test",
     "install": "cmake-js compile",
     "start": "node fusion.js",
     "build": "cmake-js build"

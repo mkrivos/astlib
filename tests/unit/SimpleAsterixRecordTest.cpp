@@ -147,12 +147,12 @@ TEST_F(SimpleAsterixMessageTest, fromToJson)
     msg.setItem(TRAJECTORY_INTENT_TCP_LATITUDE, -64542.7, 1);
 
     std::string json = msg.toJson();
-    std::cout << json << std::endl;
+    //std::cout << json << std::endl;
     EXPECT_EQ(192, json.size());
 
     SimpleAsterixRecordPtr msg2 = SimpleAsterixRecord::fromJson(json);
     std::string json2 = msg2->toJson();
-    std::cout << json2 << std::endl;
-    EXPECT_EQ(206, json2.size());
+    //std::cout << json2 << std::endl;
+    EXPECT_EQ(192, json2.size());
 
 }

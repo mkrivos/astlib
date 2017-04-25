@@ -213,6 +213,7 @@ SimpleAsterixRecordPtr SimpleAsterixRecord::fromJson(const std::string& json)
 {
     Poco::Dynamic::Var object(Poco::Dynamic::Var::parse(json));
     poco_assert(object.isStruct());
+    //std::cout << Poco::Dynamic::Var::toString(object) << std::endl;
 
     const Poco::DynamicStruct structObject = object.extract<Poco::DynamicStruct>();
     SimpleAsterixRecordPtr instance = std::make_shared<SimpleAsterixRecord>();
@@ -220,7 +221,6 @@ SimpleAsterixRecordPtr SimpleAsterixRecord::fromJson(const std::string& json)
     for(auto& record: structObject)
     {
         // TODO: kontrolovat ci je symbol znamy!!!
-        // TODO: destringify - vsetky hodnoty ine ako STRING, konvertovat na primitivne objekty
         instance->_items[asterixSymbolToCode(record.first)] = record.second;
     }
 
