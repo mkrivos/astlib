@@ -2,12 +2,6 @@
 #include <node.h>
 #include <node_buffer.h>
 
-#include <v8pp/convert.hpp>
-#include <v8pp/module.hpp>
-#include <v8pp/class.hpp>
-#include <v8pp/function.hpp>
-#include <v8pp/object.hpp>
-
 #include "astlib/SimpleAsterixRecord.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
@@ -19,6 +13,11 @@
 #include <type_traits> // C++0x
 #include <exception>
 #include <iostream>
+#include "../astlibjs/node_modules/v8pp/v8pp/class.hpp"
+#include "../astlibjs/node_modules/v8pp/v8pp/convert.hpp"
+#include "../astlibjs/node_modules/v8pp/v8pp/function.hpp"
+#include "../astlibjs/node_modules/v8pp/v8pp/module.hpp"
+#include "../astlibjs/node_modules/v8pp/v8pp/object.hpp"
 
 static int itemType(int value)
 {
