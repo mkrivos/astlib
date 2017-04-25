@@ -14,14 +14,13 @@
 
 <Category id="023" name="Surveillance Data Exchange – Part 16 CNS/ATM Ground Station and Service Status Reports" ver="1.2">
 
-
     <DataItem id="000" rule="mandatory">
         <DataItemName>Report Type</DataItemName>
         <DataItemDefinition>This Data Item allows for a more convenient handling of the reports at the receiver side by further defining the type of transaction.</DataItemDefinition>
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>report_type</BitsShortName>
+                    <BitsShortName>report.type</BitsShortName>
                     <BitsName>Report Type</BitsName>
                     <BitsValue val="1">Ground Station Status Report</BitsValue>
                     <BitsValue val="2">Service Status Report</BitsValue>
@@ -37,11 +36,11 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -54,11 +53,11 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="5">
-                    <BitsShortName>SID</BitsShortName>
+                    <BitsShortName>service.identification</BitsShortName>
                     <BitsName>Service Identification</BitsName>
                 </Bits>
                 <Bits from="4" to="1">
-                    <BitsShortName>STYP</BitsShortName>
+                    <BitsShortName>service.type</BitsShortName>
                     <BitsName>Type of Service</BitsName>
                     <BitsValue val="1">ADS-B VDL4</BitsValue>
                     <BitsValue val="2">ADS-B Ext Squitter</BitsValue>
@@ -80,7 +79,7 @@
         <DataItemFormat desc="Three-octet fixed length Data Item.">
             <Fixed length="3">
                 <Bits from="24" to="1">
-                    <BitsShortName>ToD</BitsShortName>
+                    <BitsShortName>timeofday</BitsShortName>
                     <BitsName>Time Of Day</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -95,43 +94,43 @@
             <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>NOGO</BitsShortName>
+                        <BitsShortName>system.status.NOGO</BitsShortName>
                         <BitsName>Operational Release Status of the Data</BitsName>
                         <BitsValue val="0">Data is released for operational use</BitsValue>
                         <BitsValue val="1">Data must not be used operationally</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>ODP</BitsShortName>
+                        <BitsShortName>system.status.ODP</BitsShortName>
                         <BitsName>Data Processor Overload Indicator</BitsName>
                         <BitsValue val="0">Default, no overload</BitsValue>
                         <BitsValue val="1">Overload in DP</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>OXT</BitsShortName>
+                        <BitsShortName>system.status.OXT</BitsShortName>
                         <BitsName>Ground Interface Data Communications</BitsName>
                         <BitsValue val="0">Default, no overload</BitsValue>
                         <BitsValue val="1">Overload in transmission subsystem</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>MSC</BitsShortName>
+                        <BitsShortName>system.status.MSC</BitsShortName>
                         <BitsName>Monitoring System Connected Status</BitsName>
                         <BitsValue val="0">Monitoring system not connected or unknown</BitsValue>
                         <BitsValue val="1">Monitoring system connected</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>TSV</BitsShortName>
+                        <BitsShortName>system.status.TSV</BitsShortName>
                         <BitsName>Time Source Validity</BitsName>
                         <BitsValue val="0">valid</BitsValue>
                         <BitsValue val="1">invalid</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>SPO</BitsShortName>
+                        <BitsShortName>system.status.SPO</BitsShortName>
                         <BitsName>Indication of spoofing attack</BitsName>
                         <BitsValue val="0">no spoofing detected</BitsValue>
                         <BitsValue val="1">potential spoofing attack</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>RN</BitsShortName>
+                        <BitsShortName>system.status.RN</BitsShortName>
                         <BitsName>Renumbering Indication for Track ID</BitsName>
                         <BitsValue val="0">default</BitsValue>
                         <BitsValue val="1">track numbering has restarted</BitsValue>
@@ -144,7 +143,7 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="8" to="2">
-                        <BitsShortName>GSSP</BitsShortName>
+                        <BitsShortName>system.status.GSSP</BitsShortName>
                         <BitsName>Ground Station Status Reporting</BitsName>
                         <BitsUnit scale="1" min="1" max="127">s</BitsUnit>
                     </Bits>
@@ -165,12 +164,12 @@
             <Variable>
                 <Fixed length="2">
                     <Bits from="16" to="9">
-                        <BitsShortName>RP</BitsShortName>
+                        <BitsShortName>system.configuration.reportperiod</BitsShortName>
                         <BitsName>Report Period for Category 021 Reports</BitsName>
                         <BitsUnit scale="0.5">s</BitsUnit>
                     </Bits>
                     <Bits from="8" to="6">
-                        <BitsShortName>SC</BitsShortName>
+                        <BitsShortName>system.configuration.class</BitsShortName>
                         <BitsName>Service Class</BitsName>
                         <BitsValue val="0">No information</BitsValue>
                         <BitsValue val="1">NRA class</BitsValue>
@@ -194,7 +193,7 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="8" to="2">
-                        <BitsShortName>SSRP</BitsShortName>
+                        <BitsShortName>system.configuration.statusperiod</BitsShortName>
                         <BitsName>Service Status Reporting Period</BitsName>
                         <BitsUnit scale="1" min="1" max="127">s</BitsUnit>
                     </Bits>
@@ -220,7 +219,7 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits from="4" to="2">
-                        <BitsShortName>STAT</BitsShortName>
+                        <BitsShortName>service.status</BitsShortName>
                         <BitsName>Status of the Service</BitsName>
                         <BitsValue val="0">Unknown</BitsValue>
                         <BitsValue val="1">Failed</BitsValue>
@@ -250,7 +249,7 @@
                         <BitsName>Number of counters following</BitsName>
                     </Bits>
                     <Bits from="48" to="41">
-                        <BitsShortName>TYPE</BitsShortName>
+                        <BitsShortName>service.statistics.type</BitsShortName>
                         <BitsName>Type of report counter</BitsName>
                         <BitsValue val="0">Number of unknown messages received</BitsValue>
                         <BitsValue val="1">Number of too old messages received</BitsValue>
@@ -272,7 +271,7 @@
                         <BitsValue val="32">Number of 2 slots TCP messages received</BitsValue>
                     </Bits>
                     <Bits bit="40">
-                        <BitsShortName>REF</BitsShortName>
+                        <BitsShortName>service.statistics.reference</BitsShortName>
                         <BitsName>Reference from which the messages are countered</BitsName>
                         <BitsValue val="0">From midnight</BitsValue>
                         <BitsValue val="1">From the last report</BitsValue>
@@ -283,7 +282,7 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits from="32" to="1">
-                        <BitsShortName>counter</BitsShortName>
+                        <BitsShortName>service.statistics.counter</BitsShortName>
                         <BitsName>32-bit counter value</BitsName>
                     </Bits>
                 </Fixed>
@@ -297,7 +296,7 @@
         <DataItemFormat desc="A one octet fixed length field.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>Range</BitsShortName>
+                    <BitsShortName>station.operational.range</BitsShortName>
                     <BitsName>Operational range of the GS</BitsName>
                     <BitsUnit scale="1">NM</BitsUnit>
                 </Bits>
@@ -307,22 +306,22 @@
 
 
     <UAP>
-        <UAPItem bit="0" presence="1">010</UAPItem>
-        <UAPItem bit="1" presence="2">000</UAPItem>
-        <UAPItem bit="2" presence="3">015</UAPItem>
-        <UAPItem bit="3" presence="4">070</UAPItem>
-        <UAPItem bit="4" presence="5">100</UAPItem>
-        <UAPItem bit="5" presence="6">101</UAPItem>
-        <UAPItem bit="6" presence="7">200</UAPItem>
-        <UAPItem bit="7" presence="FX">-</UAPItem>
-        <UAPItem bit="8" presence="8">110</UAPItem>
-        <UAPItem bit="9" presence="9">120</UAPItem>
-        <UAPItem bit="10" presence="10">-</UAPItem>
-        <UAPItem bit="11" presence="11">-</UAPItem>
-        <UAPItem bit="12" presence="12">-</UAPItem>
-        <UAPItem bit="13" presence="13">RE</UAPItem>
-        <UAPItem bit="14" presence="14">SP</UAPItem>
-        <UAPItem bit="15" presence="FX">-</UAPItem>
+        <UAPItem bit="0" presence="O">010</UAPItem>
+        <UAPItem bit="1" presence="O">000</UAPItem>
+        <UAPItem bit="2" presence="O">015</UAPItem>
+        <UAPItem bit="3" presence="O">070</UAPItem>
+        <UAPItem bit="4" presence="O">100</UAPItem>
+        <UAPItem bit="5" presence="O">101</UAPItem>
+        <UAPItem bit="6" presence="O">200</UAPItem>
+        <UAPItem bit="7" presence="O">FX</UAPItem>
+        <UAPItem bit="8" presence="O">110</UAPItem>
+        <UAPItem bit="9" presence="O">120</UAPItem>
+        <UAPItem bit="10" presence="O">-</UAPItem>
+        <UAPItem bit="11" presence="O">-</UAPItem>
+        <UAPItem bit="12" presence="O">-</UAPItem>
+        <UAPItem bit="13" presence="O">RE</UAPItem>
+        <UAPItem bit="14" presence="O">SP</UAPItem>
+        <UAPItem bit="15" presence="O">FX</UAPItem>
     </UAP>
 
 </Category>
