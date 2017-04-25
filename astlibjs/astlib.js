@@ -1,14 +1,19 @@
-//
-// Copyright (c) 2013-2016 Pavel Medvedev. All rights reserved.
-//
-// This file is part of v8pp (https://github.com/pmed/v8pp) project.
-//
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
+///
+/// \package astlib
+/// \file astlib.js
+///
+/// \author Marian Krivos <marian.krivos@rsys.sk>
+/// \date 24.2.2017
+/// \brief JS Wrapper over astlib C++
+///
+/// (C) Copyright 2017 R-SYS s.r.o
+/// All rights reserved.
+///
+
 
 var assert = require("assert");
 var astlib = require('./build/Release/addon.node');
+const Utils = require('./asterix_utils.js');
 const ASTERIX = require('./asterix_codes.js');
 
 for (var key in ASTERIX)
@@ -24,11 +29,21 @@ describe('AsterixRecord', function() {
 	
 	describe('#item codes', function() {
 		it('is scalar', function() {
-			assert.ok(asterixRecord != null);			
+			assert.ok(Utils.itemIsScalar(TRACK_POSITION_LATITUDE));			
 		});
+		
 		it('is array', function() {
-			assert.ok(asterixRecord != null);			
+			assert.ok(Utils.itemIsArray(TRAJECTORY_INTENT_TCP_LATITUDE));						
 		});
+		
+		it('other', function() {
+			assert.ok(Utils.itemIsValid(TRAJECTORY_INTENT_TCP_LATITUDE));						
+			assert.ok(Utils.itemType(TRAJECTORY_INTENT_TCP_LATITUDE) == Utils.Real);
+
+			assert.ok(Utils.itemIsValid(DSI_SAC));						
+			assert.ok(Utils.itemType(DSI_SAC) == Utils.Unsigned);
+		});
+
 	}); 	
 
 	describe('#create', function() {

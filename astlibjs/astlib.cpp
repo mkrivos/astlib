@@ -13,11 +13,11 @@
 #include <type_traits> // C++0x
 #include <exception>
 #include <iostream>
-#include "../astlibjs/node_modules/v8pp/v8pp/class.hpp"
-#include "../astlibjs/node_modules/v8pp/v8pp/convert.hpp"
-#include "../astlibjs/node_modules/v8pp/v8pp/function.hpp"
-#include "../astlibjs/node_modules/v8pp/v8pp/module.hpp"
-#include "../astlibjs/node_modules/v8pp/v8pp/object.hpp"
+#include "node_modules/v8pp/v8pp/class.hpp"
+#include "node_modules/v8pp/v8pp/convert.hpp"
+#include "node_modules/v8pp/v8pp/function.hpp"
+#include "node_modules/v8pp/v8pp/module.hpp"
+#include "node_modules/v8pp/v8pp/object.hpp"
 
 static int itemType(int value)
 {
