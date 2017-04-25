@@ -569,7 +569,7 @@ int main(int argc, char* argv[])
             js << std::endl;
 
             Poco::File jsFile("asterix_codes.js");
-            jsFile.moveTo("../../node");
+            jsFile.moveTo("../../astlibjs");
         }
 
 
