@@ -306,7 +306,7 @@
 
 
     <UAP>
-        <UAPItem bit="0" presence="O">010</UAPItem>
+        <UAPItem bit="0" presence="O">010</UAPItem> 
         <UAPItem bit="1" presence="O">000</UAPItem>
         <UAPItem bit="2" presence="O">015</UAPItem>
         <UAPItem bit="3" presence="O">070</UAPItem>
