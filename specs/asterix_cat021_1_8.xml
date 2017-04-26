@@ -154,7 +154,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="6">
-                        <BitsShortName>track.status.ATP</BitsShortName>
+                        <BitsShortName>track.address.type</BitsShortName>
                         <BitsName>Address Type</BitsName>
                         <BitsValue val="0">24-Bit ICAO address</BitsValue>
                         <BitsValue val="1">Duplicate address</BitsValue>
@@ -166,7 +166,7 @@
                         <BitsValue val="7">Reserved for future use</BitsValue>
                     </Bits>
                     <Bits from="5" to="4">
-                        <BitsShortName>track.status.ARC</BitsShortName>
+                        <BitsShortName>track.ARC</BitsShortName>
                         <BitsName>Altitude Reporting Capability</BitsName>
                         <BitsValue val="0">25 ft</BitsValue>
                         <BitsValue val="1">100 ft</BitsValue>
@@ -174,13 +174,13 @@
                         <BitsValue val="3">Invalid</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>track.status.RC</BitsShortName>
+                        <BitsShortName>track.RC</BitsShortName>
                         <BitsName>Range Check</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Range Check passed, CPR Validation pending</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>track.status.RAB</BitsShortName>
+                        <BitsShortName>track.RAB</BitsShortName>
                         <BitsName>Report Type</BitsName>
                         <BitsValue val="0">Report from target transponder</BitsValue>
                         <BitsValue val="1">Report from field monitor (fixed transponder)</BitsValue>
@@ -194,37 +194,37 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>track.status.DCR</BitsShortName>
+                        <BitsShortName>track.DCR</BitsShortName>
                         <BitsName>Differential Correction</BitsName>
                         <BitsValue val="0">No differential correction (ADS-B)</BitsValue>
                         <BitsValue val="1">Differential correction (ADS-B)</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>track.status.GBS</BitsShortName>
+                        <BitsShortName>track.GBS</BitsShortName>
                         <BitsName>Ground Bit Setting</BitsName>
                         <BitsValue val="0">Ground Bit not set</BitsValue>
                         <BitsValue val="1">Ground Bit set</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>track.status.SIM</BitsShortName>
+                        <BitsShortName>track.simulated</BitsShortName>
                         <BitsName>Simulated Target</BitsName>
                         <BitsValue val="0">Actual target report</BitsValue>
                         <BitsValue val="1">Simulated target report</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>track.status.TST</BitsShortName>
+                        <BitsShortName>track.test</BitsShortName>
                         <BitsName>Test Target</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Test Target</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>track.status.SAA</BitsShortName>
+                        <BitsShortName>track.SAA</BitsShortName>
                         <BitsName>Selected Altitude Available</BitsName>
                         <BitsValue val="0">Equipment capable to provide Selected Altitude</BitsValue>
                         <BitsValue val="1">Equipment not capable to provide Selected Altitude</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>track.status.CL</BitsShortName>
+                        <BitsShortName>track.CL</BitsShortName>
                         <BitsName>Confidence Level</BitsName>
                         <BitsValue val="0">Report valid</BitsValue>
                         <BitsValue val="1">Report suspect</BitsValue>
@@ -240,43 +240,43 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>track.status.EC7</BitsShortName>
+                        <BitsShortName>track.EC7</BitsShortName>
                         <BitsName>Error Condition 7</BitsName>
                         <BitsValue val="0">Error Condition 7 not existing</BitsValue>
                         <BitsValue val="1">Error Condition 7 existing</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>track.status.EC6</BitsShortName>
+                        <BitsShortName>track.EC6</BitsShortName>
                         <BitsName>Error Condition 6</BitsName>
                         <BitsValue val="0">Error Condition 6 not existing</BitsValue>
                         <BitsValue val="1">Error Condition 6 existing</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>track.status.IPC</BitsShortName>
+                        <BitsShortName>track.IPC</BitsShortName>
                         <BitsName>Independent Position Check</BitsName>
                         <BitsValue val="0">default</BitsValue>
                         <BitsValue val="1">failed</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>track.status.NOGO</BitsShortName>
+                        <BitsShortName>track.NOGO</BitsShortName>
                         <BitsName>No-go Bit Status</BitsName>
                         <BitsValue val="0">NOGO-bit not set</BitsValue>
                         <BitsValue val="1">NOGO-bit set</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>track.status.CPR</BitsShortName>
+                        <BitsShortName>track.CPR</BitsShortName>
                         <BitsName>Compact Position Reporting</BitsName>
                         <BitsValue val="0">CPR Validation correct</BitsValue>
                         <BitsValue val="1">CPR Validation failed</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>track.status.LDPJ</BitsShortName>
+                        <BitsShortName>track.LDPJ</BitsShortName>
                         <BitsName>Local Decoding Position Jump</BitsName>
                         <BitsValue val="0">LDPJ not detected</BitsValue>
                         <BitsValue val="1">LDPJ detected</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>track.status.RCF</BitsShortName>
+                        <BitsShortName>track.RCF</BitsShortName>
                         <BitsName>Range Check</BitsName>
                         <BitsValue val="0">default</BitsValue>
                         <BitsValue val="1">Range Check failed</BitsValue>

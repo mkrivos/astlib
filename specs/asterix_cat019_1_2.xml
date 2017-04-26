@@ -20,7 +20,7 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>MsgTyp</BitsShortName>
+                    <BitsShortName>message.type</BitsShortName>
                     <BitsName>Message Type</BitsName>
                     <BitsValue val="1">Start of Update Cycle</BitsValue>
                     <BitsValue val="2">Periodic Status Message</BitsValue>
@@ -36,11 +36,11 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.sac</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.sic</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -53,7 +53,7 @@
         <DataItemFormat desc="Three-octet fixed length Data Item.">
             <Fixed length="3">
                 <Bits from="24" to="1">
-                    <BitsShortName>ToD</BitsShortName>
+                    <BitsShortName>timeofday</BitsShortName>
                     <BitsName>Time Of Day</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -67,7 +67,7 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="7">
-                    <BitsShortName>NOGO</BitsShortName>
+                    <BitsShortName>system.state.NOGO</BitsShortName>
                     <BitsName>Operational Release Status of the System</BitsName>
                     <BitsValue val="0">Operational</BitsValue>
                     <BitsValue val="1">Degraded</BitsValue>
@@ -75,19 +75,19 @@
                     <BitsValue val="3">undefined</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>OVL</BitsShortName>
+                    <BitsShortName>system.state.overload</BitsShortName>
                     <BitsName>Overload indicator</BitsName>
                     <BitsValue val="0">No overload</BitsValue>
                     <BitsValue val="1">Overload</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>TSV</BitsShortName>
+                    <BitsShortName>system.state.tsv</BitsShortName>
                     <BitsName>Time Source Validity</BitsName>
                     <BitsValue val="0">valid</BitsValue>
                     <BitsValue val="1">invalid</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>TTF</BitsShortName>
+                    <BitsShortName>system.state.TTF</BitsShortName>
                     <BitsName>Test Target Failure</BitsName>
                     <BitsValue val="0">Test Target Operative</BitsValue>
                     <BitsValue val="1">Test Target Failure</BitsValue>
@@ -107,49 +107,49 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits bit="8">
-                    <BitsShortName>TP1_mode</BitsShortName>
+                    <BitsShortName>trackering.processor1.mode</BitsShortName>
                     <BitsName>TP 1</BitsName>
                     <BitsValue val="0">Standby</BitsValue>
                     <BitsValue val="1">Exec</BitsValue>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>TP1_status</BitsShortName>
+                    <BitsShortName>trackering.processor1.status</BitsShortName>
                     <BitsName>TP 1</BitsName>
                     <BitsValue val="0">Faulted</BitsValue>
                     <BitsValue val="1">Good</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>TP2_mode</BitsShortName>
+                    <BitsShortName>trackering.processor2.mode</BitsShortName>
                     <BitsName>TP 2</BitsName>
                     <BitsValue val="0">Standby</BitsValue>
                     <BitsValue val="1">Exec</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>TP2_status</BitsShortName>
+                    <BitsShortName>trackering.processor2.status</BitsShortName>
                     <BitsName>TP 2</BitsName>
                     <BitsValue val="0">Faulted</BitsValue>
                     <BitsValue val="1">Good</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>TP3_mode</BitsShortName>
+                    <BitsShortName>trackering.processor3.mode</BitsShortName>
                     <BitsName>TP 3</BitsName>
                     <BitsValue val="0">Standby</BitsValue>
                     <BitsValue val="1">Exec</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>TP3_status</BitsShortName>
+                    <BitsShortName>trackering.processor3.status</BitsShortName>
                     <BitsName>TP 3</BitsName>
                     <BitsValue val="0">Faulted</BitsValue>
                     <BitsValue val="1">Good</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>TP4_mode</BitsShortName>
+                    <BitsShortName>trackering.processor4.mode</BitsShortName>
                     <BitsName>TP 4</BitsName>
                     <BitsValue val="0">Standby</BitsValue>
                     <BitsValue val="1">Exec</BitsValue>
                 </Bits>
                 <Bits bit="1">
-                    <BitsShortName>TP4_status</BitsShortName>
+                    <BitsShortName>trackering.processor4.status</BitsShortName>
                     <BitsName>TP 4</BitsName>
                     <BitsValue val="0">Faulted</BitsValue>
                     <BitsValue val="1">Good</BitsValue>
@@ -165,15 +165,15 @@
             <Repetitive>
                 <Fixed length="2">
                     <Bits from="16" to="9">
-                        <BitsShortName>RS_id</BitsShortName>
+                        <BitsShortName>remote.sensor.id</BitsShortName>
                         <BitsName>RS Identification 8-bit Identification number of RS</BitsName>
                     </Bits>
                     <Bits from="8" to="5">
-                        <BitsShortName>RS_type</BitsShortName>
+                        <BitsShortName>remote.sensor.type</BitsShortName>
                         <BitsName>RS Type 4-bit Type of RS</BitsName>
                     </Bits>
                     <Bits from="4" to="1">
-                        <BitsShortName>Stat</BitsShortName>
+                        <BitsShortName>remote.sensor.status</BitsShortName>
                         <BitsName>Status</BitsName>
                     </Bits>
                 </Fixed>
@@ -188,7 +188,7 @@
             <Variable>
                 <Fixed length="1">
                     <Bits from="8" to="7">
-                        <BitsShortName>ref_trans_1</BitsShortName>
+                        <BitsShortName>refererence.transponder1.status</BitsShortName>
                         <BitsName>Ref Trans 1 Status</BitsName>
                         <BitsValue val="0">Unknown</BitsValue>
                         <BitsValue val="1">Warning</BitsValue>
@@ -201,7 +201,7 @@
                         <BitsConst>0</BitsConst>
                     </Bits>
                     <Bits from="4" to="3">
-                        <BitsShortName>ref_trans_2</BitsShortName>
+                        <BitsShortName>refererence.transponder2.status</BitsShortName>
                         <BitsName>Ref Trans 2 Status</BitsName>
                         <BitsValue val="0">Unknown</BitsValue>
                         <BitsValue val="1">Warning</BitsValue>
@@ -229,12 +229,12 @@
         <DataItemFormat desc="Eight-octet fixed length Data Item">
             <Fixed length="8">
                 <Bits from="64" to="33" encode="signed">
-                    <BitsShortName>Lat</BitsShortName>
+                    <BitsShortName>system.reference.position.latitude</BitsShortName>
                     <BitsName>Latitude in WGS-84 in twos complement.</BitsName>
                     <BitsUnit scale="0.00000016763806343078613">deg</BitsUnit>
                 </Bits>
                 <Bits from="32" to="1" encode="signed">
-                    <BitsShortName>Lon</BitsShortName>
+                    <BitsShortName>system.reference.position.longitude</BitsShortName>
                     <BitsName>Longitude in WGS-84 in twos complement.</BitsName>
                     <BitsUnit scale="0.00000016763806343078613">deg</BitsUnit>
                 </Bits>
@@ -248,7 +248,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>height</BitsShortName>
+                    <BitsShortName>system.reference.position.height</BitsShortName>
                     <BitsName>Height (WGS-84) above MSL</BitsName>
                     <BitsUnit scale="0.25">m</BitsUnit>
                 </Bits>
@@ -262,7 +262,7 @@
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>undulation</BitsShortName>
+                    <BitsShortName>system.reference.position.undulation</BitsShortName>
                     <BitsName>WGS-84 Undulation value (MSL)</BitsName>
                     <BitsUnit scale="1">m</BitsUnit>
                 </Bits>
@@ -272,22 +272,22 @@
 
 
     <UAP>
-        <UAPItem bit="0" presence="1">010</UAPItem>
-        <UAPItem bit="1" presence="2">000</UAPItem>
-        <UAPItem bit="2" presence="3">140</UAPItem>
-        <UAPItem bit="3" presence="4">550</UAPItem>
-        <UAPItem bit="4" presence="5">551</UAPItem>
-        <UAPItem bit="5" presence="6">552</UAPItem>
-        <UAPItem bit="6" presence="7">553</UAPItem>
-        <UAPItem bit="7" presence="FX">-</UAPItem>
-        <UAPItem bit="8" presence="8">600</UAPItem>
-        <UAPItem bit="9" presence="9">610</UAPItem>
-        <UAPItem bit="10" presence="10">620</UAPItem>
-        <UAPItem bit="11" presence="11">-</UAPItem>
-        <UAPItem bit="12" presence="12">-</UAPItem>
-        <UAPItem bit="13" presence="13">RE</UAPItem>
-        <UAPItem bit="14" presence="14">SP</UAPItem>
-        <UAPItem bit="15" presence="FX">-</UAPItem>
+        <UAPItem bit="0" presence="O">010</UAPItem>
+        <UAPItem bit="1" presence="O">000</UAPItem>
+        <UAPItem bit="2" presence="O">140</UAPItem>
+        <UAPItem bit="3" presence="O">550</UAPItem>
+        <UAPItem bit="4" presence="O">551</UAPItem>
+        <UAPItem bit="5" presence="O">552</UAPItem>
+        <UAPItem bit="6" presence="O">553</UAPItem>
+        <UAPItem bit="7" presence="O">FX</UAPItem>
+        <UAPItem bit="8" presence="O">600</UAPItem>
+        <UAPItem bit="9" presence="O">610</UAPItem>
+        <UAPItem bit="10" presence="O">620</UAPItem>
+        <UAPItem bit="11" presence="O">-</UAPItem>
+        <UAPItem bit="12" presence="O">-</UAPItem>
+        <UAPItem bit="13" presence="O">RE</UAPItem>
+        <UAPItem bit="14" presence="O">SP</UAPItem>
+        <UAPItem bit="15" presence="O">FX</UAPItem>
     </UAP>
 
 </Category>

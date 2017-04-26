@@ -28,8 +28,8 @@ public:
 
 TEST_F(CodecRegisterTest, populateCodecsFromDirectory)
 {
-    EXPECT_EQ(8, codecRegister.enumerateAllCodecs().size());
-    EXPECT_EQ(8, codecRegister.enumerateAllCodecsByCategory().size());
+    EXPECT_EQ(10, codecRegister.enumerateAllCodecs().size());
+    EXPECT_EQ(10, codecRegister.enumerateAllCodecsByCategory().size());
 }
 
 TEST_F(CodecRegisterTest, getLatestCodecForCategory)

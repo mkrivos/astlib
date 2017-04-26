@@ -4,7 +4,7 @@
 /// \brief Tento subor needitovat, bol automaticky generovany programom codegen!
 ///
 /// \author marian.krivos@r-sys.sk
-/// \date 13.2.2017
+/// \date 26.4.2017
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -180,22 +180,34 @@ const std::vector<std::string>& Rule::enumerate() const
 #ifndef _MSC_VER
 const Units::ValueType Units::None;
 const Units::ValueType Units::M;
+const Units::ValueType Units::M_S;
+const Units::ValueType Units::M_S2;
 const Units::ValueType Units::FT;
 const Units::ValueType Units::NM;
+const Units::ValueType Units::NM_S;
 const Units::ValueType Units::FL;
 const Units::ValueType Units::DEG;
 const Units::ValueType Units::KT;
+const Units::ValueType Units::S;
+const Units::ValueType Units::NS;
+const Units::ValueType Units::PERCENT;
 #endif
 
 std::vector<std::string> Units::definitionList = 
 {
     "None",
     "M",
+    "M_S",
+    "M_S2",
     "FT",
     "NM",
+    "NM_S",
     "FL",
     "DEG",
     "KT",
+    "S",
+    "NS",
+    "PERCENT",
 };
 
 std::string Units::toString() const
@@ -204,11 +216,17 @@ std::string Units::toString() const
     {
         case None: return "None";
         case M: return "M";
+        case M_S: return "M_S";
+        case M_S2: return "M_S2";
         case FT: return "FT";
         case NM: return "NM";
+        case NM_S: return "NM_S";
         case FL: return "FL";
         case DEG: return "DEG";
         case KT: return "KT";
+        case S: return "S";
+        case NS: return "NS";
+        case PERCENT: return "PERCENT";
     }
 
     return "Units::UndefinedValue";
@@ -219,11 +237,17 @@ void Units::fromString(const std::string& str)
     _value = 0;
     if (str ==  "None")  { _value = None; return; }
     if (str ==  "M")  { _value = M; return; }
+    if (str ==  "M_S")  { _value = M_S; return; }
+    if (str ==  "M_S2")  { _value = M_S2; return; }
     if (str ==  "FT")  { _value = FT; return; }
     if (str ==  "NM")  { _value = NM; return; }
+    if (str ==  "NM_S")  { _value = NM_S; return; }
     if (str ==  "FL")  { _value = FL; return; }
     if (str ==  "DEG")  { _value = DEG; return; }
     if (str ==  "KT")  { _value = KT; return; }
+    if (str ==  "S")  { _value = S; return; }
+    if (str ==  "NS")  { _value = NS; return; }
+    if (str ==  "PERCENT")  { _value = PERCENT; return; }
 }
 
 bool Units::validate() const
@@ -232,11 +256,17 @@ bool Units::validate() const
     {
         case None:
         case M:
+        case M_S:
+        case M_S2:
         case FT:
         case NM:
+        case NM_S:
         case FL:
         case DEG:
         case KT:
+        case S:
+        case NS:
+        case PERCENT:
             return true;
     }
 

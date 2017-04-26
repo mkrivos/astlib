@@ -98,10 +98,10 @@ describe('AsterixRecord', function() {
 
 		it('Unsigned Number', function() {
 			var i = 54346745893;
-			assert(astlib.hasItem(asterixRecord, TRACK_STATUS_EMERGENCY) == false);
-			astlib.setNumber(asterixRecord, TRACK_STATUS_EMERGENCY, i);
-			assert(astlib.hasItem(asterixRecord, TRACK_STATUS_EMERGENCY) == true);	
-			assert(astlib.getNumber(asterixRecord, TRACK_STATUS_EMERGENCY) == i);
+			assert(astlib.hasItem(asterixRecord, TRACK_EMERGENCY) == false);
+			astlib.setNumber(asterixRecord, TRACK_EMERGENCY, i);
+			assert(astlib.hasItem(asterixRecord, TRACK_EMERGENCY) == true);	
+			assert(astlib.getNumber(asterixRecord, TRACK_EMERGENCY) == i);
 		});
 
 		it('Unsigned Number Array', function() {
@@ -160,7 +160,7 @@ describe('AsterixRecord', function() {
 		 */
 		
 		it('Stringify', function() {
-			assert.equal(331, astlib.toString(asterixRecord).length);	
+			assert.equal(324, astlib.toString(asterixRecord).length);	
 		});
 	
 		it('Jsonify', function() {
@@ -244,7 +244,7 @@ describe('Asterix Encoder/Decoder', function() {
 			
 			astlib.setNumber(plot, TRACK_NUMBER, 1111);
 			astlib.setString(plot, TARGET_ADDRESS, '23FFAA');
-			astlib.setString(plot, AIRCRAFT_IDENTIFICATION, 'PAKON321');
+			astlib.setString(plot, TARGET_IDENTIFICATION, 'PAKON321');
 			
 			//console.log(astlib.toString(plot));
 			var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
@@ -267,7 +267,7 @@ describe('Asterix Encoder/Decoder', function() {
 			
 			assert.equal(astlib.getNumber(plot, TRACK_NUMBER), astlib.getNumber(record, TRACK_NUMBER));
 			assert.equal(astlib.getString(plot, TARGET_ADDRESS), astlib.getString(record, TARGET_ADDRESS));
-			assert.equal(astlib.getString(plot, AIRCRAFT_IDENTIFICATION), astlib.getString(record, AIRCRAFT_IDENTIFICATION));
+			assert.equal(astlib.getString(plot, TARGET_IDENTIFICATION), astlib.getString(record, TARGET_IDENTIFICATION));
 		});		
 	}); 	
 });

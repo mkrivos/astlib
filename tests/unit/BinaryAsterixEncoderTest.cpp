@@ -185,7 +185,7 @@ TEST_F( BinaryDataEncoderTest, mbDataEncode)
     record->setItem(MODE3A_L, true);
     record->setItem(MODE3A_VALUE, 7777);
 
-    record->setItem(AIRCRAFT_IDENTIFICATION, "PAKON321");
+    record->setItem(TARGET_IDENTIFICATION, "PAKON321");
     record->initializeArray(MODES_MBDATA, 2);
     record->setItem(MODES_MBDATA, "0123456AB12345", 0);
     record->setItem(MODES_MBDATA, "01010101ABABAB", 1);
@@ -201,7 +201,7 @@ TEST_F( BinaryDataEncoderTest, mbDataEncode)
     EXPECT_EQ(7777, mode3aValue);
 
     std::string ident;
-    EXPECT_TRUE(record2->getString(AIRCRAFT_IDENTIFICATION, ident));
+    EXPECT_TRUE(record2->getString(TARGET_IDENTIFICATION, ident));
     EXPECT_EQ("PAKON321", ident);
 
     std::string mbdata;

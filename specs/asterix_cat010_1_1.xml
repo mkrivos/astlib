@@ -119,7 +119,7 @@
                         <BitsValue val="2">Loop stop</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>track.TOT</BitsShortName>
+                        <BitsShortName>track.type</BitsShortName>
                         <BitsName>Type of target</BitsName>
                         <BitsValue val="0">Undetermined</BitsValue>
                         <BitsValue val="1">Aircraft</BitsValue>
@@ -452,12 +452,12 @@
                 <Bits from="32" to="17" encode="signed">
                     <BitsShortName>Vx</BitsShortName>
                     <BitsName>Vx</BitsName>
-                    <BitsUnit scale="0.25" min="-8192" max="8191.75">m/s</BitsUnit>
+                    <BitsUnit scale="0.25" min="-8192" max="8191.75">m_s</BitsUnit>
                 </Bits>
                 <Bits from="1" to="16" encode="signed">
                     <BitsShortName>Vy</BitsShortName>
                     <BitsName>Vy</BitsName>
-                    <BitsUnit scale="0.25" min="-8192" max="8191.75">m/s</BitsUnit>
+                    <BitsUnit scale="0.25" min="-8192" max="8191.75">m_s</BitsUnit>
                 </Bits>
             </Fixed>
         </DataItemFormat>

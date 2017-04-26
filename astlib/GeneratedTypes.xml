@@ -24,11 +24,17 @@
     <enumeration name="Units" >
         <item name="None"></item>
         <item name="M"></item>
+        <item name="M_S"></item>
+        <item name="M_S2"></item>
         <item name="FT"></item>
         <item name="NM"></item>
+        <item name="NM_S"></item>
         <item name="FL"></item>
         <item name="DEG"></item>
         <item name="KT"></item>
+        <item name="S"></item>
+        <item name="NS"></item>
+        <item name="PERCENT"></item>
     </enumeration>
 
     <enumeration name="Encoding" >

@@ -65,14 +65,14 @@
                         <BitsValue val="1">Report from RDP Chain 2</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>SPI</BitsShortName>
-                        <BitsName>track.spi</BitsName>
+                        <BitsShortName>track.spi</BitsShortName>
+                        <BitsName>SPI</BitsName>
                         <BitsValue val="0">Absence of SPI</BitsValue>
                         <BitsValue val="1">Special Position Identification</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>RAB</BitsShortName>
-                        <BitsName>traget.rab</BitsName>
+                        <BitsShortName>target.rab</BitsShortName>
+                        <BitsName>RAB</BitsName>
                         <BitsValue val="0">Report from aircraft transponder</BitsValue>
                         <BitsValue val="1">Plot or track from a fixed transponder</BitsValue>
                     </Bits>
@@ -851,13 +851,13 @@
             <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>track.status.tentative</BitsShortName>
+                        <BitsShortName>track.tentative</BitsShortName>
                         <BitsName>CNF</BitsName>
                         <BitsValue val="0">Confirmed Track</BitsValue>
                         <BitsValue val="1">Tentative Track</BitsValue>
                     </Bits>
                     <Bits from="7" to="6">
-                        <BitsShortName>track.status.rad</BitsShortName>
+                        <BitsShortName>track.rad</BitsShortName>
                         <BitsName>RAD</BitsName>
                         <BitsValue val="0">Combined Track</BitsValue>
                         <BitsValue val="1">PSR Track</BitsValue>
@@ -865,19 +865,19 @@
                         <BitsValue val="3">Invalid</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>track.status.doubt</BitsShortName>
+                        <BitsShortName>track.doubt</BitsShortName>
                         <BitsName>DOU</BitsName>
                         <BitsValue val="0">Normal confidence</BitsValue>
                         <BitsValue val="1">Low confidence in plot to track association</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>track.status.manouvering.horizontal</BitsShortName>
+                        <BitsShortName>track.manouvering.horizontal</BitsShortName>
                         <BitsName>MAH</BitsName>
                         <BitsValue val="0">No horizontal man. sensed</BitsValue>
                         <BitsValue val="1">Horizontal manoeuvring sensed</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
-                        <BitsShortName>track.status.manouvering.vertical</BitsShortName>
+                        <BitsShortName>track.manouvering.vertical</BitsShortName>
                         <BitsName>CDM</BitsName>
                         <BitsValue val="0">Maintaining</BitsValue>
                         <BitsValue val="1">Climbing</BitsValue>
@@ -893,25 +893,25 @@
                 </Fixed>    
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>track.status.end</BitsShortName>
+                        <BitsShortName>track.end</BitsShortName>
                         <BitsName>TRE</BitsName>
                         <BitsValue val="0">Track still alive</BitsValue>
                         <BitsValue val="1">Last report for a track</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>track.status.ghost</BitsShortName>
+                        <BitsShortName>track.ghost</BitsShortName>
                         <BitsName>GHO</BitsName>
                         <BitsValue val="0">True target track</BitsValue>
                         <BitsValue val="1">Ghost target track</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>track.status.clustered</BitsShortName>
+                        <BitsShortName>track.clustered</BitsShortName>
                         <BitsName>SUP</BitsName>
                         <BitsValue val="0">Track from cluster network - NO</BitsValue>
                         <BitsValue val="1">Track from cluster network - YES</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>track.status.slantrangecorrected</BitsShortName>
+                        <BitsShortName>track.slantrangecorrected</BitsShortName>
                         <BitsName>TCC</BitsName>
                         <BitsValue val="0">Radar plane</BitsValue>
                         <BitsValue val="1">Slant range correction</BitsValue>
@@ -1038,11 +1038,11 @@
                     <BitsValue val="1">Yes</BitsValue>                      
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>communication.acas.BDS16</BitsShortName>    
+                    <BitsShortName>communication.acas.B1A</BitsShortName>    
                     <BitsName>BDS 1,0 bit 16</BitsName>                 
                 </Bits>
                 <Bits from="4" to="1">
-                    <BitsShortName>communication.acas.BDS37</BitsShortName>    
+                    <BitsShortName>communication.acas.B1B</BitsShortName>    
                     <BitsName>BDS 1,0 bits 37/40</BitsName>                 
                 </Bits>
             </Fixed>
@@ -1055,7 +1055,7 @@
         <DataItemFormat desc="Six-octet fixed length Data Item.">
             <Fixed length="6">
                 <Bits from="1" to="48" encode="6bitschar">
-                    <BitsShortName>aircraft.identification</BitsShortName>
+                    <BitsShortName>target.identification</BitsShortName>
                     <BitsName>Characters 1-8 (coded on 6 bits each) defining target identification</BitsName>
                 </Bits>
             </Fixed>

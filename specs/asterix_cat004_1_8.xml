@@ -552,43 +552,43 @@
                 <Variable>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>MAS</BitsShortName>
+                        <BitsShortName>conflict.location.military</BitsShortName>
                         <BitsName>Conflict location in military airspace</BitsName>
                         <BitsValue val="0">conflict not predicted to occur in military airspace</BitsValue>
                         <BitsValue val="1">conflict predicted to occur in military airspace</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>CAS</BitsShortName>
+                        <BitsShortName>conflict.location.civil</BitsShortName>
                         <BitsName>Conflict location in civil airspace</BitsName>
                         <BitsValue val="0">conflict not predicted to occur in civil airspace</BitsValue>
                         <BitsValue val="1">conflict predicted to occur in civil airspace</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>FLD</BitsShortName>
+                        <BitsShortName>conflict.FLD</BitsShortName>
                         <BitsName>Fast lateral divergence</BitsName>
                         <BitsValue val="0">Aircraft are not fast diverging laterally at current time</BitsValue>
                         <BitsValue val="1">Aircraft are fast diverging laterally at current time</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>FVD</BitsShortName>
+                        <BitsShortName>conflict.FVD</BitsShortName>
                         <BitsName>Fast vertical divergence</BitsName>
                         <BitsValue val="0">Aircraft are not fast diverging vertically at current time</BitsValue>
                         <BitsValue val="1">Aircraft are fast diverging vertically at current time</BitsValue>
                     </Bits>
                     <Bits bit="4">
-                        <BitsShortName>Type</BitsShortName>
+                        <BitsShortName>conflict.separation.infringement</BitsShortName>
                         <BitsName>Type of separation infringement</BitsName>
                         <BitsValue val="0">Minor separation infringement</BitsValue>
                         <BitsValue val="1">Major separation infringement</BitsValue>
                     </Bits>
                     <Bits bit="3">
-                        <BitsShortName>Cross</BitsShortName>
+                        <BitsShortName>conflict.Test.cross</BitsShortName>
                         <BitsName>Crossing test</BitsName>
                         <BitsValue val="0">Aircraft have not crossed at starting time of conflict</BitsValue>
                         <BitsValue val="1">Aircraft have crossed at starting time of conflict</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>Div</BitsShortName>
+                        <BitsShortName>conflict.test.divergence</BitsShortName>
                         <BitsName>Divergence test</BitsName>
                         <BitsValue val="0">Aircraft are not diverging at starting time of conflict</BitsValue>
                         <BitsValue val="1">Aircraft are diverging at starting time of conflict</BitsValue>
@@ -602,19 +602,19 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>RRC</BitsShortName>
+                        <BitsShortName>conflict.RRC</BitsShortName>
                         <BitsName>Runway/Runway crossing in RIMCAS</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Runway/Runway Crossing</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>RTC</BitsShortName>
+                        <BitsShortName>conflict.RTC</BitsShortName>
                         <BitsName>Runway/Taxiway Crossing in RIMCAS</BitsName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Runway/Taxiway Crossing</BitsValue>
                     </Bits>
                     <Bits bit="6">
-                        <BitsShortName>MRVA</BitsShortName>
+                        <BitsShortName>conflict.MRVA</BitsShortName>
                         <BitsValue val="0">Default</BitsValue>
                         <BitsValue val="1">Msg Type 4 (MSAW) indicates MRVA</BitsValue>
                     </Bits>
@@ -632,17 +632,17 @@
             </Variable>
                 <Fixed length="1">
                     <Bits from="8" to="5">
-                        <BitsShortName>TableId</BitsShortName>
+                        <BitsShortName>conflict.TableId</BitsShortName>
                         <BitsName>Table Id</BitsName>
                         <BitsValue val="0">Defines conflict classes</BitsValue>
                         <BitsValue val="1">Defines filter settings</BitsValue>
                     </Bits>
                     <Bits from="4" to="2">
-                        <BitsShortName>SeverityClass</BitsShortName>
+                        <BitsShortName>conflict.SeverityClass</BitsShortName>
                         <BitsName>Conflict severity class</BitsName>
                     </Bits>
                     <Bits bit="1">
-                        <BitsShortName>CS</BitsShortName>
+                        <BitsShortName>conflict.severity</BitsShortName>
                         <BitsName>Conflict severity</BitsName>
                         <BitsValue val="0">LOW</BitsValue>
                         <BitsValue val="1">HIGH</BitsValue>
@@ -650,16 +650,16 @@
                 </Fixed>
                 <Fixed length="1">
                     <Bits from="8" to="1">
-                        <BitsShortName>Probability</BitsShortName>
+                        <BitsShortName>conflict.Probability</BitsShortName>
                         <BitsName>Probability of the conflict</BitsName>
-                        <BitsUnit scale="0.5">%</BitsUnit>
+                        <BitsUnit scale="0.5">PERCENT</BitsUnit>
                     </Bits>
                 </Fixed>
                 <Fixed length="3">
                     <Bits from="24" to="1">
-                        <BitsShortName>CD</BitsShortName>
+                        <BitsShortName>conflict.duration</BitsShortName>
                         <BitsName>Conflict duration</BitsName>
-                        <BitsUnit scale="0.007825">s</BitsUnit>
+                        <BitsUnit scale="0.007825">S</BitsUnit>
                     </Bits>
                 </Fixed>
             </Compound>

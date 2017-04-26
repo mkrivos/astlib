@@ -3,8 +3,8 @@
 /// \file GeneratedTypes.h
 /// \brief Tento subor needitovat, bol automaticky generovany programom codegen!
 ///
-/// \author Marian Krivos <nezmar@tutok.sk>
-/// \date 13.2.2017
+/// \author marian.krivos@r-sys.sk
+/// \date 26.4.2017
 ///
 /// (C) Copyright 2017 R-SYS s.r.o
 /// All rights reserved.
@@ -17,10 +17,13 @@
 #include "Astlib.h"
 #include <string>
 
+typedef unsigned char Byte;
+
+
 namespace astlib {
 
 #pragma pack(1) 
-class ASTLIB_API ItemFormat
+class ItemFormat
   : public rsys::Enumerator
 { 
 public:
@@ -65,7 +68,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class ASTLIB_API AsterixFamily
+class AsterixFamily
   : public rsys::Enumerator
 { 
 public:
@@ -108,7 +111,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class ASTLIB_API Rule
+class Rule
   : public rsys::Enumerator
 { 
 public:
@@ -150,7 +153,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class ASTLIB_API Units
+class Units
   : public rsys::Enumerator
 { 
 public:
@@ -158,11 +161,17 @@ public:
 
     static const ValueType None = 0;
     static const ValueType M = 1;
-    static const ValueType FT = 2;
-    static const ValueType NM = 3;
-    static const ValueType FL = 4;
-    static const ValueType DEG = 5;
-    static const ValueType KT = 6;
+    static const ValueType M_S = 2;
+    static const ValueType M_S2 = 3;
+    static const ValueType FT = 4;
+    static const ValueType NM = 5;
+    static const ValueType NM_S = 6;
+    static const ValueType FL = 7;
+    static const ValueType DEG = 8;
+    static const ValueType KT = 9;
+    static const ValueType S = 10;
+    static const ValueType NS = 11;
+    static const ValueType PERCENT = 12;
 
     Units(ValueType v = 0) : _value(v) {}
 
@@ -197,7 +206,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class ASTLIB_API Encoding
+class Encoding
   : public rsys::Enumerator
 { 
 public:
@@ -243,7 +252,7 @@ private:
 #pragma pack() 
 
 #pragma pack(1) 
-class ASTLIB_API PrimitiveType
+class PrimitiveType
   : public rsys::Enumerator
 { 
 public:

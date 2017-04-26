@@ -1,30 +1,21 @@
 Global
 --------------------------------------
-+ Windows DLL EXPORT
 - move rule/mandatory from DataItem to UAPItem (because this UAP property)
-- conditional UAP item decoding (after message.type for cat 10)
-- asterix record JS object is not normal object
-- asterixrecord properties - timestamp, category, ...
--- poco json parse constructs strings form other types
+- conditional UAP item decoding/encoding (after message.type for cat 10)
  
 Decoding
 --------------------------------------
-- Explicit data item
-- misc. appendixes
+! Explicit data item
+! misc. appendixes
 - Endian to formal description of codec
-- test to min/max value from bitset
-- handle multiple UAP per category (id as astring)
-- correct presence attribute for UAP defonitions in XMLfiles
-- handle missing but mandatory item in decoder
-- handle ascii/sixbits encodings in decoder
-* ast2json: item 48/030 is variable repetitive and json doesn't catch this
+! test to min/max value from bitset
+! handle multiple UAP per category (id as astring)
+! correct presence attribute for UAP defonitions in XMLfiles
+! handle missing but mandatory item in decoder
+- ast2json: item 48/030 is variable repetitive and json doesn't catch this
 - introduce enumeration as special case of unsigned
-- introduce table with symbols per item
-- do dictionary as dependent of xml specs files
 - per category ValueDecoder with special encoding/decoding rules
 - add special variable-repetitive hack for value types as 048/030
-* introduce AsterixRecord iface
-- generate JS API (constants, codec version)
 - detect node.js
 
 Encoding
@@ -34,4 +25,5 @@ Encoding
 Dictionary & Record
 --------------------------------------
 - revise all symbols in XML
-- generate per category fixed structure with common interface
+- generate per category fixed structure with common interface (special cat48 asterix record with cat48 items only)
+
