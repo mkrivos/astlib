@@ -27,7 +27,7 @@ public:
     SimpleValueDecoder();
     virtual ~SimpleValueDecoder();
 
-    virtual void begin();
+    virtual void begin(int cat);
     virtual void beginItem(const ItemDescription& uapItem);
     virtual void beginRepetitive(size_t size);
     virtual void beginArray(AsterixItemCode code, size_t size);

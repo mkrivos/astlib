@@ -14,6 +14,7 @@
 
 #include "astlib/AsterixItemCode.h"
 #include <Poco/Dynamic/Var.h>
+#include <Poco/Timestamp.h>
 #include <memory>
 
 
@@ -101,6 +102,30 @@ public:
      * @return human readable representation of object in form of key/value list
      */
     virtual std::string toString() const = 0;
+
+	Poco::UInt8 getCategory() const
+	{
+		return _category;
+	}
+
+	void setCategory(Poco::UInt8 category)
+	{
+		_category = category;
+	}
+
+	const Poco::Timestamp& getTimestamp() const
+	{
+		return _timestamp;
+	}
+
+	void setTimestamp(const Poco::Timestamp& timestamp)
+	{
+		_timestamp = timestamp;
+	}
+
+private:
+    Poco::Timestamp _timestamp;
+    Poco::UInt8 _category = 0;
 };
 
 using AsterixRecordPtr = std::shared_ptr<AsterixRecord>;

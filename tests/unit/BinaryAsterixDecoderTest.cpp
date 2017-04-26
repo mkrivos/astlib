@@ -40,7 +40,7 @@ public:
     class MyValueDecoder :
         public TypedValueDecoder
     {
-        virtual void begin()
+        virtual void begin(int cat)
         {
             std::cout << "Start -------------------------\n";
         }

@@ -31,7 +31,7 @@ class ASTLIB_API ValueDecoder
 public:
     virtual ~ValueDecoder() = default;
 
-    virtual void begin() = 0;
+    virtual void begin(int cat) = 0;
     virtual void beginItem(const ItemDescription& uapItem) = 0;
     virtual void beginRepetitive(size_t size) = 0;
     virtual void decode(const CodecContext& ctx, Poco::UInt64 value, int index) = 0;

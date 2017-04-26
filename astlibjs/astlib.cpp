@@ -44,35 +44,46 @@ std::string fromV8String(v8::Handle<v8::Value> value)
     return std::string(*stringValue, stringValue.length());
 }
 
-/*
-v8::Handle<v8::Value> toV8Value(v8::Isolate* isolate, std::string& value)
-{
-    return v8::String::New(isolate, value.c_str(), value.length());
-}
-
-v8::Handle<v8::Value> toV8Object(v8::Isolate* isolate, int value)
-{
-    return v8::Number::New(isolate, value);
-}
-*/
-template<typename T, typename T2>
-class Wrapper
+class AsterixRecordWrapper
 {
 public:
-    explicit Wrapper(T obj) :
+    explicit AsterixRecordWrapper(astlib::SimpleAsterixRecordPtr obj) :
         value(obj)
     {
     }
 
-    explicit Wrapper(const v8::FunctionCallbackInfo<v8::Value>& args)
+    explicit AsterixRecordWrapper(const v8::FunctionCallbackInfo<v8::Value>& args)
     {
     }
 
-    T value { new T2() };
-};
+    astlib::SimpleAsterixRecordPtr value { new astlib::SimpleAsterixRecord() };
 
-using AsterixRecordWrapper = Wrapper<astlib::SimpleAsterixRecordPtr, astlib::SimpleAsterixRecord>;
-//using CodecWrapper = Wrapper<astlib::CodecDescriptionPtr>;
+    Poco::UInt64 getTimestamp() const
+    {
+    	if (value)
+    		return value->getTimestamp().epochMicroseconds() / 1000;
+    	return 0;
+    }
+
+    void setTimestamp(Poco::UInt64 stamp)
+    {
+    	if (value)
+    		return value->setTimestamp(stamp * 1000);
+    }
+
+    Poco::UInt8 getCategory() const
+    {
+    	if (value)
+    		return value->getCategory();
+    	return 0;
+    }
+
+    void setCategory(Poco::UInt8 cat)
+    {
+    	if (value)
+    		return value->setCategory(cat);
+    }
+};
 
 static astlib::CodecRegister codecRegister;
 static astlib::CodecDescriptionVector codecDescriptions;
@@ -353,10 +364,23 @@ void InitAll(v8::Handle<v8::Object> exports)
 {
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
-    v8pp::class_<AsterixRecordWrapper> MyObject_class(isolate);
-
     v8pp::module addon(isolate);
-    addon.set("MyObject", MyObject_class);
+
+    v8pp::class_<AsterixRecordWrapper> AsterixRecord_class(isolate);
+    AsterixRecord_class.ctor<const v8::FunctionCallbackInfo<v8::Value>&>();
+    AsterixRecord_class.set("getTimestamp", &AsterixRecordWrapper::getTimestamp);
+    AsterixRecord_class.set("setTimestamp", &AsterixRecordWrapper::setTimestamp);
+    AsterixRecord_class.set("getCategory", &AsterixRecordWrapper::getCategory);
+    AsterixRecord_class.set("setCategory", &AsterixRecordWrapper::setCategory);
+
+    addon.set("AsterixRecord", AsterixRecord_class);
+    //exports->SetPrototype(addon.new_instance());
+    node::AtExit([](void* param)
+    {
+        v8pp::cleanup(static_cast<v8::Isolate*>(param));
+    }, isolate);
+
+
     addon.set("createAsterixRecord", &createAsterixRecord);
     addon.set("enumerateAllCodecs", &enumerateAllCodecs);
 

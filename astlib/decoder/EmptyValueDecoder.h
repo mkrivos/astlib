@@ -24,7 +24,7 @@ namespace astlib
 class EmptyValueDecoder :
     public ValueDecoder
 {
-    virtual void begin()
+    virtual void begin(int cat)
     {
     }
     virtual void beginItem(const ItemDescription& uapItem)

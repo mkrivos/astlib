@@ -22,9 +22,10 @@ SimpleValueDecoder::~SimpleValueDecoder()
 {
 }
 
-void SimpleValueDecoder::begin()
+void SimpleValueDecoder::begin(int cat)
 {
     _msg = std::make_shared<SimpleAsterixRecord>();
+    _msg->setCategory(cat);
 }
 
 void SimpleValueDecoder::beginItem(const ItemDescription& uapItem)

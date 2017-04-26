@@ -14,9 +14,10 @@
 namespace astlib
 {
 
-void JsonValueDecoder::begin()
+void JsonValueDecoder::begin(int cat)
 {
     json = new Poco::JSON::Object();
+    json->set("category", cat);
 }
 
 void JsonValueDecoder::beginItem(const astlib::ItemDescription& uapItem)

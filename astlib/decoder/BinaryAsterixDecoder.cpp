@@ -96,7 +96,7 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
     // Loop for all fspec bits
     const CodecDescription::UapItems& uapItems = codec.enumerateUapItems();
 
-    valueDecoder.begin();
+    valueDecoder.begin(codec.getCategoryDescription().getCategory());
 
     for (size_t i = 0; i < fspecLen; i++)
     {

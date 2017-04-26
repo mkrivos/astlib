@@ -27,7 +27,7 @@ class TypedEncoder :
     public TypedValueDecoder
 {
 public:
-    virtual void begin() {}
+    virtual void begin(int cat) {}
     virtual void beginItem(const ItemDescription& uapItem) {}
     virtual void beginRepetitive(size_t size) {}
     virtual void end(){}

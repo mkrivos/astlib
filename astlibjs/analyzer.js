@@ -34,9 +34,11 @@ function decode(buffer) {
 	{
 		for(var i = 0; i < records.length; i++)
 		{
-			if (records[i])
+			var record = records[i];
+			if (record)
 			{
-				var asterixObject = JSON.parse(astlib.toJson(records[i]));
+				var asterixObject = JSON.parse(astlib.toJson(record));
+				console.log("Category: " + record.getCategory() + ", Timestamp: " + record.getTimestamp());
 				console.log(asterixObject);
 			}
 		}

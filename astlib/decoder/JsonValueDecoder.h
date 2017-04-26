@@ -29,7 +29,7 @@ namespace astlib
 class ASTLIB_API JsonValueDecoder :
     public TypedValueDecoder
 {
-    virtual void begin();
+    virtual void begin(int cat);
     virtual void beginItem(const astlib::ItemDescription& uapItem);
     virtual void beginRepetitive(size_t count);
     virtual void repetitiveItem(int index);

@@ -79,6 +79,8 @@ TEST(CodecRoundtripTest, cat48)
     BinaryAsterixDecoder decoder(CodecPolicy(CodecPolicy::Error, false));
     decoder.decode(*codecSpecification, valueDecoder, bytes, sizeof(bytes));
 
+    EXPECT_EQ(48, valueDecoder.msg->getCategory());
+
     //std::cout << valueDecoder.msg->toString() << std::endl;
 
     std::vector<Byte> buffer;
