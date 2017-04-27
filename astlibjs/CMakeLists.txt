@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 project(addon)
 
 include_directories(.. . node_modules/v8pp /opt/rsys/platform/include)
-link_directories(${PROJECT_NAME} ../../obj/astlib )
+link_directories(${PROJECT_NAME} ../../lib )
 
 # Build a shared library named after the project from the files in `src/`
 file(GLOB SOURCE_FILES "*.cpp" "*.h")
