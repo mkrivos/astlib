@@ -250,7 +250,7 @@
                 </Bits>
                 <Bits from="5" to="1">
                     <!-- encode="octal" not supported on 5 bits -->
-                    <BitsShortName>mode1.value</BitsShortName>
+                    <BitsShortName>mode1.value</BitsShortName> 
                     <BitsName>Mode-1 Code in octal representation</BitsName>
                 </Bits>
             </Fixed>
