@@ -144,7 +144,7 @@
                 
                 <Fixed length="1">
                     <Bits bit="8">
-                        <BitsShortName>radar.status.nogo</BitsShortName>
+                        <BitsShortName>radar.status.inhibited</BitsShortName>
                         <BitsName>Operational Release Status of the System</BitsName>
                         <BitsValue val="1">Operational use of System is inhibited, i.e. the data shall be discarded by an operational SDPS</BitsValue>
                         <BitsValue val="0">System is released for operational use</BitsValue>   
@@ -180,7 +180,7 @@
                         <BitsValue val="0">Monitoring system connected</BitsValue>
                     </Bits>
                     <Bits bit="2">
-                        <BitsShortName>radar.status.timesource.valid</BitsShortName>
+                        <BitsShortName>radar.status.timesource.invalid</BitsShortName>
                         <BitsName>Time Source Validity</BitsName>
                         <BitsValue val="1">Time source invalid</BitsValue>
                         <BitsValue val="0">Time source valid</BitsValue>
@@ -554,23 +554,23 @@
         <DataItemFormat desc="Eight-octet fixed length Data Item">
             <Fixed length="8">
                 <Bits from="64" to="47">
-                    <BitsShortName>radar.polar.window.rho.start</BitsShortName>
+                    <BitsShortName>radar.polar.window.range.start</BitsShortName>
                     <BitsName>Rho start</BitsName>
                     <BitsUnit scale="0.00390625">NM</BitsUnit>
                 </Bits>
                 <Bits from="48" to="33">
-                    <BitsShortName>radar.polar.window.rho.end</BitsShortName>
+                    <BitsShortName>radar.polar.window.range.end</BitsShortName>
                     <BitsName>Rho end</BitsName>
                     <BitsUnit scale="0.00390625">NM</BitsUnit>
                 </Bits>
                 <Bits from="32" to="17">
                     <BitsShortName>ThetaS</BitsShortName>
-                    <BitsName>radar.polar.window.theta.start</BitsName>
+                    <BitsName>radar.polar.window.azimuth.start</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
                     <BitsShortName>ThetaE</BitsShortName>
-                    <BitsName>radar.polar.window.theta.end</BitsName>
+                    <BitsName>radar.polar.window.azimuth.end</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
             </Fixed>

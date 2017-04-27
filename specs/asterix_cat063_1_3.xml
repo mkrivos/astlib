@@ -19,11 +19,11 @@
         <DataItemFormat desc="Two-octet fixed length Data Item">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>dsi.SAC</BitsShortName>
                     <BitsName>Source Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>dsi.SIC</BitsShortName>
                     <BitsName>Source Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -36,7 +36,7 @@
         <DataItemFormat desc="One-Octet fixed length data item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-                    <BitsShortName>ServiceID</BitsShortName>
+                    <BitsShortName>Service.identification</BitsShortName>
                     <BitsName>Service Identification</BitsName>
                 </Bits> 
             </Fixed>
@@ -50,7 +50,7 @@
         <DataItemFormat desc="Three-byte fixed length data item.">
             <Fixed length="3">
                 <Bits from="24" to="1" encode="unsigned">
-                    <BitsShortName>ToD</BitsShortName>
+                    <BitsShortName>timeofday</BitsShortName>
                     <BitsName>Time Of Message</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -65,11 +65,11 @@
         <DataItemFormat desc="Two-byte fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="9">
-                    <BitsShortName>SAC</BitsShortName>
+                    <BitsShortName>sensor.SAC</BitsShortName>
                     <BitsName>System Area Code</BitsName>
                 </Bits>
                 <Bits from="8" to="1">
-                    <BitsShortName>SIC</BitsShortName>
+                    <BitsShortName>sensor.SIC</BitsShortName>
                     <BitsName>System Identification Code</BitsName>
                 </Bits>
             </Fixed>
@@ -79,12 +79,11 @@
     <DataItem id="060">
         <DataItemName>Sensor Configuration and Status</DataItemName>
         <DataItemDefinition>Configuration and status of the sensor</DataItemDefinition>
-        <DataItemFormat desc="Variable length data item comprising a first part of one octet,
-followed by one-octet extent as necessary.">
+        <DataItemFormat desc="Variable length data item comprising a first part of one octet, followed by one-octet extent as necessary.">
          <Variable>         
             <Fixed length="1">
                 <Bits from="8" to="7">
-                    <BitsShortName>CON</BitsShortName>
+                    <BitsShortName>radar.status.connection</BitsShortName>
                     <BitsName>Connection Status</BitsName>
                     <BitsValue val="0">Operational</BitsValue>
                     <BitsValue val="1">Degraded</BitsValue>
@@ -92,91 +91,91 @@ followed by one-octet extent as necessary.">
                     <BitsValue val="3">Not currently connected</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>PSR</BitsShortName>
+                    <BitsShortName>radar.psr.nogo</BitsShortName>
                     <BitsName>GO/NOGO</BitsName>
                     <BitsValue val="0">PSR GO</BitsValue>
                     <BitsValue val="1">PSR NOGO</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>SSR</BitsShortName>
+                    <BitsShortName>radar.ssr.nogo</BitsShortName>
                     <BitsName>GO/NOGO</BitsName>
                     <BitsValue val="0">SSR GO</BitsValue>
                     <BitsValue val="1">SSR NOGO</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>MDS</BitsShortName>
+                    <BitsShortName>radar.modes.nogo</BitsShortName>
                     <BitsName>GO/NOGO</BitsName>
                     <BitsValue val="0">MDS GO</BitsValue>
                     <BitsValue val="1">MDS NOGO</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>ADS</BitsShortName>
+                    <BitsShortName>radar.ads.nogo</BitsShortName>
                     <BitsName>GO/NOGO</BitsName>
                     <BitsValue val="0">ADS GO</BitsValue>
                     <BitsValue val="1">ADS NOGO</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                    <BitsShortName>MLT</BitsShortName>
+                    <BitsShortName>radar.multilateration.nogo</BitsShortName>
                     <BitsName>GO/NOGO</BitsName>
                     <BitsValue val="0">MLT GO</BitsValue>
                     <BitsValue val="1">MLT NOGO</BitsValue>
                 </Bits>
-     <Bits bit="1" fx="1">
-        <BitsShortName>FX</BitsShortName>
-        <BitsName>Extension indicator</BitsName>
-         <BitsValue val="0">End of Data Item</BitsValue>
-         <BitsValue val="1">Extension into next extent</BitsValue>
-    </Bits>
+		            <Bits bit="1" fx="1">
+		            <BitsShortName>FX</BitsShortName>
+		            <BitsName>Extension indicator</BitsName>
+		            <BitsValue val="0">End of Data Item</BitsValue>
+		            <BitsValue val="1">Extension into next extent</BitsValue>
+     		    </Bits>
             </Fixed>
             
-                        <Fixed length="1">
+            <Fixed length="1">
                 <Bits bit="8">
-                    <BitsShortName>OPS</BitsShortName>
+                    <BitsShortName>radar.status.inhibited</BitsShortName>
                     <BitsName>Operational Release Status of the System</BitsName>
                     <BitsValue val="0">System is released for operational use</BitsValue>
                     <BitsValue val="1">Operational use of System is inhibited</BitsValue>
                 </Bits>
                 <Bits bit="7">
-                    <BitsShortName>ODP</BitsShortName>
+                    <BitsShortName>radar.status.processor.overload</BitsShortName>
                     <BitsName>Data Processor Overload Indicator</BitsName>
                     <BitsValue val="0">Default, no overload</BitsValue>
                     <BitsValue val="1">Overload in DP</BitsValue>
                 </Bits>
                 <Bits bit="6">
-                    <BitsShortName>OXT</BitsShortName>
+                    <BitsShortName>radar.status.transmission.overload</BitsShortName>
                     <BitsName>Transmission Subsystem Overload Status</BitsName>
                     <BitsValue val="0">Default, no overload</BitsValue>
                     <BitsValue val="1">Overload in transmission subsystem</BitsValue>
                 </Bits>
                 <Bits bit="5">
-                    <BitsShortName>MSC</BitsShortName>
+                    <BitsShortName>radar.status.monitoring.connected</BitsShortName>
                     <BitsName>Monitoring System Connected Status</BitsName>
                     <BitsValue val="0">Monitoring system connected</BitsValue>
                     <BitsValue val="1">Monitoring system disconnected</BitsValue>
                 </Bits>
                 <Bits bit="4">
-                    <BitsShortName>TSV</BitsShortName>
+                    <BitsShortName>radar.status.timesource.invalid</BitsShortName>
                     <BitsName>Time Source Validity</BitsName>
                     <BitsValue val="0">Valid</BitsValue>
                     <BitsValue val="1">Invalid</BitsValue>
                 </Bits>
                 <Bits bit="3">
-                    <BitsShortName>NPW</BitsShortName>
+                    <BitsShortName>radar.status.noplots</BitsShortName>
                     <BitsName>No Plot Warning</BitsName>
                     <BitsValue val="0">Default (no meaning)</BitsValue>
                     <BitsValue val="1">No plots being received</BitsValue>
                 </Bits>
                 <Bits bit="2">
-                        <BitsShortName>spare</BitsShortName>
+                    <BitsShortName>spare</BitsShortName>
                     <BitsName>spare Bit set to zero</BitsName>
-         <BitsConst>0</BitsConst>
+                    <BitsConst>0</BitsConst>
                 </Bits>
-     <Bits bit="1" fx="1">
-        <BitsShortName>FX</BitsShortName>
-        <BitsName>Extension indicator</BitsName>
-         <BitsValue val="0">End of Data Item</BitsValue>
-         <BitsValue val="1">Extension into next extent</BitsValue>
-    </Bits>
+			     <Bits bit="1" fx="1">
+			        <BitsShortName>FX</BitsShortName>
+			        <BitsName>Extension indicator</BitsName>
+			        <BitsValue val="0">End of Data Item</BitsValue>
+			        <BitsValue val="1">Extension into next extent</BitsValue>
+			    </Bits>
             </Fixed>
             </Variable>
         </DataItemFormat>
@@ -188,7 +187,7 @@ followed by one-octet extent as necessary.">
         <DataItemFormat desc="Two-byte fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>TSB</BitsShortName>
+                    <BitsShortName>plot.stamping.bias</BitsShortName>
                     <BitsName>Time Stamping Bias Value</BitsName>
                     <BitsUnit scale="1">ms</BitsUnit>
                 </Bits>
@@ -202,12 +201,12 @@ followed by one-octet extent as necessary.">
         <DataItemFormat desc="Four-byte fixed length data item.">
             <Fixed length="4">
                 <Bits from="32" to="17" encode="signed">
-                    <BitsShortName>SRG</BitsShortName>
+                    <BitsShortName>radar.modes.range.gain</BitsShortName>
                     <BitsName>SSR range gain</BitsName>
                     <BitsUnit scale="0.00001">*10E-5</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>SRB</BitsShortName>
+                    <BitsShortName>radar.modes.range.bias</BitsShortName>
                     <BitsName>SSR range bias</BitsName>
                     <BitsUnit scale="0.0078125" min="-5.4" max="5.4">NM</BitsUnit>
                     </Bits>
@@ -221,7 +220,7 @@ followed by one-octet extent as necessary.">
         <DataItemFormat desc="Two-byte fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>SAB</BitsShortName>
+                    <BitsShortName>radar.modes.azimuth.bias</BitsShortName>
                     <BitsName>SSR azimuth bias</BitsName>
                     <BitsUnit scale="0.0054931640625" min="-180" max="179.9945">deg</BitsUnit>
                 </Bits>
@@ -236,12 +235,12 @@ followed by one-octet extent as necessary.">
             <Fixed length="4">
 
                 <Bits from="32" to="17" encode="signed">
-                    <BitsShortName>PRG</BitsShortName>
+                    <BitsShortName>radar.psr.range.gain</BitsShortName>
                     <BitsName>PR range gain</BitsName>
                     <BitsUnit scale="0.00001">*10E-5</BitsUnit>    
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>PRB</BitsShortName>
+                    <BitsShortName>radar.psr.range.bias</BitsShortName>
                     <BitsName>PR range bias</BitsName>
                     <BitsUnit scale="0.0078125" min="-5.4" max="5.4">NM</BitsUnit>
                 </Bits>
@@ -255,7 +254,7 @@ followed by one-octet extent as necessary.">
         <DataItemFormat desc="Two-byte fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>PAB</BitsShortName>
+                    <BitsShortName>radar.psr.azimuth.bias</BitsShortName>
                     <BitsName>PSR azimuth bias</BitsName>
                     <BitsUnit scale="0.0054931640625" min="-180" max="179.9945">deg</BitsUnit>
                 </Bits>
@@ -270,7 +269,7 @@ followed by one-octet extent as necessary.">
         <DataItemFormat desc="Two-byte fixed length data item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-                    <BitsShortName>PEB</BitsShortName>
+                    <BitsShortName>radar.psr.elevation.bias</BitsShortName>
                     <BitsName>PSR Elevation bias</BitsName>
                     <BitsUnit scale="0.0054931640625" min="-180" max="179.9945">deg</BitsUnit>
                 </Bits>
@@ -279,22 +278,20 @@ followed by one-octet extent as necessary.">
     </DataItem>
 
 
-
-
     <UAP>
-        <UAPItem bit="0" presence="1">010</UAPItem>
-        <UAPItem bit="1" presence="2">015</UAPItem>
-        <UAPItem bit="2" presence="3">030</UAPItem>
-        <UAPItem bit="3" presence="4">050</UAPItem>
-        <UAPItem bit="4" presence="5">060</UAPItem>
-        <UAPItem bit="5" presence="6">070</UAPItem>
-        <UAPItem bit="6" presence="7">080</UAPItem>
-        <UAPItem bit="7" presence="FX">-</UAPItem>
-        <UAPItem bit="8" presence="8">081</UAPItem>
-        <UAPItem bit="9" presence="9">090</UAPItem>
-        <UAPItem bit="10" presence="10">091</UAPItem>
-        <UAPItem bit="11" presence="11">092</UAPItem>      
-        <UAPItem bit="15" presence="FX">-</UAPItem>
+        <UAPItem bit="0" presence="O">010</UAPItem>
+        <UAPItem bit="1" presence="O">015</UAPItem>
+        <UAPItem bit="2" presence="O">030</UAPItem>
+        <UAPItem bit="3" presence="O">050</UAPItem>
+        <UAPItem bit="4" presence="O">060</UAPItem>
+        <UAPItem bit="5" presence="O">070</UAPItem>
+        <UAPItem bit="6" presence="O">080</UAPItem>
+        <UAPItem bit="7" presence="O">FX</UAPItem>
+        <UAPItem bit="8" presence="O">081</UAPItem>
+        <UAPItem bit="9" presence="O">090</UAPItem>
+        <UAPItem bit="10" presence="O">091</UAPItem>
+        <UAPItem bit="11" presence="O">092</UAPItem>      
+        <UAPItem bit="15" presence="O">FX</UAPItem>
     </UAP>
         
 </Category>

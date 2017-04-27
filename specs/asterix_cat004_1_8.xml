@@ -875,7 +875,7 @@
                 </Variable> 
                     <Fixed length="6">
                         <Bits from="48" to="1" encode="6bitschar">
-                            <BitsShortName>conflict.aircraft2.modes</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.modes</BitsShortName>
                             <BitsName>Mode-S Identifier Aircraft 1</BitsName>
                         </Bits>
                     </Fixed>
@@ -886,13 +886,13 @@
                             <BitsConst>0</BitsConst>
                         </Bits>
                         <Bits from="27" to="1">
-                            <BitsShortName>conflict.aircraft2.NBR</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.NBR</BitsShortName>
                             <BitsName>Number of the Flight Plan Correlated to Aircraft 1 Involved in the Conflict</BitsName>
                         </Bits>
                     </Fixed>
                     <Fixed length="2">
                         <Bits from="16" to="1" encode="signed">
-                            <BitsShortName>conflict.aircraft2.CFL</BitsShortName>
+                            <BitsShortName>conflict.aircraft1.CFL</BitsShortName>
                             <BitsName>Cleared Flight Level</BitsName>
                             <BitsUnit scale="0.25">FL</BitsUnit>
                         </Bits>
