@@ -11,6 +11,7 @@
 
 #include "ByteUtils.h"
 #include <Poco/NumberFormatter.h>
+#include <Poco/String.h>
 #include <iostream>
 
 namespace astlib
@@ -107,7 +108,7 @@ static Byte charToIa5(char c)
 
 std::string ByteUtils::fromSixBitString(const Byte buffer[])
 {
-    char aux[12] = {0};
+    std::string aux("          ");
     Byte buf[6];
 
     // ICAO dokumentacia (Annex 10.pdf):
@@ -135,14 +136,12 @@ std::string ByteUtils::fromSixBitString(const Byte buffer[])
     aux[6] = ia5ToChar((buf[4] << 2 | buf[5] >> 6) & 0x3F);
     aux[7] = ia5ToChar(buf[5] & 0x3F);
 
-    aux[8] = 0;
-
-    return aux;
+    return Poco::trimRight(aux);
 }
 
 std::string ByteUtils::toSixBitString(const std::string sixbit)
 {
-    Byte buffer[8];
+    Byte buffer[8] = {32, 32, 32, 32, 32, 32, 32, 32};
     char aux[6];
     size_t size = sixbit.size();
 

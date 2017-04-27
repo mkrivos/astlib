@@ -1,28 +1,27 @@
-Global
+Version 1.0.0 Milestone
 --------------------------------------
-- move rule/mandatory from DataItem to UAPItem (because this UAP property)
-- conditional UAP item decoding/encoding (after message.type for cat 10)
- 
-Decoding
---------------------------------------
+
+! conditional UAP item decoding/encoding (after message.type for cat 10)
 ! Explicit data item
 ! misc. appendixes
-- Endian to formal description of codec
 ! test to min/max value from bitset
 ! handle multiple UAP per category (id as astring)
 ! correct presence attribute for UAP defonitions in XMLfiles
 ! handle missing but mandatory item in decoder
+
+Version 1.2.0 Milestone
+--------------------------------------
+
+- Endian to formal description of codec
 - ast2json: item 48/030 is variable repetitive and json doesn't catch this
 - introduce enumeration as special case of unsigned
 - per category ValueDecoder with special encoding/decoding rules
 - add special variable-repetitive hack for value types as 048/030
 - detect node.js
-
-Encoding
---------------------------------------
 - BitsConst encoding
 
-Dictionary & Record
+
+Long Term Goals
 --------------------------------------
 - revise all symbols in XML
 - generate per category fixed structure with common interface (special cat48 asterix record with cat48 items only)

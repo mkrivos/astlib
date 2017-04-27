@@ -135,7 +135,7 @@ TEST_F(TypedValueCodecTest, asciiSixbitEncoding)
 
     Poco::UInt64 value = 0x5054d4c31820ULL;
     encoder.decode(ctx, value, -1);
-    EXPECT_EQ("TEST01  ", encoder.strResult);
+    EXPECT_EQ("TEST01", encoder.strResult);
 
     value = 0;
     encoder.fromStr = encoder.strResult;
@@ -144,7 +144,7 @@ TEST_F(TypedValueCodecTest, asciiSixbitEncoding)
 
     value = 0x092071c31820ULL;
     encoder.decode(ctx, value, -1);
-    EXPECT_EQ("BRA101  ", encoder.strResult);
+    EXPECT_EQ("BRA101", encoder.strResult);
 
     value = 0;
     encoder.fromStr = encoder.strResult;

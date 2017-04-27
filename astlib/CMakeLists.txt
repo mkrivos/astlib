@@ -24,6 +24,17 @@ aux_source_directory(encoder srcs)
 
 add_library(astlib SHARED ${srcs})
 
+set(LIBVER "0.9.0")
 target_link_libraries(astlib ${Poco_LIBRARIES})
-set_target_properties(astlib PROPERTIES VERSION 1.0.0 SOVERSION 1.0.0 DEFINE_SYMBOL ASTLIB_EXPORTS)
+set_target_properties(astlib PROPERTIES VERSION ${LIBVER} SOVERSION ${LIBVER} DEFINE_SYMBOL ASTLIB_EXPORTS)
 target_compile_definitions(astlib PRIVATE "-DASTLIB_DLL")
+
+    INSTALL(DIRECTORY .
+        DESTINATION include/astlib
+        FILES_MATCHING
+        PATTERN "*.h"
+        PATTERN ".svn" EXCLUDE)
+
+    INSTALL(TARGETS astlib
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)

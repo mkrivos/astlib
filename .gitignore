@@ -51,7 +51,6 @@ cmake_install.cmake
 /ALL_BUILD.vcxproj.filters
 /ALL_BUILD.vcxproj
 /CTestTestfile.cmake
-/testunit
 /testunit.dir/Debug/testunit.tlog
 /testunit.dir/Debug
 /x64/Debug/ALL_BUILD
@@ -59,13 +58,6 @@ cmake_install.cmake
 /testunit.vcxproj
 /RUN_TESTS.vcxproj.filters
 /RUN_TESTS.vcxproj
-/ast2json
-/enumerate_symbols
-/AsterixSymbols.h
-/generator
-/AsterixItemDictionary.cpp
-/AsterixItemDictionary.h
-/binary2asterix
 /ast2json.dir/Debug/ast2json.tlog
 /binary2asterix.dir/Debug/binary2asterix.tlog
 *.pdb
@@ -78,3 +70,5 @@ cmake_install.cmake
 /build
 /Win32/Debug/ZERO_CHECK/ZERO_CHECK.tlog
 /x64/Debug
+/bin/
+/install_manifest.txt
