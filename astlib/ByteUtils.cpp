@@ -108,6 +108,7 @@ static Byte charToIa5(char c)
 std::string ByteUtils::fromSixBitString(const Byte buffer[])
 {
     char aux[12] = {0};
+    Byte buf[6];
 
     // ICAO dokumentacia (Annex 10.pdf):
     // This is ICAO - AIS subfield.
@@ -117,20 +118,24 @@ std::string ByteUtils::fromSixBitString(const Byte buffer[])
     // without intervening SPACE code. Any unused character spaces at the end of the subfield shall contain a SPACE
     // character code.
 
-    aux[0] = ia5ToChar(buffer[0] >> 2 & 0x3F);
-    aux[1] = ia5ToChar((buffer[0] << 4 | buffer[1] >> 4) & 0x3F);
-    aux[2] = ia5ToChar((buffer[1] << 2 | buffer[2] >> 6) & 0x3F);
-    aux[3] = ia5ToChar(buffer[2] & 0x3F);
+    buf[0] = buffer[5];
+    buf[1] = buffer[4];
+    buf[2] = buffer[3];
+    buf[3] = buffer[2];
+    buf[4] = buffer[1];
+    buf[5] = buffer[0];
 
-    aux[4] = ia5ToChar(buffer[3] >> 2 & 0x3F);
-    aux[5] = ia5ToChar((buffer[3] << 4 | buffer[4] >> 4) & 0x3F);
-    aux[6] = ia5ToChar((buffer[4] << 2 | buffer[5] >> 6) & 0x3F);
-    aux[7] = ia5ToChar(buffer[5] & 0x3F);
+    aux[0] = ia5ToChar(buf[0] >> 2 & 0x3F);
+    aux[1] = ia5ToChar((buf[0] << 4 | buf[1] >> 4) & 0x3F);
+    aux[2] = ia5ToChar((buf[1] << 2 | buf[2] >> 6) & 0x3F);
+    aux[3] = ia5ToChar(buf[2] & 0x3F);
+
+    aux[4] = ia5ToChar(buf[3] >> 2 & 0x3F);
+    aux[5] = ia5ToChar((buf[3] << 4 | buf[4] >> 4) & 0x3F);
+    aux[6] = ia5ToChar((buf[4] << 2 | buf[5] >> 6) & 0x3F);
+    aux[7] = ia5ToChar(buf[5] & 0x3F);
 
     aux[8] = 0;
-
-    for (int i = sizeof(aux) - 2; (i >= 0) && (aux[i] == ' '); i--)
-        aux[i] = 0;
 
     return aux;
 }
@@ -153,6 +158,10 @@ std::string ByteUtils::toSixBitString(const std::string sixbit)
     aux[3] = (buffer[4] << 2) | ((buffer[5] >> 4) & 0x03);
     aux[4] = ((buffer[5] << 4) & 0xF0) | ((buffer[6] >> 2) & 0x0F);
     aux[5] = ((buffer[6] << 6) & 0xC0) | buffer[7];
+
+    std::swap(aux[0], aux[5]);
+    std::swap(aux[1], aux[4]);
+    std::swap(aux[2], aux[3]);
 
     return aux;
 }

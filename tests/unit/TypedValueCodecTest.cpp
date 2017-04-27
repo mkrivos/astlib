@@ -56,7 +56,7 @@ public:
 
     virtual bool encodeString(const CodecContext& ctx, std::string& value, int index)
     {
-        value = "ABCDEFGH";
+        value = fromStr;
         return true;
     }
 
@@ -82,6 +82,7 @@ public:
         strResult = value;
     }
 
+    std::string fromStr;
     std::string strResult;
 };
 
@@ -107,10 +108,46 @@ TEST_F(TypedValueCodecTest, asciiEncoding)
     CodecContext ctx(uapItem, policy, bits, depth);
     TypedEncoder encoder;
 
+    encoder.fromStr = "ABCDEFGH";
     Poco::UInt64 value = 0;
     EXPECT_TRUE(encoder.encode(ctx, value, -1));
     EXPECT_EQ(0x4142434445464748ULL, value);
 
     encoder.decode(ctx, value, -1);
     EXPECT_EQ("ABCDEFGH", encoder.strResult);
+}
+
+TEST_F(TypedValueCodecTest, asciiSixbitEncoding)
+{
+    AsterixItemCode code(1, PrimitiveType::String, false);
+    BitsDescription bits(code);
+    bits.from = 48;
+    bits.to = 1;
+    bits.encoding = Encoding::SixBitsChar;
+    bits.name = "foo";
+    BitsDescriptionArray array { bits };
+    Fixed fixed(array, 6);
+    FixedItemDescription uapItem(0, "Test", fixed);
+    CodecPolicy policy;
+    int depth = 1;
+    CodecContext ctx(uapItem, policy, bits, depth);
+    TypedEncoder encoder;
+
+    Poco::UInt64 value = 0x5054d4c31820ULL;
+    encoder.decode(ctx, value, -1);
+    EXPECT_EQ("TEST01  ", encoder.strResult);
+
+    value = 0;
+    encoder.fromStr = encoder.strResult;
+    EXPECT_TRUE(encoder.encode(ctx, value, -1));
+    EXPECT_EQ(0x5054d4c31820ULL, value);
+
+    value = 0x092071c31820ULL;
+    encoder.decode(ctx, value, -1);
+    EXPECT_EQ("BRA101  ", encoder.strResult);
+
+    value = 0;
+    encoder.fromStr = encoder.strResult;
+    EXPECT_TRUE(encoder.encode(ctx, value, -1));
+    EXPECT_EQ(0x092071c31820ULL, value);
 }

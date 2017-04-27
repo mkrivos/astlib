@@ -13,7 +13,7 @@
 
 --> 
 
-<Category id="1" name="Transmission of Monoroadar Data" ver="1.1">
+<Category id="001" name="Transmission of Monoroadar Data" ver="1.1">
     
     <DataItem id="010">
         <DataItemName>Data Source Identifier</DataItemName>
