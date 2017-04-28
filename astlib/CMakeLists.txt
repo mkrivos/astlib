@@ -1,3 +1,5 @@
+set(LIBVER "0.9.0")
+
 find_package(Poco 1.7.0 REQUIRED COMPONENTS Foundation JSON XML CONFIG PATHS "/opt/rsys/platform" "d:/opt/rsys/platform")
 include_directories(${PocoFoundation_INCLUDE_DIRECTORIES})
 
@@ -22,19 +24,23 @@ aux_source_directory(model srcs)
 aux_source_directory(decoder srcs)
 aux_source_directory(encoder srcs)
 
-add_library(astlib SHARED ${srcs})
+add_library(astlib_dll SHARED ${srcs})
+target_link_libraries(astlib_dll ${Poco_LIBRARIES})
+set_target_properties(astlib_dll PROPERTIES VERSION ${LIBVER} SOVERSION ${LIBVER} DEFINE_SYMBOL ASTLIB_EXPORTS)
+target_compile_definitions(astlib_dll PRIVATE "-DASTLIB_DLL")
 
-set(LIBVER "0.9.0")
+add_library(astlib STATIC ${srcs})
 target_link_libraries(astlib ${Poco_LIBRARIES})
-set_target_properties(astlib PROPERTIES VERSION ${LIBVER} SOVERSION ${LIBVER} DEFINE_SYMBOL ASTLIB_EXPORTS)
-target_compile_definitions(astlib PRIVATE "-DASTLIB_DLL")
+set_target_properties(astlib PROPERTIES VERSION ${LIBVER} DEFINE_SYMBOL ASTLIB_EXPORTS)
 
-    INSTALL(DIRECTORY .
-        DESTINATION include/astlib
-        FILES_MATCHING
-        PATTERN "*.h"
-        PATTERN ".svn" EXCLUDE)
 
-    INSTALL(TARGETS astlib
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
+INSTALL(DIRECTORY .
+    DESTINATION include/astlib
+    FILES_MATCHING
+    PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE)
+
+INSTALL(TARGETS astlib astlib_dll
+    RUNTIME DESTINATION bin
+	LIBRARY DESTINATION bin
+    ARCHIVE DESTINATION lib)
