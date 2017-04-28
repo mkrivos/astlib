@@ -1,6 +1,9 @@
 Version 1.0.0 Milestone
 --------------------------------------
-
+! split JS binding
+! fix the build bin/lib directory maintaining
+! generate codec description as C++ source (get rid of xml files in runtime)
+! fix track.doppler.speed.value (scalar versus vector ambiguity)
 ! conditional UAP item decoding/encoding (after message.type for cat 10)
 ! Explicit data item
 ! misc. appendixes
@@ -8,6 +11,7 @@ Version 1.0.0 Milestone
 ! handle multiple UAP per category (id as astring)
 ! correct presence attribute for UAP defonitions in XMLfiles
 ! handle missing but mandatory item in decoder
+
 
 Version 1.2.0 Milestone
 --------------------------------------

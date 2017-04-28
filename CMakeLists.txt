@@ -50,7 +50,7 @@ if ( NOT Poco_FOUND)
   message(FATAL_ERROR "Package Poco and it's components required, but not found!")
 endif()
 
-add_subdirectory(astlib)
+add_subdirectory(astlib lib)
 
 set(LIBS astlib ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 include_directories(${Poco_INCLUDE_DIRECTORIES})

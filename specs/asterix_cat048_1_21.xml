@@ -865,7 +865,7 @@
                         <BitsValue val="3">Invalid</BitsValue>
                     </Bits>
                     <Bits bit="5">
-                        <BitsShortName>track.doubt</BitsShortName>
+                        <BitsShortName>track.doubtful</BitsShortName>
                         <BitsName>DOU</BitsName>
                         <BitsValue val="0">Normal confidence</BitsValue>
                         <BitsValue val="1">Low confidence in plot to track association</BitsValue>
