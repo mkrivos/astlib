@@ -15,7 +15,7 @@ Building - Windows [Debug]
 2. mkdir debug
 3. cd debug
 4. cmake -G"Visual Studio 14 2015 Win64" -DCMAKE_BUILD_TYPE=Debug ..
-5. msbuild astlib.sln  /t:Rebuild /p:Configuration=Debugcd ..
+5. msbuild astlib.sln  /t:Rebuild /p:Configuration=Debug
 6. cd ..
 7. bin/Debug/testunit.exe
 
