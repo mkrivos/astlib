@@ -72,3 +72,4 @@ cmake_install.cmake
 /x64/Debug
 /bin/
 /install_manifest.txt
+/astlib/AsterixItemDictionary.js

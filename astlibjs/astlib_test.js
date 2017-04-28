@@ -12,7 +12,7 @@
 
 
 var assert = require("assert");
-var astlib = require('./build/Release/addon.node');
+var astlib = require('./addon.node');
 const Utils = require('./asterix_utils.js');
 const ASTERIX = require('./asterix_codes.js');
 

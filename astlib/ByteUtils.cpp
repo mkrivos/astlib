@@ -108,7 +108,7 @@ static Byte charToIa5(char c)
 
 std::string ByteUtils::fromSixBitString(const Byte buffer[])
 {
-    std::string aux("          ");
+    std::string aux("        ");
     Byte buf[6];
 
     // ICAO dokumentacia (Annex 10.pdf):
@@ -162,7 +162,7 @@ std::string ByteUtils::toSixBitString(const std::string sixbit)
     std::swap(aux[1], aux[4]);
     std::swap(aux[2], aux[3]);
 
-    return aux;
+    return std::string(aux, 6);
 }
 
 void ByteUtils::printHex(const std::vector<Byte>& buffer)

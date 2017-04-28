@@ -548,7 +548,7 @@ int main(int argc, char* argv[])
         // -------------------------------------------------------------------------------------------------------------
 
         {
-            Poco::FileOutputStream js("asterix_codes.js");
+            Poco::FileOutputStream js(module + ".js");
             js << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
 
             int index = 1;
@@ -568,8 +568,8 @@ int main(int argc, char* argv[])
             js << "};\n";
             js << std::endl;
 
-            Poco::File jsFile("asterix_codes.js");
-            jsFile.moveTo("../../astlibjs");
+//            Poco::File jsFile("asterix_codes.js");
+//            jsFile.moveTo("../../astlibjs");
         }
 
 
@@ -578,7 +578,7 @@ int main(int argc, char* argv[])
     catch(Poco::Exception& e)
     {
         std::cerr << e.displayText() << std::endl;
-        return 1;
+        return 0;
     }
 
     return 0;

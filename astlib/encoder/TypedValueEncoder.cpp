@@ -144,9 +144,9 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
                     encoded = encodeString(ctx, str, index);
                     if (encoded)
                     {
-                        str = ByteUtils::toSixBitString(str);
-                        std::reverse(str.begin(), str.end());
-                        for(Byte byte: str)
+                        std::string aux = ByteUtils::toSixBitString(str);
+                        std::reverse(aux.begin(), aux.end());
+                        for(Byte byte: aux)
                         {
                             value <<= 8;
                             value |= byte;

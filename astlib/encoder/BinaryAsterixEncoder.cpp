@@ -381,7 +381,7 @@ size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fix
                 std::cout << "   " << Poco::NumberFormatter::formatHex(data, length*2) << std::endl;
             else
             {
-                std::cout << "   " << Poco::NumberFormatter::formatHex(data2, (8 - length)*2) << ' ' << Poco::NumberFormatter::formatHex(data, 8*2) << std::endl;
+                std::cout << "   " << Poco::NumberFormatter::formatHex(data2, (length-8)*2) << ' ' << Poco::NumberFormatter::formatHex(data, 8*2) << std::endl;
             }
         }
         return length;

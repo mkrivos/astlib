@@ -20,7 +20,9 @@
 #include "astlib/Exception.h"
 
 #include <Poco/NumberFormatter.h>
+#include <Poco/Path.h>
 #include "gtest/gtest.h"
+#include <iostream>
 
 
 using namespace astlib;
@@ -34,6 +36,8 @@ public:
         encoder(policy),
         decoder(policy)
     {
+		std::cout << Poco::Path::current() << std::endl;
+
         CodecDeclarationLoader loader;
         codecSpecification48 = loader.load("specs/asterix_cat048_1_21.xml");
         codecSpecification62 = loader.load("specs/asterix_cat062_1_16.xml");
