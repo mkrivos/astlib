@@ -18,6 +18,7 @@
 #include "model/Fixed.h"
 
 #include <Poco/DOM/Element.h>
+#include <sstream>
 #include <string>
 
 namespace astlib
@@ -37,7 +38,7 @@ public:
      * @param filename
      * @return description object
      */
-    CodecDescriptionPtr load(const std::string& filename);
+    CodecDescriptionPtr parse(std::istream& input);
 
 private:
     void loadCategory(CodecDescription& codecDescription, const Poco::XML::Element& root);

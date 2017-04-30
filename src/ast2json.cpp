@@ -109,7 +109,7 @@ protected:
     void prepareDecoders()
     {
         astlib::CodecRegister codecRegister;
-        codecRegister.populateCodecsFromDirectory("specs");
+        codecRegister.initializeCodecs();
         auto codecs = codecRegister.enumerateAllCodecsByCategory();
 
         for(auto codec: codecs)

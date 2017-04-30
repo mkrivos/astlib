@@ -13,6 +13,7 @@
 #include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/decoder/EmptyValueDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
+#include "astlib/specifications/entries.h"
 #include "astlib/CodecDeclarationLoader.h"
 #include "astlib/AsterixItemDictionary.h"
 #include "astlib/Exception.h"
@@ -30,7 +31,17 @@ public:
     BinaryDataDekoderTest()
     {
         CodecDeclarationLoader loader;
-        codecSpecification = *loader.load("specs/asterix_cat048_1_21.xml");
+        std::string str(astlib::cat048_1_21);
+        std::istringstream stream(str);
+        try
+        {
+        	codecSpecification = *loader.parse(stream);
+        }
+        catch(std::exception& e)
+        {
+        	std::cerr << e.what() << std::endl;
+        }
+
     }
     ~BinaryDataDekoderTest()
     {

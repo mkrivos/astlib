@@ -52,12 +52,12 @@ CodecDeclarationLoader::~CodecDeclarationLoader()
 {
 }
 
-CodecDescriptionPtr CodecDeclarationLoader::load(const std::string& filename)
+CodecDescriptionPtr CodecDeclarationLoader::parse(std::istream& input)
 {
     try
     {
         CodecDescriptionPtr codecDescription(new CodecDescription);
-        Poco::XML::InputSource src(filename);
+        Poco::XML::InputSource src(input);
         Poco::XML::NamePool* pool = new Poco::XML::NamePool(3571);
         Poco::XML::DOMParser parser(pool);
         pool->release();
@@ -80,7 +80,7 @@ CodecDescriptionPtr CodecDeclarationLoader::load(const std::string& filename)
     }
     catch(Poco::Exception& e)
     {
-        throw Exception("CodecDeclarationLoader::load(" + filename + "): " + e.displayText());
+        throw Exception("CodecDeclarationLoader::parse(): " + e.displayText());
     }
 }
 

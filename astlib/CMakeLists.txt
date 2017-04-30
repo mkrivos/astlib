@@ -23,6 +23,7 @@ aux_source_directory(. srcs)
 aux_source_directory(model srcs)
 aux_source_directory(decoder srcs)
 aux_source_directory(encoder srcs)
+aux_source_directory(specifications srcs)
 
 add_library(astlib_dll SHARED ${srcs})
 target_link_libraries(astlib_dll ${Poco_LIBRARIES})

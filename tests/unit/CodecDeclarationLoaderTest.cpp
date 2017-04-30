@@ -11,6 +11,7 @@
 ///
 
 #include "astlib/CodecDeclarationLoader.h"
+#include "astlib/specifications/entries.h"
 #include "gtest/gtest.h"
 
 using namespace astlib;
@@ -37,7 +38,8 @@ public:
 TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 {
     CodecDeclarationLoader loader(true);
-    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
+    std::istringstream stream(std::string(astlib::cat048_1_21));
+    CodecDescriptionPtr codecSpecification = loader.parse(stream);
     ASSERT_TRUE(codecSpecification.get());
 
     // Header
@@ -58,7 +60,8 @@ TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
 {
     CodecDeclarationLoader loader;
-    CodecDescriptionPtr codecSpecification = loader.load("specs/asterix_cat062_1_16.xml");
+    std::istringstream stream(std::string(astlib::cat062_1_16));
+    CodecDescriptionPtr codecSpecification = loader.parse(stream);
     ASSERT_TRUE(codecSpecification.get());
 
     // Header

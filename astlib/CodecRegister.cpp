@@ -11,10 +11,12 @@
 
 #include "CodecRegister.h"
 #include "CodecDeclarationLoader.h"
+#include "specifications/entries.h"
 
 #include <Poco/DirectoryIterator.h>
 #include <Poco/File.h>
 #include <Poco/Path.h>
+#include <sstream>
 
 namespace astlib
 {
@@ -27,6 +29,7 @@ CodecRegister::~CodecRegister()
 {
 }
 
+/*
 void CodecRegister::populateCodecsFromDirectory(const std::string& path)
 {
     auto dir = Poco::DirectoryIterator(path);
@@ -49,6 +52,23 @@ void CodecRegister::populateCodecsFromDirectory(const std::string& path)
             }
         }
         ++dir;
+    }
+}
+*/
+
+void CodecRegister::initializeCodecs()
+{
+    CodecDeclarationLoader loader;
+
+    for (auto file: asterixSpecifications)
+    {
+    	std::istringstream stream(file);
+		CodecDescriptionPtr codec = loader.parse(stream);
+
+		if (codec)
+		{
+			addCodec(codec);
+		}
     }
 }
 

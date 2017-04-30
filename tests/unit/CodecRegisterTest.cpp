@@ -21,7 +21,7 @@ class CodecRegisterTest:
 public:
     CodecRegisterTest()
     {
-        codecRegister.populateCodecsFromDirectory("specs");
+        codecRegister.initializeCodecs();
     }
     CodecRegister codecRegister;
 };
@@ -47,4 +47,17 @@ TEST_F(CodecRegisterTest, getCodecForString)
     ASSERT_TRUE(codec.get());
 
     EXPECT_EQ(48, codec->getCategoryDescription().getCategory());
+/*
+    CodecDescription& description = *codec;
+    auto& out = std::cout;
+
+    for(auto& entry: description.enumerateUapItems())
+    {
+    	int uapId = entry.first;
+    	const CodecDescription::UapItem& uapItem = entry.second;
+    	out << "    {" << std::endl;
+    	out << "        " << uapId << ", \"" << uapItem.item->getType().toString() << "\", \"" << uapItem.item->getDescription() << "\", " << uapItem.mandatory << "," << std::endl;
+    	out << "    }" << std::endl;
+    }
+    */
 }

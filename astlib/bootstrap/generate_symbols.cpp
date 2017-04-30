@@ -34,7 +34,7 @@
 #include <Poco/File.h>
 #include <Poco/Path.h>
 #include <Poco/String.h>
-
+#include <Poco/StreamCopier.h>
 
 #include <iostream>
 #include <map>
@@ -67,6 +67,14 @@ public:
         }
 
         return files;
+    }
+
+    void emitFile(const std::string& filename)
+    {
+    	Poco::FileInputStream stream(filename);
+    	std::string file;
+    	Poco::StreamCopier::copyToString(stream, file);
+    	_files[_signature] = file;
     }
 
     void load(const std::string& filename)
@@ -405,6 +413,7 @@ public:
 
     std::map<std::string, astlib::PrimitiveItem> symbols;
     std::map<std::string, std::set<std::string>> categories;
+    std::map<std::string, std::string> _files;
     std::string _signature;
     std::string _itemId;
 };
@@ -439,6 +448,7 @@ int main(int argc, char* argv[])
             for(auto file: files)
             {
                 bits.load(file);
+                bits.emitFile(file);
             }
 
             {
@@ -570,6 +580,56 @@ int main(int argc, char* argv[])
 
 //            Poco::File jsFile("asterix_codes.js");
 //            jsFile.moveTo("../../astlibjs");
+        }
+
+
+        // -------------------------------------------------------------------------------------------------------------
+
+        {
+            std::string specDir = Poco::replace(module, "AsterixItemDictionary", "specifications/");
+            Poco::Path(specDir).makeDirectory();
+
+            Poco::FileOutputStream allHdr(specDir + "entries.h");
+            allHdr << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
+            allHdr << "#include <vector>\n";
+            allHdr << "\nnamespace astlib {" << std::endl;
+            allHdr << "extern std::vector<const char*> asterixSpecifications;" << std::endl;
+
+            Poco::FileOutputStream allCpp(specDir + "entries.cpp");
+            allCpp << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
+            allCpp << "#include \"entries.h\"\n";
+
+            std::string vec;
+
+            for (auto& entry : bits._files)
+            {
+                auto& file = entry.second;
+                std::string name = Poco::toLower(entry.first);
+                Poco::replaceInPlace(name, ".", "_");
+                Poco::replaceInPlace(name, "-", "_");
+
+                std::string specName = specDir + name + ".cpp";
+                std::cout << specName << std::endl;
+
+                Poco::FileOutputStream specsStream(specName);
+                specsStream << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
+                specsStream << "\nnamespace astlib {" << std::endl;
+            	specsStream << "const char* " << name << " = u8R\"ASTERIX_DEFS(";
+                specsStream << file << std::endl << std::endl;
+            	specsStream << ")ASTERIX_DEFS\";" << std::endl;
+                specsStream << "}" << std::endl;
+
+                allHdr << "extern const char* " << name << ';' << std::endl;
+            	vec.append("    " + name + ",\n");
+            }
+
+            allHdr << "}" << std::endl;
+
+            allCpp << "\nnamespace astlib {" << std::endl;
+            allCpp << "std::vector<const char*> asterixSpecifications = {" << std::endl;
+            allCpp << vec;
+            allCpp << "};" << std::endl;
+            allCpp << "}" << std::endl;
         }
 
 

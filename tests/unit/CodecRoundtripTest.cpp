@@ -14,6 +14,7 @@
 #include "astlib/encoder/SimpleValueEncoder.h"
 #include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
+#include "astlib/specifications/entries.h"
 #include "astlib/CodecDeclarationLoader.h"
 #include "astlib/AsterixItemDictionary.h"
 #include "astlib/Exception.h"
@@ -26,7 +27,8 @@ using namespace astlib;
 TEST(CodecRoundtripTest, cat48)
 {
     CodecDeclarationLoader loader;
-    auto codecSpecification = loader.load("specs/asterix_cat048_1_21.xml");
+    std::istringstream stream(std::string(astlib::cat048_1_21));
+    auto codecSpecification = loader.parse(stream);
 
     unsigned char bytes[111] = {
         48, // CAT

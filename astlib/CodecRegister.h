@@ -34,7 +34,9 @@ public:
      * Loads and registers all XML descriptions from directory.
      * @param path
      */
-    void populateCodecsFromDirectory(const std::string& path);
+    //void populateCodecsFromDirectory(const std::string& path);
+
+    void initializeCodecs();
 
     /**
      * Add one codec description.

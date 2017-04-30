@@ -48,7 +48,7 @@ int main(int, char**)
 {
     CodecRegister codecRegister;
     // Populate codecs
-    codecRegister.populateCodecsFromDirectory("specs");
+    codecRegister.initializeCodecs();
 
     // Find latest category 48 codec
     CodecDescriptionPtr codecCat48 = codecRegister.getLatestCodecForCategory(48);

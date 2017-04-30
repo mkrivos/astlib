@@ -15,6 +15,7 @@
 #include "astlib/decoder/BinaryAsterixDecoder.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
 #include "astlib/decoder/JsonValueDecoder.h"
+#include "astlib/specifications/entries.h"
 #include "astlib/CodecDeclarationLoader.h"
 #include "astlib/AsterixItemDictionary.h"
 #include "astlib/Exception.h"
@@ -39,9 +40,15 @@ public:
 		std::cout << Poco::Path::current() << std::endl;
 
         CodecDeclarationLoader loader;
-        codecSpecification48 = loader.load("specs/asterix_cat048_1_21.xml");
-        codecSpecification62 = loader.load("specs/asterix_cat062_1_16.xml");
-        codecSpecification04 = loader.load("specs/asterix_cat004_1_8.xml");
+
+        std::istringstream stream48(std::string(astlib::cat048_1_21));
+        codecSpecification48 = loader.parse(stream48);
+
+        std::istringstream stream62(std::string(astlib::cat062_1_16));
+        codecSpecification62 = loader.parse(stream62);
+
+        std::istringstream stream04(std::string(astlib::cat004_1_8));
+        codecSpecification04 = loader.parse(stream04);
     }
     ~BinaryDataEncoderTest()
     {
