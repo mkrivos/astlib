@@ -97,12 +97,16 @@ static void loadCodecs()
     }
 }
 
-// TODO init kde sa nacitaju kodeky, error ak ziadny nenajde
-
 v8::Handle<v8::Object> createAsterixRecord(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     AsterixRecordWrapper* obj = new AsterixRecordWrapper(args);
     return v8pp::class_<AsterixRecordWrapper>::import_external(args.GetIsolate(), obj);
+}
+
+v8::Handle<v8::Object> createAsterixCodec(const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+    AsterixCodecWrapper* obj = new AsterixCodecWrapper(args);
+    return v8pp::class_<AsterixCodecWrapper>::import_external(args.GetIsolate(), obj);
 }
 
 v8::Handle<v8::Array> enumerateAllCodecs()
@@ -375,6 +379,7 @@ void InitAll(v8::Handle<v8::Object> exports)
 
 
     addon.set("createAsterixRecord", &createAsterixRecord);
+    addon.set("createAsterixCodec", &createAsterixCodec);
     addon.set("enumerateAllCodecs", &enumerateAllCodecs);
 
     addon.set("decodeAsterixBuffer", &decodeAsterixBuffer);
