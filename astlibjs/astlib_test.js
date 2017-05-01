@@ -12,15 +12,10 @@
 
 
 var assert = require("assert");
-var astlib = require('./build/Release/addon.node');
+var astlib = require('./build/Debug/addon.node');
 const Utils = require('./asterix_utils.js');
-const ASTERIX = require('./asterix_codes.js');
 
-for (var key in ASTERIX)
-{
-	var str = key + "=" + ASTERIX[key];
-	eval(str);
-}
+Utils.declareAsterixCodes(astlib);
 
 var asterixRecord = astlib.createAsterixRecord();
 var codecs = astlib.enumerateAllCodecs();
@@ -178,7 +173,7 @@ describe('Asterix Encoder/Decoder', function() {
 	describe('#codec 48', function() {
 		it('empty record', function() {
 			//console.log(astlib.toString(asterixRecord));
-			var buffer = astlib.encodeAsterixRecord(asterixRecord, codecs[0]);			
+			var buffer = astlib.encodeAsterixRecord(asterixRecord, codecs[1]);			
 			assert.ok(buffer != null);			
 			assert.equal(buffer.length, 3);
 		});

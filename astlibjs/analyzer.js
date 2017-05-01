@@ -13,14 +13,9 @@
 
 var   astlib = require('./build/Release/addon.node');
 const Utils = require('./asterix_utils.js');
-const ASTERIX = require('./asterix_codes.js');
 const Channels = require('./channels.js');
 
-for (var key in ASTERIX)
-{
-	var str = key + "=" + ASTERIX[key];
-	eval(str);
-}
+Utils.declareAsterixCodes(astlib);
 
 var PORT = 50000;
 

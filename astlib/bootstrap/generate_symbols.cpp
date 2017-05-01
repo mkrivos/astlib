@@ -469,6 +469,7 @@ int main(int argc, char* argv[])
             Poco::FileOutputStream header(module + ".h");
             header << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
             header << "#pragma once" << std::endl << std::endl;
+            header << "#include <unordered_map>" << std::endl << std::endl;
             header << "#include \"astlib/AsterixItemCode.h\"" << std::endl << std::endl;
             header << "namespace astlib {" << std::endl << std::endl;
 
@@ -496,6 +497,7 @@ int main(int argc, char* argv[])
 
             header << "ASTLIB_API AsterixItemCode asterixSymbolToCode(const std::string& symbol);" << std::endl;
             header << "ASTLIB_API const std::string& asterixCodeToSymbol(AsterixItemCode code);" << std::endl;
+            header << "ASTLIB_API const std::unordered_map<std::string, AsterixItemCode>& asterixSymbols();" << std::endl;
             header << std::endl << "}" << std::endl;
         }
 
@@ -505,7 +507,6 @@ int main(int argc, char* argv[])
             Poco::FileOutputStream source(module + ".cpp");
             source << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
             source << "#include \"" << module << ".h\"" << std::endl;
-            source << "#include <unordered_map>" << std::endl << std::endl;
             source << "namespace astlib {" << std::endl << std::endl;
 
             for (const auto& entry : globals)
@@ -548,6 +549,11 @@ int main(int argc, char* argv[])
                 "    int index = code.code();\n"
                 "    poco_assert(index < ASTERIX_ITEM_COUNT);\n"
                 "    return codeToNameTable[index-1].name;\n"
+                "}\n"
+                "\n"
+				"const std::unordered_map<std::string, AsterixItemCode>& asterixSymbols()\n"
+				"{\n"
+				"    return symbolToCodeMap;\n"
                 "}\n";
 
             source << functions << std::endl;

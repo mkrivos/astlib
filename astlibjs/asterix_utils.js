@@ -29,11 +29,30 @@ function itemIsValid(code)
     return code != 0;
 }
 
+/**
+ * Reads ASTERIX codes and declare ones in global namespace.
+ * (this magic code allows no prefixes)
+ * @param astlib
+ * @returns
+ */
+function declareAsterixCodes(astlib) 
+{
+	for (var key in astlib)
+	{
+		if (key.startsWith("EXPORT_"))
+		{
+			let str = key.slice(7) + "=" + astlib[key];
+			eval(str);
+		}
+	}
+}
+
 exports = module.exports;
 exports.itemIsArray = itemIsArray
 exports.itemIsScalar = itemIsScalar
 exports.itemType = itemType
 exports.itemIsValid = itemIsValid
+exports.declareAsterixCodes = declareAsterixCodes;
 
 exports.Unknown = 0;
 exports.Boolean = 1;

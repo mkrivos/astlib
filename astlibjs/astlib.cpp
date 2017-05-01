@@ -3,6 +3,7 @@
 #include <node_buffer.h>
 
 #include "astlib/SimpleAsterixRecord.h"
+#include "astlib/AsterixItemDictionary.h"
 #include "astlib/CodecRegister.h"
 #include "astlib/Exception.h"
 #include "astlib/decoder/SimpleValueDecoder.h"
@@ -102,13 +103,13 @@ v8::Handle<v8::Object> createAsterixRecord(const v8::FunctionCallbackInfo<v8::Va
     AsterixRecordWrapper* obj = new AsterixRecordWrapper(args);
     return v8pp::class_<AsterixRecordWrapper>::import_external(args.GetIsolate(), obj);
 }
-
+/*
 v8::Handle<v8::Object> createAsterixCodec(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     AsterixCodecWrapper* obj = new AsterixCodecWrapper(args);
     return v8pp::class_<AsterixCodecWrapper>::import_external(args.GetIsolate(), obj);
 }
-
+*/
 v8::Handle<v8::Array> enumerateAllCodecs()
 {
     loadCodecs();
@@ -363,6 +364,15 @@ void InitAll(v8::Handle<v8::Object> exports)
 
     v8pp::module addon(isolate);
 
+    const std::unordered_map<std::string, astlib::AsterixItemCode>& codes = astlib::asterixSymbols();
+    for(const auto& entry: codes)
+    {
+    	std::string name = "EXPORT_" + entry.first;
+    	Poco::toUpperInPlace(name);
+    	Poco::replaceInPlace(name, "." , "_");
+    	addon.set_const((new std::string(name))->c_str(), entry.second.value);
+    }
+
     v8pp::class_<AsterixRecordWrapper> AsterixRecord_class(isolate);
     AsterixRecord_class.ctor<const v8::FunctionCallbackInfo<v8::Value>&>();
     AsterixRecord_class.set("getTimestamp", &AsterixRecordWrapper::getTimestamp);
@@ -379,7 +389,7 @@ void InitAll(v8::Handle<v8::Object> exports)
 
 
     addon.set("createAsterixRecord", &createAsterixRecord);
-    addon.set("createAsterixCodec", &createAsterixCodec);
+    //addon.set("createAsterixCodec", &createAsterixCodec);
     addon.set("enumerateAllCodecs", &enumerateAllCodecs);
 
     addon.set("decodeAsterixBuffer", &decodeAsterixBuffer);

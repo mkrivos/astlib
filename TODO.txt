@@ -2,7 +2,7 @@ Version 1.0.0 Milestone
 --------------------------------------
 ! split JS binding
 ! fix the build bin/lib directory maintaining
-! fix track.doppler.speed.value (scalar versus vector ambiguity)
+! fix track.doppler.speed.value (scalar versus vector ambiguity) (TypedValueDecoder::decode: track.doppler.speed.value array expects an index) - item is encoded in stream as scalar but in dictionary is vector
 ! conditional UAP item decoding/encoding (after message.type for cat 10)
 ! Explicit data item - misc. appendixes
 ! test to min/max value from bitset
