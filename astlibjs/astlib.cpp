@@ -69,7 +69,7 @@ public:
     void setTimestamp(Poco::UInt64 stamp)
     {
     	if (value)
-    		return value->setTimestamp(stamp * 1000);
+    		value->setTimestamp(stamp * 1000);
     }
 
     Poco::UInt8 getCategory() const
@@ -82,7 +82,7 @@ public:
     void setCategory(Poco::UInt8 cat)
     {
     	if (value)
-    		return value->setCategory(cat);
+    		value->setCategory(cat);
     }
 };
 
