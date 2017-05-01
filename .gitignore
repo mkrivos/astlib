@@ -75,3 +75,4 @@ cmake_install.cmake
 /astlib/AsterixItemDictionary.js
 /release
 /server.js
+/.vs/astlib/v15
