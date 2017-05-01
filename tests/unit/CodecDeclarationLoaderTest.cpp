@@ -38,7 +38,7 @@ public:
 TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 {
     CodecDeclarationLoader loader(true);
-    std::istringstream stream(std::string(astlib::cat048_1_21));
+	std::istringstream stream{ std::string(cat048_1_21) };
     CodecDescriptionPtr codecSpecification = loader.parse(stream);
     ASSERT_TRUE(codecSpecification.get());
 
@@ -60,7 +60,7 @@ TEST_F( CodecDeclarationLoaderTest, loadCat48Asterixed)
 TEST_F( CodecDeclarationLoaderTest, loadCat62Asterixed)
 {
     CodecDeclarationLoader loader;
-    std::istringstream stream(std::string(astlib::cat062_1_16));
+	std::istringstream stream{ std::string(cat062_1_16) };
     CodecDescriptionPtr codecSpecification = loader.parse(stream);
     ASSERT_TRUE(codecSpecification.get());
 

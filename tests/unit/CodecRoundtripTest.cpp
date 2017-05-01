@@ -27,7 +27,7 @@ using namespace astlib;
 TEST(CodecRoundtripTest, cat48)
 {
     CodecDeclarationLoader loader;
-    std::istringstream stream(std::string(astlib::cat048_1_21));
+	std::istringstream stream{ std::string(cat048_1_21) };
     auto codecSpecification = loader.parse(stream);
 
     unsigned char bytes[111] = {

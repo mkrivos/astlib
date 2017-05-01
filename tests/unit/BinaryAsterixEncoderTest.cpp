@@ -41,13 +41,13 @@ public:
 
         CodecDeclarationLoader loader;
 
-        std::istringstream stream48(std::string(astlib::cat048_1_21));
+		std::istringstream stream48{ std::string(cat048_1_21) };
         codecSpecification48 = loader.parse(stream48);
 
-        std::istringstream stream62(std::string(astlib::cat062_1_16));
+		std::istringstream stream62{ std::string(cat062_1_16) };
         codecSpecification62 = loader.parse(stream62);
 
-        std::istringstream stream04(std::string(astlib::cat004_1_8));
+        std::istringstream stream04{std::string(cat004_1_8)};
         codecSpecification04 = loader.parse(stream04);
     }
     ~BinaryDataEncoderTest()
