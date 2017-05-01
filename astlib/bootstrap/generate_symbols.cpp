@@ -593,7 +593,7 @@ int main(int argc, char* argv[])
             allHdr << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
             allHdr << "#include <vector>\n";
             allHdr << "\nnamespace astlib {" << std::endl;
-            allHdr << "extern std::vector<const unsigned char*> asterixSpecifications;" << std::endl;
+            allHdr << "extern std::vector<const char*> asterixSpecifications;" << std::endl;
 
             Poco::FileOutputStream allCpp(specDir + "entries.cpp");
             allCpp << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
@@ -630,8 +630,10 @@ int main(int argc, char* argv[])
             	specsStream << " 0 };" << std::endl;
                 specsStream << "}" << std::endl;
 
-                allHdr << "extern const char* " << name << ';' << std::endl;
+                allHdr << "extern const char " << name << "[" << file.size()+1 <<  "];" << std::endl;
             	vec.append("    " + name + ",\n");
+
+                allCpp << "#include \"" << name << ".cpp\"\n";
             }
 
             allHdr << "}" << std::endl;
