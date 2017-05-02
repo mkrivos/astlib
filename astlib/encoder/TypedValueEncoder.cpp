@@ -38,12 +38,12 @@ bool TypedValueEncoder::encode(const CodecContext& ctx, Poco::UInt64& value, int
 
     if (index == -1 && code.isArray())
     {
-        throw Exception("TypedValueDecoder::decode: " + asterixCodeToSymbol(code) + " array expects an index");
+        throw Exception("TypedValueEncoder::encode: " + asterixCodeToSymbol(code) + " array expects an index");
     }
 
     if (index != -1 && !code.isArray())
     {
-        throw Exception("TypedValueDecoder::decode: " + asterixCodeToSymbol(code) + " scalar value doesn't expects an index");
+        throw Exception("TypedValueEncoder::encode: " + asterixCodeToSymbol(code) + " scalar value doesn't expects an index");
     }
 
     Encoding::ValueType encoding = ctx.bits.encoding.toValue();

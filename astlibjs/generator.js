@@ -11,58 +11,113 @@
 
 
 var astlib = require('bindings')('addon.node');
+const Utils = require('./asterix_utils.js');
 
 Utils.declareAsterixCodes(astlib);
 
 var asterixRecord = astlib.createAsterixRecord();
 var codecs = astlib.enumerateAllCodecs();
-var plot = astlib.createAsterixRecord();
 
-astlib.setNumber(plot, ASTERIX.DSI_SAC, 44);
-astlib.setNumber(plot, ASTERIX.DSI_SIC, 144);
-astlib.setNumber(plot, ASTERIX.TIMEOFDAY, 3600);
+var SIC = 44;
+var SAC = 88;
 
-astlib.setNumber(plot, ASTERIX.TRACK_DETECTION, 3);
-astlib.setBoolean(plot, ASTERIX.TRACK_TEST, true);
-astlib.setBoolean(plot, ASTERIX.TRACK_SIMULATED, true);
-
-astlib.setNumber(plot, ASTERIX.TRACK_POSITION_RANGE, 10000.0);
-astlib.setNumber(plot, ASTERIX.TRACK_POSITION_AZIMUTH, 45.0);
-
-astlib.setBoolean(plot, ASTERIX.MODE3A_V, true);
-astlib.setBoolean(plot, ASTERIX.MODE3A_G, true);
-astlib.setBoolean(plot, ASTERIX.MODE3A_L, true);
-astlib.setNumber(plot, ASTERIX.MODE3A_VALUE, 7777);
-
-astlib.setNumber(plot, ASTERIX.TRACK_POSITION_X, -10000.0);
-astlib.setNumber(plot, ASTERIX.TRACK_POSITION_Y, -50000.0);
-
-astlib.setBoolean(plot, ASTERIX.MODE2_V, true);
-astlib.setBoolean(plot, ASTERIX.MODE2_G, true);
-astlib.setBoolean(plot, ASTERIX.MODE2_L, true);
-astlib.setNumber(plot, ASTERIX.MODE2_VALUE, 7777);
-
-astlib.setNumber(plot, ASTERIX.TRACK_NUMBER, 1111);
-astlib.setString(plot, ASTERIX.AIRCRAFT_ADDRESS, '23FFAA');
-astlib.setString(plot, ASTERIX.AIRCRAFT_IDENTIFICATION, 'PAKON321');
-console.log(astlib.toString(plot));
-
-var buffer = astlib.encodeAsterixRecord(plot, 'Eurocontrol-48:1.21');			
-console.log(buffer);
-
-for(var i = 0; i < 30000; i++) {
-	var records = astlib.decodeAsterixBuffer('Eurocontrol-48:1.21', buffer);
-	var record = records[0];
-	astlib.setNumber(plot, ASTERIX.TIMEOFDAY, 3601);
-	astlib.setBoolean(plot, ASTERIX.MODE2_V, true);
-	astlib.setBoolean(plot, ASTERIX.MODE2_G, true);
-	astlib.setBoolean(plot, ASTERIX.MODE2_L, true);
-	astlib.setNumber(plot, ASTERIX.TRACK_DETECTION, 3);
-	astlib.setBoolean(plot, ASTERIX.TRACK_TEST, true);
-	astlib.setBoolean(plot, ASTERIX.TRACK_SIMULATED, true);
-	astlib.setNumber(plot, ASTERIX.TRACK_POSITION_RANGE, 10000.0);
-	astlib.setNumber(plot, ASTERIX.TRACK_POSITION_AZIMUTH, 45.0);	
-	var buffer2 = astlib.encodeAsterixRecord(record, 'Eurocontrol-48:1.21');			
+function Model() 
+{
+    this.positionX = 0;
+    this.positionY = 0;
+    this.velocityX = 100,
+    this.velocityY = 100;
+    this.trackNumber = 0;
+    this.callsign = "";
 }
 
-console.log(30000 / process.uptime());
+var ProfileTrack159 = {
+    polarPosition: true,
+    relativePosition: true,
+    polarVelocity: false,
+};
+
+function Instance(trackNumber, callsign) {
+    this.socketAddress = "localhost:50000";
+    this.protocol = "Eurocontrol-159:2.0";
+    this.profile = ProfileTrack159;
+    this.record = astlib.createAsterixRecord();
+    this.model = new Model();
+    this.model.trackNumber = trackNumber;
+    if (callsign)
+        this.model.callsign = callsign;
+}
+
+function setPosition(profile, record, model) {    
+    if (profile.relativePosition) {           
+        if (profile.polarPosition) {
+            range = model.positionX;
+            azimuth = model.positionY;
+            
+            astlib.setNumber(record, TRACK_POSITION_RANGE, range);        
+            astlib.setNumber(record, TRACK_POSITION_AZIMUTH, azimuth);
+        } else {
+            astlib.setNumber(record, TRACK_POSITION_X, model.positionX);        
+            astlib.setNumber(record, TRACK_POSITION_Y, model.positionY);
+        }
+    } else {
+        // WGS84
+    }
+
+    astlib.setNumber(record, TIMEOFDAY, Utils.secsAfterMidnight());
+}
+
+function setSourceId(profile, record, model) {   
+    astlib.setNumber(record, DSI_SAC, SAC);
+    astlib.setNumber(record, DSI_SIC, SIC);
+}
+
+function setFacility(profile, record, model) {
+    astlib.setNumber(record, TRACK_NUMBER, model.trackNumber);
+    astlib.setString(record, AIRCRAFT_ADDRESS, '23FFAA');
+    astlib.setString(record, AIRCRAFT_IDENTIFICATION, 'PAKON321');
+
+    astlib.setBoolean(record, MODE3A_V, true);
+    astlib.setBoolean(record, MODE3A_G, true);
+    astlib.setBoolean(record, MODE3A_L, true);
+    astlib.setNumber(record, MODE3A_VALUE, 7777);
+}
+
+function setOther(profile, record, model) {
+    astlib.setBoolean(record, TRACK_TEST, true);
+    astlib.setBoolean(record, TRACK_SIMULATED, true);
+}
+
+function emitRecord(instance) {
+    let profile = instance.profile;
+    let record = instance.record;
+    let model = instance.model;
+    let protocol = instance.protocol;
+    
+    setSourceId(profile, record, model);
+    setFacility(profile, record, model);
+    setPosition(profile, record, model);
+    setOther(profile, record, model);
+
+    var buffer = astlib.encodeAsterixRecord(record, protocol);           
+    console.log(astlib.toJson(record));
+    console.log(buffer);
+}
+
+function fireOut(stations) {
+    for(let i = 0; i < stations.length; i++) {
+        let instance = stations[i];
+        emitRecord(instance);
+    }
+}
+
+var stations = [
+    new Instance(1, "Jano"),
+    new Instance(2, "Juro"),
+];
+
+stations[1].protocol = 'Eurocontrol-48:1.21';
+
+setInterval(fireOut, 1000, stations);
+
+

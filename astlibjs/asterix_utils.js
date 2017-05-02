@@ -37,14 +37,27 @@ function itemIsValid(code)
  */
 function declareAsterixCodes(astlib) 
 {
-	for (var key in astlib)
-	{
-		if (key.startsWith("EXPORT_"))
-		{
-			let str = key.slice(7) + "=" + astlib[key];
-			eval(str);
-		}
-	}
+    for (var key in astlib)
+    {
+    	if (key.startsWith("EXPORT_"))
+    	{
+    		let str = key.slice(7) + "=" + astlib[key];
+    		eval(str);
+    	}
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function timestamp() {
+    let stamp = new Date();
+    return stamp.getTime() / 1000.0 ;
+}
+
+function secsAfterMidnight() {
+    return timestamp() % 86400;
 }
 
 exports = module.exports;
@@ -53,6 +66,10 @@ exports.itemIsScalar = itemIsScalar
 exports.itemType = itemType
 exports.itemIsValid = itemIsValid
 exports.declareAsterixCodes = declareAsterixCodes;
+exports.sleep = sleep;
+exports.timestamp = timestamp;
+exports.secsAfterMidnight = secsAfterMidnight;
+
 
 exports.Unknown = 0;
 exports.Boolean = 1;

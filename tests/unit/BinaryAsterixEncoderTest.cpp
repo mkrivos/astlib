@@ -49,6 +49,9 @@ public:
 
         std::istringstream stream04{std::string(cat004_1_8)};
         codecSpecification04 = loader.parse(stream04);
+
+        std::istringstream stream159{std::string(cat159_2_0)};
+        codecSpecification159 = loader.parse(stream159);
     }
     ~BinaryDataEncoderTest()
     {
@@ -96,6 +99,7 @@ public:
     CodecDescriptionPtr codecSpecification04;
     CodecDescriptionPtr codecSpecification48;
     CodecDescriptionPtr codecSpecification62;
+    CodecDescriptionPtr codecSpecification159;
     astlib::CodecPolicy policy;
     BinaryAsterixEncoder encoder;
     BinaryAsterixDecoder decoder;
@@ -139,6 +143,13 @@ TEST_F( BinaryDataEncoderTest, simpleEncode62)
     std::vector<Byte> buffer;
     astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
     encoder.encode(*codecSpecification62, valueEncoder, buffer);
+}
+
+TEST_F( BinaryDataEncoderTest, simpleEncode159)
+{
+    std::vector<Byte> buffer;
+    astlib::SimpleValueEncoder valueEncoder(std::make_shared<astlib::SimpleAsterixRecord>());
+    encoder.encode(*codecSpecification159, valueEncoder, buffer);
 }
 
 TEST_F( BinaryDataEncoderTest, aircraftDerivedData62)
