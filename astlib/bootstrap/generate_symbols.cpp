@@ -600,7 +600,7 @@ int main(int argc, char* argv[])
             allHdr << "#include <vector>\n";
 			allHdr << "#include \"astlib/Astlib.h\"\n";
 			allHdr << "\nnamespace astlib {" << std::endl;
-            allHdr << "extern ASTLIB_API std::vector<const char*> asterixSpecifications;" << std::endl;
+            allHdr << "extern ASTLIB_API const std::vector<const char*>& getAsterixSpecifications();" << std::endl;
 
             Poco::FileOutputStream allCpp(specDir + "entries.cpp");
             allCpp << "/// @brief file generated from XML asterix descriptions" << std::endl << std::endl;
@@ -649,6 +649,10 @@ int main(int argc, char* argv[])
             allCpp << "std::vector<const char*> asterixSpecifications = {" << std::endl;
             allCpp << vec;
             allCpp << "};" << std::endl;
+            allCpp << "const std::vector<const char*>& getAsterixSpecifications()\n";
+            allCpp << "{" << std::endl;
+            allCpp << "    return asterixSpecifications;" << std::endl;
+            allCpp << "}" << std::endl;
             allCpp << "}" << std::endl;
         }
 

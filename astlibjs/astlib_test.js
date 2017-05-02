@@ -12,7 +12,7 @@
 
 
 var assert = require("assert");
-var astlib = require('./build/Debug/addon.node');
+var astlib = require('bindings')('addon.node');
 const Utils = require('./asterix_utils.js');
 
 Utils.declareAsterixCodes(astlib);

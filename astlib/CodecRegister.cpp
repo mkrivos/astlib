@@ -60,7 +60,7 @@ void CodecRegister::initializeCodecs()
 {
     CodecDeclarationLoader loader;
 
-    for (auto file: asterixSpecifications)
+    for (auto file: getAsterixSpecifications())
     {
     	std::istringstream stream(file);
 		CodecDescriptionPtr codec = loader.parse(stream);
