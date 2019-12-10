@@ -206,7 +206,7 @@ int BinaryAsterixDecoder::decodeVariable(const ItemDescription& uapItem, ValueDe
         {
             fspecBit = (ptr[0] & FX_BIT);
             auto len = fixed.length;
-            poco_assert(len == 1);
+
             decodeBitset(uapItem, fixed, ptr, valueDecoder, -1, 0);
             decodedByteCount += len;
             ptr += len;
