@@ -10,7 +10,7 @@ target_link_libraries(generator ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 # add the command to generate the source code
 set(GENERATED_MODULE "${CMAKE_CURRENT_SOURCE_DIR}/AsterixItemDictionary")
 set(GENERATED_SOURCE "${GENERATED_MODULE}.cpp")
-set(XML_SPECS_DIR "${CMAKE_SOURCE_DIR}/specs")
+set(XML_SPECS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../specs")
 
 # Zoznam XML ako zavislost pre rebuild src
 file(GLOB XML_SPECS_FILES "${XML_SPECS_DIR}/*.xml")

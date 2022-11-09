@@ -54,6 +54,7 @@ add_subdirectory(astlib lib)
 
 set(LIBS astlib ${Poco_LIBRARIES} ${SYSTEM_LIBS})
 include_directories(${Poco_INCLUDE_DIRECTORIES})
+target_include_directories(astlib INTERFACE .)
 
 add_executable(binary2asterix examples/binary2asterix.cpp)
 target_link_libraries(binary2asterix ${LIBS})

@@ -91,9 +91,10 @@
                         <BitsValue val="1">Test target report</BitsValue>
                     </Bits>
                     <Bits bit="7">
-                        <BitsShortName>spare</BitsShortName>
-                        <BitsName>spare bit set to 0</BitsName>
-                        <BitsConst>0</BitsConst>                       
+                        <BitsShortName>track.extendedrange</BitsShortName>
+                        <BitsName>ERR</BitsName>
+                        <BitsValue val="0">No Extended Range</BitsValue>
+                        <BitsValue val="1">Extended Range present</BitsValue>                       
                     </Bits>
                     <Bits bit="6">
                         <BitsShortName>track.xpulse</BitsShortName>
@@ -104,13 +105,13 @@
                     <Bits bit="5">
                         <BitsShortName>track.me</BitsShortName>
                         <BitsName>ME</BitsName>
-                        <BitsValue val="0">Default</BitsValue>
+                        <BitsValue val="0">No military emergency</BitsValue>
                         <BitsValue val="1">Military emergency</BitsValue>
                     </Bits>
                     <Bits bit="4">
                         <BitsShortName>track.mi</BitsShortName>
                         <BitsName>MI</BitsName>
-                        <BitsValue val="0">Default</BitsValue>
+                        <BitsValue val="0">No military identification</BitsValue>
                         <BitsValue val="1">Military identification</BitsValue>
                     </Bits>
                     <Bits from="3" to="2">
