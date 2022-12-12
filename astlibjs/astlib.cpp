@@ -34,14 +34,14 @@ T fromV8Value(v8::Handle<v8::Value> value)
         return std::string(*stringValue, stringValue.length());
     }
     else if (std::is_same<T, int>::value)
-        return value->IntegerValue();
+        return value->IntegerValue(v8::Isolate::GetCurrent()->GetCurrentContext());
     else
         throw new std::bad_cast();
 }
 
 std::string fromV8String(v8::Handle<v8::Value> value)
 {
-    v8::String::Utf8Value stringValue(value);
+    v8::String::Utf8Value stringValue(v8::Isolate::GetCurrent(), value);
     return std::string(*stringValue, stringValue.length());
 }
 
@@ -122,7 +122,7 @@ v8::Handle<v8::Array> enumerateAllCodecs()
     int index = 0;
     for (auto codec : codecDescriptions)
     {
-        array->Set(index++, v8::String::NewFromUtf8(isolate, codec->getCategoryDescription().toString().c_str()));
+        array->Set(isolate->GetCurrentContext(), v8::Integer::New(isolate, index++), v8::String::NewFromUtf8(isolate, codec->getCategoryDescription().toString().c_str()).ToLocalChecked());
     }
 
     return handleScope.Escape(array);
@@ -179,7 +179,8 @@ v8::Handle<v8::Value> decodeAsterixBuffer(const v8::FunctionCallbackInfo<v8::Val
             {
                 AsterixRecordWrapper* obj = new AsterixRecordWrapper(msg);
                 auto record = v8pp::class_<AsterixRecordWrapper>::import_external(args.GetIsolate(), obj);
-                array->Set(index++, record);
+                array->Set(isolate->GetCurrentContext(),
+                                 v8::Integer::New(isolate, index++), record);
             }
 
             return handleScope.Escape(array);
@@ -382,7 +383,7 @@ void InitAll(v8::Handle<v8::Object> exports)
 
     addon.set("AsterixRecord", AsterixRecord_class);
     //exports->SetPrototype(addon.new_instance());
-    node::AtExit([](void* param)
+    node::AtExit(node::GetCurrentEnvironment(isolate->GetCurrentContext()), [](void* param)
     {
         v8pp::cleanup(static_cast<v8::Isolate*>(param));
     }, isolate);
@@ -412,9 +413,9 @@ void InitAll(v8::Handle<v8::Object> exports)
     addon.set("toString", &toString);
     addon.set("toJson", &toJson);
 
-    exports->SetPrototype(addon.new_instance());
+    exports->SetPrototype(exports->CreationContext(), addon.new_instance());
 
-    node::AtExit([](void* param)
+    node::AtExit(node::GetCurrentEnvironment(isolate->GetCurrentContext()), [](void* param)
     {
         v8pp::cleanup(static_cast<v8::Isolate*>(param));
     }, isolate);
