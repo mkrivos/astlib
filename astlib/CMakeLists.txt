@@ -25,7 +25,7 @@ aux_source_directory(decoder srcs)
 aux_source_directory(encoder srcs)
 aux_source_directory(specifications srcs)
 
-add_library(astlib_dll SHARED ${srcs})
+add_library(astlib_dll STATIC ${srcs})
 target_link_libraries(astlib_dll ${Poco_LIBRARIES})
 set_target_properties(astlib_dll PROPERTIES VERSION ${LIBVER} SOVERSION ${LIBVER} DEFINE_SYMBOL ASTLIB_EXPORTS)
 target_compile_definitions(astlib_dll PRIVATE "-DASTLIB_DLL")
