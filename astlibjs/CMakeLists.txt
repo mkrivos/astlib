@@ -26,3 +26,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_JS_INC})
 # Essential library files to link to a node addon
 # You should add this line in every CMake.js based project
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} astlib_dll ${Poco_LIBRARIES})
+target_link_directories(${PROJECT_NAME} PRIVATE ../lib ../../lib )

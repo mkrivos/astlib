@@ -6,6 +6,7 @@ lib
 loader
 Makefile
 cmake_install.cmake
+package-lock.json
 
 
 # Compiled Object files
