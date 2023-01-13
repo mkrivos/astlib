@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Category SYSTEM "asterix.dtd">
+
+<!--  
+
+    Asterix Category 253 v11.0 definition 
+    
+    Author:   mduplessis
+    Created:  03.01.2023.
+-->
+
+<Category id="253" name="Remote monitoring and control" ver="11.0">
+
+    <DataItem id="010">
+        <DataItemName>Data Source Identifier</DataItemName>
+        <DataItemDefinition>Identification of the system from which the data are
+received.</DataItemDefinition>
+        <DataItemFormat desc="Two-octets fixed length data item.">
+            <Fixed length="2">
+                <Bits from="16" to="9">
+                    <BitsShortName>dsi.sac</BitsShortName>
+                    <BitsName>System Area Code</BitsName>
+                </Bits>
+                <Bits from="8" to="1">
+                    <BitsShortName>dsi.sic</BitsShortName>
+                    <BitsName>System Identification Code</BitsName>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="015">
+        <DataItemName>Local Data Source Identifier</DataItemName>
+        <DataItemDefinition>Identification of the local system from which the data are
+received.</DataItemDefinition>
+        <DataItemFormat desc="One octet fixed length Data Item.">
+            <Fixed length="1">
+                <Bits from="8" to="1">
+                    <BitsShortName>dsi.LID</BitsShortName>
+                    <BitsName>Local Identifier per SAC SIC</BitsName>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="020">
+        <DataItemName>Data Destination Identifier</DataItemName>
+        <DataItemDefinition>Identification of the system to which the data must be sent.</DataItemDefinition>
+        <DataItemFormat desc="Repetitive Data Item, starting with a one-octet Field Repetition Indicator
+(REP) followed by at least one destination code of two-octet length.">
+            <Repetitive>
+                <Fixed length="2">
+                    <Bits from="16" to="9">
+                        <BitsShortName>ddi.sac</BitsShortName>
+                        <BitsName>SAC</BitsName>
+                    </Bits>
+                    <Bits from="8" to="1">
+                        <BitsShortName>ddi.sic</BitsShortName>
+                        <BitsName>SIC</BitsName>
+                    </Bits>
+                </Fixed>
+            </Repetitive>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="025">
+        <DataItemName>Data Destination and Local Identifier</DataItemName>
+        <DataItemDefinition>Identification of the system to which the data must be sent.</DataItemDefinition>
+        <DataItemFormat desc="Repetitive Data Item, starting with a one-octet Field Repetition Indicator
+(REP) followed by at least one Data Destination and Local ID Identifier of
+three-octet length.">
+            <Repetitive>
+                <Fixed length="3">
+                    <Bits from="24" to="17">
+                        <BitsShortName>ddiL.sac</BitsShortName>
+                        <BitsName>SAC</BitsName>
+                    </Bits>
+                    <Bits from="16" to="9">
+                        <BitsShortName>ddiL.sic</BitsShortName>
+                        <BitsName>SIC</BitsName>
+                    </Bits>
+                    <Bits from="8" to="1">
+                        <BitsShortName>ddiL.Lid</BitsShortName>
+                        <BitsName>Local identifier per SAC SIC</BitsName>
+                    </Bits>
+                </Fixed>
+            </Repetitive>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="030">
+        <DataItemName>Source Application Identifier</DataItemName>
+        <DataItemDefinition>Identification of the Source Application Identifier the message originates from.</DataItemDefinition>
+        <DataItemFormat desc="Two octet fixed length Data Item.">
+            <Fixed length="2">
+                <Bits from="16" to="1">
+                    <BitsShortName>sai.sai</BitsShortName>
+                    <BitsName>Source Application Identifier</BitsName>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="035">
+        <DataItemName>Data Origin Identifier</DataItemName>
+        <DataItemDefinition>Identification of the site which originally sent the data.</DataItemDefinition>
+        <DataItemFormat desc="Three octets fixed length Data Item.">
+            <Fixed length="3">
+                <Bits from="24" to="17">
+                    <BitsShortName>doi.oac</BitsShortName>
+                    <BitsName>Origin Area Code</BitsName>
+                </Bits>
+                <Bits from="16" to="9">
+                    <BitsShortName>doi.oic</BitsShortName>
+                    <BitsName>Origin Identification Code</BitsName>
+                </Bits>
+                <Bits from="8" to="1">
+                    <BitsShortName>doi.Lid</BitsShortName>
+                    <BitsName>Local Identifier per SAC SIC</BitsName>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="040">
+        <DataItemName>Message Type Identifier</DataItemName>
+        <DataItemDefinition>The Message Type Identifier defines what kind of CAT 253 message was
+sent and identifies some basic properties of the message.
+        </DataItemDefinition>
+        <DataItemFormat desc="One octet fixed length Data Item.
+">
+            <Fixed length="1">
+                <Bits bit="8">
+                    <BitsShortName>mti.pi</BitsShortName>
+                    <BitsName>Priority Identifier
+                    </BitsName>
+                    <BitsValue val="0">low priority</BitsValue>
+                    <BitsValue val="1">high priority</BitsValue>
+                </Bits>
+                <Bits bit="7">
+                    <BitsShortName>mti.d</BitsShortName>
+                    <BitsName>Delivery bit
+                    </BitsName>
+                    <BitsValue val="0">no explicit acknowledgement compulsory</BitsValue>
+                    <BitsValue val="1">explicit acknowledgement compulsory</BitsValue>
+                </Bits>
+                <Bits from="6" to="1">
+                    <BitsShortName>mti.mit</BitsShortName>
+                    <BitsName>Message Type Identifier</BitsName>
+                    <BitsValue val="0">Not defined, never used</BitsValue>
+                    <BitsValue val="1">Time and Day</BitsValue>
+                    <BitsValue val="2">Connect Request</BitsValue>
+                    <BitsValue val="3">Connect Response</BitsValue>
+                    <BitsValue val="4">Connect Release</BitsValue>
+                    <BitsValue val="5">Command Token Request</BitsValue>
+                    <BitsValue val="6">Command Token Release</BitsValue>
+                    <BitsValue val="7">Command Token Assign</BitsValue>
+                    <BitsValue val="8">Command Message</BitsValue>
+                    <BitsValue val="9">Complete Status Transfer Message</BitsValue>
+                    <BitsValue val="10">Delta Status Transfer Message</BitsValue>
+                    <BitsValue val="11">Complete Status Transfer Request Message</BitsValue>
+                    <BitsValue val="12">Centre Exchange Message</BitsValue>
+                    <BitsValue val="13">Centre Status Message</BitsValue>
+                    <BitsValue val="14">Centre Transparent Message</BitsValue>
+                    <BitsValue val="15">Centre Resynchronisation Request Message</BitsValue>
+                    <BitsValue val="16">Radar Monitoring Start Message</BitsValue>
+                    <BitsValue val="17">Radar Monitoring Stop Message</BitsValue>
+                    <BitsValue val="18">Acknowledgement</BitsValue>
+                    <BitsValue val="19">Error</BitsValue>
+                    <BitsValue val="20">Alarm</BitsValue>
+                    <BitsValue val="21">Alive Message</BitsValue>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="050">
+        <DataItemName>Message Sequence Identifier
+        </DataItemName>
+        <DataItemDefinition>The Item Message Sequence Identifier contains consecutively incremented
+message counters for each receiving application. The ID counters shall
+be incremented by the originator application</DataItemDefinition>
+        <DataItemFormat desc="Repetitive Data Item, starting with a one-octet Field Repetition Indicator
+(REP) followed by at least one Message Sequence Identifier of two
+octet length.">
+            <Repetitive>
+                <Fixed length="2">
+                    <Bits from="16" to="1">
+                        <BitsShortName>msi.msid</BitsShortName>
+                        <BitsName>Message Sequence Identifiers</BitsName>
+                    </Bits>
+                </Fixed>
+            </Repetitive>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="060">
+        <DataItemName>Blocking Information</DataItemName>
+        <DataItemDefinition>The Blocking Information contains the total number of blocks (TNB) which have been generated out of one larger message and the block number (BN) of the current block in this sequence.</DataItemDefinition>
+        <DataItemFormat desc="Two octets fixed length Data Item.">
+            <Fixed length="2">
+                <Bits from="16" to="9">
+                    <BitsShortName>bi.tnb</BitsShortName>
+                    <BitsName>Total Number of Blocks</BitsName>
+                </Bits>
+                <Bits from="8" to="1">
+                    <BitsShortName>bi.bn</BitsShortName>
+                    <BitsName>Block Number of current block in sequence</BitsName>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="070">
+        <DataItemName>Time of Day</DataItemName>
+        <DataItemDefinition>Absolute time stamping expressed as UTC time.</DataItemDefinition>
+        <DataItemFormat desc="Three-octet fixed length Data Item.">
+            <Fixed length="3">
+                <Bits from="24" to="1">
+                    <BitsShortName>tod.tod</BitsShortName>
+                    <BitsName>Time of Day</BitsName>
+                    <BitsUnit scale="0.0078125">s</BitsUnit>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+        <DataItemNote>The time information shall reflect the exact time of an event, expressed as a number of 1/128s elapsed since last midnight. The time of day value is reset to zero each day at midnight and shall contain the originators time stamp.</DataItemNote>
+    </DataItem>
+
+    <DataItem id="080">
+        <DataItemName>Application Data Structure</DataItemName>
+        <DataItemDefinition>Data item I253 080 conveys the structure and identity of the user data that is contained in the data item I253 090. The format of the transferred information is described below.</DataItemDefinition>
+        <DataItemFormat desc="Variable length Data Item compromising a first part of four octets,
+followed by one-octet extends as necessary.">
+            <Variable>
+                <Fixed length="4">
+                    <Bits from="32" to="17">
+                        <BitsShortName>ads.si</BitsShortName>
+                        <BitsName>Provides identity of first object value to be transferred as part of the application data item. Index refers to an ordered list of objects previously agreed between client and server.</BitsName>
+                    </Bits>
+                    <Bits from="16" to="9">
+                        <BitsShortName>ads.count</BitsShortName>
+                        <BitsName>Indicates the number of object values with the same status to be transferred as part of the data field, starting with Start Index and using the consecutive numbers following this index. Thus, objects with the same status are bundled.</BitsName>
+                    </Bits>
+                    <Bits bit="8">
+                        <BitsShortName>ads.status.stale</BitsShortName>
+                        <BitsName>stale</BitsName>
+                        <BitsValue val="0">non-stale data</BitsValue>
+                        <BitsValue val="1">stale data</BitsValue>
+                    </Bits>
+                    <Bits bit="7">
+                        <BitsShortName>ads.status.simulated</BitsShortName>
+                        <BitsName>simulated</BitsName>
+                        <BitsValue val="0">real data</BitsValue>
+                        <BitsValue val="1">simulated data</BitsValue>
+                    </Bits>
+                    <Bits bit="6">
+                        <BitsShortName>ads.status.rctl</BitsShortName>
+                        <BitsName>remote control</BitsName>
+                        <BitsValue val="0">monitored object under remote control</BitsValue>
+                        <BitsValue val="1">monitored object under local control</BitsValue>
+                    </Bits>
+                    <Bits bit="5">
+                        <BitsShortName>ads.status.di</BitsShortName>
+                        <BitsName>data included</BitsName>
+                        <BitsValue val="0">no data included</BitsValue>
+                        <BitsValue val="1"> data included</BitsValue>
+                    </Bits>
+                    <Bits from="4" to="2">
+                        <BitsShortName>ads.as</BitsShortName>
+                        <BitsName>reserved for application specific data</BitsName>
+                    </Bits>
+                    <Bits bit="1" fx="1">
+                        <BitsShortName>FX</BitsShortName>
+                        <BitsName>FX</BitsName>
+                        <BitsValue val="0">End of Data Item</BitsValue>
+                        <BitsValue val="1">Extension into next extent</BitsValue>
+                    </Bits>
+                </Fixed>
+            </Variable>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="090">
+        <DataItemName>Application Data Item
+        </DataItemName>
+        <DataItemDefinition>Data item I253 090 contains the monitoring data that is to be transmitted
+from server to client as a sequence of octets. The contents of this octet
+sequence are defined with the item I253 080</DataItemDefinition>
+        <DataItemFormat desc="Repetitive Data Item, starting with a one-octet Field Repetition Indicator
+(REP) followed by at least one Application Data block of sixteen octet
+length.">
+            <Repetitive>
+                <Fixed length="16">
+                    <Bits from="128" to="1">
+                        <BitsShortName>adi.lsb</BitsShortName>
+                        <BitsName>block of 128 bits containing the application data to be transferred. The identity and the structure of this application data is specified in I253 080</BitsName>
+                    </Bits>
+                </Fixed>
+            </Repetitive>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="100">
+        <DataItemName>Transparent Application Data 1</DataItemName>
+        <DataItemDefinition>The Transparent Application Data item contains application data not further
+standardised by ASTERIX CAT 253.</DataItemDefinition>
+        <DataItemFormat desc="Explicit">
+            <Explicit>
+                <Fixed length="1">
+                    <Bits from="8" to="1">
+                        <BitsShortName>tad1.TAD</BitsShortName>
+                        <BitsName>Sequence of bytes containing transparent application
+data for various purposes.</BitsName>
+                    </Bits>
+                </Fixed>
+            </Explicit>
+        </DataItemFormat>
+        <DataItemNote/>
+    </DataItem>
+
+    <DataItem id="110">
+        <DataItemName>Transparent Application Data 2</DataItemName>
+        <DataItemDefinition>The Transparent Application Data item contains application data not further
+standardised by ASTERIX CAT 253.</DataItemDefinition>
+        <DataItemFormat desc="Explicit">
+            <Explicit>
+                <Fixed length="1">
+                    <Bits from="8" to="1">
+                        <BitsShortName>tad2.TAD</BitsShortName>
+                        <BitsName>Sequence of bytes containing transparent application
+data for various purposes.</BitsName>
+                    </Bits>
+                </Fixed>
+            </Explicit>
+        </DataItemFormat>
+        <DataItemNote/>
+    </DataItem>
+
+    <DataItem id="120">
+        <DataItemName>Extended Transparent Application Data - Total Length</DataItemName>
+        <DataItemDefinition>Total Length of the extended transparent application data</DataItemDefinition>
+        <DataItemFormat desc="Two octet fixed length Data Item.">
+            <Fixed length="2">
+                <Bits from="16" to="1">
+                    <BitsShortName>etad.tltad</BitsShortName>
+                    <BitsName>Total length in octets of the extended transparent application data (ETAD) contained in data item I253/130 Maximum value = 65.280 octets</BitsName>
+                </Bits>
+            </Fixed>
+        </DataItemFormat>
+    </DataItem>
+
+    <DataItem id="130">
+        <DataItemName>Extended Transparent Application Data</DataItemName>
+        <DataItemDefinition>Extended transparent application data</DataItemDefinition>
+        <DataItemFormat desc="Repetitive Data item starting with a one-octet Field Repetition Indicator (REP)
+followed by at least one Extended Transparent Application Data block of 256
+octets.">
+            <Repetitive>
+                <Fixed length="256">
+                    <Bits from="2048" to="1">
+                        <BitsShortName>etad.etad</BitsShortName>
+                        <BitsName>Extended transparent application data</BitsName>
+                    </Bits>
+                </Fixed>
+            </Repetitive>
+        </DataItemFormat>
+    </DataItem>
+
+    <!--Transmission of Track -->
+    <UAP>
+        <UAPItem bit="0" presence="M">010</UAPItem>
+        <UAPItem bit="1" presence="M">015</UAPItem>
+        <UAPItem bit="2" presence="M">025</UAPItem>
+        <UAPItem bit="3" presence="M">030</UAPItem>
+        <UAPItem bit="4" presence="M">040</UAPItem>
+        <UAPItem bit="5" presence="O">050</UAPItem>
+        <UAPItem bit="6" presence="O">070</UAPItem>
+        <UAPItem bit="7" presence="O">FX</UAPItem>
+        <UAPItem bit="8" presence="O">035</UAPItem>
+        <UAPItem bit="9" presence="O">060</UAPItem>
+        <UAPItem bit="10" presence="O">080</UAPItem>
+        <UAPItem bit="11" presence="O">090</UAPItem>
+        <UAPItem bit="12" presence="O">100</UAPItem>
+        <UAPItem bit="13" presence="O">SP</UAPItem>
+        <UAPItem bit="14" presence="O">RE</UAPItem>
+        <UAPItem bit="15" presence="O">FX</UAPItem>
+    </UAP>
+
+</Category>                    
