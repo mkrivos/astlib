@@ -276,10 +276,47 @@ followed by one-octet extends as necessary.">
                         <BitsValue val="1">Extension into next extent</BitsValue>
                     </Bits>
                 </Fixed>
+                <Fixed length="1">
+                    <Bits bit="8">
+                        <BitsShortName>ads.statusE.stale</BitsShortName>
+                        <BitsName>stale</BitsName>
+                        <BitsValue val="0">non-stale data</BitsValue>
+                        <BitsValue val="1">stale data</BitsValue>
+                    </Bits>
+                    <Bits bit="7">
+                        <BitsShortName>ads.statusE.simulated</BitsShortName>
+                        <BitsName>simulated</BitsName>
+                        <BitsValue val="0">real data</BitsValue>
+                        <BitsValue val="1">simulated data</BitsValue>
+                    </Bits>
+                    <Bits bit="6">
+                        <BitsShortName>ads.statusE.rctl</BitsShortName>
+                        <BitsName>remote control</BitsName>
+                        <BitsValue val="0">monitored object under remote control</BitsValue>
+                        <BitsValue val="1">monitored object under local control</BitsValue>
+                    </Bits>
+                    <Bits bit="5">
+                        <BitsShortName>ads.statusE.di</BitsShortName>
+                        <BitsName>data included</BitsName>
+                        <BitsValue val="0">no data included</BitsValue>
+                        <BitsValue val="1"> data included</BitsValue>
+                    </Bits>
+                    <Bits from="4" to="2">
+                        <BitsShortName>adsE.as</BitsShortName>
+                        <BitsName>reserved for application specific data</BitsName>
+                    </Bits>
+                    <Bits bit="1" fx="1">
+                        <BitsShortName>FX</BitsShortName>
+                        <BitsName>FX</BitsName>
+                        <BitsValue val="0">End of Data Item</BitsValue>
+                        <BitsValue val="1">Extension into next extent</BitsValue>
+                    </Bits>
+                </Fixed>
             </Variable>
         </DataItemFormat>
     </DataItem>
 
+    <!-- Boken! The library uses 64 bit variables to store the value of a field, so this 128 bit field breaks -->
     <DataItem id="090">
         <DataItemName>Application Data Item
         </DataItemName>
@@ -309,8 +346,7 @@ standardised by ASTERIX CAT 253.</DataItemDefinition>
                 <Fixed length="1">
                     <Bits from="8" to="1">
                         <BitsShortName>tad1.TAD</BitsShortName>
-                        <BitsName>Sequence of bytes containing transparent application
-data for various purposes.</BitsName>
+                        <BitsName>Sequence of bytes containing transparent application data for various purposes.</BitsName>
                     </Bits>
                 </Fixed>
             </Explicit>
@@ -327,8 +363,7 @@ standardised by ASTERIX CAT 253.</DataItemDefinition>
                 <Fixed length="1">
                     <Bits from="8" to="1">
                         <BitsShortName>tad2.TAD</BitsShortName>
-                        <BitsName>Sequence of bytes containing transparent application
-data for various purposes.</BitsName>
+                        <BitsName>Sequence of bytes containing transparent application data for various purposes.</BitsName>
                     </Bits>
                 </Fixed>
             </Explicit>
@@ -379,8 +414,8 @@ octets.">
         <UAPItem bit="8" presence="O">035</UAPItem>
         <UAPItem bit="9" presence="O">060</UAPItem>
         <UAPItem bit="10" presence="O">080</UAPItem>
-        <UAPItem bit="11" presence="O">090</UAPItem>
-        <UAPItem bit="12" presence="O">100</UAPItem>
+        <UAPItem bit="11" presence="O">100</UAPItem>
+        <UAPItem bit="12" presence="O">-</UAPItem>
         <UAPItem bit="13" presence="O">SP</UAPItem>
         <UAPItem bit="14" presence="O">RE</UAPItem>
         <UAPItem bit="15" presence="O">FX</UAPItem>

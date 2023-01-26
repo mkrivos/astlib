@@ -14,6 +14,7 @@
 #include "model/FixedItemDescription.h"
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
+#include "model/ExplicitItemDescription.h"
 #include "model/CompoundItemDescription.h"
 #include "Exception.h"
 
@@ -154,6 +155,10 @@ int BinaryAsterixDecoder::decodeRecord(const CodecDescription& codec, ValueDecod
                         decodedByteCount += decodeCompound(uapItem, valueDecoder, localPtr);
                         break;
 
+                    case ItemFormat::Explicit:
+                        decodedByteCount += decodeExplicit(uapItem, valueDecoder, localPtr);
+                        break;
+
                 }
 
                 --_depth;
@@ -204,8 +209,8 @@ int BinaryAsterixDecoder::decodeVariable(const ItemDescription& uapItem, ValueDe
         Byte fspecBit;
         for(const Fixed& fixed: fixedVector)
         {
-            fspecBit = (ptr[0] & FX_BIT);
             auto len = fixed.length;
+            fspecBit = (ptr[len-1] & FX_BIT);
 
             decodeBitset(uapItem, fixed, ptr, valueDecoder, -1, 0);
             decodedByteCount += len;
@@ -226,6 +231,35 @@ int BinaryAsterixDecoder::decodeRepetitive(const ItemDescription& uapItem, Value
     const FixedVector& fixedVector = varItem.getFixedVector();
     int decodedByteCount = 1;
     int counter = *data;
+    auto ptr = data+1;
+
+    // TODO: zrusit?
+    valueDecoder.beginRepetitive(counter);
+
+    for(int j = 0; j < counter; j++)
+    {
+        // TODO: zrusit?
+        valueDecoder.repetitiveItem(j);
+        for(const Fixed& fixed: fixedVector)
+        {
+            decodeBitset(uapItem, fixed, ptr, valueDecoder, j, counter);
+            decodedByteCount += fixed.length;
+            ptr += fixed.length;
+        }
+    }
+
+    // TODO: zrusit?
+    valueDecoder.endRepetitive();
+
+    return decodedByteCount;
+}
+
+int BinaryAsterixDecoder::decodeExplicit(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte data[])
+{
+    const ExplicitItemDescription& varItem = static_cast<const ExplicitItemDescription&>(uapItem);
+    const FixedVector& fixedVector = varItem.getFixedVector();
+    int decodedByteCount = 1;
+    int counter = *data -1;
     auto ptr = data+1;
 
     // TODO: zrusit?

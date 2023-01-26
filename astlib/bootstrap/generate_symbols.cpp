@@ -214,9 +214,17 @@ public:
         }
     }
 
-    void loadExplicitDeclaration(const Poco::XML::Element& element)
+    void loadExplicitDeclaration(const Poco::XML::Element& parent)
     {
-        // TODO:
+      for (auto node = parent.firstChild(); node; node = node->nextSibling())
+      {
+        const Poco::XML::Element* element =
+            dynamic_cast<Poco::XML::Element* >(node);
+        if (element && element->nodeName() == "Fixed")
+        {
+          loadFixed(*element, true);
+        }
+      }
     }
 
     void loadBitsDeclaration(const Poco::XML::Element& parent, bool arrayType)
