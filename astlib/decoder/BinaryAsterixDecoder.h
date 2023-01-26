@@ -46,6 +46,7 @@ private:
     int decodeFixed(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeVariable(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeRepetitive(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
+    int decodeExplicit(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
     int decodeCompound(const ItemDescription& uapItem, ValueDecoder& valueDecoder, const Byte ptr[]);
 
     void decodeBitset(const ItemDescription& uapItem, const Fixed& fixed, const Byte localPtr[], ValueDecoder& valueDecoder, int index, int arraySize);

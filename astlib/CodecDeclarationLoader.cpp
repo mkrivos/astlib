@@ -16,6 +16,7 @@
 #include "model/CategoryDescription.h"
 #include "model/VariableItemDescription.h"
 #include "model/RepetitiveItemDescription.h"
+#include "model/ExplicitItemDescription.h"
 #include "model/CompoundItemDescription.h"
 
 #include "AsterixItemDictionary.h"
@@ -250,9 +251,19 @@ ItemDescriptionPtr CodecDeclarationLoader::loadCompoundDeclaration(CodecDescript
     return std::make_shared<CompoundItemDescription>(id, description, items);
 }
 
-ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& element)
+ItemDescriptionPtr CodecDeclarationLoader::loadExplicitDeclaration(CodecDescription& codecDescription, int id, const std::string& description, const Element& parent)
 {
-    return nullptr;
+        FixedVector fixeds;
+    for (auto node = parent.firstChild(); node; node = node->nextSibling())
+    {
+        const Element* element = dynamic_cast<Element*>(node);
+        if (element && element->nodeName() == "Fixed")
+        {
+            Fixed fixed = loadFixed(codecDescription, *element, true);
+            fixeds.push_back(fixed);
+        }
+    }
+    return std::make_shared<ExplicitItemDescription>(id, description, fixeds);
 }
 
 BitsDescriptionArray CodecDeclarationLoader::loadBitsDeclaration(CodecDescription& codecDescription, const Element& parent, bool repetitive)

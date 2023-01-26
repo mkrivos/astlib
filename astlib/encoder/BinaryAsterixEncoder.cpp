@@ -16,6 +16,7 @@
 #include "astlib/model/VariableItemDescription.h"
 #include "astlib/model/CompoundItemDescription.h"
 #include "astlib/model/RepetitiveItemDescription.h"
+#include "astlib/model/ExplicitItemDescription.h"
 #include "astlib/Exception.h"
 
 #include <iostream>
@@ -162,6 +163,7 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
                 break;
             }
         }
+        encodedByteCount -= fixedVector[0].length-1;
     }
 
     if (encodedByteCount > 1)
@@ -170,6 +172,7 @@ size_t BinaryAsterixEncoder::encodeVariable(const ItemDescription& item, ValueEn
         {
             ptr[i-encodedByteCount] |= FX_BIT;
         }
+        encodedByteCount += (fixedVector[0].length-1);
     }
 
     return encodedByteCount;
@@ -298,7 +301,35 @@ size_t BinaryAsterixEncoder::encodeCompound(const ItemDescription& item, ValueEn
 
 size_t BinaryAsterixEncoder::encodeExplicit(const ItemDescription& item, ValueEncoder& valueEncoder, const CodecDescription::UapItems& uapItems, FspecGenerator& fspec, Byte buffer[])
 {
-    return 0;
+    const ExplicitItemDescription& varItem = static_cast<const ExplicitItemDescription&>(item);
+    const FixedVector& fixedVector = varItem.getFixedVector();
+
+    poco_assert(fixedVector.size());
+    auto& bits = fixedVector.front().bitsDescriptions.front();
+    AsterixItemCode firstItemCode = bits.code;
+    poco_assert_msg(firstItemCode.isArray(), bits.toString().c_str());
+
+    //valueEncoder.
+    auto count = valueEncoder.getArraySize(firstItemCode);
+    // Empty array - no encoding - velkost prveho pola je smerodatna
+    if (count == 0)
+        return 0;
+
+    auto bufferStart = buffer++;
+    size_t allByteCount = 0;
+
+    for(size_t i = 0; i < count; i++)
+    {
+        for(const Fixed& fixed: fixedVector)
+        {
+            allByteCount += encodeBitset(item, fixed, valueEncoder, buffer + allByteCount, i);
+        }
+    }
+
+    // save explicit length
+    *bufferStart = Byte(count+1);
+
+    return 1+allByteCount;
 }
 
 size_t BinaryAsterixEncoder::encodeBitset(const ItemDescription& item, const Fixed& fixed, ValueEncoder& valueEncoder, Byte buffer[], int index)
